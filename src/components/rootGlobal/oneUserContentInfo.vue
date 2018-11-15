@@ -344,7 +344,7 @@ export default {
         signatureChange() {
             var _this = this;
             var url = '/User/delUserSignature';
-            var param = {
+            var params = {
                 uid: this.userinfo.uid,
                 signature: this.userinfo.signature,
             }
