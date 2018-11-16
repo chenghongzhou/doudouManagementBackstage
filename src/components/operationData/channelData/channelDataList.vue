@@ -16,10 +16,10 @@
                 </el-form-item>
                 <el-form-item style="margin-left: 100px;">
                     <span>渠道</span>
+                    <!-- filterable:是否进行多选框输入 -->
                     <el-select 
                     v-model="channelId" 
                     multiple 
-                    filterable 
                     collapse-tags 
                     style="margin-left:20px;" 
                     placeholder="请选择">

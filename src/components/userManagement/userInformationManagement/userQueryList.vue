@@ -24,10 +24,12 @@
                     </el-form-item>
                     <el-form-item>
                         <span>渠道</span>
+                        <!-- filterable:是否进行多选框输入 -->
                         <el-select 
                         v-model="channelId" 
-                        multiple filterable collapse-tags 
-                        style="margin-left:20px;width:180px;" 
+                        multiple 
+                        collapse-tags 
+                        style="margin-left:20px;width:240px;" 
                         placeholder="请选择">
                             <el-option 
                             v-for="(item, key) of channelData" 

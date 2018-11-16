@@ -17,7 +17,10 @@
                     </div>
 				</el-form-item>
 				<el-form-item>	
-					<el-select style="width: 120px;" v-model="value" filterable placeholder="渠道号">
+					<el-select 
+					style="width:120px;" 
+					v-model="value" 
+					placeholder="渠道号">
 						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</el-form-item>

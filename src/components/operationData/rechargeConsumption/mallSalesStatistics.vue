@@ -55,7 +55,6 @@
                             <el-select 
                             v-model="formTwo.channelId" 
                             multiple 
-                            filterable 
                             collapse-tags 
                             style="margin-left:20px;width:180px;" 
                             placeholder="请选择">

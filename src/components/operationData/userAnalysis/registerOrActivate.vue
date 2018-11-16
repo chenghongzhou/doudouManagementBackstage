@@ -11,7 +11,12 @@
                 </el-form-item>
                 <el-form-item style="margin-left: 100px;">
                     <span>渠道</span>
-                    <el-select v-model="channelId" multiple filterable collapse-tags style="margin-left: 20px;" placeholder="请选择">
+                    <el-select 
+                    v-model="channelId" 
+                    multiple 
+                    collapse-tags 
+                    style="margin-left:20px;" 
+                    placeholder="请选择">
                         <el-option v-for="(item, key) of channelData" :key="key" :label="item" :value="key">
                         </el-option>
                     </el-select>

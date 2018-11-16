@@ -19,7 +19,6 @@
                     <el-select 
                     v-model="formOne.params.channelId" 
                     multiple 
-                    filterable 
                     collapse-tags 
                     style="margin-left:20px;" 
                     placeholder="请选择">
