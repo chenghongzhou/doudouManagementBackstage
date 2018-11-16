@@ -47,7 +47,7 @@
             <!--翻页-->
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
-				background layout="prev, pager, next" 
+				layout="total,prev,pager,next,jumper" 
 				:total="1000" 
 				:page-size="20" 
 				@current-change="handleCurrentChange" 
