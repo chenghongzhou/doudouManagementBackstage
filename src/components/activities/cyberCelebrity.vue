@@ -209,7 +209,8 @@
 				this.tabHeight = baseConfig.lineNumber(tabHeight);
 				this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
 				this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
-				this.getOneData()
+				this.getOneData();
+				this.getTwoData();
 //				console.log(this.tabHeight,this.tabPageHeight,this.tabSearchPageHeight)
 			})			
 		},
@@ -234,7 +235,7 @@
 	            this.dialogVisible = true;
 			},
 			handleClick(tab, event){
-				this.getTwoData();
+				// console.log('不进行处理');
 			},
 			oneHandleCurrentChange(val){
 				formOne.page=val-1;

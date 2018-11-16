@@ -1,25 +1,44 @@
 <template>
     <!-- 用户信息查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col 
+        :span="24" 
+        class="toolbar" 
+        style="padding-bottom:0px;">
+            <el-form 
+            :inline="true" 
+            style="overflow:hidden;">
                 <el-row>
-                    <el-button v-if="collectiveSeal.dialogOne==false" type="info" plain>集体封号</el-button>
-                    <el-button v-if="collectiveSeal.dialogOne==true" type="danger" @click="collectiveSeal.dialogTwo=true">集体封号</el-button>
+                    <el-button 
+                    v-if="collectiveSeal.dialogOne==false" 
+                    type="info" 
+                    plain>集体封号</el-button>
+                    <el-button 
+                    v-if="collectiveSeal.dialogOne==true" 
+                    type="danger" 
+                    @click="collectiveSeal.dialogTwo=true">集体封号</el-button>
                     <el-form-item>
                         <div class="block">
                             <span class="registerTime">注册日期</span>
-                            <el-date-picker style="width: 300px;" v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                            </el-date-picker>
+                            <el-date-picker 
+                            style="width:300px;" 
+                            v-model="formOne.startDate" 
+                            type="daterange" 
+                            range-separator=" 至 " 
+                            start-placeholder="开始日期" 
+                            end-placeholder="结束日期"></el-date-picker>
                         </div>
                     </el-form-item>
                     <el-form-item>
                         <div class="block">
                             <span class="registerTime">登陆日期</span>
-                            <el-date-picker style="width: 300px;" v-model="formTwo.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                            </el-date-picker>
+                            <el-date-picker 
+                            style="width:300px;" 
+                            v-model="formTwo.startDate" 
+                            type="daterange" 
+                            range-separator=" 至 " 
+                            start-placeholder="开始日期" 
+                            end-placeholder="结束日期"></el-date-picker>
                         </div>
                     </el-form-item>
                     <el-form-item>
@@ -40,11 +59,17 @@
                     </el-form-item>
                     <el-form-item>
                         <span>UID</span>
-                        <el-input style="width: 150px;" v-model="uid" placeholder="请输入UID"></el-input>
+                        <el-input 
+                        style="width:150px;" 
+                        v-model="uid" 
+                        placeholder="请输入UID"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <span>昵称</span>
-                        <el-input style="width: 150px;" v-model="nickname" placeholder="请输入昵称"></el-input>
+                        <el-input 
+                        style="width:150px;" 
+                        v-model="nickname" 
+                        placeholder="请输入昵称"></el-input>
                     </el-form-item>
                     <el-form-item class="search-span" style="float:right;">
                         <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
@@ -251,7 +276,7 @@ export default {
             listLoading: false,
             uid: "",
             nickname: "",
-            operate_user: null,
+            operate_user: '',
             page: 0, // 分页
             totalpage: 1000,
             channelData: {}, // 渠道数据

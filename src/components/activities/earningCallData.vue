@@ -139,7 +139,6 @@
 				this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
 				this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
 				this.getOneData();
-				this.getTwoData();
 			})			
 		},
 		methods:{
@@ -173,7 +172,12 @@
 				this.getTwoData();
 			},
 	        handleClick(tab, event) {
-				console.log(tab);
+				if(this.formTwo.tabData.length==0&&tab.name=='second') {
+					this.getTwoData();
+				} else {}
+				if(this.formOne.tabData.length==0&&tab.name=='first') {
+					this.getOneData();
+				} else {}
        		},
        		getOneData(){
        			var _this = this;
