@@ -1,11 +1,21 @@
 <template>
 	<section>
-		<el-tabs v-model="activeName" @tab-click="handleClick">
-		    <el-tab-pane label="收益数据" name="first" :style="{height:tabHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+		<el-tabs 
+		v-model="activeName" 
+		type="border-card"
+		@tab-click="handleClick">
+		    <el-tab-pane 
+			label="收益数据" 
+			name="first" 
+			:style="{height:tabHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item label="日期">
-							<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+							<el-date-picker 
+							v-model="formOne.choiceDate" 
+							type="daterange" 
+							range-separator=" 至 " 
+							placeholder="选择日期范围"></el-date-picker>
 						</el-form-item>
 						<el-form-item label="上级UID">
 							<el-input v-model="formOne.bind_uid" auto-compvare="off"></el-input>
@@ -18,13 +28,17 @@
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<el-table :data="formOne.tabData" style="width: 100%" ref="tabSearchPageHeight" :height="tabSearchPageHeight">
-				  	<el-table-column prop="" label="日期" width="200"></el-table-column>
-			  		<el-table-column prop="uid" label="UID" width="200"></el-table-column>
-			  		<el-table-column prop="nickname" label="昵称" width="200"></el-table-column>
-			  		<el-table-column prop="total" label="总收益(聊票)" width="200"></el-table-column>
-			  		<el-table-column prop="bind_uid" label="上级UID" width="200"></el-table-column>
-			  		<el-table-column prop="" label="上级昵称" width="200"></el-table-column>
+				<el-table 
+				:data="formOne.tabData" 
+				style="width:100%" 
+				ref="tabSearchPageHeight" 
+				:height="tabSearchPageHeight">
+				  	<el-table-column prop="" label="日期" min-width="200"></el-table-column>
+			  		<el-table-column prop="uid" label="UID" min-width="200"></el-table-column>
+			  		<el-table-column prop="nickname" label="昵称" min-width="200"></el-table-column>
+			  		<el-table-column prop="total" label="总收益(聊票)" min-width="200"></el-table-column>
+			  		<el-table-column prop="bind_uid" label="上级UID" min-width="200"></el-table-column>
+			  		<el-table-column prop="" label="上级昵称" min-width="200"></el-table-column>
 				</el-table>
 			    <el-col :span="24" class="toolbar">
 					<el-pagination 
@@ -36,12 +50,21 @@
 					</el-pagination>
 				</el-col>
 		    </el-tab-pane>
-			
-			<el-tab-pane label="通话数据" name="second" :style="{height:tabHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+			<el-tab-pane 
+			label="通话数据" 
+			name="second" 
+			:style="{height:tabHeight+'px'}">
+				<el-col 
+				:span="24" 
+				class="toolbar" 
+				style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
 						<el-form-item label="日期">
-							<el-date-picker v-model="formTwo.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+							<el-date-picker 
+							v-model="formTwo.choiceDate" 
+							type="daterange" 
+							range-separator=" 至 " 
+							placeholder="选择日期范围"></el-date-picker>
 						</el-form-item>
 						<el-form-item label="上级UID">
 							<el-input v-model="formTwo.bind_uid" auto-compvare="off"></el-input>
@@ -54,13 +77,17 @@
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<el-table :data="formTwo.tabData" style="width: 100%" ref="tabSearchPageHeight" :height="tabSearchPageHeight">
-				  	<el-table-column prop="" label="日期" width="200"></el-table-column>
-			  		<el-table-column prop="uid" label="UID" width="200"></el-table-column>
-			  		<el-table-column prop="nickname" label="昵称" width="200"></el-table-column>
-			  		<el-table-column prop="num" label="有效电话数" width="200"></el-table-column>
-			  		<el-table-column prop="bind_uid" label="上级UID" width="200"></el-table-column>
-			  		<el-table-column prop="" label="上级昵称" width="200"></el-table-column>
+				<el-table 
+				:data="formTwo.tabData" 
+				style="width:100%" 
+				ref="tabSearchPageHeight" 
+				:height="tabSearchPageHeight">
+				  	<el-table-column prop="" label="日期" min-width="200"></el-table-column>
+			  		<el-table-column prop="uid" label="UID" min-width="200"></el-table-column>
+			  		<el-table-column prop="nickname" label="昵称" min-width="200"></el-table-column>
+			  		<el-table-column prop="num" label="有效电话数" min-width="200"></el-table-column>
+			  		<el-table-column prop="bind_uid" label="上级UID" min-width="200"></el-table-column>
+			  		<el-table-column prop="" label="上级昵称" min-width="200"></el-table-column>
 				</el-table>
 			    <el-col :span="24" class="toolbar">
 					<el-pagination 
@@ -111,8 +138,8 @@
 				this.tabHeight = baseConfig.lineNumber(tabHeight);
 				this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
 				this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
-				this.getOneData()
-				console.log(this.tabHeight,this.tabPageHeight,this.tabSearchPageHeight)
+				this.getOneData();
+				this.getTwoData();
 			})			
 		},
 		methods:{
@@ -146,56 +173,62 @@
 				this.getTwoData();
 			},
 	        handleClick(tab, event) {
-				this.getTwoData();
+				console.log(tab);
        		},
        		getOneData(){
        			var _this = this;
-       			var params=_this.searchConditionEarning();
-				axios.get(wechatget+'/server/index.php/Agent/getInviteManageMemberGainData', {params: params})
-				.then((res) => {
-//					console.log(res)
-					if(res.data.code == 1) {
-						if(res.data.data.length>0){
-							_this.formOne.tabData = res.data.data;
-						 	_this.formOne.totalPage = res.data.data.length;
-						}else{
-							baseConfig.successTipMsg(_this, "暂无数据");
+				var params=_this.searchConditionEarning();
+				if(params.bind_uid==''&&params.uid=='') {
+					baseConfig.warningTipMsg(_this, '上下级uid至少输入一个进行搜索~');
+					return;
+				}   
+				axios.get(
+					wechatget+'/server/index.php/Agent/getInviteManageMemberGainData', 
+					{params: params}
+				)
+					.then((res) => {
+						if(res.data.code==1) {
+							if(res.data.data.length>0){
+								_this.formOne.tabData = res.data.data;
+								_this.formOne.totalPage = res.data.data.length;
+							}else{
+								baseConfig.successTipMsg(_this, "暂无数据");
+							}
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
 						}
-					} else {
-						baseConfig.warningTipMsg(_this, res.data.msg);
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				})
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			},
 			getTwoData(){
        			var _this = this;
-       			var params=_this.searchConditionCall();
+				var params=_this.searchConditionCall();
+				if(params.bind_uid==''&&params.uid=='') {
+					baseConfig.warningTipMsg(_this, '上下级uid至少输入一个进行搜索~');
+					return;
+				}   
 				axios.get(wechatget+'/server/index.php/Agent/getInviteManageMemberCallData', {params: params})
-				.then((res) => {
-//					console.log(res)
-					if(res.data.code == 1) {
-						if(res.data.data.length>0){
-							_this.formTwo.tabData = res.data.data;
-							_this.formTwo.totalPage = res.data.data.length;
-						}else{
-							baseConfig.successTipMsg(_this, "暂无数据");
+					.then((res) => {
+						if(res.data.code==1) {
+							if(res.data.data.length>0){
+								_this.formTwo.tabData = res.data.data;
+								_this.formTwo.totalPage = res.data.data.length;
+							}else{
+								baseConfig.successTipMsg(_this, "暂无数据");
+							}
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
 						}
-					} else {
-						baseConfig.warningTipMsg(_this, res.data.msg);
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				})
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			}
 		}
 	}
 </script>
 
 <style scoped="scoped">
-.el-tabs__header{
-	margin: 0 !important;
-}
 </style>

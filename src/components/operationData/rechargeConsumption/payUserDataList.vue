@@ -54,12 +54,12 @@
 				<el-table-column prop="active" label="活跃" min-width="60"></el-table-column>
 				<el-table-column prop="consume_user" label="日付费用户" min-width="60"></el-table-column>
 				<el-table-column prop="total_fee" label="充值金额" width="90" sortable ></el-table-column>
-				<el-table-column prop=""first_consume_user" label="首日付费用户" min-width="60"></el-table-column>
+				<el-table-column prop="first_consume_user" label="首日付费用户" min-width="60"></el-table-column>
 				<el-table-column prop="first_consume_amount" label="首日充值金额" min-width="60"></el-table-column>
 				<el-table-column prop="first_time_user" label="首次付费用户" min-width="60"></el-table-column>
 				<el-table-column prop="first_time_amount" label="首次付费金额" min-width="60"></el-table-column>
 				<el-table-column prop="consume_rate" label="日付费率" width="90" sortable ></el-table-column>
-				<el-table-column prop=""consume_ARPPU" label="付费ARPPU值" min-width="60"></el-table-column>
+				<el-table-column prop="consume_ARPPU" label="付费ARPPU值" min-width="60"></el-table-column>
 				<el-table-column prop="active_ARPPU" label="活跃ARPU值" min-width="60"></el-table-column>
 				<el-table-column prop="first_consume_rate" label="首日付费率" min-width="60"></el-table-column>
 				<el-table-column prop="register_ARPPU" label="注册ARPU值" min-width="60"></el-table-column>

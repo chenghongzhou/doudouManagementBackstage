@@ -1,25 +1,41 @@
 <template>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-   		<el-tab-pane label="礼物" name="first" :style="{height:tabHeight+'px'}">
-   			<el-form :inline="true" :model="formOne" class="demo-form-inline toolbar">
-   				<el-form-item label="礼物">
-					<el-select v-model="formOne.type" placeholder="全部">
-					    <el-option label="全部" value="0"></el-option>
-					    <el-option label="活动礼物1" value="603"></el-option> 
-					    <el-option label="活动礼物2" value="604"></el-option>
-					</el-select>
-   				</el-form-item>
-   				<el-form-item>
-					<el-button type="primary" @click="chartLineShow">导出</el-button>
-				    <el-button type="primary" @click="getOneData">查询</el-button>
-				</el-form-item>
-   			</el-form>			
-   			<el-table :data="formOne.tabData" style="width: 100%" :height="tabSearchPageHeight">
-			  	<el-table-column prop="uid" label="用户ID" width="300"></el-table-column>
-		  		<el-table-column prop="name" label="礼物" width="300"></el-table-column>
-		  		<el-table-column prop="gift_num" label="个数" width="300"></el-table-column>
-		  		<el-table-column prop="price" label="消耗豆币" width="300"></el-table-column>
-		  		<el-table-column prop="time" label="时间" width="300"></el-table-column>
+    <el-tabs 
+	v-model="activeName" 
+	type="border-card" 
+	@tab-click="handleClick">
+   		<el-tab-pane 
+		label="礼物" 
+		name="first" 
+		:style="{height:tabHeight+'px'}">
+			<el-col 
+			:span="24" 
+			class="toolbar" 
+			style="padding-bottom:0px;">
+				<el-form 
+				:inline="true" 
+				:model="formOne">
+					<el-form-item label="礼物">
+						<el-select v-model="formOne.type" placeholder="全部">
+							<el-option label="全部" value="0"></el-option>
+							<el-option label="活动礼物1" value="603"></el-option> 
+							<el-option label="活动礼物2" value="604"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="chartLineShow">导出</el-button>
+						<el-button type="primary" @click="getOneData">查询</el-button>
+					</el-form-item>
+				</el-form>	
+			</el-col>		
+   			<el-table 
+			:data="formOne.tabData" 
+			style="width:100%" 
+			:height="tabSearchPageHeight">
+			  	<el-table-column prop="uid" label="用户ID" min-width="100"></el-table-column>
+		  		<el-table-column prop="name" label="礼物" min-width="100"></el-table-column>
+		  		<el-table-column prop="gift_num" label="个数" min-width="100"></el-table-column>
+		  		<el-table-column prop="price" label="消耗豆币" min-width="100"></el-table-column>
+		  		<el-table-column prop="time" label="时间" min-width="200"></el-table-column>
    			</el-table>  						
 		    <el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -31,39 +47,64 @@
 				</el-pagination>
 			</el-col>
 			<!-- 折线图 -->
-			<el-dialog title="折线图" :width="dialogWidth"  :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine"  style="width: 100%;height: 600px;"></div>
+			<el-dialog 
+			title="折线图" 
+			:width="dialogWidth"  
+			:visible.sync="dialogVisible" 
+			@open="show">
+                <div class="chartLine" style="width:100%;height:600px;"></div>
             </el-dialog>
    		</el-tab-pane>
-   		
-    	<el-tab-pane label="页面按钮数据" name="second" :style="{height:tabHeight+'px'}">
-   			<el-form :inline="true" :model="formTwo" class="demo-form-inline toolbar">
-   				<el-form-item label="页面按钮">
-					<el-select v-model="formTwo.type" placeholder="全部">
-					    <el-option label="全部" value="0"></el-option>
-					    <el-option label="落地页" value="100"></el-option> 
-					    <el-option label="落地页-去围观" value="1"></el-option>					    
-					    <el-option label="落地页-撩一撩" value="2"></el-option>
-					    <el-option label="落地页-送礼物" value="3"></el-option> 
-					    <el-option label="落地页-去充值" value="4"></el-option>				    
-					    <el-option label="展示页" value="200"></el-option>
-					    <el-option label="展示页-语音" value="5"></el-option> 
-					    <el-option label="展示页-去围观" value="6"></el-option>					    
-					    <el-option label="展示页-撩一撩" value="7"></el-option> 
-					    <el-option label="展示页-送礼物" value="8"></el-option>
-					    <el-option label="展示页-去充值" value="9"></el-option>
-					</el-select>
-   				</el-form-item>
-   				<el-form-item>
-				    <el-button type="primary" @click="getTwoData">查询</el-button>
-				</el-form-item>
-   			</el-form>
-   			<el-table :data="formTwo.tabData" style="width: 100%" :height="tabSearchPageHeight">
-			  	<el-table-column prop="page" label="页面" width="400"></el-table-column>
-		  		<el-table-column prop="uv" label="uv" width="400"></el-table-column>
-		  		<el-table-column prop="pv" label="pv" width="400"></el-table-column>
-		  		<el-table-column prop="date" label="停留时间" width="400"></el-table-column>
+    	<el-tab-pane 
+		label="页面按钮数据" 
+		name="second" 
+		:style="{height:tabHeight+'px'}">
+			<el-col 
+			:span="24" 
+			class="toolbar" 
+			style="padding-bottom:0px;">
+				<el-form 
+				:inline="true" 
+				:model="formTwo">
+					<el-form-item label="页面按钮">
+						<el-select v-model="formTwo.type" placeholder="全部">
+							<el-option label="全部" value="0"></el-option>
+							<el-option label="落地页" value="100"></el-option> 
+							<el-option label="落地页-去围观" value="1"></el-option>					    
+							<el-option label="落地页-撩一撩" value="2"></el-option>
+							<el-option label="落地页-送礼物" value="3"></el-option> 
+							<el-option label="落地页-去充值" value="4"></el-option>				    
+							<el-option label="展示页" value="200"></el-option>
+							<el-option label="展示页-语音" value="5"></el-option> 
+							<el-option label="展示页-去围观" value="6"></el-option>					    
+							<el-option label="展示页-撩一撩" value="7"></el-option> 
+							<el-option label="展示页-送礼物" value="8"></el-option>
+							<el-option label="展示页-去充值" value="9"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="getTwoData">查询</el-button>
+					</el-form-item>
+				</el-form>
+			</el-col>
+   			<el-table 
+			:data="formTwo.tabData" 
+			style="width:100%" 
+			:height="tabSearchPageHeight">
+			  	<el-table-column prop="page" label="页面" min-width="100"></el-table-column>
+		  		<el-table-column prop="uv" label="uv" min-width="100"></el-table-column>
+		  		<el-table-column prop="pv" label="pv" min-width="100"></el-table-column>
+		  		<el-table-column prop="date" label="停留时间" min-width="100"></el-table-column>
    			</el-table>
+			<el-col :span="24" class="toolbar">
+				<el-pagination 
+					layout="total,prev,pager,next,jumper" 
+					@current-change="twoHandleCurrentChange" 
+					:page-size="20" 
+					:total="formTwo.totalPage" 
+					style="float:right;">
+				</el-pagination>
+			</el-col>
     	</el-tab-pane>
     </el-tabs>
 </template>
@@ -86,11 +127,13 @@
 					tabData:[],
 					type:'',
 					page:0,
-					totalPage:0
+					totalPage:0,
 				},
 				formTwo:{
 					tabData:[],
-					type:''
+					type:'',
+					page: 0,
+					totalPage:0,
 				},
 	            chartLineData: {
 	                title: {
@@ -197,6 +240,10 @@
 				formOne.page=val-1;
 				this.getOneData();
 			},
+			twoHandleCurrentChange(val){
+				formTwo.page=val-1;
+				this.getTwoData();
+			},
 			getOneData(){
        			var _this = this;
        			var params=_this.searchConditionGift();
@@ -266,16 +313,4 @@
 </script>
 
 <style>
-	.el-tabs__nav{
-	    transform: translateX(10px) !important;
-	}
-	.el-tabs__header{
-		margin: 0 !important;
-	}
-	.el-form-item{
-		margin: 0 !important;
-	}
-	.el-tabs__header {
-	    background: #bef0ff !important;
-	}
 </style>

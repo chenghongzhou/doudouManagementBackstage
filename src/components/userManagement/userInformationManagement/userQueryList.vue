@@ -24,18 +24,25 @@
                     </el-form-item>
                     <el-form-item>
                         <span>渠道</span>
-                        <el-select v-model="channelId" multiple filterable collapse-tags style="margin-left: 20px; width: 180px;" placeholder="请选择">
-                            <el-option v-for="(item, key) of channelData" :key="key" :label="item" :value="key">
-                            </el-option>
+                        <el-select 
+                        v-model="channelId" 
+                        multiple filterable collapse-tags 
+                        style="margin-left:20px;width:180px;" 
+                        placeholder="请选择">
+                            <el-option 
+                            v-for="(item, key) of channelData" 
+                            :key="key" 
+                            :label="item" 
+                            :value="key"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item>
                         <span>UID</span>
-                        <el-input style="width: 150px;" v-model="uid" placeholder="请输入UID" clearable></el-input>
+                        <el-input style="width: 150px;" v-model="uid" placeholder="请输入UID"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <span>昵称</span>
-                        <el-input style="width: 150px;" v-model="nickname" placeholder="请输入昵称" clearable></el-input>
+                        <el-input style="width: 150px;" v-model="nickname" placeholder="请输入昵称"></el-input>
                     </el-form-item>
                     <el-form-item class="search-span" style="float:right;">
                         <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
