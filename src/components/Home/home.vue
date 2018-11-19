@@ -111,6 +111,8 @@ export default {
             var _this = this;
             _this.$confirm('确认退出吗?', '提示', { type: 'info' })
                 .then(() => {
+                    // 在这里进行退出的时候进行清空掉登录的信息
+                    baseConfig.setCookie('userlist', '', 0);
                     _this.$router.push({ path: '/login', });
                     //这个不能动
                     location.reload();

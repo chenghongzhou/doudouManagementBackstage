@@ -73,18 +73,53 @@ const user = {
                             else if(res.data.data.auth_code==7) { arr.push('M'); }
                             else if(res.data.data.auth_code==8) { arr.push('C'); }
                             else if(res.data.data.auth_code==9) { arr.push('G'); }
-                            commit('SET_ROLES', arr); // 可以在这里设置角色测试
+                            // 可以在这里设置角色测试
+                            commit('SET_ROLES', arr); 
                             commit('SET_USER', res.data.data.user_name);
                             commit('SET_NAME', res.data.data.real_name);
                             commit('SET_CHANNELID', res.data.data.channel_id_list);
                             commit('SET_CHANNELNAME', res.data.data.channel_name_list);
                             commit('SET_TOKEN', 'youwodianliaodoudou');
+                            // 每天一次的登录，将信息储存到cookie保留一天
+                            baseConfig.setCookie(
+                                'userlist',
+                                JSON.stringify(
+                                    {
+                                        roles: arr,
+                                        user_name: res.data.data.user_name,
+                                        real_name: res.data.data.real_name,
+                                        channel_id_list: res.data.data.channel_id_list,
+                                        channel_name_list: res.data.data.channel_name_list,
+                                    }
+                                ),
+                                1
+                            );
                             resolve(res);
                         } else {
                             baseConfig.warningTipMsg(ueserInfo.obj, res.data.msg);
                             resolve(res);
                         }
                     });
+                } catch(e) {
+                    console.log(e);
+                } finally {  }
+            })
+            .catch(e => {
+                reject(e);
+            });
+        },
+        // 直接进入，从login.vue直接路由回到hello.vue
+        AgainGetInfo({ commit }) {
+            return new Promise((resolve, reject) => {
+                try {
+                    // 可以在这里设置角色测试
+                    commit('SET_ROLES', JSON.parse(baseConfig.getCookie('userlist')).roles); 
+                    commit('SET_USER', JSON.parse(baseConfig.getCookie('userlist')).user_name);
+                    commit('SET_NAME', JSON.parse(baseConfig.getCookie('userlist')).real_name);
+                    commit('SET_CHANNELID', JSON.parse(baseConfig.getCookie('userlist')).channel_id_list);
+                    commit('SET_CHANNELNAME', JSON.parse(baseConfig.getCookie('userlist')).channel_name_list);
+                    commit('SET_TOKEN', 'youwodianliaodoudou');
+                    resolve(baseConfig.getCookie('userlist'));
                 } catch(e) {
                     console.log(e);
                 } finally {  }

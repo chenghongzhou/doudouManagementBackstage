@@ -116,8 +116,8 @@ export default {
                                     .then(() => { // 生成可访问的路由表
                                         router.addRoutes(store.getters.addRouters);           
                                     })
-                                    .catch((error) => {
-                                        console.log(error);
+                                    .catch((err) => {
+                                        console.log(err);
                                     });
                                     // 用户保存密码在cookie中，下次直接登录
                                     if(_this.checked==false) {
@@ -143,15 +143,15 @@ export default {
                                     _this.listLoading = false;
                                 }
                             })
-                            .catch((error) => {
+                            .catch((err) => {
                                 _this.listLoading = false;
-                                console.log(error);
+                                console.log(err);
                             });
                         } else {}
                     }
                 } else {
                     _this.listLoading = false;
-                    console.log('error submit!!');
+                    console.log('err submit!!');
                     return false;
                 }
             });
@@ -182,6 +182,30 @@ export default {
     mounted() {
         var _this = this;
         _this.$nextTick(function() {
+            // 不要登录，直接进入
+            if(baseConfig.getCookie('userlist')) {
+                store.dispatch('AgainGetInfo')
+                    .then((res) => {
+                        // 去触发生成动态权限
+                        var roles = store.state.user.roles;
+                        store.dispatch('GenerateRoutes', { roles })
+                        .then(() => { // 生成可访问的路由表
+                            router.addRoutes(store.getters.addRouters);           
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                        // 完成登录操作，跳转到hello的组建
+                        // 页面进行刷新全部进入的hello组建
+                        _this.listLoading = false;
+                        _this.$router.push({ path: '/hello', });
+                    })
+                    .catch((err) => {
+                        _this.listLoading = false;
+                        console.log(err);
+                    });
+            } else {}
+            // 需要进行登录验证
             if(baseConfig.getCookie('loginParams')) {
                 if(JSON.parse(baseConfig.getCookie('loginParams')).username) {
                     _this.ruleForm.account = JSON.parse(baseConfig.getCookie('loginParams')).username;
@@ -192,7 +216,7 @@ export default {
                 if(JSON.parse(baseConfig.getCookie('loginParams')).phone) {
                     _this.ruleForm.phone = JSON.parse(baseConfig.getCookie('loginParams')).phone;
                 } else {}
-            }
+            } else {}
         });
         // 在这里进行对应页面高度的定义
         getHeight();

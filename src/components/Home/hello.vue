@@ -33,7 +33,6 @@ export default {
         // hello组建中拿取用户信息
         getStorage() {
             var _this = this;
-            console.log(store.state.user);
             if(store.state.user.name){
                 _this.username = store.state.user.name;
             } else {
