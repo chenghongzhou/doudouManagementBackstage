@@ -236,7 +236,6 @@ export default {
                                 _this.chartLineData.series[1].data.push(this.tabData[i].register);
                                 _this.chartLineData.series[2].data.push(this.tabData[i].rate);
                             }
-                            console.log(_this.chartLineData.xAxis);
                         } else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
