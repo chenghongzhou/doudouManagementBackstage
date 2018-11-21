@@ -131,7 +131,7 @@ export default {
         addHomeTab() {
             var _this = this;
             var url = '/Voice/addVoiceTab';
-            var param = {
+            var params = {
                 tab_name: _this.form.tab_name,
                 sort: _this.form.sort,
             }
@@ -159,7 +159,7 @@ export default {
         sureEditUser(){
             var _this = this;
             var url = "/Voice/editVoiceTab";
-            var param = {
+            var params = {
                 tab_name: this.formTwo.tab_name,
                 sort: this.formTwo.sort,
                 id: this.formTwo.id,
@@ -186,7 +186,7 @@ export default {
         sureDelete(){   
             var _this = this;
             var url = "/Voice/delVoiceTab";
-            var param = {
+            var params = {
                 id: this.deleteInfo.id
             }
             axios.get(allget+url, {params: params})

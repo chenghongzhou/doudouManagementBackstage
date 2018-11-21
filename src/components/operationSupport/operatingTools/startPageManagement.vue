@@ -309,7 +309,7 @@ export default {
         setLine(index, rows, type) {
             var _this = this;
             var url = "/GlobalSet/upDownStartPage";
-            var param = {
+            var params = {
                 id: rows.id,
                 is_show: type
             };
@@ -330,7 +330,7 @@ export default {
         deleteData(index, rows) {
             var _this = this;
             var url = "/GlobalSet/delStartPage";
-            var param = {
+            var params = {
                 id: rows.id
             };
             axios.get(allget+url, {params: params})

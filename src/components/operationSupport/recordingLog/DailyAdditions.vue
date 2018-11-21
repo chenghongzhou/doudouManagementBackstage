@@ -169,7 +169,7 @@ export default {
                 _this.page = 0;
             }
             let url = "/Voice/getVoiceListInfo";
-            let param = {
+            let params = {
                 page: this.page,
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),

@@ -82,7 +82,7 @@
 				let _this = this;
 				_this.listLoading = true;
 				let url = '/Voice/getVoiceOffData';
-				let param ={
+				let params ={
 					date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
 					date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
 				}

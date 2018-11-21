@@ -114,7 +114,7 @@ export default {
                 _this.page = 0;
             }
             let url = "/NewFamily/getRoomCheckRecord";
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 room_type: this.room_type,
@@ -123,7 +123,7 @@ export default {
                 page: this.page,
                 room_name: this.room_name,
             };
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading = false;
                     if (res.data.ret) {

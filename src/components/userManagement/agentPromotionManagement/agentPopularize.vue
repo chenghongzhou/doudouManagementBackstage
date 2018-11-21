@@ -210,7 +210,7 @@ export default {
             if(type==0){
                 this.page = 0;
             }
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate1[0],0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate1[1],0),
                 type: 0, //普通代理数据列表

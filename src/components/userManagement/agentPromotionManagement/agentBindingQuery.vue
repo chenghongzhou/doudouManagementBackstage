@@ -210,7 +210,7 @@
             // 取消绑定
             cancel(index, row) {
                 let url = '/Agent/cancelAgentRelation';
-                let param ={
+                let params ={
                     agent_uid: row.wx_invite_uid,
                     uid: row.uid,
                     operate_user: this.operate_user,

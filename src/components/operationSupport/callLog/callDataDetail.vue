@@ -94,7 +94,7 @@ export default {
             _this.listLoading = true;
 			let params = _this.condition();
             let url = "/Record/getCall";
-            // this.uid==null||this.uid==""?delete param.uid:param.uid=this.uid;
+            // this.uid==null||this.uid==""?delete params.uid:params.uid=this.uid;
             this.callType==null||this.callType==""?delete params.callType:params.chat_type=this.callType;
             if(type==0){
                 _this.page = 0;

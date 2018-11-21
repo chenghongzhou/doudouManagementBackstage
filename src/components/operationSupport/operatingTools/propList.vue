@@ -668,7 +668,7 @@ export default {
         upDownProp(index, row, type){
             var _this = this;
             var url = '/NewProp/upDownProp';
-            var param = {
+            var params = {
                 id: row[index].id,
                 status: type,
             }

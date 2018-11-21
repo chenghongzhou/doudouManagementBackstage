@@ -103,7 +103,7 @@
 				let _this = this;
 				_this.listLoading = true;
 				let url = '/Voice/getShareHotVoiceData';
-				let param ={
+				let params ={
 					date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
 					date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
 				}
@@ -124,7 +124,7 @@
 			addShareHotVoice() {
 				let _this = this;
 				let url = '/Voice/addShareHotVoice';
-				let param ={
+				let params ={
 					id: _this.withdrawMoneyValue,
 					share_sort: withdrawDayValue,
 					cheat_listen: numpeopleValue

@@ -285,7 +285,7 @@ export default {
             var _this = this;
             _this.listLoading = true;
             let url = "/NewUser/getComplain";
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 content: this.content,
@@ -294,7 +294,7 @@ export default {
                 channel: this.channelId.join(","),
                 operate_user: this.operate_user
             };
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading = false;
                     _this.listData = res.data.data;

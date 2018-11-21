@@ -36,9 +36,9 @@ export default {
         getData() {
             var _this = this;
             let url = "/NewActivity/getBlackLoverDataInfo";
-            let param = {
+            let params = {
             };
-			axios.get(allget+url, { params: param })
+			axios.get(allget+url, { params: params })
                 .then(res => {
                     if(res.data.ret){
                         this.listData = res.data.data;

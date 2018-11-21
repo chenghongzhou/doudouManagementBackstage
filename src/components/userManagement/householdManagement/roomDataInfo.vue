@@ -156,7 +156,7 @@ export default {
                 _this.page = 0;
             }
             let url = "/NewFamily/getRoomDataInfo";
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 room_name: this.room_name,
@@ -166,16 +166,16 @@ export default {
                 page: this.page,
                 room_type: this.room_type,
             };
-            if(param.family_id=="" || param.family_id==null){
-                delete param.family_id;
+            if(params.family_id=="" || params.family_id==null){
+                delete params.family_id;
             }
-            if(param.family_name=="" || param.family_name==null){
-                delete param.family_name;
+            if(params.family_name=="" || params.family_name==null){
+                delete params.family_name;
             }
-            if(param.owner_uid=="" || param.owner_uid==null){
-                delete param.owner_uid;
+            if(params.owner_uid=="" || params.owner_uid==null){
+                delete params.owner_uid;
             }
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading = false;
                     if (res.data.ret) {
@@ -203,12 +203,12 @@ export default {
             this.subsidy_info.name = name; 
             this.dialogShow = true;
             var url = '/NewFamily/getRoomSubsidyData';
-            var param = {
+            var params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 yun_xin_room_id: yunid,
             }
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     if(res.data.ret){
                         this.subsidy_info.num = res.data.num; 

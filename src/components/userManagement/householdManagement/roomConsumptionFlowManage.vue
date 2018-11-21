@@ -142,7 +142,7 @@ export default {
             if(type==0){
                 this.page = 0;
             }
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate1[0],0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate1[1],0),
                 type: 0, //日数据
@@ -150,7 +150,7 @@ export default {
                 room_id: this.room_id,
                 owner_uid: this.owner_uid,
             };
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading = false;
                     if (res.data.ret) {
@@ -170,7 +170,7 @@ export default {
                 this.page = 0;
             }
             let url = "/NewFamily/getLiveBroadCastMoneyRecord";
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 type: 1, // 月数据
@@ -179,9 +179,9 @@ export default {
                 owner_uid: this.owner_uid1,
             };
             this.uid1 == null || this.uid1 == ""
-                ? delete param.uid1
-                : (param.uid1 = this.uid1);
-            axios.get(allget+url, {params: param})
+                ? delete params.uid1
+                : (params.uid1 = this.uid1);
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading1 = false;
                     if (res.data.ret) {

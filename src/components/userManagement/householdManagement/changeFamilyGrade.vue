@@ -107,8 +107,8 @@ export default {
                 });
         },
         cancelFamily() {
-            this.param.uid = "";
-            this.param.level = "";
+            this.form.uid = "";
+            this.form.level = "";
         },
     },
     mounted() {

@@ -341,7 +341,7 @@ export default {
             var _this = this;
             var url = "/NewFamily/getLiveBroadCastInfo";
 
-            var param = {
+            var params = {
                 date_s: baseConfig.changeDateTime(
                     _this.formOne.startDate[0],
                     0
@@ -356,7 +356,7 @@ export default {
                 room_type: _this.room_type,
                 type: 1 //入坑率
             };
-            axios.get(allget+url, {params: param})
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
                         // resolve(res.data.data);

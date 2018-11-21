@@ -165,7 +165,7 @@ export default {
         sureDeleteFun() {
             var _this = this;
             let url = "/Voice/deleteVoiceComplain";
-            let param = {
+            let params = {
                 id: this.deleteId
             };
             axios.get(allget+url, {params: params})

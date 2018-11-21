@@ -155,14 +155,14 @@ export default {
             var _this = this;
             _this.listLoading1 = true;
             let url = '/Agent/getAgentRankList';
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 uid: this.uid1,
                 page: this.page1,
                 type: 0,// 普通代理排行
             }
-            this.uid1==null||this.uid1==""?delete param.uid1:param.uid1=this.uid1;
+            this.uid1==null||this.uid1==""?delete params.uid1:params.uid1=this.uid1;
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading1 = false;

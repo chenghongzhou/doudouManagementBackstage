@@ -92,7 +92,7 @@ export default {
             var _this = this;
             _this.listLoading = true;
             let url = "/NewFamily/getLiveBroadCastKickRecord";
-            let param = {
+            let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 room_id: this.room_id,
@@ -100,9 +100,9 @@ export default {
                 page: this.page
             };
             this.uid == null || this.uid == ""
-                ? delete param.uid
-                : (param.uid = this.uid);
-            axios.get(allget+url, {params: param})
+                ? delete params.uid
+                : (params.uid = this.uid);
+            axios.get(allget+url, {params: params})
                 .then((res) => {
                     _this.listLoading = false;
                     if (res.data.ret) {
