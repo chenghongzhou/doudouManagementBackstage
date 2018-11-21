@@ -109,7 +109,7 @@ export default {
         dissolve() {
             var _this = this;
             let url = "/NewFamily/dismissFamily";
-            let param = {
+            let params = {
                 family_id: this.form.family_id,
                 reason: this.form.reason,
                 operate_user: this.operate_user
