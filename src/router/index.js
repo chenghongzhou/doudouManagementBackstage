@@ -157,6 +157,8 @@ import empty from '../components/rootGlobal/empty.vue';//空组建进行页面�
 // 1-1综合概述
 // 1-2用户分析
 import syntheticData from '../components/operationData/comprehensiveOverview/syntheticData.vue';//综合数据
+import channelRanking from '../components/operationData/comprehensiveOverview/channelRanking.vue';//渠道排行
+import dataDaquan from '../components/operationData/comprehensiveOverview/dataDaquan.vue';//数据大全
 import registerOrActivate from '../components/operationData/userAnalysis/registerOrActivate.vue';//激活与注册
 import heldOutData from '../components/operationData/userAnalysis/heldOutData.vue';//留存数据
 import activeUser from '../components/operationData/userAnalysis/activeUser.vue';//活跃用户
@@ -384,6 +386,8 @@ export const asyncRouterMap = [
                 meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] },
                 children: [
                     { path: '/operationData/comprehensiveOverview/syntheticData', component: syntheticData, name: '综合数据', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },
+                    { path: '/operationData/comprehensiveOverview/channelRanking', component: channelRanking, name: '渠道排行', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },
+                    { path: '/operationData/comprehensiveOverview/dataDaquan', component: dataDaquan, name: '数据大全', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },
                 ],
             },
             {
