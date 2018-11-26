@@ -10,7 +10,7 @@
                 <el-table-column prop="cp_nickname" label="被心动嘉宾昵称"></el-table-column>
                 <el-table-column prop="uid" label="心动人ID"></el-table-column>
                 <el-table-column prop="nickname" label="心动人昵称"></el-table-column>
-                <el-table-column prop="chat_gold" label="花费聊币"></el-table-column>
+                <el-table-column prop="chat_gold" label="花费豆币"></el-table-column>
             </el-table>
         </template>
         <!--工具条-->

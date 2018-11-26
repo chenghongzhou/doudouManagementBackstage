@@ -39,8 +39,8 @@
                         <el-table-column prop="owner_uid" label="族长UID"></el-table-column>
                         <el-table-column prop="nickname" label="族长昵称"></el-table-column>
                         <el-table-column prop="use_time" label="结束时间"></el-table-column>
-                        <el-table-column prop="money" label="单次流水（聊币）"></el-table-column>
-                        <el-table-column prop="total_money" label="累计流水（聊币）"></el-table-column>
+                        <el-table-column prop="money" label="单次流水（豆币）"></el-table-column>
+                        <el-table-column prop="total_money" label="累计流水（豆币）"></el-table-column>
                     </el-table>
                     <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
@@ -84,8 +84,8 @@
                         <el-table-column prop="family_name" label="所属家族"></el-table-column>
                         <el-table-column prop="owner_uid" label="族长UID"></el-table-column>
                         <el-table-column prop="nickname" label="族长昵称"></el-table-column>
-                        <el-table-column prop="money" label="当月流水（聊币）"></el-table-column>
-                        <el-table-column prop="total_money" label="累计流水（聊币）"></el-table-column>
+                        <el-table-column prop="money" label="当月流水（豆币）"></el-table-column>
+                        <el-table-column prop="total_money" label="累计流水（豆币）"></el-table-column>
                     </el-table>
                     <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">

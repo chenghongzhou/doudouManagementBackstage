@@ -51,7 +51,7 @@
                 <el-table-column prop="room_level" label="当前等级"></el-table-column>
                 <el-table-column prop="result_status" :formatter="judgeEvent" label="事件"></el-table-column>
                 <el-table-column prop="days" label="考核周期"></el-table-column>
-                <el-table-column prop="chat_ticket" label="周期内礼物聊票"></el-table-column>
+                <el-table-column prop="chat_ticket" label="周期内礼物豆票"></el-table-column>
             </el-table>
             <!-- 工具条 -->
             <el-col :span="24" class="toolbar">

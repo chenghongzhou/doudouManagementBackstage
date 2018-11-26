@@ -50,8 +50,8 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="total_turn_agent_num" label="累计已转为付费代理数量"></el-table-column>
-                        <el-table-column prop="spread_ticket" label="获得推广聊票数"></el-table-column>
-                        <el-table-column prop="total_spread_ticket" label="累计获得推广聊票数"></el-table-column>
+                        <el-table-column prop="spread_ticket" label="获得推广豆票数"></el-table-column>
+                        <el-table-column prop="total_spread_ticket" label="累计获得推广豆票数"></el-table-column>
                     </el-table>
                     <!-- Table -->
                     <el-dialog title="明细列表" :visible.sync="dialogTableVisible" center>
@@ -136,12 +136,12 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="total_turn_agent_num" label="累计已转为付费代理数量"></el-table-column>
-                        <el-table-column prop="agent_back" label="获得代理费返利聊票数"></el-table-column>
-                        <el-table-column prop="total_agent_back" label="累计获得代理费返利聊票数"></el-table-column>
-                        <el-table-column prop="agent_back" label="获得消费返利聊票数"></el-table-column>
-                        <el-table-column prop="total_cost_back" label="累计获得消费返利聊票数"></el-table-column>
-                        <el-table-column prop="all_back" label="当日合计获得聊票数"></el-table-column>
-                        <el-table-column prop="all_total_back" label="累计获得聊票数"></el-table-column>
+                        <el-table-column prop="agent_back" label="获得代理费返利豆票数"></el-table-column>
+                        <el-table-column prop="total_agent_back" label="累计获得代理费返利豆票数"></el-table-column>
+                        <el-table-column prop="agent_back" label="获得消费返利豆票数"></el-table-column>
+                        <el-table-column prop="total_cost_back" label="累计获得消费返利豆票数"></el-table-column>
+                        <el-table-column prop="all_back" label="当日合计获得豆票数"></el-table-column>
+                        <el-table-column prop="all_total_back" label="累计获得豆票数"></el-table-column>
                     </el-table>
                     <!-- Table -->
                     <el-dialog title="明细列表" :visible.sync="dialogTableVisible1" center>

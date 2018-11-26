@@ -32,11 +32,11 @@
 				<el-table-column prop="new_anchor"  label="新增主播数"></el-table-column>
 				<el-table-column prop="total_anchor" label="累积主播数"></el-table-column>
 				<el-table-column prop="active_anchor" label="积极主播数" ></el-table-column>
-				<el-table-column prop="day_chat_ticket" label="主播累积聊票"></el-table-column>
+				<el-table-column prop="day_chat_ticket" label="主播累积豆票"></el-table-column>
 				<el-table-column prop="day_money" label="主播累积收入(元)" sortable></el-table-column>
-				<el-table-column prop="call_chat_ticket" label="付费通话聊票"></el-table-column>
-				<el-table-column prop="gift_chat_ticket" label="礼物聊票"></el-table-column>
-				<el-table-column prop="eavesdrop_chat_ticket" label="被偷听聊票"></el-table-column>
+				<el-table-column prop="call_chat_ticket" label="付费通话豆票"></el-table-column>
+				<el-table-column prop="gift_chat_ticket" label="礼物豆票"></el-table-column>
+				<el-table-column prop="eavesdrop_chat_ticket" label="被偷听豆票"></el-table-column>
 			</el-table>
 			<!-- 工具条 -->
 				<!-- <el-col :span="24" class="toolbar">

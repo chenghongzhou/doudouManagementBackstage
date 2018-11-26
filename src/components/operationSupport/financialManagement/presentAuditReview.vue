@@ -305,9 +305,9 @@ export default {
                         _this.addDialog.channel = res.data.channel;
                         _this.addDialog.addtime = res.data.addtime;
                         _this.addDialog.accumulate_time = baseConfig.changeTime(res.data.accumulate_time);
-                        _this.addDialog.call_ticket = res.data.call_ticket+'聊票';
-                        _this.addDialog.gift_ticket = res.data.gift_ticket+'聊票';
-                        _this.addDialog.other_ticket = res.data.other_ticket+'聊票';
+                        _this.addDialog.call_ticket = res.data.call_ticket+'豆票';
+                        _this.addDialog.gift_ticket = res.data.gift_ticket+'豆票';
+                        _this.addDialog.other_ticket = res.data.other_ticket+'豆票';
                         _this.addDialog.rand_num = res.data.rand_num;
                         _this.addDialog.friend_num = res.data.friend_num;
                         _this.addDialog.total_pay_money = ((res.data.total_pay_money-0)/100)+'元';

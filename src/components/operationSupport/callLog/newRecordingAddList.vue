@@ -37,8 +37,8 @@
 				<el-table-column prop="new_free_num"  label="新增免费录音数"></el-table-column>
 				<el-table-column prop="total_free_num" label="平台免费录音总数"></el-table-column>
 				<el-table-column prop="total_money_num" label="平台付费录音总数"></el-table-column>
-				<el-table-column prop="total_listen_money" label="听录音花费聊币"></el-table-column>
-				<el-table-column prop="total_award_money" label="打赏录音聊币数"></el-table-column>
+				<el-table-column prop="total_listen_money" label="听录音花费豆币数"></el-table-column>
+				<el-table-column prop="total_award_money" label="打赏录音豆币数"></el-table-column>
 				
 			</el-table>
 			<!-- 工具条 -->

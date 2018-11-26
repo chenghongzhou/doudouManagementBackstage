@@ -86,7 +86,7 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="total_honour" label="消费(聊币)"></el-table-column>
+                <el-table-column prop="total_honour" label="消费(豆币)"></el-table-column>
                 <el-table-column prop="cost_num" label="消费人次"></el-table-column>
                 <el-table-column prop="cost_people" label="消费人数"></el-table-column>
                 <el-table-column label="补贴">

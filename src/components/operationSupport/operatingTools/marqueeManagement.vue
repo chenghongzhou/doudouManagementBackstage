@@ -1,14 +1,22 @@
 <template>
 	<!-- 跑马灯管理 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col 
+		:span="24" 
+		class="toolbar" 
+		style="padding-bottom:0px;">
+			<el-form 
+			:inline="true" 
+			style="overflow:hidden;" 
+			:model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -32,13 +40,19 @@
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="operate_time" label="操作时间" width="80" sortable ></el-table-column>
 				<el-table-column prop="start_time" label="起始时间" width="80" sortable ></el-table-column>
 				<el-table-column prop="end_time" label="结束时间" width="80" sortable ></el-table-column>
-				<el-table-column prop="content" label="内容" min-width="300" sortable ></el-table-column>
+				<el-table-column prop="content" label="内容" min-width="250" sortable ></el-table-column>
+				<el-table-column prop="display" label="链接文字" min-width="50" sortable ></el-table-column>
 				<el-table-column label="链接类型" width="150" sortable >
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
@@ -54,24 +68,42 @@
 				<el-table-column prop="android_link" label="安卓中的链接" width="200" sortable ></el-table-column>				
 				<el-table-column label="操作" width="100">
 					<template slot-scope="scope">
-						<el-button v-if="scope.row.status=='1'" plain size="small" @click.native.prevent="tipEnd()">已结束</el-button>
-						<el-button v-else-if="scope.row.status=='0'" type="primary" @click.native.prevent="endSure(scope.$index, scope.row)" size="small">结束</el-button>
+						<el-button 
+						v-if="scope.row.status=='1'" 
+						plain 
+						size="small" 
+						@click.native.prevent="tipEnd()">已结束</el-button>
+						<el-button 
+						v-else-if="scope.row.status=='0'" 
+						type="primary" 
+						@click.native.prevent="endSure(scope.$index, scope.row)" 
+						size="small">结束</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" :current-page="page+1" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				:current-page="page+1" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 新增--对应的dialog -->
 		<el-dialog title="新增公告" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
 				<el-form-item label="编辑公告概要" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formTwo.content" auto-complete="off"></el-input>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formTwo.content" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="添加超链接" :label-width="formLabelWidth">
-					<p style="font-weight: bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
+					<p style="font-weight:bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
 				</el-form-item>
 				<el-form-item label="链接类型" :label-width="formLabelWidth">
 					<el-select v-model="formTwo.link_type">
@@ -93,7 +125,12 @@
 				</el-form-item>
 				<el-form-item label="轮播时间段" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formTwo.choiceDate" type="datetimerange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+						<el-date-picker 
+						v-model="formTwo.choiceDate" 
+						type="datetimerange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
@@ -167,7 +204,7 @@ export default {
 				_this.listLoading = true;
 				// 进行添加的操作
 				let formData = new FormData();
-				formData.append('content', encodeURIComponent(_this.formTwo.content));
+				formData.append('content', (_this.formTwo.content));
 				formData.append('link_type', _this.formTwo.link_type);
 				formData.append('ios_link', _this.formTwo.ios_link);
 				formData.append('android_link', _this.formTwo.android_link);

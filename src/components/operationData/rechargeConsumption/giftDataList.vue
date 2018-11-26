@@ -54,7 +54,7 @@
                 <el-table-column prop="name" label="名字" min-width="60"></el-table-column>
                 <el-table-column prop="price" label="价格" min-width="60"></el-table-column>
                 <el-table-column prop="num" label="送出礼物数量" min-width="60"></el-table-column>
-                <el-table-column prop="chat_gold" label="消耗总聊币" min-width="60"></el-table-column>
+                <el-table-column prop="chat_gold" label="消耗总豆币" min-width="60"></el-table-column>
             </el-table>
             <!-- 折线图 -->
             <!-- <el-dialog title="占比饼状图" :width="dialogWidth" :visible.sync="dialogVisible" @open="show">

@@ -46,7 +46,7 @@
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
                 <el-table-column prop="sex" :formatter="judgeSex" label="性别"></el-table-column>
-                <el-table-column prop="in_chat_ticket" label="累计收入聊票"></el-table-column>
+                <el-table-column prop="in_chat_ticket" label="累计收入豆票"></el-table-column>
                 <el-table-column prop="pay_num/100" label="累计充值金额（元）">
                 <template slot-scope="scope">
                     <div slot="reference" class="name-wrapper">

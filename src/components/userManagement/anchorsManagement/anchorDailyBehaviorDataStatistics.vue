@@ -39,10 +39,10 @@
 				<el-table-column prop="rand_accumulate_time" label="随机通话时长"></el-table-column>
 				<el-table-column prop="rand_call_num" label="随机通话次数"></el-table-column>
 				<el-table-column prop="new_friend_num" label="新增好友数"></el-table-column>
-				<el-table-column prop="total_chat_ticket" label="总聊票"></el-table-column>
-				<el-table-column prop="total_call_chat_ticket" label="付费通话聊票"></el-table-column>
-				<el-table-column prop="total_gift_chat_ticket" label="礼物聊票"></el-table-column>
-				<el-table-column prop="total_eavesdrop_chat_ticket" label="被偷听聊票"></el-table-column>
+				<el-table-column prop="total_chat_ticket" label="总豆票"></el-table-column>
+				<el-table-column prop="total_call_chat_ticket" label="付费通话豆票"></el-table-column>
+				<el-table-column prop="total_gift_chat_ticket" label="礼物豆票"></el-table-column>
+				<el-table-column prop="total_eavesdrop_chat_ticket" label="被偷听豆票"></el-table-column>
 				<el-table-column prop="operate_user" label="操作人"></el-table-column>
 			</el-table>
 			<!-- 工具条 -->

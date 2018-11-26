@@ -1,10 +1,14 @@
 <template>
 	<!-- 弹幕话题管理 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col 
+		:span="24" 
+		class="toolbar" 
+		style="padding-bottom:0px;">
+			<el-form 
+			:inline="true" 
+			style="overflow:hidden;" 
+			:model="formOne">
 				<el-form-item>
 					<span>展示位置</span>
 					<el-select v-model="formOne.position">
@@ -16,14 +20,23 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="dialogFormVisible=true;">添加弹幕</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible=true;">添加弹幕</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="sort" label="弹幕序号" width="100" sortable ></el-table-column>
 				<el-table-column prop="content" label="弹幕内容" min-width="400" sortable ></el-table-column>
 				<el-table-column label="弹幕位置" width="400" sortable >
@@ -38,13 +51,21 @@
 				</el-table-column>
 				<el-table-column label="操作" width="200">
 					<template slot-scope="scope">
-						<el-button type="primary" @click.native.prevent="deleteOneUserData(scope.$index, scope.row)" size="small">删除</el-button>
+						<el-button 
+						type="primary" 
+						@click.native.prevent="deleteOneUserData(scope.$index, scope.row)" 
+						size="small">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 新增--对应的dialog -->
@@ -74,7 +95,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
 import store from '../../../vuex/store';

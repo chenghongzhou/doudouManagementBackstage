@@ -74,8 +74,8 @@
                         <el-table-column prop="pit_rate" label="入坑率"></el-table-column>
 
                         <!-- <el-table-column prop="total_use_time" label="累计时长"></el-table-column> -->
-                        <!-- <el-table-column prop="this_money" label="单次流水（聊币）"></el-table-column> -->
-                        <!-- <el-table-column prop="total_money" label="累计流水（聊币）"></el-table-column> -->
+                        <!-- <el-table-column prop="this_money" label="单次流水（豆币）"></el-table-column> -->
+                        <!-- <el-table-column prop="total_money" label="累计流水（豆币）"></el-table-column> -->
                         <!-- <el-table-column prop="this_man" label="消费人次"></el-table-column> -->
                         <!-- <el-table-column prop="total_man" label="累计消费人次"></el-table-column> -->
                         <!-- <el-table-column prop="total_num" label="用户进入数量"></el-table-column> -->

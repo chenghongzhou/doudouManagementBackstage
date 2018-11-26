@@ -44,14 +44,14 @@
                 <el-table-column prop="room_type" :formatter="judgeRoom" label="房间类型"></el-table-column>
                 <el-table-column prop="owner_uid" label="发放对象UID"></el-table-column>
                 <el-table-column prop="nickname" label="发放对象昵称"></el-table-column>
-                <el-table-column prop="chat_ticket" label="发放补贴金额(聊票)"></el-table-column>
+                <el-table-column prop="chat_ticket" label="发放补贴金额(豆票)"></el-table-column>
                 <el-table-column prop="days" label="统计周期"></el-table-column>
                 <el-table-column prop="rate" label="补贴比例">
                     <template slot-scope="scope">
                         <p>{{scope.row.rate}}%</p>
                     </template>
                 </el-table-column>
-                <el-table-column prop="chat_ticket" label="统计金额(聊票)">
+                <el-table-column prop="chat_ticket" label="统计金额(豆票)">
                     <template slot-scope="scope">
                         <p>{{(scope.row.chat_ticket/(scope.row.rate*0.01)).toFixed(0)}}</p>
                     </template>

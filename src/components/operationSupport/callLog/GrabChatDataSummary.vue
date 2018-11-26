@@ -1,8 +1,6 @@
 <template>
 	<!-- 抢聊通话汇总 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" style="overflow: hidden;">
 				<el-form-item>
@@ -17,7 +15,6 @@
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
 			<el-table :data="listData" v-loading="listLoading" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
 				<el-table-column prop="date" label="日期"></el-table-column>
@@ -63,7 +60,6 @@
 				<el-table-column prop="total_cost" label="总通话消费"></el-table-column>
 				<el-table-column prop="gift_money" label="总礼物消费"></el-table-column>
 				<el-table-column prop="listen_money" label="偷听消费"></el-table-column>
-				
 			</el-table>
 		</template>
 	</section>

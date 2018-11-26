@@ -36,7 +36,7 @@
 						<el-table-column prop="two_num" label="二级用户数"></el-table-column>
 						<el-table-column prop="three_num" label="三级用户数"></el-table-column>
 						<el-table-column prop="turn_agent_num" label="已转付费代理数"></el-table-column>
-						<el-table-column prop="total_agent_money" label="累计获得聊票数"></el-table-column>
+						<el-table-column prop="total_agent_money" label="累计获得豆票数"></el-table-column>
 					</el-table>
                     <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">

@@ -27,11 +27,11 @@
 				<el-table-column prop="agent_join_money" label="代理加盟费"></el-table-column>
 				<el-table-column prop="spread_money" label="推广用户充值"></el-table-column>
 				<el-table-column prop="total_spread_money" label="合计充值"></el-table-column>
-				<el-table-column prop="spread_cost" label="推广用户消费聊币数"></el-table-column>
-				<el-table-column prop="cost_pay_back" label="消费返现聊票" sortable></el-table-column>
-				<el-table-column prop="agent_pay_back" label="代理费返现聊票"></el-table-column>
-				<el-table-column prop="total_pay_back" label="推广返现聊票"></el-table-column>
-				<el-table-column prop="all_total_pay_back" label="合计返现聊票"></el-table-column>
+				<el-table-column prop="spread_cost" label="推广用户消费豆币数"></el-table-column>
+				<el-table-column prop="cost_pay_back" label="消费返现豆票" sortable></el-table-column>
+				<el-table-column prop="agent_pay_back" label="代理费返现豆票"></el-table-column>
+				<el-table-column prop="total_pay_back" label="推广返现豆票"></el-table-column>
+				<el-table-column prop="all_total_pay_back" label="合计返现豆票"></el-table-column>
 			</el-table>
 			<!-- 工具条 -->
 			<el-col :span="24" class="toolbar">

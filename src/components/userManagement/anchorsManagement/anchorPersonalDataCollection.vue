@@ -39,7 +39,7 @@
 				<el-table-column prop="nickname" label="昵称"></el-table-column>
 				<el-table-column prop="lasttime" label="最后登录时间"></el-table-column>
 				<el-table-column prop="accumulate_time" label="累积通话时长" sortable></el-table-column>
-				<el-table-column prop="total_chat_ticket" label="累积聊票数"></el-table-column>
+				<el-table-column prop="total_chat_ticket" label="累积豆票数"></el-table-column>
 				<el-table-column prop="total_money" label="累积收入"></el-table-column>
 				<el-table-column prop="follow_num" label="关注数"></el-table-column>
 				<el-table-column prop="fans_num" label="粉丝数"></el-table-column>

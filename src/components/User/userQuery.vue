@@ -52,8 +52,8 @@
 				<el-col :span="6"><div class="grid-content bg-purple">实名认证状态：{{userinfo.realname_aut_status}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">评价分数：{{userinfo.evaluate_score}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">魅力值：{{userinfo.charm_score}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">聊票：{{userinfo.volumes}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">聊币：{{userinfo.chat_gold}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">豆票：{{userinfo.volumes}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">豆币：{{userinfo.chat_gold}}</div></el-col>
 				<el-col :span="12" style="height:50px">
 					<div class="grid-content " style="height:50px;float:left">
 						<audio :src="userinfo.voice_signature" controls="controls" preload="none"></audio>

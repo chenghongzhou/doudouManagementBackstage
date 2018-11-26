@@ -80,12 +80,12 @@
 				<el-col :span="6"><div class="grid-content bg-purple">标签：{{userinfo.labels}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">职业：{{userinfo.occupation}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">版本号：{{userinfo.version_name}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">聊币：{{userinfo.chat_gold}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">聊票：{{userinfo.chat_ticket}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">豆币：{{userinfo.chat_gold}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">豆票：{{userinfo.chat_ticket}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">累积充值：{{userinfo.pay_num}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">通话价格：{{userinfo.price}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">累积消耗聊币：{{userinfo.out_chat_gold}}</div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple">累积消耗聊票：{{userinfo.out_chat_ticket}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">累积消耗豆币：{{userinfo.out_chat_gold}}</div></el-col>
+				<el-col :span="6"><div class="grid-content bg-purple">累积消耗豆票：{{userinfo.out_chat_ticket}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">认证姓名：{{userinfo.name}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">身份证号码：{{userinfo.identity_card}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">支付宝账号：{{userinfo.pay_account}}</div></el-col>

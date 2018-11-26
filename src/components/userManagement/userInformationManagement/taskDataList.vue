@@ -52,7 +52,7 @@
 				<el-table-column prop="date" label="时间" ></el-table-column>
 				<el-table-column prop="reward_type" label="奖励类型" >
 					<template slot-scope="scope">
-						<p v-if="scope.row.reward_type == 0">聊币</p>
+						<p v-if="scope.row.reward_type == 0">豆币</p>
 						<p v-else-if="scope.row.reward_type == 1">好评分</p>
 						<p v-else-if="scope.row.reward_type == 2">料片</p>
 						<p v-else-if="scope.row.reward_type == 3">无奖励</p>

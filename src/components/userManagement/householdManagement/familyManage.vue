@@ -161,7 +161,7 @@
                 <el-table-column property="level" :formatter="judgeLevel" label="职位"></el-table-column>
                 <el-table-column property="contribute" label="贡献值"></el-table-column>
                 <el-table-column property="yesterday_call" label="昨日通话时长"></el-table-column>
-                <el-table-column property="yesterday_ticket" label="昨日获得聊票数量"></el-table-column>
+                <el-table-column property="yesterday_ticket" label="昨日获得豆票数量"></el-table-column>
             </el-table>
         </el-dialog>
     </section>

@@ -72,7 +72,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="total_cost_money" label="累积消费金额(聊币)"></el-table-column>
+                <el-table-column prop="total_cost_money" label="累积消费金额(豆币)"></el-table-column>
                 <el-table-column prop="total_cost_num" label="累积消费人次"></el-table-column>
                 <el-table-column prop="total_cost_people" label="累积消费人数"></el-table-column>
                 <el-table-column prop="total_num" label="直播次数"></el-table-column>

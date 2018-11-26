@@ -349,11 +349,11 @@ export default {
                             res.data.accumulate_time
                         );
                         _this.addDialog.call_ticket =
-                            res.data.call_ticket + "聊票";
+                            res.data.call_ticket + "豆票";
                         _this.addDialog.gift_ticket =
-                            res.data.gift_ticket + "聊票";
+                            res.data.gift_ticket + "豆票";
                         _this.addDialog.other_ticket =
-                            res.data.other_ticket + "聊票";
+                            res.data.other_ticket + "豆票";
                         _this.addDialog.rand_num = res.data.rand_num;
                         _this.addDialog.friend_num = res.data.friend_num;
                         _this.addDialog.total_pay_money =

@@ -39,7 +39,7 @@
 			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
 				<el-table-column prop="day" label="日期/月份" width="90" sortable ></el-table-column>
 				<el-table-column prop="total" label="充值总额" min-width="60"></el-table-column>
-				<el-table-column prop="chat_gold" label="聊币充值金额" min-width="60"></el-table-column>
+				<el-table-column prop="chat_gold" label="豆币充值金额" min-width="60"></el-table-column>
 				<el-table-column prop="vip" label="VIP充值金额" min-width="60"></el-table-column>
 				<el-table-column prop="family" label="创建家族费用" min-width="60"></el-table-column>
 				<el-table-column prop="enchashment" label="提现金额" min-width="60"></el-table-column>

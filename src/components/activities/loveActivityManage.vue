@@ -8,7 +8,7 @@
                 <el-table-column prop="date" label="时间"></el-table-column>
                 <el-table-column prop="num" label="今日报名人数"></el-table-column>
                 <el-table-column prop="heart_num" label="今日心动人数"></el-table-column>
-                <el-table-column prop="chat_gold" label="今日累计消费聊币"></el-table-column>
+                <el-table-column prop="chat_gold" label="今日累计消费豆币"></el-table-column>
                 <el-table-column prop="gift_two_num" label="么么哒送出个数"></el-table-column>
                 <el-table-column prop="gift_one_num" label="金玫瑰送出个数"></el-table-column>
             </el-table>

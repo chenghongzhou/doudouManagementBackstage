@@ -1,14 +1,22 @@
 <template>
-	<!-- 聊币数据统计 -->
-	<!-- dom结构内容 -->
+	<!-- 豆币数据统计 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col 
+		:span="24" 
+		class="toolbar" 
+		style="padding-bottom:0px;">
+			<el-form 
+			:inline="true" 
+			style="overflow:hidden;" 
+			:model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -27,9 +35,15 @@
 		</el-col>
 		<!--用户的数据展示列表-->
 		<template>
-            <el-table ref="tableHeight" :data="expendData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+			ref="tableHeight" 
+			:data="expendData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
                 <el-table-column prop="date" label="日期" width="100"></el-table-column>
-                <el-table-column label="聊币产出">
+                <el-table-column label="豆币产出">
                     <el-table-column prop="one" label="兑换获得" width="80"></el-table-column>
                     <el-table-column prop="two" label="充值" width="80"></el-table-column>
                     <el-table-column prop="three" label="后台赠送" width="80"></el-table-column>
@@ -39,7 +53,7 @@
                     <el-table-column prop="seven" label="家族内礼物红包返还" min-width="80"></el-table-column>
                     <el-table-column prop="eight" label="直播间内礼物红包返还" min-width="80"></el-table-column>
                 </el-table-column>
-                <el-table-column label="聊币消耗">
+                <el-table-column label="豆币消耗">
                     <el-table-column prop="nine" label="偷听消费" width="80"></el-table-column>
                     <el-table-column prop="one_zero" label="礼物消费" width="80"></el-table-column>
                     <el-table-column prop="one_one" label="通话消费" width="80"></el-table-column>
@@ -71,20 +85,29 @@
 		<!-- 饼状图组建 -->
 		<!-- <chartPie></chartPie> -->
 		<!-- 产出占比图 -->
-		<el-dialog title="饼状图" :width="dialogChartPieOne.dialogWidth" :visible.sync="dialogChartPieOne.dialogVisible" @open="showOne()" size="large">
-            <div class="chartPieOne" style="width: 100%; height: 600px;"></div>
-            <p style="color: red; font-size: 20px; font-family: '微软雅黑';">总量数值为：{{dialogChartPieOne.total_num}}</p>
+		<el-dialog 
+		title="饼状图" 
+		:width="dialogChartPieOne.dialogWidth" 
+		:visible.sync="dialogChartPieOne.dialogVisible" 
+		@open="showOne()" 
+		size="large">
+            <div class="chartPieOne" style="width:100%;height:600px;"></div>
+            <p style="color:red;font-size:20px;font-family:'微软雅黑';">总量数值为：{{dialogChartPieOne.total_num}}</p>
 		</el-dialog>
 		<!-- 消耗占比图 -->
-		<el-dialog title="饼状图" :width="dialogChartPieTwo.dialogWidth" :visible.sync="dialogChartPieTwo.dialogVisible" @open="showTwo()" size="large">
-            <div class="chartPieTwo" style="width: 100%; height: 600px;"></div>
-            <p style="color: red; font-size: 20px; font-family: '微软雅黑';">总量数值为：{{dialogChartPieTwo.total_num}}</p>
+		<el-dialog 
+		title="饼状图" 
+		:width="dialogChartPieTwo.dialogWidth" 
+		:visible.sync="dialogChartPieTwo.dialogVisible" 
+		@open="showTwo()" 
+		size="large">
+            <div class="chartPieTwo" style="width:100%;height:600px;"></div>
+            <p style="color:red;font-size:20px;font-family:'微软雅黑';">总量数值为：{{dialogChartPieTwo.total_num}}</p>
 		</el-dialog>
 	</section>
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import echarts from 'echarts';
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
@@ -98,7 +121,7 @@ export default {
 			// 搜索条件的组装字段
 			formOne: {
 				choiceDate: [new Date()-7*24*60*60*1000, new Date()], 
-                type: '1',//1为聊币，2为聊票，当前是聊币的页面
+                type: '1',//1为豆币，2为豆票，当前是豆币的页面
                 channel: '',//渠道号
                 show_type: '0'//显示方式0->日，1->月
 			},
@@ -171,7 +194,7 @@ export default {
 							arrDate[l] = {
 								date: arrDate[l],
 								arr: [
-										// 聊币产出
+										// 豆币产出
 										{ type: '4', goldTicket: 1, name: '兑换获得', num: 0, },
 										{ type: '5', goldTicket: 1, name: '充值', num: 0, },
 										{ type: '11', goldTicket: 12, name: '后台赠送', num: 0, },
@@ -180,7 +203,7 @@ export default {
 										{ type: '15', goldTicket: 1, name: '充值促销', num: 0, },
 										{ type: '43', goldTicket: 1, name: '家族内礼物红包返还', num: 0, },
 										{ type: '52', goldTicket: 1, name: '直播间内礼物红包返还', num: 0, },
-										// 聊币消耗
+										// 豆币消耗
 										{ type: '1', goldTicket: 1, name: '偷听消费', num: 0, },
 										{ type: '2', goldTicket: 1, name: '礼物消费', num: 0, },
 										{ type: '3', goldTicket: 1, name: '通话消费', num: 0, },
@@ -192,7 +215,7 @@ export default {
 										{ type: '24', goldTicket: 1, name: '录音消费', num: 0, },
 										{ type: '25', goldTicket: 1, name: '打赏录音消费', num: 0, },
 										{ type: '27', goldTicket: 1, name: '偷听录音消费', num: 0, },
-										{ type: '32', goldTicket: 1, name: '发消息消费（聊票）消费', num: 0, },
+										{ type: '32', goldTicket: 1, name: '发消息消费（豆票）消费', num: 0, },
 										{ type: '34', goldTicket: 1, name: 'vip发布表白消费', num: 0, },
 										{ type: '37', goldTicket: 1, name: '一对一转盘消费', num: 0, },
 										{ type: '38', goldTicket: 1, name: '家族内礼物消费', num: 0, },
@@ -253,7 +276,7 @@ export default {
 						var pie_chat_gold_out_total_list = [];
 						var pie_chat_gold_out_total_name = [];
 						var tatal_list = [
-							// 聊币产出
+							// 豆币产出
 							{ type: '4', goldTicket: 1, name: '兑换获得', num: 0, },
 							{ type: '5', goldTicket: 1, name: '充值', num: 0, },
 							{ type: '11', goldTicket: 12, name: '后台赠送', num: 0, },
@@ -262,7 +285,7 @@ export default {
 							{ type: '15', goldTicket: 1, name: '充值促销', num: 0, },
 							{ type: '43', goldTicket: 1, name: '家族内礼物红包返还', num: 0, },
 							{ type: '52', goldTicket: 1, name: '直播间内礼物红包返还', num: 0, },
-							// 聊币消耗
+							// 豆币消耗
 							{ type: '1', goldTicket: 1, name: '偷听消费', num: 0, },
 							{ type: '2', goldTicket: 1, name: '礼物消费', num: 0, },
 							{ type: '3', goldTicket: 1, name: '通话消费', num: 0, },
@@ -274,7 +297,7 @@ export default {
 							{ type: '24', goldTicket: 1, name: '录音消费', num: 0, },
 							{ type: '25', goldTicket: 1, name: '打赏录音消费', num: 0, },
 							{ type: '27', goldTicket: 1, name: '偷听录音消费', num: 0, },
-							{ type: '32', goldTicket: 1, name: '发消息消费（聊票）消费', num: 0, },
+							{ type: '32', goldTicket: 1, name: '发消息消费（豆票）消费', num: 0, },
 							{ type: '34', goldTicket: 1, name: 'vip发布表白消费', num: 0, },
 							{ type: '37', goldTicket: 1, name: '一对一转盘消费', num: 0, },
 							{ type: '38', goldTicket: 1, name: '家族内礼物消费', num: 0, },
@@ -311,20 +334,20 @@ export default {
 								}
 							}
 						}
-						// 聊币产出的饼状图所需要的数据
+						// 豆币产出的饼状图所需要的数据
 						_this.chartPieDataOne = {
-							title: baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0)+'至'+baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0)+'聊币产出占比饼状图',
+							title: baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0)+'至'+baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0)+'豆币产出占比饼状图',
 							sub_title: '1、悬浮查看；2、左边可点击选取特定几项对比。',
-							content: '具体聊币数及其比例',
+							content: '具体豆币数及其比例',
 							name: pie_chat_gold_in_total_name,
 							data: pie_chat_gold_in_total_list,
 							total: res.data.data.chat_gold_in_total,
 						};
-						// 聊币消耗的饼状图所需要的数据
+						// 豆币消耗的饼状图所需要的数据
 						_this.chartPieDataTwo = {
-							title: baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0)+'至'+baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0)+'聊币消耗占比饼状图',
+							title: baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0)+'至'+baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0)+'豆币消耗占比饼状图',
 							sub_title: '1、悬浮查看；2、左边可点击选取特定几项对比。',
-							content: '具体聊币数及其比例',
+							content: '具体豆币数及其比例',
 							name: pie_chat_gold_out_total_name,
 							data: pie_chat_gold_out_total_list,
 							total: res.data.data.chat_gold_out_total,							

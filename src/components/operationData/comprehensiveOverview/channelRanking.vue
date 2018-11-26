@@ -43,31 +43,149 @@
             :height="searchPageHeight">
                 <el-table-column prop="channel" label="渠道号"></el-table-column>
                 <el-table-column prop="device" label="激活"></el-table-column>
-                <el-table-column prop="device_up_down" label="激活环比"></el-table-column>
+                <el-table-column 
+                prop="device_up_down" 
+                label="激活环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.device_up_down==0">{{Math.abs(scope.row.device_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.device_up_down<0">↓ {{Math.abs(scope.row.device_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.device_up_down>0">↑ {{Math.abs(scope.row.device_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="register" label="注册"></el-table-column>
-                <el-table-column prop="register_up_down" label="注册环比"></el-table-column>
+                <el-table-column 
+                prop="register_up_down" 
+                label="注册环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.register_up_down==0">{{Math.abs(scope.row.register_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.register_up_down<0">↓ {{Math.abs(scope.row.register_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.register_up_down>0">↑ {{Math.abs(scope.row.register_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="active" label="DAU"></el-table-column>
-                <el-table-column prop="active_up_down" label="DAU环比"></el-table-column>
+                <el-table-column 
+                prop="active_up_down" 
+                label="DAU环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.active_up_down==0">{{Math.abs(scope.row.active_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.active_up_down<0">↓ {{Math.abs(scope.row.active_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.active_up_down>0">↑ {{Math.abs(scope.row.active_up_down)}}</p>
+                        </div>
+                    </template>    
+                </el-table-column>
                 <el-table-column prop="consume_user" label="付费人数"></el-table-column>
-                <el-table-column prop="consume_user_up_down" label="付费人数环比"></el-table-column>
+                <el-table-column 
+                prop="consume_user_up_down" 
+                label="付费人数环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.consume_user_up_down==0">{{Math.abs(scope.row.consume_user_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.consume_user_up_down<0">↓ {{Math.abs(scope.row.consume_user_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.consume_user_up_down>0">↑ {{Math.abs(scope.row.consume_user_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="total_fee" label="付费金额"></el-table-column>
-                <el-table-column prop="total_fee_up_down" label="付费金额环比"></el-table-column>
+                <el-table-column 
+                prop="total_fee_up_down" 
+                label="付费金额环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.total_fee_up_down==0">{{Math.abs(scope.row.total_fee_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.total_fee_up_down<0">↓ {{Math.abs(scope.row.total_fee_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.total_fee_up_down>0">↑ {{Math.abs(scope.row.total_fee_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="consume_rate" label="付费率"></el-table-column>
-                <el-table-column prop="consume_rate_up_down" label="付费率环比"></el-table-column>
+                <el-table-column 
+                prop="consume_rate_up_down" 
+                label="付费率环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.consume_rate_up_down==0">{{Math.abs(scope.row.consume_rate_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.consume_rate_up_down<0">↓ {{Math.abs(scope.row.consume_rate_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.consume_rate_up_down>0">↑ {{Math.abs(scope.row.consume_rate_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="consume_arpu" label="付费ARPU值"></el-table-column>
-                <el-table-column prop="consume_arpu_up_down" label="付费ARPU值环比"></el-table-column>
+                <el-table-column 
+                prop="consume_arpu_up_down" 
+                label="付费ARPU值环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.consume_arpu_up_down==0">{{Math.abs(scope.row.consume_arpu_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.consume_arpu_up_down<0">↓ {{Math.abs(scope.row.consume_arpu_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.consume_arpu_up_down>0">↑ {{Math.abs(scope.row.consume_arpu_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="first_time_user" label="新增付费人数"></el-table-column>
-                <el-table-column prop="first_time_user_up_down" label="新增付费人数环比"></el-table-column>
+                <el-table-column 
+                prop="first_time_user_up_down" 
+                label="新增付费人数环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.first_time_user_up_down==0">{{Math.abs(scope.row.first_time_user_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.first_time_user_up_down<0">↓ {{Math.abs(scope.row.first_time_user_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.first_time_user_up_down>0">↑ {{Math.abs(scope.row.first_time_user_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="first_time_amount" label="新增充值金额"></el-table-column>
-                <el-table-column prop="first_time_amount_up_down" label="新增充值金额环比"></el-table-column>
+                <el-table-column 
+                prop="first_time_amount_up_down" 
+                label="新增充值金额环比">
+                     <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.first_time_amount_up_down==0">{{Math.abs(scope.row.first_time_amount_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.first_time_amount_up_down<0">↓ {{Math.abs(scope.row.first_time_amount_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.first_time_amount_up_down>0">↑ {{Math.abs(scope.row.first_time_amount_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="new_consume_rate" label="新增付费率"></el-table-column>
-                <el-table-column prop="new_consume_rate_up_down" label="新增付费率环比"></el-table-column>
+                <el-table-column 
+                prop="new_consume_rate_up_down" 
+                label="新增付费率环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.new_consume_rate_up_down==0">{{Math.abs(scope.row.new_consume_rate_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.new_consume_rate_up_down<0">↓ {{Math.abs(scope.row.new_consume_rate_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.new_consume_rate_up_down>0">↑ {{Math.abs(scope.row.new_consume_rate_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="new_consume_arpu" label="新增付费ARPU"></el-table-column>
-                <el-table-column prop="new_consume_arpu_up_down" label="新增付费ARPU环比"></el-table-column>
+                <el-table-column 
+                prop="new_consume_arpu_up_down" 
+                label="新增付费ARPU环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.new_consume_arpu_up_down==0">{{Math.abs(scope.row.new_consume_arpu_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.new_consume_arpu_up_down<0">↓ {{Math.abs(scope.row.new_consume_arpu_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.new_consume_arpu_up_down>0">↑ {{Math.abs(scope.row.new_consume_arpu_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="ret_one_rate" label="次日留存"></el-table-column>
-                <el-table-column prop="ret_one_rate_up_down" label="次日留存环比"></el-table-column>
-
-               
+                <el-table-column 
+                prop="ret_one_rate_up_down" 
+                label="次日留存环比">
+                    <template slot-scope="scope">
+                        <div slot="reference" class="name-wrapper">
+                            <p style="background-color:#aaa;color:#fff;" v-if="scope.row.ret_one_rate_up_down==0">{{Math.abs(scope.row.ret_one_rate_up_down)}}</p>
+                            <p style="background-color:green;color:#fff;" v-else-if="scope.row.ret_one_rate_up_down<0">↓ {{Math.abs(scope.row.ret_one_rate_up_down)}}</p>
+                            <p style="background-color:red;color:#fff;" v-else-if="scope.row.ret_one_rate_up_down>0">↑ {{Math.abs(scope.row.ret_one_rate_up_down)}}</p>
+                        </div>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -127,8 +245,10 @@ export default {
             var _this = this;
             let url = allget+"/Base/getChannelDataRank";
             let params = {
-                date: baseConfig.changeDateTime(this.formOne.params.startDate, 0),
-                channel: _this.formOne.params.channelId.join(','),
+                // date: baseConfig.changeDateTime(this.formOne.params.startDate, 0),
+                // channel: _this.formOne.params.channelId.join(','),
+                date: '2018-08-01',
+                channel: '13',
             };
             axios.get(url, { params: params })
                 .then((res) => {

@@ -144,13 +144,17 @@ export default {
 			} else if(val==1) {
 				_this.listLoading = true;
 				var url = '/User/addRegisterSayHelloRedis';
-				var params = {
-					content: encodeURIComponent(_this.formTwo.name),
-					sex: _this.formTwo.region,
-				};
-				if(params.content!='' && (params.sex=='1' || params.sex=='2')){
+				let formData = new FormData();
+				formData.append('content', _this.formTwo.name);
+				formData.append('position', _this.formTwo.region);
+				let config = {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				};	
+				if(formData.get('content')!=''&&(formData.get('sex')=='1'||formData.get('sex')=='2')){
 					_this.dialogFormVisible = false; 
-					axios.get(allget+url, {params: params})
+					axios.post(allget+url, formData, config)					
 						.then((res) => {
 							if(res.data.ret) {
 								_this.listLoading = false;

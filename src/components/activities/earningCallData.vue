@@ -36,7 +36,7 @@
 				  	<el-table-column prop="" label="日期" min-width="200"></el-table-column>
 			  		<el-table-column prop="uid" label="UID" min-width="200"></el-table-column>
 			  		<el-table-column prop="nickname" label="昵称" min-width="200"></el-table-column>
-			  		<el-table-column prop="total" label="总收益(聊票)" min-width="200"></el-table-column>
+			  		<el-table-column prop="total" label="总收益(豆票)" min-width="200"></el-table-column>
 			  		<el-table-column prop="bind_uid" label="上级UID" min-width="200"></el-table-column>
 			  		<el-table-column prop="" label="上级昵称" min-width="200"></el-table-column>
 				</el-table>

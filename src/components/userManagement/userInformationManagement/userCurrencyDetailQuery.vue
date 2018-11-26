@@ -15,8 +15,8 @@
                 <el-form-item>
                     <span>货币类型：</span>
                     <el-select  style="width: 100px;" v-model="money_type">
-                        <el-option label="聊币" value="1"></el-option>
-                        <el-option label="聊票" value="2"></el-option>
+                        <el-option label="豆币" value="1"></el-option>
+                        <el-option label="豆票" value="2"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -66,11 +66,11 @@
                         <el-option label="微信分享获得" value="29"></el-option>
                         <el-option label="随机通话加速消费" value="30"></el-option>
                         <el-option label="代理获得" value="31"></el-option>
-                        <el-option label="发消息消费(聊票)消费" value="32"></el-option>
+                        <el-option label="发消息消费(豆票)消费" value="32"></el-option>
                         <el-option label="VIP赠送开门卡" value="33"></el-option>
                         <el-option label="VIP发布表白消费" value="34"></el-option>
-                        <el-option label="发消息消费(聊票)获得" value="35"></el-option>
-                        <el-option label="代理活动获得聊票" value="36"></el-option>
+                        <el-option label="发消息消费(豆票)获得" value="35"></el-option>
+                        <el-option label="代理活动获得豆票" value="36"></el-option>
                         <el-option label="一对一转盘消费" value="37"></el-option>
                         <el-option label="家族内礼物消费" value="38"></el-option>
                         <el-option label="家族内礼物获得" value="39"></el-option>
@@ -88,6 +88,7 @@
                         <el-option label="直播间内抢礼物红包获得" value="51"></el-option>
                         <el-option label="直播间内礼物红包返还" value="52"></el-option>
                         <el-option label="平台奖励获得" value="53"></el-option>
+                        <el-option label="系统扣除" value="62"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -100,7 +101,6 @@
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
             <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
                 <el-table-column prop="time" label="日期"></el-table-column>
@@ -112,10 +112,15 @@
                 <el-table-column prop="history" label="交易前数额"></el-table-column>
                 <el-table-column prop="now" label="交易后数额"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :current-page="page+1" 
+                :total=totalpage 
+                style="float:right; ">
+            </el-pagination>
             </el-col>
         </template>
     </section>
@@ -151,9 +156,9 @@ export default {
         },
         judgeMoney(row){
             if(row.money_type==1){
-                return "聊币";
+                return "豆币";
             }else if(row.money_type==2){
-                return "聊票";
+                return "豆票";
             }
         },
         judgeTrade(row){
@@ -222,15 +227,15 @@ export default {
             }else if(row.trade_type==31){
                 return "代理获得";
             }else if(row.trade_type==32){
-                return "发消息消费(聊票)消费";
+                return "发消息消费(豆票)消费";
             }else if(row.trade_type==33){
                 return "VIP赠送开门卡";
             }else if(row.trade_type==34){
                 return "VIP发布表白消费";
             }else if(row.trade_type==35){
-                return "发消息消费(聊票)获得";
+                return "发消息消费(豆票)获得";
             }else if(row.trade_type==36){
-                return "代理活动获得聊票";
+                return "代理活动获得豆票";
             }else if(row.trade_type==37){
                 return "一对一转盘消费";
             }else if(row.trade_type==38){
@@ -265,6 +270,8 @@ export default {
                 return "直播间内礼物红包返还";
             }else if(row.trade_type==53){
                 return "平台奖励获得";
+            }else if(row.trade_type==62) {
+                return "系统扣除";
             }
         },
         // 获取数据

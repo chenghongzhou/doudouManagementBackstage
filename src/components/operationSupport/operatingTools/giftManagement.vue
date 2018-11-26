@@ -36,7 +36,7 @@
 						<el-table-column label="礼物类型" width="50">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<p v-if="scope.row.type==1">聊币</p>									
+									<p v-if="scope.row.type==1">豆币</p>									
 								</div>
 							</template>
 						</el-table-column>
@@ -149,7 +149,7 @@
 						<el-table-column label="礼物类型" width="50">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<p v-if="scope.row.type==1">聊币</p>									
+									<p v-if="scope.row.type==1">豆币</p>									
 								</div>
 							</template>
 						</el-table-column>
@@ -262,7 +262,7 @@
 						<el-table-column label="礼物类型" width="50">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<p v-if="scope.row.type==1">聊币</p>									
+									<p v-if="scope.row.type==1">豆币</p>									
 								</div>
 							</template>
 						</el-table-column>
@@ -468,7 +468,7 @@
 					</el-form-item>
 					<el-form-item label="礼物类型" :label-width="formLabelWidth">
 						<el-select v-model="giftUploading.params.type">
-							<el-option label="聊币" value="1"></el-option>
+							<el-option label="豆币" value="1"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="礼物描述" :label-width="formLabelWidth">
@@ -557,7 +557,7 @@
 					</el-form-item>
 					<el-form-item label="礼物类型" :label-width="formLabelWidth">
 						<el-select v-model="giftEditorloading.params.type">
-							<el-option label="聊币" value="1"></el-option>
+							<el-option label="豆币" value="1"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="添加时间" :label-width="formLabelWidth">

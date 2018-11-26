@@ -1,11 +1,20 @@
 <template>
 	<!-- 收益悬浮窗->table为指的是数据table展示页面 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick">
-			<el-tab-pane label="任务设置" name="first" :style="{ height: tabHeight+ 'px' }">
-				<el-form :label-position="labelPosition" class="demo-ruleForm" label-width="120px" :model="formLabelAlign" style="padding-left: 30px;">
+		<el-tabs 
+		v-model="activeName2" 
+		type="border-card" 
+		@tab-click="handleClick">
+			<el-tab-pane 
+			label="任务设置" 
+			name="first" 
+			:style="{height:tabHeight+'px'}">
+				<el-form 
+				:label-position="labelPosition" 
+				class="demo-ruleForm" 
+				label-width="120px" 
+				:model="formLabelAlign" 
+				style="padding-left:30px;">
 					<el-form-item label="任务名称" style="padding-top: 30px;">
 						<el-input v-model="formLabelAlign.name"></el-input>
 					</el-form-item>
@@ -23,9 +32,9 @@
 					</el-form-item>
 					<el-form-item label="奖励类型">
 						<el-select v-model="formLabelAlign.reward_type">
-							<el-option label="聊币" value="0"></el-option>
+							<el-option label="豆币" value="0"></el-option>
 							<el-option label="好评分" value="1"></el-option>
-							<el-option label="聊票" value="2"></el-option>
+							<el-option label="豆票" value="2"></el-option>
 							<el-option label="无" value="3"></el-option>
 						</el-select>
 					</el-form-item>
@@ -60,7 +69,7 @@
 							<el-option label="排行榜-魅力榜" value="VOIRankingVC_Charm"></el-option>
 							<el-option label="一键语聊" value="VOIRadarVC_OneKeyChat"></el-option>
 							<el-option label="偷听学聊" value="VOIRadarVC_EavesdropLearnChat"></el-option>
-							<el-option label="做任务赚聊币" value="VOIChatCoinVC"></el-option>
+							<el-option label="做任务赚豆币" value="VOIChatCoinVC"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="安卓链接地址" v-if="formLabelAlign.jump_app_show">
@@ -81,16 +90,22 @@
 							<el-option label="排行榜-魅力榜" value="CharmRankFragment"></el-option>
 							<el-option label="一键语聊" value="ConversationMatchActivity"></el-option>
 							<el-option label="偷听学聊" value="EavesdropMatchActivity"></el-option>
-							<el-option label="做任务赚聊币" value="TaskActivity"></el-option>
+							<el-option label="做任务赚豆币" value="TaskActivity"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="排序">
 						<el-input v-model="formLabelAlign.sort"></el-input>
 					</el-form-item>
 				</el-form>
-				<el-button type="primary" style="margin-left: 50px; margin-top: 30px;" @click="sendToTask()">确定发送</el-button>
+				<el-button 
+				type="primary" 
+				style="margin-left:50px;margin-top:30px;" 
+				@click="sendToTask()">确定发送</el-button>
 			</el-tab-pane>
-			<el-tab-pane label="操作记录管理" name="second" :style="{ height:  tabSearchHeight+'px' }">
+			<el-tab-pane 
+			label="操作记录管理" 
+			name="second" 
+			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
 						<el-form-item>
@@ -101,13 +116,20 @@
 							</el-select>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableData">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableData">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--用户的数据展示列表-->
 				<template>
-					<el-table ref="tableHeightAddTab" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeightAddTab" 
+					:data="onePageTabData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column type="index" width="50" ></el-table-column>
 						<el-table-column prop="id" label="ID" width="50"></el-table-column>
 						<el-table-column prop="name" label="任务名称" width="100"></el-table-column>
@@ -130,9 +152,9 @@
 						<el-table-column label="奖励类型" width="80">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<p v-if="scope.row.reward_type=='0'" :type="scope.row.reward_type">聊币</p>
+									<p v-if="scope.row.reward_type=='0'" :type="scope.row.reward_type">豆币</p>
 									<p v-if="scope.row.reward_type=='1'" :type="scope.row.reward_type">好评分</p>
-									<p v-if="scope.row.reward_type=='2'" :type="scope.row.reward_type">聊票</p>
+									<p v-if="scope.row.reward_type=='2'" :type="scope.row.reward_type">豆票</p>
 									<p v-if="scope.row.reward_type=='3'" :type="scope.row.reward_type">无</p>
 								</div>
 							</template>
@@ -141,7 +163,13 @@
 						<el-table-column label="跳转类型" width="100">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<p v-if="(scope.row.jump_url==null&&scope.row.ios_link==null&&scope.row.android_link==null)||(scope.row.jump_url==''&&scope.row.ios_link==''&&scope.row.android_link=='')">无</p>
+									<p v-if="(scope.row.jump_url==null&&
+									scope.row.ios_link==null&&
+									scope.row.android_link==null)
+									||
+									(scope.row.jump_url==''&&
+									scope.row.ios_link==''&&
+									scope.row.android_link=='')">无</p>
 									<p v-else-if="scope.row.jump_url!=null&&scope.row.jump_url!=''">H5页面</p>
 									<p v-else-if="scope.row.ios_link!=null">应用内</p>
 								</div>
@@ -168,7 +196,7 @@
 									<p v-else-if="scope.row.android_link=='CharmRankFragment'" androidlink="CharmRankFragment" ioslink="VOIRankingVC_Charm">排行榜-魅力榜</p>
 									<p v-else-if="scope.row.android_link=='ConversationMatchActivity'" androidlink="ConversationMatchActivity" ioslink="VOIRadarVC_OneKeyChat">一键语聊</p>
 									<p v-else-if="scope.row.android_link=='EavesdropMatchActivity'" androidlink="EavesdropMatchActivity" ioslink="VOIRadarVC_EavesdropLearnChat">偷听学聊</p>
-									<p v-else-if="scope.row.android_link=='TaskActivity'" androidlink="TaskActivity" ioslink="VOIChatCoinVC">做任务赚聊币</p>
+									<p v-else-if="scope.row.android_link=='TaskActivity'" androidlink="TaskActivity" ioslink="VOIChatCoinVC">做任务赚豆币</p>
 								</div>
 							</template>
 						</el-table-column>
@@ -183,15 +211,30 @@
 						</el-table-column>					
 						<el-table-column label="操作" min-width="100">
 							<template slot-scope="scope">
-								<el-button type="primary" @click.native.prevent="changeOneUserData(scope.$index, scope.row)" size="small">编辑</el-button>								
-								<el-button v-if="scope.row.status=='0'" type="primary" @click.native.prevent="grounding(scope.$index, scope.row)" size="small">上架</el-button>
-								<el-button v-if="scope.row.status=='1'" plain @click.native.prevent="undercarriage(scope.$index, scope.row)" size="small">下架</el-button>
+								<el-button 
+								type="primary" 
+								@click.native.prevent="changeOneUserData(scope.$index, scope.row)" 
+								size="small">编辑</el-button>								
+								<el-button 
+								v-if="scope.row.status=='0'" 
+								type="primary" 
+								@click.native.prevent="grounding(scope.$index, scope.row)" 
+								size="small">上架</el-button>
+								<el-button 
+								v-if="scope.row.status=='1'" 
+								plain 
+								@click.native.prevent="undercarriage(scope.$index, scope.row)" 
+								size="small">下架</el-button>
 							</template>
 						</el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="handleCurrentChange" 
+						:page-size="20" 
+						:total="totalpage"
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>

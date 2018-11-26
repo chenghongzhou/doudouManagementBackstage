@@ -1,5 +1,5 @@
 var goldTicket = [
-    // goldTicket->1为聊币，2->聊票，3->先不管，12->既有聊币又有聊票
+    // goldTicket->1为豆币，2->豆票，3->先不管，12->既有豆币又有豆票
     { type: '1', goldTicket: 1, name: '偷听消费', },
     { type: '2', goldTicket: 1, name: '礼物消费', },
     { type: '3', goldTicket: 1, name: '通话消费', },
@@ -31,10 +31,10 @@ var goldTicket = [
     { type: '29', goldTicket: 2, name: '微信分享获得', },
     { type: '30', goldTicket: 2, name: '随机通话加速获得', },
     { type: '31', goldTicket: 2, name: '代理获得', },
-    { type: '32', goldTicket: 1, name: '发消息消费（聊票）消费', },
+    { type: '32', goldTicket: 1, name: '发消息消费（豆票）消费', },
     { type: '33', goldTicket: 3, name: 'vip赠送开门卡', },
     { type: '34', goldTicket: 1, name: 'vip发布表白消费', },
-    { type: '35', goldTicket: 2, name: '发消息消费（聊票）获得', },
+    { type: '35', goldTicket: 2, name: '发消息消费（豆票）获得', },
     { type: '36', goldTicket: 2, name: '代理活动获得', },
     { type: '37', goldTicket: 1, name: '一对一转盘消费', },
     { type: '38', goldTicket: 1, name: '家族内礼物消费', },
@@ -68,7 +68,7 @@ var goldTicket = [
 
 
 goldTicket = [
-    // goldTicket->1为聊币，2->聊票，3->先不管，12->既有聊币又有聊票
+    // goldTicket->1为豆币，2->豆票，3->先不管，12->既有豆币又有豆票
     { type: '1', goldTicket: 1, name: '偷听消费', num: 0, },
     { type: '2', goldTicket: 1, name: '礼物消费', num: 0, },
     { type: '3', goldTicket: 1, name: '通话消费', num: 0, },
@@ -100,9 +100,9 @@ goldTicket = [
     { type: '29', goldTicket: 2, name: '微信分享获得', num: 0, },
     { type: '30', goldTicket: 2, name: '随机通话加速获得', num: 0, },
     { type: '31', goldTicket: 2, name: '代理获得', num: 0, },
-    { type: '32', goldTicket: 1, name: '发消息消费（聊票）消费', num: 0, },
+    { type: '32', goldTicket: 1, name: '发消息消费（豆票）消费', num: 0, },
     { type: '34', goldTicket: 1, name: 'vip发布表白消费', num: 0, },
-    { type: '35', goldTicket: 2, name: '发消息消费（聊票）获得', num: 0, },
+    { type: '35', goldTicket: 2, name: '发消息消费（豆票）获得', num: 0, },
     { type: '36', goldTicket: 2, name: '代理活动获得', num: 0, },
     { type: '37', goldTicket: 1, name: '一对一转盘消费', num: 0, },
     { type: '38', goldTicket: 1, name: '家族内礼物消费', num: 0, },
@@ -131,7 +131,7 @@ goldTicket = [
 
 
 var goldTicket = [
-    // goldTicket->1为聊币，2->聊票，3->先不管，12->既有聊币又有聊票
+    // goldTicket->1为豆币，2->豆票，3->先不管，12->既有豆币又有豆票
     { type: '6', goldTicket: 2, name: '通话获得', },
     { type: '7', goldTicket: 2, name: '礼物获得', },
     { type: '9', goldTicket: 2, name: '提现', },
@@ -147,7 +147,7 @@ var goldTicket = [
     { type: '29', goldTicket: 2, name: '微信分享获得', },
     { type: '30', goldTicket: 2, name: '随机通话加速获得', },
     { type: '31', goldTicket: 2, name: '代理获得', },
-    { type: '35', goldTicket: 2, name: '发消息消费（聊票）获得', },
+    { type: '35', goldTicket: 2, name: '发消息消费（豆票）获得', },
     { type: '36', goldTicket: 2, name: '代理活动获得', },
     { type: '39', goldTicket: 2, name: '家族内礼物获得', },
     { type: '42', goldTicket: 2, name: '家族内抢礼物红包获得', },
