@@ -1244,6 +1244,7 @@ export default {
 					_this.listLoading = false;
 					if(res.data.ret) {
 						baseConfig.successTipMsg(_this, '删除成功');
+						
 						_this.formFour.TabData.splice(index, 1);
 						_this.formFour.Totalpage--;
 					} else {

@@ -111,9 +111,7 @@ export default {
 		// 编辑修改某一条随机昵称
 		changeOneUserData(index, rows){
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 	
-			_this.formTwo.index = index;
 			_this.formTwo.id = id;
 			_this.formTwo.key = rows.key;
 			_this.formTwo.value = rows.value;

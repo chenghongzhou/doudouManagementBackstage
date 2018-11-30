@@ -337,7 +337,6 @@ export default {
 		// 编辑修改某一条随机昵称
 		changeOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 
 			_this.activeName2 = 'first'; // 跳转到任务设置页面
 			_this.formLabelAlign = rows; // 对数据结构进行组装
@@ -368,7 +367,6 @@ export default {
 		// 上架的操作
 		grounding(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20;
 			var id = rows.id;	
 			var url = 'Marquee/upDownRevenueFloatingWindowData';
 			var params = {
@@ -379,7 +377,7 @@ export default {
 				.then((res) => {
 					if(res.data.ret) {
 						baseConfig.successTipMsg(_this, '上架成功！');
-						_this.tabData[index].status = 1;
+						_this.getTableData();
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg); 
 					}
@@ -391,7 +389,6 @@ export default {
 		// 下架的操作
 		undercarriage(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20;
 			var id = rows.id; 	
 			var url = 'Marquee/upDownRevenueFloatingWindowData';
 			var params = {
@@ -402,7 +399,7 @@ export default {
 				.then((res) => { 
 					if(res.data.ret) {
 						baseConfig.successTipMsg(_this, '下架成功！');
-						_this.tabData[index].status = 0;					
+						_this.getTableData();
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
 					}

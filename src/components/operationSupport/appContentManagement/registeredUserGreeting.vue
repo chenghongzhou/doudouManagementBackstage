@@ -206,7 +206,6 @@ export default {
 		// 删除某一条注册语
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var content = rows.value; 
 			_this.listLoading = true;
 			var url = '/User/delRegisterSayHelloRedis';

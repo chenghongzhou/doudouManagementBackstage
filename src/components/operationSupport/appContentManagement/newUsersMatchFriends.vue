@@ -158,7 +158,6 @@ export default {
 		// 删除某一个已经存在确定的用户
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var uid = rows.uid; 	
 			_this.listLoading = true;
 			var url = '/User/delOldFriendRedis';

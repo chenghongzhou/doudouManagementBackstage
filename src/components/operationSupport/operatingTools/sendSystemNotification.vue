@@ -433,7 +433,6 @@ export default {
 		// 取消发送操作
 		cacelOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20;
 			var id = rows.id;	
 			_this.listLoading = true;
 			let formData = new FormData();

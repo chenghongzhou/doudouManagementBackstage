@@ -396,7 +396,6 @@ export default {
 		// 取消发送操作
 		lookOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var send_id = rows.send_id; 	
 			_this.listLoading = true;
 			var url = '/GlobalSet/getMsmMessStatus';

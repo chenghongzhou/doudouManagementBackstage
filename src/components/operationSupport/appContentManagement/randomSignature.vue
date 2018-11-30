@@ -121,9 +121,7 @@ export default {
 		// 编辑修改某一条随机签名
 		changeOneUserData(index, rows){
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 	
-			_this.formTwo.index = index;
 			_this.formTwo.id = id;
 			_this.formTwo.name = rows.signature;
 			_this.dialogFormVisible = true; 
@@ -165,7 +163,6 @@ export default {
 		// 删除某一条随机签名
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id;	
 			_this.listLoading = true;
 			var url = '/GlobalSet/delRandomSignature';
@@ -223,8 +220,8 @@ export default {
             if(strPath.indexOf('http://')==0) {
                 strPath = strPath.substring(strPath.indexOf('http://')+7, strPath.length);
             }
-            var index = strPath.indexOf('/');
-            strPath = strPath.substring(index,strPath.length);
+			var index = strPath.indexOf('/');
+			strPath = strPath.substring(index+2,strPath.length);
             _this.$router.replace({
                 path: '/empty', 
                 query: {from: strPath},

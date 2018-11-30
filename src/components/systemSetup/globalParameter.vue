@@ -164,7 +164,6 @@ export default {
 		// 编辑修改某一条渠道号名称
 		changeOneUserData(index, rows){
 			var _this = this;
-			index = index + (_this.page-1)*20;
 			_this.formOne.id = rows.id;
 			_this.formOne.g_key = rows.g_key;
 			_this.formOne.desc = rows.desc;
@@ -258,7 +257,6 @@ export default {
 		// 删除某一条活动通知记录
 		// deleteOneUserData(index, rows) {
 		// 	var _this = this;
-		// 	index = index + (_this.page-1)*20;
 		// 	var id = rows.id;
 		// 	_this.listLoading = true;
 		// 	let formData = new FormData();

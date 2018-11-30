@@ -124,8 +124,6 @@ export default {
 		// 编辑修改某一条随机标签
 		changeOneUserData(index, rows){
 			var _this = this;
-			index = index + (_this.page-1)*20;
-			_this.formTwo.index = index;
 			_this.formTwo.id = rows.id;
 			_this.formTwo.name = rows.name;
 			_this.formTwo.create_time = rows.create_time;
@@ -205,7 +203,6 @@ export default {
 		// 删除某一条随机标签
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 	
 			_this.listLoading = true;
 			var url = '/GlobalSet/delLabels';
@@ -234,7 +231,7 @@ export default {
                 strPath = strPath.substring(strPath.indexOf('http://')+7, strPath.length);
             }
             var index = strPath.indexOf('/');
-			strPath = strPath.substring(index, strPath.length);
+			strPath = strPath.substring(index+2, strPath.length);
             _this.$router.replace({
                 path: '/empty', 
                 query: {from: strPath},

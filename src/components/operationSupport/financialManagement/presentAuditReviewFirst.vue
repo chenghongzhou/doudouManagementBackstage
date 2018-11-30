@@ -306,7 +306,6 @@ export default {
         Auditing(index, rows) {
             // 审核详情按钮
             var _this = this;
-            index = index + _this.formOne.page * 20;
             _this.Alipay.pay_account = rows.pay_account;
             _this.Alipay.name = rows.name;
             _this.Alipay.id = rows.id;

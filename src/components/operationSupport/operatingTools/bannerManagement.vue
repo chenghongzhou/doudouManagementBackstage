@@ -582,7 +582,6 @@ export default {
 		// 对应的banner条的删除功能
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.formTwo.Page-1)*20;
 			var id = rows.id;
 			_this.listLoading = true;
 			var url = 'Banner/deleteBanner';
@@ -607,7 +606,6 @@ export default {
 		// 编辑进行修改
 		changeOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.formTwo.Page-1)*20;
 			_this.bannerEditorloading.params.position = rows.position;
 			_this.bannerEditorloading.params.id = rows.id;
 			_this.bannerEditorloading.params.sort = rows.sort;

@@ -220,7 +220,6 @@ export default {
 		// 删除某一个已经存在确定的用户
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 	
 			// 下面的操作主要是为了进行将删除的用户调用删除接口进行删除
 			_this.listLoading = true;

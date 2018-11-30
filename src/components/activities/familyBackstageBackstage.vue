@@ -357,7 +357,6 @@ export default {
 		// 上架的操作
 		grounding(rows) {
 			var _this = this;
-			// index = index + (_this.formTwo.Page-1)*20;
 			var id = rows.id;
 			_this.listLoading = true;
 			var url = 'Activity/upDownFamilyThemeActivity';
@@ -382,7 +381,6 @@ export default {
 		// 下架的操作
 		undercarriage(rows) {
 			var _this = this;
-			// index = index + (_this.formTwo.Page-1)*20;
 			var id = rows.id;
 			_this.listLoading = true;
 			var url = 'Activity/upDownFamilyThemeActivity';

@@ -299,6 +299,11 @@ import monetaryMembershipApplicationAndRecord from '../components/operationSuppo
 import applicationMonyMg from '../components/operationSupport/financialManagement/applicationMonyMg.vue';//货币申请及记录
 import vipPackageList from '../components/operationSupport/financialManagement/vipPackageList.vue';//VIP会员配置列表
 import roomSubsidyCheck from '../components/operationSupport/financialManagement/roomSubsidyCheck.vue';//房间补贴审核记录
+// 3-6、KTV管理
+import singerManagement from '../components/operationSupport/ktvManagement/singerManagement.vue';//歌手管理
+import songsStyleManagement from '../components/operationSupport/ktvManagement/songsStyleManagement.vue';//歌曲风格管理
+import songManagement from '../components/operationSupport/ktvManagement/songManagement.vue';//歌曲管理
+
 // 运营支撑end
 
 // 4、活动专区
@@ -672,6 +677,20 @@ export const asyncRouterMap = [
                     { path: '/operationSupport/appContentManagement/randomNickname', component: randomNickname, name: '随机用户昵称', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/appContentManagement/randomSignature', component: randomSignature, name: '随机用户签名', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/appContentManagement/roomTabsManageTest', component: roomTabsManageTest, name: '房间标签管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    
+                ],
+            },
+            {
+                path: '/operationSupport',
+                component: operationSupport,
+                name: 'KTV管理',
+                iconCls: 'el-icon-menu',
+                hidden: false,
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/operationSupport/ktvManagement/singerManagement', component: singerManagement, name: '歌手管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/operationSupport/ktvManagement/songsStyleManagement', component: songsStyleManagement, name: '歌曲风格管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/operationSupport/ktvManagement/songManagement', component: songManagement, name: '歌曲管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     
                 ],
             },

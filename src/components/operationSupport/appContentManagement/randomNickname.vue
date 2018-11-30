@@ -127,9 +127,7 @@ export default {
 		// 编辑修改某一条随机昵称
 		changeOneUserData(index, rows){
 			var _this = this;
-			index = index + (_this.page-1)*20; 
 			var id = rows.id; 	
-			_this.formTwo.index = index;
 			_this.formTwo.id = id;
 			_this.formTwo.name = rows.adjective;
 			_this.formTwo.nickname = rows.noun;
@@ -173,7 +171,6 @@ export default {
 		// 删除某一条随机昵称
 		deleteOneUserData(index, rows) {
 			var _this = this;
-			index = index + (_this.page-1)*20;
 			var id = rows.id; 	
 			// 下面的操作主要是为了进行将删除的内容调用删除接口进行删除
 			_this.listLoading = true;
@@ -234,7 +231,7 @@ export default {
                 strPath = strPath.substring(strPath.indexOf('http://')+7, strPath.length);
             }
             var index = strPath.indexOf('/');
-            strPath = strPath.substring(index, strPath.length);
+            strPath = strPath.substring(index+2, strPath.length);
             _this.$router.replace({
                 path: '/empty', 
                 query: {from: strPath},
