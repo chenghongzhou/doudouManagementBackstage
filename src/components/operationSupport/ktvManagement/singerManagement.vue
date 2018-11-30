@@ -14,6 +14,7 @@
 						filterable
 						remote
 						reserve-keyword
+						clearable
 						placeholder="请输入关键词"
 						:remote-method="remoteMethod"
 						:loading="loading">
@@ -404,7 +405,6 @@ export default {
 						console.log(err);
 					});
 			}
-
 		},
 		// 上下线的改变接口
 		changeStatusData(index, rows) {
@@ -509,6 +509,7 @@ export default {
 					});
         } else {
           _this.formCondition.name_list = [];
+          _this.formCondition.name = '';
         }
       }
 	},

@@ -14,6 +14,7 @@
 						filterable
 						remote
 						reserve-keyword
+						clearable
 						placeholder="请输入关键词"
 						:remote-method="remoteMethodSingerName"
 						:loading="loading">
@@ -31,6 +32,7 @@
 						filterable
 						remote
 						reserve-keyword
+						clearable
 						placeholder="请输入关键词"
 						:remote-method="remoteMethodName"
 						:loading="loading">
@@ -94,7 +96,7 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column prop="position" label="位置" width="50"></el-table-column>
+				<el-table-column prop="label_name" label="位置" width="50"></el-table-column>
 				<el-table-column prop="total_play_num" label="播放次数" width="80"></el-table-column>
 				<el-table-column prop="sort" label="排序ID" width="50"></el-table-column>
 				<el-table-column prop="initial" label="首字母" width="50"></el-table-column>
@@ -155,6 +157,7 @@
 							filterable
 							remote
 							reserve-keyword
+							clearable
 							placeholder="请输入关键词"
 							:remote-method="remoteMethodSingerIdOne"
 							:loading="loading">
@@ -167,7 +170,22 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="歌曲位置" :label-width="formLabelWidth">
-						<el-input v-model="formOne.position" auto-complete="off"></el-input>
+						<el-select
+							v-model="formOne.position"
+							filterable
+							remote
+							reserve-keyword
+							clearable
+							placeholder="请输入关键词"
+							:remote-method="remoteMethodPositionEdit"
+							:loading="loading">
+							<el-option
+							v-for="item in formOne.position_list"
+							:key="item.id"
+							:label="item.name"
+							:value="item.id">
+							</el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
 						<el-input v-model="formOne.sort" auto-complete="off"></el-input>
@@ -211,6 +229,7 @@
 							filterable
 							remote
 							reserve-keyword
+							clearable
 							placeholder="请输入关键词"
 							:remote-method="remoteMethodSingerIdTwo"
 							:loading="loading">
@@ -223,7 +242,22 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="歌曲位置" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.position" auto-complete="off"></el-input>
+						<el-select
+							v-model="formTwo.position"
+							filterable
+							remote
+							reserve-keyword
+							clearable
+							placeholder="请输入关键词"
+							:remote-method="remoteMethodPositionAdd"
+							:loading="loading">
+							<el-option
+							v-for="item in formTwo.position_list"
+							:key="item.id"
+							:label="item.name"
+							:value="item.id">
+							</el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
 						<el-input v-model="formTwo.sort" auto-complete="off"></el-input>
@@ -281,6 +315,7 @@ export default {
 				singer_id: '',
 				singer_id_list: [],
 				position: '',
+				position_list: [],
 				sort: '',
 				initial: '',
 				status: '0',
@@ -294,6 +329,7 @@ export default {
 				singer_id: '',
 				singer_id_list: [],
 				position: '',
+				position_lsit: [],
 				sort: '',
 				initial: '',
 				status: '0',
@@ -389,6 +425,12 @@ export default {
 				}
 			];
 			_this.formOne.position = rows.position;
+			_this.formOne.position_list = [
+				{
+					name: rows.label_name,
+					id: rows.position,
+				}
+			];
 			_this.formOne.sort = rows.sort;
 			_this.formOne.initial = rows.initial;
 			_this.formOne.status = rows.status;
@@ -658,7 +700,59 @@ export default {
 			} else {
 				_this.formOne.singer_id_list = [];
 			}
-		}
+		},
+		remoteMethodPositionAdd(query) {
+			var _this = this;
+			if (query !== '') {
+				_this.loading = true;
+				var params = {
+					name: query,
+				};
+				axios.get(allget+'/NewMusic/getSingerLabelList', {params: params})
+					.then((res) => {
+						_this.loading = false;
+						_this.formTwo.position_list = [];
+						res.data.data.forEach((item, index) => {
+							_this.formTwo.position_list.push({
+								name: item.name,
+								id: item.position,
+							});
+						});
+					})
+					.catch((err) => {
+						_this.loading = false;
+						console.log(err);
+					});
+			} else {
+				_this.formTwo.position_list = [];
+			}
+		},
+		remoteMethodPositionEdit(query) {
+			var _this = this;
+			if (query !== '') {
+				_this.loading = true;
+				var params = {
+					name: query,
+				};
+				axios.get(allget+'/NewMusic/getSingerLabelList', {params: params})
+					.then((res) => {
+						_this.loading = false;
+						_this.formOne.position_list = [];
+						res.data.data.forEach((item, index) => {
+							_this.formOne.position_list.push({
+								name: item.name,
+								id: item.position,
+							});
+						});
+					})
+					.catch((err) => {
+						_this.loading = false;
+						console.log(err);
+					});
+			} else {
+				_this.formOne.position_list = [];
+			}
+		},
 	},
 	mounted() {
 		var _this = this;
