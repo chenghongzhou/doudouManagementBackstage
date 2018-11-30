@@ -507,11 +507,11 @@ export default {
 						_this.loading = false;
 						console.log(err);
 					});
-        } else {
-          _this.formCondition.name_list = [];
-          _this.formCondition.name = '';
-        }
-      }
+			} else {
+			_this.formCondition.name_list = [];
+			_this.formCondition.name = '';
+			}
+		}
 	},
 	mounted() {
 		var _this = this;

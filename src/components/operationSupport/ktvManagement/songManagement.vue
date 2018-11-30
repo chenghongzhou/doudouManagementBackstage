@@ -141,7 +141,7 @@
 					<el-form-item label="歌曲图" :label-width="formLabelWidth">
 						<input 
 						class="filepic fileinput" 
-						@change="uploading($event, 0)" 
+						@change="uploading($event, 1)" 
 						type="file" 
 						style="display: block;">
 				        <img 

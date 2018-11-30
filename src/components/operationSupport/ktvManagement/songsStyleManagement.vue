@@ -9,7 +9,22 @@
 			:inline="true" 
 			style="overflow:hidden;">
 				<el-form-item label="歌曲风格标签">
-					<el-input v-model="formCondition.name" auto-complete="off"></el-input>
+					<el-select
+						v-model="formCondition.name"
+						filterable
+						remote
+						reserve-keyword
+						clearable
+						placeholder="请输入关键词"
+						:remote-method="remoteMethod"
+						:loading="loading">
+						<el-option
+						v-for="item in formCondition.name_list"
+						:key="item.id"
+						:label="item.name"
+						:value="item.id">
+						</el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="上线状态">
 					<el-select v-model="formCondition.status" placeholder="全部">
@@ -134,9 +149,11 @@ export default {
 			},
 			formCondition: {
 				name: '', 
+				name_list: [],
 				status: '',
 			},
 			listLoading: false, 
+			loading: false,
 			tabData: [], 
 			totalpage: null, 
 			page: 0, 
@@ -261,8 +278,34 @@ export default {
 						console.log(err);
 					});
 			}
-
 		},
+		remoteMethod(query) {
+			var _this = this;
+			if (query !== '') {
+				_this.loading = true;
+				var params = {
+					name: query,
+				};
+				axios.get(allget+'/NewMusic/getSingerLabelList', {params: params})
+					.then((res) => {
+						_this.loading = false;
+						_this.formCondition.name_list = [];
+						res.data.data.forEach((item, index) => {
+							_this.formCondition.name_list.push({
+								name: item.name,
+								id: item.name,
+							});
+						});
+					})
+					.catch((err) => {
+						_this.loading = false;
+						console.log(err);
+					});
+			} else {
+			_this.formCondition.name_list = [];
+			_this.formCondition.name = '';
+			}
+		}
 	},
 	mounted() {
 		var _this = this;
