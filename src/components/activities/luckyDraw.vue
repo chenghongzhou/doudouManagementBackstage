@@ -47,13 +47,13 @@
                 <el-table-column prop="chance_invite" label="好友注册数量"></el-table-column>
                 <el-table-column prop="recharge" label="好友充值金额"></el-table-column>
 			</el-table>
-			<!-- <el-col :span="24" class="toolbar">
+			<el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper" 
                 @current-change="oneHandleCurrentChange" 
                 :page-size="20" :total="formOne.totalPage" 
                 style="float:right;"></el-pagination>
-			</el-col> -->
+			</el-col>
 		</template>
 	</section>
 </template>
@@ -68,9 +68,12 @@ export default {
 		return {
 			tableHeight: null,
 			formOne: {
-                choiceDate: [new Date(), new Date()],
+                choiceDate: [new Date()-30*24*60*60*1000, new Date()],
                 uid : '',
-                tabData: []
+                tabData: [],
+                totalPage: null,
+                star: '0',
+                end: '20',
             },
 			listLoading: false,
 		};
@@ -78,12 +81,17 @@ export default {
     computed: {
         onePageTabData() {
             var _this = this;
-            return _this.formOne.tabData;
+            console.log(_this.formOne.tabData)
+            return _this.formOne.tabData.slice(_this.formOne.star, _this.formOne.end);
         },
     },
 	methods: {
-		searchCondition(val) {
-
+        oneHandleCurrentChange(val) {
+			var _this = this;
+            val = val-1;
+            _this.formOne.page = val;
+            _this.formOne.star = (_this.formOne.page)*20;
+            _this.formOne.end = _this.formOne.star+20;
 		},
 		// 获取数据列表
 		getTableData() {
