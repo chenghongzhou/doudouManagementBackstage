@@ -1,7 +1,7 @@
 <template>
     <!-- 礼物数据统计 -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
             <el-form :inline="true" style="overflow: hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
@@ -36,11 +36,12 @@
                 </el-form-item>
                 <el-form-item style="margin-left: 100px;">
                     <!-- <el-button type="primary" @click="chartLineShow">饼状图</el-button> -->
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!--用户的数据展示列表-->
         <template>
             <el-table 
             ref="tableHeight" 
@@ -75,7 +76,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from "./../../../public_js/event.js";
 import { allget } from "../../../api/api";
 import store from "../../../vuex/store";

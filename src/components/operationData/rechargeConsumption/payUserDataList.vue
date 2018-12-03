@@ -1,7 +1,7 @@
 <template>
 	<!-- 付费用户数据  折线图直接写在页面中不分组件 -->
 	<section>
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
@@ -96,7 +96,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
 import store from '../../../vuex/store';

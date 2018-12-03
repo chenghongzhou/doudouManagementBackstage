@@ -1,15 +1,17 @@
 <template>
 	<!-- 在线时长分布 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
         <span class="registerTime"></span>
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.choiceDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
                 <el-form-item>
@@ -20,13 +22,21 @@
                     collapse-tags 
                     style="margin-left:20px;" 
                     placeholder="请选择">
-                        <el-option v-for="(item, key) of channelData" :key="item" :label="item" :value="key">
+                        <el-option 
+                        v-for="(item, key) of channelData" 
+                        :key="item" 
+                        :label="item" 
+                        :value="key">
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-					<el-button type="primary" @click="chartLineShow">折线图</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+                <el-form-item style="margin-left:100px;">
+					<el-button 
+                    type="primary" 
+                    @click="chartLineShow">折线图</el-button>
+					<el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
 				</el-form-item>
                 <el-form-item style="margin-left: 100px;">
                     <div class="infomation"  @click="infoDialogVisible=true;">
@@ -36,9 +46,14 @@
 			</el-form>
 		</el-col>
         <div style="font-size: 30px;">接口待定</div>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+            ref="tableHeight" 
+            :data="tabData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="every_day" label="日期" width="90" sortable ></el-table-column>
 				<el-table-column prop="second_1_3" label="1-3秒" min-width="60"></el-table-column>
 				<el-table-column prop="second_4_10" label="4-10秒" min-width="60"></el-table-column>
@@ -54,11 +69,20 @@
 				<el-table-column prop="hour_10" label="10小时以上" min-width="60"></el-table-column>
 			</el-table>
 			<!-- 折线图 -->
-			<el-dialog title="折线图" :width="dialogWidth"  :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine"  style="width: 100%;height: 600px;"></div>
+			<el-dialog 
+            title="折线图" 
+            :width="dialogWidth"  
+            :visible.sync="dialogVisible" 
+            @open="show">
+                <div 
+                class="chartLine" 
+                style="width:100%;height:600px;"></div>
             </el-dialog>
             <!-- 问题信息 -->
-            <el-dialog title="字段说明" :width="dialogWidth"  :visible.sync="infoDialogVisible" >
+            <el-dialog 
+            title="字段说明" 
+            :width="dialogWidth"  
+            :visible.sync="infoDialogVisible">
                 <p>日在线时长分布：打开应用，且使用时间大于0秒即开始计算使用时长；应用被主动关闭、或进入后台超过30秒认为使用结束。(单个用户多次使用的，时间累计，用户数去重)。</p>
                 <p>单次在线时长分布：打开应用，且使用时间大于0秒即开始计算使用时长；应用被主动关闭、或进入后台超过30秒认为使用结束。(单个用户多次使用的，按时长分别统计，用户数不去重)。</p>
             </el-dialog>
@@ -67,7 +91,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
 import store from '../../../vuex/store';

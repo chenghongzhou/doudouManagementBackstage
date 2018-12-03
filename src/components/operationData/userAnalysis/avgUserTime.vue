@@ -1,17 +1,19 @@
 <template>
     <!-- 人均使用时长 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px; over-flow:hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;over-flow:hidden;">
             <el-form :inline="true" style="overflow: hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.choiceDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        placeholder="选择日期范围"></el-date-picker>
                     </div>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
+                <el-form-item style="margin-left:100px;">
                     <span>渠道</span>
                     <el-select 
                     v-model="channelId" 
@@ -19,38 +21,58 @@
                     collapse-tags 
                     style="margin-left:20px;" 
                     placeholder="请选择">
-                        <el-option v-for="(item, key) of channelData" :key="key" :label="item" :value="key">
-                        </el-option>
+                        <el-option 
+                        v-for="(item, key) of channelData" 
+                        :key="key" 
+                        :label="item" 
+                        :value="key"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="chartLineShow">折线图</el-button>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="chartLineShow">折线图</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!--用户的数据展示列表-->
         <template>
-            <el-table ref="tableHeight" :data="onePageTabData" border v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            ref="tableHeight" 
+            :data="onePageTabData" 
+            border 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="日期" sortable></el-table-column>
                 <el-table-column prop="user_avg" label="人均使用时长(秒)" sortable></el-table-column>
                 <el-table-column prop="num_avg" label="次均使用时长(秒)" sortable></el-table-column>
             </el-table>
             <!-- 折线图组建 -->
             <!-- 折线图 -->
-            <el-dialog title="折线图" :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine" style="width: 100%;height: 600px;"></div>
+            <el-dialog 
+            title="折线图" 
+            :visible.sync="dialogVisible"
+            @open="show">
+                <div 
+                class="chartLine" 
+                style="width:100%;height:600px;"></div>
             </el-dialog>
-            <!--工具条-->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from "./../../../public_js/event.js";
 import { allget } from "../../../api/api";
 import store from "../../../vuex/store";

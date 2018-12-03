@@ -109,7 +109,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from '../../public_js/event.js';
 import { allget } from '../../api/api';
 import store from '../../vuex/store';

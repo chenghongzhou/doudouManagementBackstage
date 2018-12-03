@@ -1,86 +1,137 @@
 <template>
-	<!-- banner管理->table为指的是数据table展示页面 -->
-	<!-- dom结构内容 -->
+	<!-- 综合数据 -->
 	<section>
 		<!-- 综合数据  在线数据  付费渗透 -->
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-tabs v-model="tabActiveName" type="border-card" @tab-click="handleClick">
+		<el-tabs 
+		v-model="tabActiveName" 
+		type="border-card" 
+		@tab-click="handleClick">
 			<!-- 综合数据 -->
-			<el-tab-pane label="综合数据" name="one" :style="{ height: tabSearchHeight+'px' }">
+			<el-tab-pane 
+			label="综合数据" 
+			name="one" 
+			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formOne.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableOne">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableOne">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="onePageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="time" label="日期" width="200"></el-table-column>
 						<el-table-column prop="device" label="设备激活" min-width="200"></el-table-column>
 						<el-table-column prop="register" label="新增注册" min-width="200"></el-table-column>
 						<el-table-column prop="active" label="日活跃用户数(DAU)" min-width="200"></el-table-column>
 						<el-table-column prop="ACCU" label="ACCU" min-width="200"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="oneHandleCurrentChange" :page-size="20" :total="formOne.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="oneHandleCurrentChange" 
+						:page-size="20" 
+						:total="formOne.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
 			<!-- 在线数据 -->
-			<el-tab-pane label="在线数据" name="two" :style="{ height: tabSearchHeight+'px' }">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+			<el-tab-pane 
+			label="在线数据" 
+			name="two" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formTwo.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formTwo.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableTwo">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableTwo">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="twoPageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="twoPageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="time" label="日期" width="200"></el-table-column>
 						<el-table-column prop="day_online_best" label="最高在线人数(PCU)" min-width="200"></el-table-column>
 						<el-table-column prop="acu" label="平均在线人数(ACU)" min-width="200"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="twoHandleCurrentChange" :page-size="20" :total="formTwo.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="twoHandleCurrentChange" 
+						:page-size="20" 
+						:total="formTwo.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
 			<!-- 付费渗透 -->
-			<el-tab-pane label="付费渗透" name="three" :style="{ height: tabSearchHeight+'px' }">
+			<el-tab-pane 
+			label="付费渗透" 
+			name="three" 
+			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formThree">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formThree.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formThree.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableThree">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableThree">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="threePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="threePageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="time" label="日期" width="200"></el-table-column>
 						<el-table-column prop="consume_rate" label="日付费率" min-width="200"></el-table-column>
 						<el-table-column prop="consume_ARPPU" label="付费ARPPU值" min-width="200"></el-table-column>
@@ -88,39 +139,61 @@
 						<el-table-column prop="total_fee" label="充值金额" min-width="200"></el-table-column>
 						<el-table-column prop="consume_user" label="付费用户" min-width="200"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="threeHandleCurrentChange" :page-size="20" :total="formThree.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="threeHandleCurrentChange" 
+						:page-size="20" 
+						:total="formThree.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
 			<!-- 累积数据 -->
-			<el-tab-pane label="累积数据" name="four" :style="{ height: tabSearchHeight+'px' }">
+			<el-tab-pane 
+			label="累积数据" 
+			name="four" 
+			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formFour">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formFour.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formFour.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="formFour">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="formFour">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="fourPageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="fourPageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="device" label="设备激活" width="200"></el-table-column>
 						<el-table-column prop="register" label="注册用户" min-width="200"></el-table-column>
 						<el-table-column prop="consume_user" label="付费用户" min-width="200"></el-table-column>
 						<el-table-column prop="total_fee" label="充值金额" min-width="200"></el-table-column>
 						<el-table-column prop="enchashment" label="提现" min-width="200"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="fourHandleCurrentChange" :page-size="20" :total="formFour.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="fourHandleCurrentChange" 
+						:page-size="20" 
+						:total="formFour.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
@@ -129,7 +202,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
 import store from '../../../vuex/store';

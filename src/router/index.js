@@ -308,6 +308,7 @@ import songManagement from '../components/operationSupport/ktvManagement/songMan
 
 // 4、活动专区
 // 活动专区start
+import giftGiving from '../components/activities/giftGiving.vue';//好评送礼
 import familyBackstageBackstage from '../components/activities/familyBackstageBackstage.vue';//家族活动正式服后台
 import roomTopManagement from '../components/activities/roomTopManagement.vue';//家族置顶管理
 import loveActivityManage from '../components/activities/loveActivityManage.vue';//情人节数据统计
@@ -710,6 +711,7 @@ export const asyncRouterMap = [
                 hidden: false,
                 meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
                 children: [
+                    { path: '/activities/giftGiving', component: giftGiving, name: '好评送礼', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/familyBackstageBackstage', component: familyBackstageBackstage, name: '家族嗨场', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/roomTopManagement', component: roomTopManagement, name: '房间置顶', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/superTurntable', component: superTurntable, name: '超级转盘', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    

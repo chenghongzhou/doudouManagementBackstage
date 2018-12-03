@@ -1,30 +1,48 @@
 <template>
 	<!-- 充值众筹管理->table为指的是数据table展示页面 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-tabs v-model="tabActiveName" type="border-card" @tab-click="handleClick">
+		<el-tabs 
+		v-model="tabActiveName" 
+		type="border-card" 
+		@tab-click="handleClick">
 			<!-- Banner条记录查询 -->
-			<el-tab-pane label="普通会员数据" name="first" :style="{ height: tabSearchHeight+'px' }">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+			<el-tab-pane 
+			label="普通会员数据" 
+			name="first" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col 
+				:span="24" 
+				class="toolbar" 
+				style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formOne.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
 							<el-input placeholder="请输入uid查询" v-model="formOne.uid"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableOne">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableOne">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="formOne.tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="formOne.tabData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="id" label="ID" width="200"></el-table-column>
 						<el-table-column prop="uid" label="uid" width="200"></el-table-column>
 						<el-table-column label="会员等级" width="200">
@@ -49,33 +67,51 @@
 						</el-table-column>
 						<el-table-column prop="reward_uid_list" label="中奖用户" min-width="300"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="oneHandleCurrentChange" :page-size="10" :total="formOne.totalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="oneHandleCurrentChange" 
+						:page-size="10" 
+						:total="formOne.totalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
 			<!-- Banner条记录管理 -->
-			<el-tab-pane label="至尊会员数据" name="second" :style="{ height: tabSearchHeight+'px' }">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+			<el-tab-pane 
+			label="至尊会员数据" 
+			name="second" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formTwo.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formTwo.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
 							<el-input placeholder="请输入uid查询" v-model="formTwo.uid"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableTwo">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableTwo">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="formTwo.tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="formTwo.tabData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="id" label="ID" width="200"></el-table-column>
 						<el-table-column prop="uid" label="uid" width="200"></el-table-column>
 						<el-table-column label="会员等级" width="200">
@@ -96,9 +132,13 @@
 						</el-table-column>
 						<el-table-column prop="reward_uid_list" label="中奖用户" min-width="300"></el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="twoHandleCurrentChange" :page-size="10" :total="formTwo.totalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="twoHandleCurrentChange" 
+						:page-size="10" 
+						:total="formTwo.totalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
@@ -107,7 +147,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../public_js/event.js';
 import { allget } from '../../api/api';
 import store from '../../vuex/store';

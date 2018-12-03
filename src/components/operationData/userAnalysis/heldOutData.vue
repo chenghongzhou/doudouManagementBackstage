@@ -1,20 +1,31 @@
 <template>
 	<!-- 留存数据 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
 					<span>渠道</span>
-					<el-select multiple collapse-tags style="margin-left: 20px;" v-model="formOne.channel" placeholder="请选择，默认为全渠道">
-						<el-option v-for="item in formOne.options" :key="item.id" :label="item.annotation" :value="item.id"></el-option>
+					<el-select 
+					multiple 
+					collapse-tags 
+					style="margin-left:20px;" 
+					v-model="formOne.channel" 
+					placeholder="请选择，默认为全渠道">
+						<el-option 
+						v-for="item in formOne.options" 
+						:key="item.id" 
+						:label="item.annotation" 
+						:value="item.id"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
@@ -26,14 +37,23 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="chartLineShow">折线图</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="chartLineShow">折线图</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="date" label="日期" width="200" sortable ></el-table-column>
 				<el-table-column prop="regPlayer" label="注册数" min-width="150" sortable ></el-table-column>
 				<el-table-column label="次留" width="150" sortable >
@@ -86,20 +106,29 @@
 				</el-table-column>
 			</el-table>
 			<!-- 24时实时折线图 -->
-			<el-dialog title="小时实时折线图" :width="dialogChartOne.dialogWidth" :visible.sync="dialogChartOne.dialogVisible" @open="showOne" size="large">
-				<!-- style="width: 100%;height: 600px;" -->
-				<div class="chartLineOne" style="width: 100%;height: 600px;"></div>
+			<el-dialog 
+			title="小时实时折线图" 
+			:width="dialogChartOne.dialogWidth" 
+			:visible.sync="dialogChartOne.dialogVisible" 
+			@open="showOne" 
+			size="large">
+				<div 
+				class="chartLineOne" 
+				style="width:100%;height:600px;"></div>
 			</el-dialog>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import echarts from 'echarts';
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';

@@ -6,23 +6,39 @@
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
                 <el-form-item>
                     <span>uid/昵称：</span>
-                    <el-input style="width:120px;" placeholder="请输入uid" v-model="uid" clearable>
-                    </el-input>
+                    <el-input 
+					style="width:120px;" 
+					placeholder="请输入uid" 
+					v-model="uid" 
+					clearable></el-input>
                 </el-form-item>
                 <el-form-item style="margin-left: 100px;">
-					<el-button type="primary" @click="chartLineShow">折线图</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="chartLineShow">折线图</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="req_time" label="请求时间" min-width="90"></el-table-column>
 				<el-table-column prop="uid" label="用户id" min-width="60"></el-table-column>
 				<el-table-column prop="nickname" label="用户昵称" min-width="60"></el-table-column>
@@ -41,8 +57,14 @@
 				<el-table-column prop="refuse_reason" label="失败理由" min-width="60"></el-table-column>
 			</el-table>
 			<!-- 折线图 -->
-			<el-dialog title="折线图" :width="dialogWidth"  :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine"  style="width: 100%;height: 600px;"></div>
+			<el-dialog 
+			title="折线图" 
+			:width="dialogWidth"  
+			:visible.sync="dialogVisible" 
+			@open="show">
+                <div 
+				class="chartLine"  
+				style="width:100%;height:600px;"></div>
             </el-dialog>
             <!--翻页-->
 			<el-col :span="24" class="toolbar">
@@ -58,7 +80,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../../public_js/event.js';
 import { allget } from '../../../api/api';
 import store from '../../../vuex/store';

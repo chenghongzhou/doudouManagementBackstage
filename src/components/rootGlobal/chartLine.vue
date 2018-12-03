@@ -9,7 +9,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import echarts from 'echarts';
 import Event from '../../public_js/event.js';
 export default {

@@ -1,9 +1,14 @@
 <template>
 	<!-- 七夕活动 -->
 	<section>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="formOne.tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="formOne.tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="id" label="ID" width="100"></el-table-column>
 				<el-table-column prop="uid" label="用户UID" width="200"></el-table-column>
 				<el-table-column prop="content" label="内容"></el-table-column>
@@ -17,7 +22,10 @@
                 </el-table-column>
                 <el-table-column label="操作" width="150">
 					<template slot-scope="scope">
-						<el-button type="danger" size='mini'  @click.native.prevent="deleteData(scope.$index,scope.row)">删除</el-button>
+						<el-button 
+						type="danger" 
+						size='mini'  
+						@click.native.prevent="deleteData(scope.$index,scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -29,7 +37,6 @@
 </template>
 
 <script>
-/* 逻辑交互js内容 */
 import Event from './../../public_js/event.js';
 import { allget } from '../../api/api';
 import store from '../../vuex/store';
@@ -49,7 +56,6 @@ export default {
 			listLoading: false,
 		};
     },
-    
 	methods: {
 		// 下方页数进行翻页的页码时
 		oneHandleCurrentChange(val) {
