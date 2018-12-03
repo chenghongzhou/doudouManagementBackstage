@@ -316,6 +316,7 @@ import rechargeTheCrowdManagement from '../components/activities/rechargeTheCrow
 import youthDay from '../components/activities/youthDay.vue';// 五四活动
 import wordCupManagement from '../components/activities/wordCupManagement.vue';// 世界杯活动
 import superTurntable from '../components/activities/superTurntable.vue';// 超级转盘
+import luckyDraw from '../components/activities/luckyDraw.vue';// 超级转盘
 import tanabataActivity from '../components/activities/tanabataActivity.vue';// 七夕活动
 import smashGoldEggs from '../components/activities/smashGoldEggs.vue';// 砸金蛋活动
 import robotManagement from '../components/activities/robotManagement.vue';// 机器人管理
@@ -713,6 +714,7 @@ export const asyncRouterMap = [
                     { path: '/activities/familyBackstageBackstage', component: familyBackstageBackstage, name: '家族嗨场', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/roomTopManagement', component: roomTopManagement, name: '房间置顶', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/superTurntable', component: superTurntable, name: '超级转盘', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                    { path: '/activities/luckyDraw', component: luckyDraw, name: '抽奖红包', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/tanabataActivity', component: tanabataActivity, name: '七夕活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/smashGoldEggs', component: smashGoldEggs, name: '砸金蛋数据', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/robotManagement', component: robotManagement, name: '机器人管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
