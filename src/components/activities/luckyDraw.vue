@@ -32,7 +32,9 @@
                 label="时间" 
                 sortable></el-table-column> -->
                 <el-table-column prop="uid" label="UID"></el-table-column>
-                <el-table-column prop="nickname" label="用户昵称"></el-table-column>
+                <el-table-column label="用户昵称">
+                    <template slot-scope="scope">{{ scope.row.nickname || '--'}}</template>
+                </el-table-column>
 				<el-table-column prop="left_chance" label="抽奖剩余次数"></el-table-column>
 				<el-table-column prop="count_total" label="已抽奖次数"></el-table-column>
 				<el-table-column prop="count_100" label="iPhone Xs "></el-table-column>
