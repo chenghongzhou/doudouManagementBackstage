@@ -15,7 +15,8 @@
                 <el-form-item>
 					<el-button 
                     type="primary" 
-                    @click="getTableData">查询</el-button>
+                    @click.native.prevent="getTableData">查询</el-button>
+                    <el-button type="primary" @click.native.prevent="handleDownload">导出</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -94,7 +95,7 @@ export default {
             _this.formOne.page = val;
             _this.formOne.star = (_this.formOne.page)*20;
             _this.formOne.end = _this.formOne.star+20;
-		},
+        },
 		// 获取数据列表
 		getTableData() {
 			var _this = this ;
@@ -102,8 +103,8 @@ export default {
             var url = '/NewActivity/getLotteryStat';
 			var params = {
                // type: _this.formOne.type,
-               start_date : baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0) || '',
-               end_date : baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0) || '',
+               start_date : _this.formOne.choiceDate?baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0):'',
+               end_date : _this.formOne.choiceDate?baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0):'',
                user_id : _this.formOne.uid
             };
             axios.get(allget+url, { params: params })
@@ -114,7 +115,6 @@ export default {
                     for(var i=0; i<res.data.data.length; i++) {
                         var obj = {};
                         for(var key in res.data.data[i]) {
-                            obj.time = key;
                             obj.uid = res.data.data[i].uid;
                             obj.nickname = res.data.data[i].nickname;
                             obj.left_chance = res.data.data[i].left_chance;
@@ -143,7 +143,27 @@ export default {
             .catch((err) => {
                 console.log(err);
             });
+        },
+        //导出
+        handleDownload() {
+			require.ensure([], () => {
+			const { export_json_to_excel } = require('../vendor/Export2Excel');
+			const tHeader = ['uid','昵称','抽奖剩余次数','已抽奖次数','iPhone Xs','8888 豆币','888豆币','168豆币','88豆币','8豆币','获取抽奖次数','砸蛋获取抽奖次数','送礼物获取抽奖次数','好友注册数量','好友充值金额'];
+            const filterVal = ['uid','nickname','left_chance','count_total','count_100','count_0','count_1','count_2','count_3','count_4','chance','chance_gold_egg','chance_gift','chance_invite','recharge'];
+			const data = this.formatJson(filterVal, this.formOne.tabData);
+			export_json_to_excel(tHeader, data, 'excel表');
+			})
 		},
+		formatJson(filterVal, jsonData) {
+			return jsonData.map(v => filterVal.map(j => {
+			if (j === 'timestamp') {
+				return parseTime(v[j])
+			} else {
+				return v[j]
+			}
+			}))
+		},
+
 	},
 	mounted() {
 		var _this = this;
