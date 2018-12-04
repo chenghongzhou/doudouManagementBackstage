@@ -12,7 +12,7 @@
 				<el-form-item>
 					<el-button 
 					type="primary" 
-					@click="getTable">新增</el-button>
+					@click="bannerNewloading.dialogShow=true;">赠送</el-button>
 					<el-button 
 					type="primary" 
 					@click="getTable">查询</el-button>
@@ -27,7 +27,7 @@
 			v-loading="listLoading" 
 			style="width:100%;" 
 			:height="tableHeight">
-				<el-table-column prop="time" label="时间" min-width="200"></el-table-column>
+				<el-table-column prop="time" label="时间" width="150"></el-table-column>
 				<el-table-column prop="content" label="内容" min-width="200"></el-table-column>
 			</el-table>
 			<el-col :span="24" class="toolbar">
@@ -43,8 +43,19 @@
 		title="活动新增" 
 		:visible.sync="bannerNewloading.dialogShow">
 			<el-form :model="bannerNewloading.params">
-				<el-form-item label="主活动顶部图片" :label-width="formLabelWidth">
-					<el-input v-model="bannerNewloading.params.banner" auto-complete="off"></el-input>
+				<el-form-item label="用户Uid" :label-width="formLabelWidth">
+					<el-input v-model="bannerNewloading.params.uid"></el-input>
+				</el-form-item>
+				<el-form-item label="赠送奖励" :label-width="formLabelWidth">
+					<el-select 
+                    v-model="bannerNewloading.params.reward_id" 
+                    placeholder="请选择">
+                        <el-option 
+                        v-for="(item, key) of bannerNewloading.params.reward_id_arr" 
+                        :key="key" 
+                        :label="item.name" 
+                        :value="item.id"></el-option>
+                    </el-select>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -71,7 +82,7 @@ export default {
 				choiceDate: [new Date()-7*24*60*60*1000, new Date()],
 				family_id: '',
 				TabData: [],
-				TotalPage: null, 
+				TotalPage: 1000, 
 				Page: 0, 
 				star: '0',
 				end: '20',
@@ -79,13 +90,18 @@ export default {
 			bannerNewloading: {
 				dialogShow: false,
 				params: {
-					choiceDate: '',
-					family_id: '',
-					theme: '',
-					content: ['', '', ''],
-					banner: '',
-					message_banner: '',
-					pop_banner: '',
+					uid: '',
+					operation_name: '',
+					reward_id: '',
+					reward_id_arr: [
+						{id: '633', type: '2', name: '礼物-好评专属X1', num: '1', },
+						{id: '400012', type: '4', name: '道具-30元充值优惠券X1', num: '1', },
+						{id: '400007', type: '4', name: '道具-偷听大卡X1', num: '1', },
+						{id: '400020', type: '4', name: '道具-通话大卡X1', num: '1', },
+						{id: '900059', type: '5', name: '装扮-赞X3', num: '3', },
+						{id: '900014', type: '5', name: '装扮-鹿角X5', num: '5', },
+						{id: '110002', type: '6', name: '座驾-小马X3', num: '3', },
+					],
 				},
 			},
 			listLoading: false, 
@@ -103,20 +119,34 @@ export default {
 		getTable() {
 			var _this = this ;
 			_this.listLoading = true;
-			var url = '/HManage/justGiveSomeThingRecord';
+			var url = '/Activity/justGiveSomeThingRecord';
 			var params = {
 				page: _this.formOne.Page,
 			};
 			if(params==null) {
 				_this.listLoading = false; 
 			} else {
-				axios.get('http://test-app-h.dianliaoapp.com'+url, { params: params })
+				axios.get(allget+url, { params: params })
 					.then((res) => {
 						_this.listLoading = false;	
 						if(res.data.ret) {
-							console.log(res);
-							_this.formOne.TotalPage = res.data.data.length; 
-							_this.formOne.TabData = res.data.data;
+							_this.formOne.TabData = [];
+							for(var key in res.data) {
+								if(key=='ret') {} else if(key=='msg') {} else {
+									// 其它的信息可以直接存储起来
+									var times = new Date(res.data[key]*1000);
+									var timesStr = times.getFullYear()+'-'+
+										((times.getMonth()-0+1)<10?'0'+(times.getMonth()-0+1):(times.getMonth()-0+1))+'-'+
+										(times.getDate()<10?'0'+times.getDate():times.getDate())+' '+
+										(times.getHours()<10?'0'+times.getHours():times.getHours())+':'+
+										(times.getMinutes()<10?'0'+times.getMinutes():times.getMinutes())+':'+
+										(times.getSeconds()<10?'0'+times.getSeconds():times.getSeconds());
+									_this.formOne.TabData.push({
+										time: timesStr,
+										content: key,
+									});
+								}
+							}
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -135,26 +165,23 @@ export default {
 				_this.listLoading = true;
 				// 进行添加操作
 				let formData = new FormData();
-				var start_time = baseConfig.changeDateTime(_this.bannerNewloading.params.choiceDate[0], 1);
-				var end_time = baseConfig.changeDateTime(_this.bannerNewloading.params.choiceDate[1], 1);
-				for(var i=0; i<_this.bannerNewloading.params.content.length; i++) {
-					_this.bannerNewloading.params.content[i] = decodeURIComponent(_this.bannerNewloading.params.content[i]);
-				}
-				var content = JSON.stringify(_this.bannerNewloading.params.content);
-				formData.append('start_time', start_time);
-				formData.append('end_time', end_time);
-				formData.append('theme', _this.bannerNewloading.params.theme);
-				formData.append('family_id', _this.bannerNewloading.params.family_id);
-				formData.append('content', content);
-				formData.append('banner', _this.bannerNewloading.params.banner);
-				formData.append('pop_banner', _this.bannerNewloading.params.pop_banner);
-				formData.append('message_banner', _this.bannerNewloading.params.message_banner);
+				console.log(_this.bannerNewloading.params.reward_id);
+				_this.bannerNewloading.params.reward_id_arr.forEach((item, index) => {
+					if(item.id==_this.bannerNewloading.params.reward_id) {
+						console.log(item)
+						formData.append('type', item.type);	
+						formData.append('reward_id', item.id);	
+						formData.append('num', item.num);	
+					}
+				})
+				formData.append('uid', _this.bannerNewloading.params.uid);
+				formData.append('operation_name', _this.bannerNewloading.params.operation_name);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
 				};	
-				axios.post(allget+'/Activity/addFamilyThemeActivity', formData, config)
+				axios.post(allget+'/Activity/justGiveSomeThing', formData, config)
 					.then((res) => {
 						console.log(res.data);
 						_this.listLoading = false;	
@@ -177,6 +204,7 @@ export default {
 		this.$nextTick(function() {
 			_this.tableHeight = baseConfig.lineNumber(searchPageHeight);
 			_this.getTable();
+            _this.bannerNewloading.params.operation_name = store.state.user.name;
 		})
 	}
 };
