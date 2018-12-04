@@ -143,7 +143,7 @@ export default {
 										(times.getSeconds()<10?'0'+times.getSeconds():times.getSeconds());
 									_this.formOne.TabData.push({
 										time: timesStr,
-										content: key,
+										content: key.substring(0, key.length-19),
 									});
 								}
 							}
@@ -183,7 +183,6 @@ export default {
 				};	
 				axios.post(allget+'/Activity/justGiveSomeThing', formData, config)
 					.then((res) => {
-						console.log(res.data);
 						_this.listLoading = false;	
 						_this.bannerNewloading.dialogShow = false;								
 						if(res.data.ret) {	
