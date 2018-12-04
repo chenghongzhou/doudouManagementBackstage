@@ -94,7 +94,6 @@ export default {
 					operation_name: '',
 					reward_id: '',
 					reward_id_arr: [
-						{id: '633', type: '2', name: '礼物-好评专属X1', num: '1', },
 						{id: '400012', type: '4', name: '道具-30元充值优惠券X1', num: '1', },
 						{id: '400007', type: '4', name: '道具-偷听大卡X1', num: '1', },
 						{id: '400020', type: '4', name: '道具-通话大卡X1', num: '1', },
@@ -165,10 +164,8 @@ export default {
 				_this.listLoading = true;
 				// 进行添加操作
 				let formData = new FormData();
-				console.log(_this.bannerNewloading.params.reward_id);
 				_this.bannerNewloading.params.reward_id_arr.forEach((item, index) => {
 					if(item.id==_this.bannerNewloading.params.reward_id) {
-						console.log(item)
 						formData.append('type', item.type);	
 						formData.append('reward_id', item.id);	
 						formData.append('num', item.num);	
@@ -186,8 +183,8 @@ export default {
 						_this.listLoading = false;	
 						_this.bannerNewloading.dialogShow = false;								
 						if(res.data.ret) {	
+							_this.addGift();
 							baseConfig.successTipMsg(_this, '新增成功！');
-							_this.getTable();
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg);						
 						}
@@ -196,6 +193,32 @@ export default {
 						console.log(err);
 					});
 			}
+		},
+		// 单独赠送礼物，在每一次的赠送其它的物品时候赠送礼物
+		addGift() {
+			var _this = this;
+			let formData = new FormData();
+			formData.append('type', 2);	
+			formData.append('reward_id', 633);	
+			formData.append('num', 1);	
+			formData.append('uid', _this.bannerNewloading.params.uid);
+			formData.append('operation_name', _this.bannerNewloading.params.operation_name);
+			let config = {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			};	
+			axios.post(allget+'/Activity/justGiveSomeThing', formData, config)
+				.then((res) => {
+					if(res.data.ret) {	
+						_this.getTable();
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg);						
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		},
 	},
 	mounted() {
