@@ -10,19 +10,27 @@
 			style="overflow:hidden;" 
 			:model="formOne">
 				<el-form-item>
+					<el-input 
+                    placeholder="模糊搜索" 
+                    style="width:200px;" 
+                    v-model="find_uid" 
+					clearable
+                    auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item>
 					<el-button 
 					type="primary" 
 					@click="bannerNewloading.dialogShow=true;">赠送</el-button>
 					<el-button 
 					type="primary" 
-					@click="getTable">查询</el-button>
+					@click="findUid">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
 		<template>
 			<el-table 
 			ref="tableHeight" 
-			:data="formOne.TabData" 
+			:data="onePageTabData" 
 			border fit highlight-current-row 
 			v-loading="listLoading" 
 			style="width:100%;" 
@@ -78,11 +86,13 @@ export default {
 	data() {
 		return {
 			tableHeight: null, 
+			find_uid: '',
 			formOne: {
 				choiceDate: [new Date()-7*24*60*60*1000, new Date()],
 				family_id: '',
 				TabData: [],
-				TotalPage: 1000, 
+				AllTabData: [],
+				TotalPage: null, 
 				Page: 0, 
 				star: '0',
 				end: '20',
@@ -108,11 +118,18 @@ export default {
 			formLabelWidth: '130px', 
 		};
 	},
+	computed: {
+        onePageTabData() {
+            var _this = this;
+            return _this.formOne.TabData.slice(_this.formOne.star, _this.formOne.end);
+        },
+    },
 	methods: {
 		oneHandleCurrentChange(val) {
 			var _this = this;
 			_this.formOne.Page = val-1;
-			_this.getTable();
+            _this.formOne.star = (_this.formOne.Page)*20;
+            _this.formOne.end = _this.formOne.star+20;
 		},
 		// 获取家族数据统计的数据
 		getTable() {
@@ -130,22 +147,15 @@ export default {
 						_this.listLoading = false;	
 						if(res.data.ret) {
 							_this.formOne.TabData = [];
-							for(var key in res.data) {
-								if(key=='ret') {} else if(key=='msg') {} else {
-									// 其它的信息可以直接存储起来
-									var times = new Date(res.data[key]*1000);
-									var timesStr = times.getFullYear()+'-'+
-										((times.getMonth()-0+1)<10?'0'+(times.getMonth()-0+1):(times.getMonth()-0+1))+'-'+
-										(times.getDate()<10?'0'+times.getDate():times.getDate())+' '+
-										(times.getHours()<10?'0'+times.getHours():times.getHours())+':'+
-										(times.getMinutes()<10?'0'+times.getMinutes():times.getMinutes())+':'+
-										(times.getSeconds()<10?'0'+times.getSeconds():times.getSeconds());
-									_this.formOne.TabData.push({
-										time: timesStr,
-										content: key.substring(0, key.length-19),
-									});
-								}
+							for(var i=0; i<res.data.data.length; i++) {
+								// 其它的信息可以直接存储起来
+								_this.formOne.TabData.push({
+									time: res.data.data[i].substring(res.data.data[i].length-19, res.data.data[i].length),
+									content: res.data.data[i].substring(0, res.data.data[i].length-19),
+								});
 							}
+							_this.formOne.AllTabData = _this.formOne.TabData;
+							_this.formOne.TotalPage = res.data.data.length;
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -219,6 +229,21 @@ export default {
 				.catch((err) => {
 					console.log(err);
 				});
+		},
+		findUid() {
+			var _this = this;
+			//如果有搜索的uid的时候，让相对应的
+			if(_this.find_uid) {
+				_this.formOne.TabData = _this.formOne.AllTabData.filter(item => {
+					if(item.content.indexOf(_this.find_uid)!=-1) {
+						return item;
+					}
+				});
+				_this.formOne.TotalPage = _this.formOne.TabData.length;
+			} else if(_this.find_uid=='') {
+				_this.formOne.TabData = _this.formOne.AllTabData;
+				_this.formOne.TotalPage = _this.formOne.TabData.length;
+			}
 		},
 	},
 	mounted() {
