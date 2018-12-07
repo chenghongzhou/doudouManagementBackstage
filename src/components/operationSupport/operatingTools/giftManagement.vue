@@ -825,7 +825,7 @@
 						<template slot-scope="scope">
 							<div slot="reference" class="name-wrapper">
 								<p v-if="scope.row.num_img_url==''||scope.row.num_img_url==null">无标识图</p>
-								<img v-else :src="scope.row.num_img_url" style="width:200px;height:auto;margin-left:200px;">
+								<img v-else :src="scope.row.num_img_url" style="width:100px;height:auto;">
 							</div>
 						</template>
 					</el-table-column>
@@ -833,7 +833,13 @@
 						<template slot-scope="scope">
 							<div slot="reference" class="name-wrapper">
 								<p v-if="scope.row.dynamic_effect_url==''||scope.row.dynamic_effect_url==null">无特效图</p>
-								<p v-else style="color:red;">有特效图</p>
+								<!-- <p v-else style="color:red;">有特效图</p> -->
+								<el-button 
+								class="#demoCanvas"
+								v-else
+								type="danger" 
+								@click.native.prevent="lookSvga(scope.row.dynamic_effect_url)" 
+								size="mini">查看</el-button>
 								<!-- <img v-else :src="scope.row.dynamic_effect_url" style="width:200px;height:auto;margin-left:200px;"> -->
 							</div>
 						</template>
@@ -913,6 +919,7 @@
 				</div>
 			</el-dialog>
 		</el-tabs>
+		<div class="svgaBox"></div>
 	</section>
 </template>
 
@@ -1775,6 +1782,16 @@ export default {
 		},
 		lookDemo() {
 			window.open('http://svga.io/svga-preview.html');
+		},
+		// 点击查看的svga文件
+		lookSvga(val) {
+			console.log(val);
+			var player = new SVGA.Player('#demoCanvas');
+			var parser = new SVGA.Parser('#demoCanvas'); // 如果你需要支持 IE6+，那么必须把同样的选择器传给 Parser。
+			parser.load(val, function(videoItem) {
+				player.setVideoItem(videoItem);
+				player.startAnimation();
+			});
 		},
 	},
 	mounted() {
