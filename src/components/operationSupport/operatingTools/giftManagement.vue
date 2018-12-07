@@ -833,14 +833,11 @@
 						<template slot-scope="scope">
 							<div slot="reference" class="name-wrapper">
 								<p v-if="scope.row.dynamic_effect_url==''||scope.row.dynamic_effect_url==null">无特效图</p>
-								<!-- <p v-else style="color:red;">有特效图</p> -->
 								<el-button 
-								class="#demoCanvas"
 								v-else
 								type="danger" 
 								@click.native.prevent="lookSvga(scope.row.dynamic_effect_url)" 
 								size="mini">查看</el-button>
-								<!-- <img v-else :src="scope.row.dynamic_effect_url" style="width:200px;height:auto;margin-left:200px;"> -->
 							</div>
 						</template>
 					</el-table-column>
@@ -918,8 +915,15 @@
 					@click.native.prevent="specialGiftSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
-		</el-tabs>
-		<div class="svgaBox"></div>
+			<el-dialog
+			title="特效图展示" 
+			:visible.sync="svga.dialogShow" 
+			width="50%">
+				<el-form :model="svga">
+					<div id="demoCanvas"></div>
+				</el-form>
+			</el-dialog>
+		</el-tabs> 
 	</section>
 </template>
 
@@ -931,6 +935,11 @@ import axios from 'axios';
 export default {
 	data() {
 		return {
+			svga: {
+				dialogShow: false,//控制加上设置svga的显示框
+				player: null,
+				parser: null,
+			},
 			tableHeight: null, 
 			tabSearchHeight: '',
 			formOne: {
@@ -1785,13 +1794,23 @@ export default {
 		},
 		// 点击查看的svga文件
 		lookSvga(val) {
-			console.log(val);
-			var player = new SVGA.Player('#demoCanvas');
-			var parser = new SVGA.Parser('#demoCanvas'); // 如果你需要支持 IE6+，那么必须把同样的选择器传给 Parser。
-			parser.load(val, function(videoItem) {
-				player.setVideoItem(videoItem);
-				player.startAnimation();
-			});
+			var _this = this;
+			_this.svga.dialogShow = true;
+			if(_this.player) {
+				_this.parser.load(val, function(videoItem) {
+					_this.player.setVideoItem(videoItem);
+					_this.player.startAnimation();
+				});
+			} else {
+				setTimeout(function() {
+					_this.player = new SVGA.Player('#demoCanvas');
+					_this.parser = new SVGA.Parser('#demoCanvas'); // 如果你需要支持 IE6+，那么必须把同样的选择器传给 Parser。
+					_this.parser.load(val, function(videoItem) {
+						_this.player.setVideoItem(videoItem);
+						_this.player.startAnimation();
+					});
+				}, 500);
+			}
 		},
 	},
 	mounted() {
@@ -1849,5 +1868,9 @@ export default {
 }
 .el-tab-pane{
 	height: 800px;
+}
+#demoCanvas{
+	width: 375px; height: 657px;
+	margin: 0 auto;
 }
 </style>
