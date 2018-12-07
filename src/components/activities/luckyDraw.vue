@@ -56,6 +56,9 @@
 				<el-table-column prop="chance_gold_egg" label="砸蛋获取抽奖次数"></el-table-column>
 				<el-table-column prop="chance_gift" label="送礼物获取抽奖次数"></el-table-column>
                 <el-table-column prop="chance_invite" label="好友注册数量"></el-table-column>
+                <el-table-column label="好友id">
+                    <template slot-scope="scope">{{ scope.row.friend_list || '--'}}</template>
+                </el-table-column>
                 <el-table-column prop="recharge" label="好友充值金额"></el-table-column>
 			</el-table>
 			<el-col :span="24" class="toolbar">
@@ -138,6 +141,7 @@ export default {
                             obj.chance_gift = res.data.data[i].chance_gift;
                             obj.chance_invite = res.data.data[i].chance_invite;
                             obj.recharge = res.data.data[i].recharge;
+                            obj.friend_list = res.data.data[i].friend_list;
                         }
                         arr.push(obj);
                     }
