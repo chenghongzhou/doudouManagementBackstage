@@ -1,38 +1,51 @@
 <template>
     <!-- 录音精彩内容 -->
-    <!-- dom结构内容 -->
 	<section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+						v-model="formOne.startDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item style="margin-left: 50px;">
 					<span>推荐类别：</span>
-					<el-select style="width: 100px;" v-model="recordStatus">
+					<el-select style="width:100px;" v-model="recordStatus">
 						<el-option label="人工推荐" value="1"></el-option>
 						<el-option label="系统推荐" value="2"></el-option>
 					</el-select>
 				</el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+					<el-button 
+					type="primary" 
+					@click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			:data="listData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			element-loading-text="拼命加载中" 
+			element-loading-spinner="el-icon-loading" 
+			element-loading-background="rgba(0, 0, 0, 0.8)" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="recommend_time" label="推荐时间" width="180"></el-table-column>
 				<el-table-column prop="id"  label="录音编码" width="100"></el-table-column>
 				<el-table-column label="录音音频" width="300">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<audio controls="controls" :src="scope.row.voice_url"></audio>
+							<audio 
+							controls="controls" 
+							:src="scope.row.voice_url"></audio>
 						</div>
 					</template>
 				</el-table-column>
@@ -49,15 +62,28 @@
 				<el-table-column prop="recommend" label="推荐次数" width="50"></el-table-column>
 				<el-table-column label="操作" min-width="120">
 					<template slot-scope="scope">
-                        <el-col :span="12"><el-button size="small" type="primary" @click="recommendAgent(scope.$index, scope.row)">在推荐</el-button></el-col>
-                        <el-col :span="12"><el-button size="small" type="danger" @click="cancleAgent(scope.$index, scope.row)">取消推荐</el-button></el-col>
+                        <el-col :span="12">
+							<el-button 
+							size="small" 
+							type="primary" 
+							@click="recommendAgent(scope.$index, scope.row)">在推荐</el-button>
+						</el-col>
+                        <el-col :span="12">
+							<el-button 
+							size="small" 
+							type="danger" 
+							@click="cancleAgent(scope.$index, scope.row)">取消推荐</el-button>
+						</el-col>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!-- 工具条 -->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-				</el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total=1000 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
     </section>
@@ -197,10 +223,5 @@
 </script>
 
 <style lang="css" scoped>
-    .search-span{
-        float: right;
-    }
-    #searchBtn{
-        margin-right: 50px;
-    }
+
 </style>

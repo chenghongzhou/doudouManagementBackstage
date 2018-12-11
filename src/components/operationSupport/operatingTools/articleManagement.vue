@@ -8,14 +8,14 @@
 			<el-tab-pane 
 			label="文章管理" 
 			name="one" 
-			:style="{height: tabSearchHeight+'px'}">
+			:style="{height:tabSearchHeight+'px'}">
 				<template>
 					<el-table 
 					ref="tableHeightAddTab" 
 					:data="onePageTabData" 
 					border fit highlight-current-row 
 					v-loading="listLoading" 
-					style="width: 100%;" :height="tableHeight">
+					style="width:100%;" :height="tableHeight">
 						<el-table-column prop="add_time" label="添加时间" width="200"></el-table-column>
 						<el-table-column prop="id" label="文章ID" width="100"></el-table-column>
 						<el-table-column prop="title" label="标题" width="150"></el-table-column>
@@ -24,7 +24,7 @@
 								<div slot="reference" class="name-wrapper">
 									<img 
 									:src="scope.row.image_url" 
-									style="width: 100px; height: 100px;">
+									style="width:100px; height: 100px;">
 								</div>
 							</template>
 						</el-table-column>
@@ -37,13 +37,13 @@
 									<a
 									slot="reference" 
 									v-if="serverStatus==false" 
-									style="color: red;" 
+									style="color:red;" 
 									:href="'http://test-manage.dianliaoapp.com/client/dev/explain/article.php?id='+scope.row.id" 
 									target="_blank">{{scope.row.title}}</a>
 									<a 
 									slot="reference" 
 									v-else 
-									style="color: red;" 
+									style="color:red;" 
 									:href="'http://manage.dianliaoapp.com/client/dev/explain/article.php?id='+scope.row.id" 
 									target="_blank">{{scope.row.title}}</a>
 								</el-popover>
@@ -70,7 +70,7 @@
 						@current-change="handleCurrentChange" 
 						:page-size="20" 
 						:total="formOne.totalPage" 
-						style="float: right;"></el-pagination>
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
@@ -83,12 +83,17 @@
 				label-width="120px" 
 				:model="formTwo" style="padding-left:30px;">
 					<el-form-item label="文章主题" style="padding-top:30px;">
-						<el-input v-model="formTwo.title"></el-input>
+						<el-input 
+						v-model="formTwo.title"></el-input>
 					</el-form-item>
 					<el-form-item label="封面图">
 				        <!--图片文件上传、图片的展示-->
-						<input id="fileinput" @change="uploadingTwo($event)" type="file">
-						 <img :src="formTwo.pic"/>
+						<input 
+						id="fileinput" 
+						@change="uploadingTwo($event)" 
+						type="file">
+						 <img 
+						:src="formTwo.pic"/>
 					</el-form-item>
 					<el-form-item label="内容">
 						<div class="edit_container">
@@ -116,12 +121,17 @@
 				label-width="120px" 
 				:model="formThree" style="padding-left: 30px;">
 					<el-form-item label="文章主题" style="padding-top: 30px;">
-						<el-input v-model="formThree.title"></el-input>
+						<el-input 
+						v-model="formThree.title"></el-input>
 					</el-form-item>
 					<el-form-item label="封面图">
 				        <!--图片文件上传、图片的展示-->
-						<input id="fileinput" @change="uploadingThree($event)" type="file">
-						 <img :src="formThree.pic"/>
+						<input 
+						id="fileinput" 
+						@change="uploadingThree($event)" 
+						type="file">
+						 <img 
+						:src="formThree.pic"/>
 					</el-form-item>
 					<el-form-item label="内容">
 						<div class="edit_container">
@@ -336,7 +346,7 @@ export default {
 	/* background: red; */
 }
 .quill-editor {
-	width: 100%;
+	width:100%;
 	height: 350px;
 	/* background: green; */
 }

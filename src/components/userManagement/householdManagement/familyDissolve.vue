@@ -1,33 +1,26 @@
 <template>
     <!-- 解散家族 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
-                <!-- <el-form-item>
-                    <div class="block">
-                        <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
-                    </div>
-                </el-form-item> -->
-                <!-- <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
-                </el-form-item> -->
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
-                    <el-button class="dissolve" type="primary" @click="dialogFormVisible=true">解散家族</el-button>
+                    <el-button 
+                    class="dissolve" 
+                    type="primary" 
+                    @click="dialogFormVisible=true">解散家族</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="dismiss_time" label="解散时间"></el-table-column>
                 <el-table-column prop="family_id" label="家族ID"></el-table-column>
                 <el-table-column prop="family_name" label="家族名称"></el-table-column>
                 <el-table-column prop="owner_uid" label="创建者UID"></el-table-column>
-                <!-- <el-table-column prop="agent_join_money" label="创建者昵称"></el-table-column> -->
                 <el-table-column prop="level" label="家族等级"></el-table-column>
                 <el-table-column prop="reason" label="解散理由"></el-table-column>
                 <el-table-column prop="operate_user" label="操作人"></el-table-column>
@@ -35,22 +28,31 @@
             <el-dialog title="解散家族" :visible.sync="dialogFormVisible">
                 <el-form :model="form">
                     <el-form-item label="家族ID" :label-width="formLabelWidth">
-                        <el-input v-model="form.family_id" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="form.family_id" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="解散理由" :label-width="formLabelWidth">
-                        <el-input v-model="form.reason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="form.reason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
-                
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dissolve()">确 定</el-button>
+                    <el-button 
+                    @click="dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="dissolve()">确 定</el-button>
                 </div>
             </el-dialog>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total=1000 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -64,9 +66,6 @@ export default {
     data() {
         return {
             tableHeight: null, 
-            // formOne: {
-            //     startDate: [new Date() - 1 * 24 * 60 * 60 * 1000, new Date()] // 对应选择的日期,给默认时间180之前到现在
-            // },
             page: 0,
             listData: [],
             totalpage: null,
@@ -94,8 +93,6 @@ export default {
             let url = "/NewFamily/getDismissFamilyRecord";
             let params = {
                 page: this.page,
-                // date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
-                // date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0)
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -117,7 +114,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if(res.data.ret){
-                        _this.dialogFormVisible = false;
+                        _this.dialogFormVisible=false;
                         baseConfig.successTipMsg(_this, res.data.msg);
                     }else{
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -138,13 +135,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
 .dissolve {
-    margin-left: 20px;
+    margin-left:20px;
 }
 </style>

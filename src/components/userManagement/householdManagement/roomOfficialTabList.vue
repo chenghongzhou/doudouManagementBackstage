@@ -1,28 +1,39 @@
 <template>
     <!-- 官方标签列表 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <span>房间ID</span>
-                    <el-input style="width:120px;" clearable placeholder="房间ID" v-model="room_id">
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    clearable 
+                    placeholder="房间ID" 
+                    v-model="room_id"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>房间ID</span>
-                    <el-input style="width:120px;" clearable placeholder="房间名称" v-model="room_name">
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    clearable 
+                    placeholder="房间名称" 
+                    v-model="room_name"></el-input>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-                    <el-button type="primary" @click="getTableData(0)">查询</el-button>
+                <el-form-item style="margin-left:100px;">
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!--用户的数据展示列表-->
         <template>
-            <el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;height: 100%;" :height="tableHeight">
+            <el-table 
+            ref="tableHeight" 
+            :data="tabData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;height:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="room_id" label="房间ID"></el-table-column>
                 <el-table-column prop="room_name" label="房间名称"></el-table-column>
                 <el-table-column prop="room_type" label="房间类型">
@@ -33,39 +44,55 @@
                 </el-table-column>
                 <el-table-column label="官方标签列表">
                     <template slot-scope="scope">
-                        <el-tag :key="tag" v-for="(tag, index) in scope.row.labels_json" closable :disable-transitions="false" @close="handleClose(tag,index,scope.row.yun_xin_room_id)">
-                            {{tag}}
-                        </el-tag>
+                        <el-tag 
+                        :key="tag" 
+                        v-for="(tag, index) in scope.row.labels_json" 
+                        closable 
+                        :disable-transitions="false" 
+                        @close="handleClose(tag,index,scope.row.yun_xin_room_id)">{{tag}}</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" width="140" fixed="right">
                     <template slot-scope="scope">
-                        <el-button type="primary" @click="addRoomOfficialTab(scope.$index, scope)" size="small">新增标签</el-button>
+                        <el-button 
+                        type="primary" 
+                        @click="addRoomOfficialTab(scope.$index, scope)" 
+                        size="small">新增标签</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <!--工具条-->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total=1000 
+                style="float:right;"></el-pagination>
             </el-col>
             <el-dialog title="新增标签" :visible.sync="formTwo.dialogFormVisible">
                 <el-form :model="formTwo">
                     <el-form-item label="房间id"  :label-width="formLabelWidth">
-                        <el-input disabled v-model="formTwo.room_id" auto-complete="off"></el-input>
+                        <el-input 
+                        disabled 
+                        v-model="formTwo.room_id" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="官方标签内容" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.content" placeholder="请输入标签内容" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.content" 
+                        placeholder="请输入标签内容" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
-
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureAdd(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureAdd(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureAdd(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureAdd(1)">确 定</el-button>
                 </div>
             </el-dialog>
         </template>
-
     </section>
 </template>
 
@@ -124,13 +151,13 @@ export default {
         // 新增标签
         addRoomOfficialTab(index, scope){
             this.formTwo.room_id = scope.row.room_id;
-            this.formTwo.dialogFormVisible = true;
+            this.formTwo.dialogFormVisible=true;
 
         },
         sureAdd(type){
             var _this = this;
             if(type==0){
-                _this.formTwo.dialogFormVisible = false;
+                _this.formTwo.dialogFormVisible=false;
                 _this.formTwo.content = "";
             }else if(type == 1){
                 var url = "/NewFamily/addRoomOfficialTab";
@@ -142,7 +169,7 @@ export default {
                     .then((res) => {
                         if(res.data.ret){
                             _this.getTableData();
-                            _this.formTwo.dialogFormVisible = false;
+                            _this.formTwo.dialogFormVisible=false;
                             _this.formTwo.content = "";
                         }else{
                             baseConfig.successTipMsg(_this, res.data.msg);

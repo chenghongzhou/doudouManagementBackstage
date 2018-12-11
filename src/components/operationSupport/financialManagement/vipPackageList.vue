@@ -47,7 +47,9 @@
             :visible.sync="formTwo.dialogFormVisible">
                 <el-form :model="formTwo">
                     <el-form-item label="道具名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -157,7 +159,7 @@ export default {
         },
         // 会员礼包编辑
         editVipPackageList(index,scope){
-            // this.formTwo.dialogFormVisible = true;
+            // this.formTwo.dialogFormVisible=true;
             baseConfig.successTipMsg(this, "请联系服务端进行修改！")
         }
     },

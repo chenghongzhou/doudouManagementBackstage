@@ -1,9 +1,8 @@
 <template>
     <!-- 每日新增录音统计 -->
 	<section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
@@ -16,12 +15,13 @@
 						</el-date-picker>
 					</div>
 				</el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+					<el-button 
+					type="primary" 
+					@click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
 			<el-table 
 			:data="listData" 
@@ -39,18 +39,14 @@
 				<el-table-column prop="total_money_num" label="平台付费录音总数"></el-table-column>
 				<el-table-column prop="total_listen_money" label="听录音花费豆币数"></el-table-column>
 				<el-table-column prop="total_award_money" label="打赏录音豆币数"></el-table-column>
-				
 			</el-table>
-			<!-- 工具条 -->
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
 				layout="total,prev,pager,next,jumper" 
 				@current-change="handleCurrentChange" 
 				:page-size="20" 
 				:total=1000 
-				:current-page="page+1" 
-				style="float:right; ">
-				</el-pagination>
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
     </section>
@@ -113,10 +109,5 @@
 </script>
 
 <style lang="css" scoped>
-    .search-span{
-        float: right;
-    }
-    #searchBtn{
-        margin-right: 50px;
-    }
+
 </style>

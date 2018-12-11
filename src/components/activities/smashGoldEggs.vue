@@ -9,13 +9,17 @@
 			label="砸金蛋数据" 
 			name="one" 
 			:style="{height:tabHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item label="UID">
-							<el-input v-model="formOne.params.uid" auto-complete="off"></el-input>
+							<el-input 
+							v-model="formOne.params.uid" 
+							auto-complete="off"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getOneData">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getOneData">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -54,7 +58,7 @@
 			label="作弊后台" 
 			name="two" 
 			:style="{height:tabHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;">
 						<el-form-item>
 							<el-button 
@@ -120,10 +124,12 @@
 			:visible.sync="addDialog.dialogShow">
 				<el-form :model="addDialog">
 					<el-form-item label="用户UID" :label-width="formLabelWidth">
-						<el-input v-model="addDialog.uid"></el-input>
+						<el-input 
+						v-model="addDialog.uid"></el-input>
 					</el-form-item>
 					<el-form-item label="作弊的豆币数" :label-width="formLabelWidth">
-						<el-input v-model="addDialog.cheat"></el-input>
+						<el-input 
+						v-model="addDialog.cheat"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
@@ -327,7 +333,7 @@ export default {
 		},
 		deleteSure(obj) {
 			var _this = this;
-			_this.deleteDialog.dialogShow = true;
+			_this.deleteDialog.dialogShow=true;
 			_this.deleteDialog.uid = obj.uid;
 			_this.deleteDialog.num = obj.num;
 		},

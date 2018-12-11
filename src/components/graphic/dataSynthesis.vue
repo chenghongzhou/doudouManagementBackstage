@@ -191,10 +191,10 @@ export default {
 <style scoped>
 /* 这个样式规则限制使得它们应用于<style scoped>元素的父<div>元素及其内部的所有元素上。我们称之为“范围” */
 .chart-container {
-    width: 100%; float: left;
+    width:100%; float: left;
 }
 #chartColumn, #chartBar, #chartLine, #chartPie{
-    width: 100%; height: 350px;
+    width:100%; height: 350px;
 }
 .chart div {
     height: 400px; float: left;

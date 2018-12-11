@@ -1,33 +1,36 @@
 <template>
 	<!-- 注册用户招呼语 -->
-	<!-- dom结构内容 -->
 	<section>
 		<!-- 提交Excel的弹框 -->
 		<div class="excelBox" v-show="excelBoxActivity">
 			<p>请上传Excel文件，只限上传为Excel文件</p>
 			<div class="excelInput">
 				<p>请选择Excel文件:</p>
-				<input @change="uploading($event)" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				<input 
+				@change="uploading($event)" 
+				type="file" 
+				accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
 			</div>
 			<div class="select">
 				<p>请选择性别:</p>
 				<div>
-					<el-select v-model="formThree.threeSexValue" placeholder="请进行选择" style="width: 100%;">
+					<el-select v-model="formThree.threeSexValue" placeholder="请进行选择" style="width:100%;">
 						<el-option label="男" value="1"></el-option>
 						<el-option label="女" value="2"></el-option>
 					</el-select>
 				</div>
-				
 			</div>
 			<div class="btns">
 				<!-- 按钮操作部分 -->
-	            <button  @click="excelBoxActivity=false;">取消</button>
-		        <button  @click="submit()">提交</button>
+	            <button  
+				@click="excelBoxActivity=false;">取消</button>
+		        <button  
+				@click="submit()">提交</button>
 			</div>
 		</div>
 		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<span>性别</span>
 					<el-select v-model="formOne.sexValue">
@@ -36,44 +39,67 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="dialogFormVisible=true;">新增</el-button>
-					<el-button type="primary" @click="excelBoxActivity=true;">上传</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible=true;">新增</el-button>
+					<el-button 
+					type="primary" 
+					@click="excelBoxActivity=true;">上传</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column type="index" width="100" ></el-table-column>
 				<el-table-column prop="value" label="用户招呼语" width="800" sortable ></el-table-column>
 				<el-table-column label="操作" min-width="200">
 					<template slot-scope="scope">
-						<el-button type="primary" @click.native.prevent="deleteOneUserData(scope.$index, scope.row)" size="small">删除</el-button>
+						<el-button 
+						type="primary" 
+						@click.native.prevent="deleteOneUserData(scope.$index, scope.row)" 
+						size="small">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 新增--对应的dialog -->
 		<el-dialog title="新增用户招呼语" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
 				<el-form-item label="请输入招呼语" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.name" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.name" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="请选择性别" :label-width="formLabelWidth">
-				<el-select v-model="formTwo.region" placeholder="请进行选择" style="width: 100%;">
+				<el-select v-model="formTwo.region" placeholder="请进行选择" style="width:100%;">
 					<el-option label="男" value="1"></el-option>
 					<el-option label="女" value="2"></el-option>
 				</el-select>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -140,7 +166,7 @@ export default {
 		addSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.dialogFormVisible = false;
+				_this.dialogFormVisible=false;
 			} else if(val==1) {
 				_this.listLoading = true;
 				var url = '/User/addRegisterSayHelloRedis';
@@ -153,7 +179,7 @@ export default {
 					}
 				};	
 				if(formData.get('content')!=''&&(formData.get('sex')=='1'||formData.get('sex')=='2')){
-					_this.dialogFormVisible = false; 
+					_this.dialogFormVisible=false; 
 					axios.post(allget+url, formData, config)					
 						.then((res) => {
 							if(res.data.ret) {
@@ -277,32 +303,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

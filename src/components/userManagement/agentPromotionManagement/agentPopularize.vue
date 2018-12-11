@@ -1,17 +1,23 @@
 <template>
     <!-- 代理推广查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <el-tabs type="border-card" v-model="activeName">
-            <el-tab-pane label="普通代理数据列表" name="first">
-                <!-- 普通代理数据列表 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+        <el-tabs 
+        type="border-card" 
+        v-model="activeName">
+            <el-tab-pane 
+            label="普通代理数据列表" 
+            name="first">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate1" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate1" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
@@ -19,14 +25,24 @@
                             <el-input style="width:100px;" placeholder="请输入内容" v-model="uid" clearable>
                             </el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
                 <template>
-                    <el-table ref="tableHeight" :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)"  style="width: 100%;" :height="tableHeight">
+                    <el-table 
+                    ref="tableHeight" 
+                    :data="listData" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)"  
+                    style="width:100%;" 
+                    :height="tableHeight">
                         <el-table-column prop="date" label="日期"></el-table-column>
                         <el-table-column prop="uid" label="UID"></el-table-column>
                         <el-table-column prop="username" label="账号"></el-table-column>
@@ -36,7 +52,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.spread_num}}</span>
-                                    <el-button v-if="scope.row.spread_num" type="primary" @click="dialogTableVisible = true, getDetailData(5, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.spread_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible=true, getDetailData(5, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -45,7 +66,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.turn_agent_num}}</span>
-                                    <el-button v-if="scope.row.turn_agent_num" type="primary" @click="dialogTableVisible = true, getDetailData(4, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.turn_agent_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible=true, getDetailData(4, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -55,7 +81,8 @@
                     </el-table>
                     <!-- Table -->
                     <el-dialog title="明细列表" :visible.sync="dialogTableVisible" center>
-                        <el-table :data="detialData">
+                        <el-table 
+                        :data="detialData">
                             <el-table-column property="addtime" label="注册时间"></el-table-column>
                             <el-table-column property="uid" label="UID"></el-table-column>
                             <el-table-column property="phone" label="账号"></el-table-column>
@@ -63,37 +90,59 @@
                             <el-table-column property="add_time" label="成为付费代理时间"></el-table-column>
                         </el-table>
                     </el-dialog>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
                 </template>
             </el-tab-pane>
-            <el-tab-pane label="付费代理数据列表" name="second">
+            <el-tab-pane 
+            label="付费代理数据列表" 
+            name="second">
                 <!-- 付费代理数据列表 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
                             <span>uid</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="uid1" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="uid1" 
+                            clearable></el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData1(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData1(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
                 <template>
-                    <el-table ref="tableHeight" :data="listData1" border fit highlight-current-row v-loading="listLoading1" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)"  style="width: 100%;" :height="tableHeight">
+                    <el-table 
+                    ref="tableHeight" 
+                    :data="listData1" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading1" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)"  
+                    style="width:100%;" 
+                    :height="tableHeight">
                         <el-table-column prop="date" label="日期"></el-table-column>
                         <el-table-column prop="uid" label="UID"></el-table-column>
                         <el-table-column prop="username" label="账号"></el-table-column>
@@ -104,7 +153,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.one_num}}</span>
-                                    <el-button v-if="scope.row.one_num" type="primary" @click="dialogTableVisible1 = true, getDetailData(1, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.one_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible1=true, getDetailData(1, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -113,7 +167,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.two_num}}</span>
-                                    <el-button v-if="scope.row.two_num" type="primary" @click="dialogTableVisible1 = true, getDetailData(2, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.two_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible1=true, getDetailData(2, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -122,7 +181,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.three_num}}</span>
-                                    <el-button v-if="scope.row.three_num" type="primary" @click="dialogTableVisible1 = true, getDetailData(3, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.three_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible1=true, getDetailData(3, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -131,7 +195,12 @@
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
                                     <span>{{scope.row.turn_agent_num}}</span>
-                                    <el-button v-if="scope.row.turn_agent_num" type="primary" @click="dialogTableVisible1 = true, getDetailData(4, scope.row.uid, scope.row.date)" size="mini" style="margin-left: 10px;">明细</el-button>
+                                    <el-button 
+                                    v-if="scope.row.turn_agent_num" 
+                                    type="primary" 
+                                    @click="dialogTableVisible1=true, getDetailData(4, scope.row.uid, scope.row.date)" 
+                                    size="mini" 
+                                    style="margin-left:10px;">明细</el-button>
                                 </div>
                             </template>
                         </el-table-column>
@@ -145,7 +214,8 @@
                     </el-table>
                     <!-- Table -->
                     <el-dialog title="明细列表" :visible.sync="dialogTableVisible1" center>
-                        <el-table :data="detialData">
+                        <el-table 
+                        :data="detialData">
                             <el-table-column property="addtime" label="注册时间"></el-table-column>
                             <el-table-column property="uid" label="UID"></el-table-column>
                             <el-table-column property="phone" label="账号"></el-table-column>
@@ -153,10 +223,13 @@
                             <el-table-column property="add_time" label="成为付费代理时间"></el-table-column>
                         </el-table>
                     </el-dialog>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange1" :page-size="20" :total=1000 :current-page="page1+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange1" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
                 </template>
             </el-tab-pane>

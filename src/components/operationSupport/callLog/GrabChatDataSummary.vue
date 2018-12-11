@@ -1,22 +1,33 @@
 <template>
 	<!-- 抢聊通话汇总 -->
 	<section>
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
 		<template>
-			<el-table :data="listData" v-loading="listLoading" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+			<el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="date" label="日期"></el-table-column>
 				<el-table-column prop="total_num" label="发起次数"></el-table-column>
 				<el-table-column prop="total_people" label="发起人数"></el-table-column>
@@ -124,10 +135,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

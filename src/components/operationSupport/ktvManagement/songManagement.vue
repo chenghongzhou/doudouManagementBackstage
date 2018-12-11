@@ -136,20 +136,24 @@
 			<el-dialog title="编辑歌手" :visible.sync="formOne.dialogVisible">
 				<el-form :model="formOne">
 					<el-form-item label="歌曲名" :label-width="formLabelWidth">
-						<el-input v-model="formOne.name" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.name" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌曲图" :label-width="formLabelWidth">
 						<input 
 						class="filepic fileinput" 
 						@change="uploading($event, 1)" 
 						type="file" 
-						style="display: block;">
+						style="display:block;">
 				        <img 
 						:src="formOne.icon_src" 
 						style="width:300px;height:200px;margin-top:20px;"/>
 					</el-form-item>
 					<el-form-item label="歌曲地址" :label-width="formLabelWidth">
-						<el-input v-model="formOne.url" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.url" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌手名" :label-width="formLabelWidth">
 						<el-select
@@ -188,10 +192,14 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
-						<el-input v-model="formOne.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌曲首字母" :label-width="formLabelWidth">
-						<el-input v-model="formOne.initial" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.initial" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" :label-width="formLabelWidth">
 						<el-select v-model="formOne.status" placeholder="状态">
@@ -201,27 +209,34 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="editorSure(0)">取 消</el-button>
-					<el-button type="primary" @click="editorSure(1)">确 定</el-button>
+					<el-button 
+					@click="editorSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="editorSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 			<el-dialog title="新增歌曲" :visible.sync="formTwo.dialogVisible">
 				<el-form :model="formTwo">
 					<el-form-item label="歌曲名" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.name" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.name" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌曲图" :label-width="formLabelWidth">
 						<input 
 						class="filepic fileinput" 
 						@change="uploading($event, 0)" 
 						type="file" 
-						style="display: block;">
+						style="display:block;">
 				        <img 
 						:src="formTwo.icon_src" 
 						style="width:300px;height:200px;margin-top:20px;"/>
 					</el-form-item>
 					<el-form-item label="歌曲地址" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.url" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.url" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌手名" :label-width="formLabelWidth">
 						<el-select
@@ -260,10 +275,14 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="歌曲首字母" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.initial" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.initial" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" :label-width="formLabelWidth">
 						<el-select v-model="formTwo.status" placeholder="状态">
@@ -273,8 +292,11 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="addSure(0)">取 消</el-button>
-					<el-button type="primary" @click="addSure(1)">确 定</el-button>
+					<el-button 
+					@click="addSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="addSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 			<el-dialog title="上传" :visible.sync="excelActivity.dialogVisible">
@@ -284,12 +306,15 @@
 						class="filepic fileinput" 
 						@change="uploading($event, 2)" 
 						type="file" 
-						style="display: block;">
+						style="display:block;">
 					</el-form-item>                                                                                                                                                                                                                                                                          
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="excelSure(0)">取 消</el-button>
-					<el-button type="primary" @click="excelSure(1)">确 定</el-button>
+					<el-button 
+					@click="excelSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="excelSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</template>
@@ -434,13 +459,13 @@ export default {
 			_this.formOne.sort = rows.sort;
 			_this.formOne.initial = rows.initial;
 			_this.formOne.status = rows.status;
-			_this.formOne.dialogVisible = true; 
+			_this.formOne.dialogVisible=true; 
 		},
 		// 编辑修改确定
 		editorSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formOne.dialogVisible = false;
+				_this.formOne.dialogVisible=false;
 			} else if(type==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -461,7 +486,7 @@ export default {
 				axios.post(allget+'/NewMusic/editMusic', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formOne.dialogVisible = false;									
+						_this.formOne.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '编辑修改成功！');
 							_this.getTableData();
@@ -478,7 +503,7 @@ export default {
 		addSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formTwo.dialogVisible = false;
+				_this.formTwo.dialogVisible=false;
 				_this.resetForm();
 			} else if(type==1) {
 				_this.listLoading = true;
@@ -499,7 +524,7 @@ export default {
 				axios.post(allget+'/NewMusic/addMusic', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formTwo.dialogVisible = false;									
+						_this.formTwo.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '新增成功！');
 							_this.getTableData();
@@ -548,7 +573,7 @@ export default {
 		excelSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.excelActivity.dialogVisible = false;
+				_this.excelActivity.dialogVisible=false;
 				_this.excelActivity.file = '';
 			} else if(type==1) {
 				_this.listLoading = true;
@@ -562,7 +587,7 @@ export default {
 				axios.post(allget+'/NewMusic/addMultiMusic', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.excelActivity.dialogVisible = false;									
+						_this.excelActivity.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '新增成功！');
 							_this.getTableData();

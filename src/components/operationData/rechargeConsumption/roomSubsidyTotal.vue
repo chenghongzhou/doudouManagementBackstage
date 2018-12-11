@@ -1,15 +1,17 @@
 <template>
     <!-- 房间补贴统计 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -30,27 +32,42 @@
                 </el-form-item>
                 <el-form-item>
                     <span>房间ID</span>
-                    <el-input style="width:120px;" clearable placeholder="房间ID" v-model="room_id">
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    clearable 
+                    placeholder="房间ID" 
+                    v-model="room_id"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="date" label="日期/月份"></el-table-column>
                 <el-table-column prop="total_ticket" label="全部流水"></el-table-column>
                 <!-- <el-table-column prop="room_name" label="礼物流水"></el-table-column> -->
                 <!-- <el-table-column prop="room_type"  label="其他流水"></el-table-column> -->
                 <el-table-column prop="chat_ticket" label="补贴"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -64,7 +81,7 @@ export default {
         return {
             tableHeight: null,
             formOne: {
-                startDate: [new Date() - 7 * 24 * 60 * 60 * 1000, new Date()]
+                startDate: [new Date()-7*24*60*60*1000, new Date()]
             },
             listData: [],
             formLabelWidth: "120px",
@@ -123,10 +140,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

@@ -1,43 +1,67 @@
 <template>
 	<!-- 广告限制次数 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="id" label="ID" width="100" sortable ></el-table-column>
 				<el-table-column prop="key" label="键" width="200"></el-table-column>
 				<el-table-column prop="value" label="值" width="200"></el-table-column>
 				<el-table-column prop="desc" label="描述" width="200"></el-table-column>
 				<el-table-column label="操作" min-width="300">
 					<template slot-scope="scope">
-						<el-button type="primary" @click.native.prevent="changeOneUserData(scope.$index, scope.row)" size="small">编辑</el-button>
+						<el-button 
+						type="primary" 
+						@click.native.prevent="changeOneUserData(scope.$index, scope.row)" 
+						size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 			<!-- 新增--对应的dialog -->
 			<el-dialog title="编辑修改值、描述（ID、键不能修改）" :visible.sync="dialogFormVisible">
 				<el-form :model="formTwo">
 					<el-form-item label="ID" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.id" auto-complete="off" disabled></el-input>
+						<el-input 
+						v-model="formTwo.id" 
+						auto-complete="off" 
+						disabled></el-input>
 					</el-form-item>
 					<el-form-item label="键" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.key" auto-complete="off" disabled></el-input>
+						<el-input 
+						v-model="formTwo.key" 
+						auto-complete="off" 
+						disabled></el-input>
 					</el-form-item>
 					<el-form-item label="值" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.value" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.value" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="描述" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.desc" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.desc" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="editorSure(0)">取 消</el-button>
-					<el-button type="primary" @click="editorSure(1)">确 定</el-button>
+					<el-button 
+					@click="editorSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="editorSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</template>
@@ -116,13 +140,13 @@ export default {
 			_this.formTwo.key = rows.key;
 			_this.formTwo.value = rows.value;
 			_this.formTwo.desc = rows.desc;
-			_this.dialogFormVisible = true; // 点击了编辑修改显示dialog框
+			_this.dialogFormVisible=true; // 点击了编辑修改显示dialog框
 		},
 		// 确定编辑修改随机昵称(val对应的值：0->取消，1->确认)
 		editorSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.dialogFormVisible = false; 
+				_this.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
 				var url = '/User/editAdCondition';
@@ -135,7 +159,7 @@ export default {
 				};
 				// 判断必须是要有输入value和desc才能进行修改成立
 				if(params.value!='' && params.desc!=''){
-					_this.dialogFormVisible = false; 
+					_this.dialogFormVisible=false; 
 					axios.get(allget+url, {params: params})
 						.then(res => {
 							if(res.data.ret) {
@@ -174,32 +198,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

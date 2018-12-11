@@ -1,16 +1,25 @@
 <template>
     <!-- 账号管理 -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
-                    <el-button type="primary" @click="addDialog.dialogShow=true;">添加账号</el-button>
-                    <el-button type="primary" @click="permissionDialog.dialogShow=true;">组别权限简介</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="addDialog.dialogShow=true;">添加账号</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="permissionDialog.dialogShow=true;">组别权限简介</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
         <template>
-            <el-table :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="id" label="序号ID" width="80" sortable></el-table-column>
                 <el-table-column prop="user_name" label="登录账号" width="100" sortable></el-table-column>
                 <el-table-column prop="real_name" label="姓名" width="150" sortable></el-table-column>
@@ -42,34 +51,63 @@
                 <el-table-column label="操作" width="400" sortable>
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
-                            <el-button type="primary" size="mini" @click.native.prevent="editDialogShow(scope.$index, scope.row)">编辑管理员</el-button>
-                            <el-button type="primary" size="mini" @click.native.prevent="changePassWordShow(scope.$index, scope.row)">重置密码</el-button>
-                            <el-button type="danger" size="mini" @click.native.prevent="delDialogShow(scope.$index, scope.row)">删除账号</el-button>
+                            <el-button 
+                            type="primary" 
+                            size="mini" 
+                            @click.native.prevent="editDialogShow(scope.$index, scope.row)">编辑管理员</el-button>
+                            <el-button 
+                            type="primary" 
+                            size="mini" 
+                            @click.native.prevent="changePassWordShow(scope.$index, scope.row)">重置密码</el-button>
+                            <el-button 
+                            type="danger" 
+                            size="mini" 
+                            @click.native.prevent="delDialogShow(scope.$index, scope.row)">删除账号</el-button>
                         </div>
                     </template>
                 </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev,pager,next,jumper" @current-change="oneHandleCurrentChange" :page-size="1000" :total="formOne.totalPage" style="float: right;"></el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="oneHandleCurrentChange" 
+                :page-size="1000" 
+                :total="formOne.totalPage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
         <el-dialog title="添加账号" :visible.sync="addDialog.dialogShow" width="80%">
             <el-form :model="addDialog">
                 <el-form-item label="账号" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.user_name" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.user_name" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="用户名" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.real_name" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.real_name" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" :label-width="formLabelWidth">
                     <el-input disabled v-model="addDialog.pass_word" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="渠道权限" :label-width="formLabelWidth">
-                    <el-input disabled type="textarea" :autosize="{ minRows: 1, maxRows: 4}" v-model="addDialog.channel_name_list" auto-complete="off"></el-input>
-                    <el-button type="primary" size="mini" @click="channelAddSelect">渠道选择</el-button><span style="color: red;">默认为全渠道的</span>
+                    <el-input 
+                    disabled 
+                    type="textarea" 
+                    :autosize="{ minRows: 1, maxRows: 4}" 
+                    v-model="addDialog.channel_name_list" 
+                    auto-complete="off"></el-input>
+                    <el-button 
+                    type="primary" 
+                    size="mini" 
+                    @click="channelAddSelect">渠道选择</el-button>
+                    <span style="color:red;">默认为全渠道的</span>
                 </el-form-item>
                 <el-form-item label="手机号码" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.phone" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.phone" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="页面权限" :label-width="formLabelWidth">
                     <el-select v-model="addDialog.auth_code">
@@ -92,8 +130,11 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="addDialogBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="addDialogBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="addDialogBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="addDialogBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="编辑管理员" :visible.sync="editDialog.dialogShow" width="80%">
@@ -107,15 +148,22 @@
                 <el-form-item label="用户名" :label-width="formLabelWidth">
                     <el-input disabled v-model="editDialog.real_name" auto-complete="off"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="密码" :label-width="formLabelWidth">
-                    <el-input v-model="editDialog.pass_word" auto-complete="off"></el-input>
-                </el-form-item> -->
                 <el-form-item label="渠道权限" :label-width="formLabelWidth">
-                    <el-input disabled type="textarea" :autosize="{ minRows: 1, maxRows: 4}" v-model="editDialog.channel_name_list" auto-complete="off"></el-input>
-                    <el-button type="primary" size="mini" @click="channelEditSelect">渠道选择</el-button>
+                    <el-input 
+                    disabled 
+                    type="textarea" 
+                    :autosize="{ minRows: 1, maxRows: 4}" 
+                    v-model="editDialog.channel_name_list" 
+                    auto-complete="off"></el-input>
+                    <el-button 
+                    type="primary" 
+                    size="mini" 
+                    @click="channelEditSelect">渠道选择</el-button>
                 </el-form-item>
                 <el-form-item label="手机号码" :label-width="formLabelWidth">
-                    <el-input v-model="editDialog.phone" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="editDialog.phone" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="页面权限" :label-width="formLabelWidth">
                     <el-select v-model="editDialog.auth_code">
@@ -138,8 +186,11 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="editDialogBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="editDialogBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="editDialogBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="editDialogBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="重置密码" :visible.sync="changePassWord.dialogShow" width="80%">
@@ -150,61 +201,89 @@
                 <el-form-item label="账号" :label-width="formLabelWidth">
                     <el-input disabled v-model="changePassWord.user_name" auto-complete="off"></el-input>						
                 </el-form-item>
-                <!-- <el-form-item label="原来的密码" :label-width="formLabelWidth">
-                    <el-input v-model="changePassWord.old_pass_word" auto-complete="off"></el-input>						
-                </el-form-item> -->
                 <el-form-item label="默认重置密码" :label-width="formLabelWidth">
                     <el-input disabled v-model="changePassWord.new_pass_word" auto-complete="off"></el-input>						
                 </el-form-item>
-                <!-- <el-form-item label="再次输入密码" :label-width="formLabelWidth">
-                    <el-input v-model="changePassWord.again_pass_word" auto-complete="off"></el-input>						
-                </el-form-item> -->
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="changePassWordBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="changePassWordBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="changePassWordBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="changePassWordBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="删除管理员" :visible.sync="delDialog.dialogShow" width="80%">
             <el-form :model="delDialog">
-                <p style="width: 100%; text-align: center; color: red; font-size: 20px;">确定删除账号{{delDialog.user_name}}管理员?</p>
+                <p style="width:100%;text-align:center;color:red;font-size:20px;">确定删除账号{{delDialog.user_name}}管理员?</p>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="delDialogBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="delDialogBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="delDialogBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="delDialogBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="编辑页面渠道选择列表" :visible.sync="channelEditDialog.dialogShow" width="80%">
-            <el-checkbox :indeterminate="channelEditDialog.isIndeterminate" v-model="channelEditDialog.checkAll" @change="handleCheckAllChangeEdit">全选</el-checkbox>
+            <el-checkbox 
+            :indeterminate="channelEditDialog.isIndeterminate" 
+            v-model="channelEditDialog.checkAll" 
+            @change="handleCheckAllChangeEdit">全选</el-checkbox>
             <div style="margin: 15px 0;"></div>
             <el-checkbox-group v-model="channelEditDialog.checkedchannels" @change="handleCheckedchannelsChangeEdit">
-                <el-checkbox style="width: 200px; height: 35px; margin-left: 10px; margin-top: 2px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" border size="medium" v-for="item in channelEditDialog.channels" :label="item.id" :key="item.id">{{item.annotation}}</el-checkbox>
+                <el-checkbox 
+                style="width:200px;height:35px;margin-left:10px;margin-top:2px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;" 
+                border 
+                size="medium" 
+                v-for="item in channelEditDialog.channels" 
+                :label="item.id" 
+                :key="item.id">{{item.annotation}}</el-checkbox>
             </el-checkbox-group>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="channelEditDialogBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="channelEditDialogBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="channelEditDialogBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="channelEditDialogBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="添加页面渠道选择列表" :visible.sync="channelAddDialog.dialogShow" width="80%">
-            <el-checkbox :indeterminate="channelAddDialog.isIndeterminate" v-model="channelAddDialog.checkAll" @change="handleCheckAllChangeAdd">全选</el-checkbox>
+            <el-checkbox 
+            :indeterminate="channelAddDialog.isIndeterminate" 
+            v-model="channelAddDialog.checkAll" 
+            @change="handleCheckAllChangeAdd">全选</el-checkbox>
             <div style="margin: 15px 0;"></div>
             <el-checkbox-group v-model="channelAddDialog.checkedchannels" @change="handleCheckedchannelsChangeAdd">
-                <el-checkbox style="width: 200px; height: 35px; margin-left: 10px; margin-top: 2px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" border size="medium" v-for="item in channelAddDialog.channels" :label="item.id" :key="item.id">{{item.annotation}}</el-checkbox>
+                <el-checkbox 
+                style="width:200px;height:35px;margin-left:10px;margin-top:2px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;" 
+                border 
+                size="medium" 
+                v-for="item in channelAddDialog.channels" 
+                :label="item.id" 
+                :key="item.id">{{item.annotation}}</el-checkbox>
             </el-checkbox-group>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="channelAddDialogBtn(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="channelAddDialogBtn(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="channelAddDialogBtn(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="channelAddDialogBtn(1)">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="组别权限简介" :visible.sync="permissionDialog.dialogShow" width="80%">
             <el-form :model="permissionDialog">
-                <el-table :data="permissionDialog.dataArr">
+                <el-table 
+                :data="permissionDialog.dataArr">
                     <el-table-column type="index" width="50"></el-table-column>
                     <el-table-column prop="name" label="权限组别" width="80"></el-table-column>
                     <el-table-column label="权限组别说明" min-width="200">
                         <template slot-scope="scope">
                             <div slot="reference" class="name-wrapper">
-                                <div style="text-align: left;" v-for="(item, index) in scope.row.content" :key="index">{{item}}</div>
+                                <div 
+                                style="text-align:left;" 
+                                v-for="(item, index) in scope.row.content" 
+                                :key="index">{{item}}</div>
                             </div>
                         </template>
                     </el-table-column>
@@ -374,7 +453,7 @@ export default {
         // 编辑管理员
         editDialogShow(index, rows) {
             var _this = this;
-            _this.editDialog.dialogShow = true;
+            _this.editDialog.dialogShow=true;
             _this.editDialog.id = rows.id;
             _this.editDialog.user_name = rows.user_name;
             _this.editDialog.real_name = rows.real_name;
@@ -388,7 +467,7 @@ export default {
         // 重置密码 
         changePassWordShow(index, rows) {
             var _this = this;
-            _this.changePassWord.dialogShow = true;
+            _this.changePassWord.dialogShow=true;
             _this.changePassWord.id = rows.id;
             _this.changePassWord.user_name = rows.user_name;
             _this.changePassWord.old_pass_word = rows.pass_word;
@@ -427,7 +506,7 @@ export default {
         // 删除管理员
         delDialogShow(index, rows) {
             var _this = this;
-            _this.delDialog.dialogShow = true;
+            _this.delDialog.dialogShow=true;
             _this.delDialog.id = rows.id;
             _this.delDialog.user_name = rows.user_name;
         },
@@ -549,7 +628,7 @@ export default {
         // 渠道选择编辑的弹窗
         channelEditSelect() {
             var _this = this;
-            _this.channelEditDialog.dialogShow = true;
+            _this.channelEditDialog.dialogShow=true;
             var arrChannelId= []; 
             arrChannelId = _this.editDialog.channel_id_list.split(',');
             console.log(arrChannelId);
@@ -561,7 +640,7 @@ export default {
         // 渠道选择添加的弹窗
         channelAddSelect() {
             var _this = this;
-            _this.channelAddDialog.dialogShow = true;
+            _this.channelAddDialog.dialogShow=true;
             var arrChannelId= []; 
             arrChannelId = _this.addDialog.channel_id_list.split(',');
             console.log(arrChannelId);

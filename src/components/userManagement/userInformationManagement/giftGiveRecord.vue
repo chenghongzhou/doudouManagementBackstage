@@ -1,10 +1,8 @@
 <template>
     <!-- 礼物赠送查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
@@ -28,22 +26,37 @@
                 </el-form-item>
                 <el-form-item>
                     <span>UID：</span>
-                    <el-input style="width:150px;" clearable placeholder="请输入uid" v-model="uid">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    clearable 
+                    placeholder="请输入uid" 
+                    v-model="uid"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>礼品名称：</span>
-                    <el-input style="width:150px;" clearable placeholder="请输入物品名称" v-model="gift_name">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    clearable 
+                    placeholder="请输入物品名称" 
+                    v-model="gift_name"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="时间"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
@@ -54,10 +67,13 @@
                 <el-table-column prop="gift_num" label="数量"></el-table-column>
                 <el-table-column prop="chat_gold" label="总价值"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -133,10 +149,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

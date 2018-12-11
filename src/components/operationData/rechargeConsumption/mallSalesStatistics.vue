@@ -35,8 +35,8 @@
             label="销售统计" 
             name="two" 
             :style="{height:tabHeight+'px'}">
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日 期</span>

@@ -17,41 +17,31 @@
                     v-loading="listLoading" 
                     style="width:100%;" :height="tabPageHeight">
                         <el-table-column prop="id" label="道具ID" ></el-table-column>
-                        <!-- <el-table-column prop="type" label="道具类型" sortable >
-                            <template slot-scope="scope">
-                                <p v-if="scope.row.type==0">直接使用</p>
-                                <p v-else-if="scope.row.type==1">开门卡</p>
-                                <p v-else-if="scope.row.type==2">经验值卡</p>
-                                <p v-else-if="scope.row.type==3">偷听卡</p>
-                                <p v-else-if="scope.row.type==4">告白卡</p>
-                                <p v-else-if="scope.row.type==5">转盘卡</p>
-                                <p v-else-if="scope.row.type==6">充值优惠卡</p>
-                                <p v-else-if="scope.row.type==7">抢聊卡</p>
-                                <p v-else-if="scope.row.type==8">财富卡</p>
-                                <p v-else-if="scope.row.type==9">通话卡</p>
-                                <p v-else-if="scope.row.type==10">经验加速卡</p>
-                                <p v-else-if="scope.row.type==11">体验会员卡</p>
-                            </template>
-                        </el-table-column> -->
                         <el-table-column prop="name" label="道具名称" ></el-table-column>
                         <el-table-column prop="icon" label="道具图片" width="120">
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src="scope.row.icon" alt="" style="width: 100px; height: auto;">
+                                    <img 
+                                    :src="scope.row.icon" 
+                                    style="width:100px;height:auto;">
                                 </div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="coming_icon" width="120" label="即将可使用道具icon" >
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src="scope.row.coming_icon" alt="" style="width: 100px; height: auto;">
+                                    <img 
+                                    :src="scope.row.coming_icon" 
+                                    style="width:100px;height:auto;">
                                 </div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="lose_icon" label="失效道具icon" >
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src="scope.row.lose_icon" alt="" style="width: 100px; height: auto;">
+                                    <img 
+                                    :src="scope.row.lose_icon" 
+                                    style="width:100px;height:auto;">
                                 </div>
                             </template>
                         </el-table-column>
@@ -94,12 +84,22 @@
                         <el-table-column prop="on_sale_time" label="上架时间" ></el-table-column>
                         <el-table-column prop="down_sale_time" label="下架时间"></el-table-column>
                         <el-table-column prop="create_time" label="添加时间" ></el-table-column>
-                        
                         <el-table-column label="操作" width="140" fixed="right">
                             <template slot-scope="scope">
-                                <el-button type="primary" @click="editOneUserData(scope.$index, formOne.tabData)" size="small">编辑</el-button>
-                                <el-button type="danger" v-if="scope.row.status == 0" @click="upDownProp(scope.$index, formOne.tabData, 1)" size="small">上架</el-button>
-                                <el-button type="danger" v-else-if="scope.row.status == 1" @click="upDownProp(scope.$index, formOne.tabData, 0)" size="small">下架</el-button>
+                                <el-button 
+                                type="primary" 
+                                @click="editOneUserData(scope.$index, formOne.tabData)" 
+                                size="small">编辑</el-button>
+                                <el-button 
+                                type="danger" 
+                                v-if="scope.row.status==0" 
+                                @click="upDownProp(scope.$index, formOne.tabData, 1)" 
+                                size="small">上架</el-button>
+                                <el-button 
+                                type="danger" 
+                                v-else-if="scope.row.status==1" 
+                                @click="upDownProp(scope.$index, formOne.tabData, 0)" 
+                                size="small">下架</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -117,8 +117,8 @@
             label="装扮" 
             name="two" 
             :style="{height:tabHeight+'px'}">
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
 						<el-form-item>
 							<el-button 
                             type="primary" 
@@ -169,7 +169,6 @@
                         </el-table-column>
                         <el-table-column prop="role_time" label="作用时长（小时）" ></el-table-column>
                         <el-table-column prop="description" label="描述" ></el-table-column>
-
                         <el-table-column label="操作" width="140">
                             <template slot-scope="scope">
                                 <el-button 
@@ -193,8 +192,8 @@
             label="座驾" 
             name="three" 
             :style="{height:tabHeight+'px'}">
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formThree">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formThree">
 						<el-form-item>
 							<el-button 
                             type="primary" 
@@ -211,11 +210,6 @@
                     style="width:100%;" :height="tabSearchPageHeight">
                         <el-table-column prop="id" label="ID" ></el-table-column>
                         <el-table-column prop="create_time" label="添加时间" ></el-table-column>
-                        <!-- <el-table-column label="类型" sortable >
-                            <template slot-scope="scope">
-                                <p v-if="scope.row.type==0">默认（0）</p>
-                            </template>
-                        </el-table-column> -->
                         <el-table-column prop="name" label="名称" ></el-table-column>
                         <el-table-column label="座驾图" width="120">
                             <template slot-scope="scope">
@@ -243,7 +237,6 @@
                         </el-table-column>
                         <el-table-column prop="role_time" label="作用时长（小时）" ></el-table-column>
                         <el-table-column prop="description" label="描述" ></el-table-column>
-
                         <el-table-column label="操作" width="140">
                             <template slot-scope="scope">
                                 <el-button 
@@ -266,10 +259,14 @@
             <el-dialog title="道具  编辑" :visible.sync="formOne.dialogFormVisible" width="80%">
                 <el-form :model="formOne">
                     <el-form-item label="道具名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formOne.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formOne.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="道具描述：" :label-width="formLabelWidth">
-                        <el-input v-model="formOne.description" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formOne.description" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="可否分享" :label-width="formLabelWidth">
                         <el-select v-model="formOne.is_share">
@@ -278,21 +275,39 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="道具图片：" :label-width="formLabelWidth">
-                        <img :src="formOne.icon" style="width:100px;height:100px;">
-                        <input class="select_f" type="file"  @change="uploading($event, 1)">
+                        <img 
+                        :src="formOne.icon" 
+                        style="width:100px;height:100px;">
+                        <input 
+                        class="select_f" 
+                        type="file"  
+                        @change="uploading($event, 1)">
                     </el-form-item>
                     <el-form-item label="即将可使用道具icon：" :label-width="formLabelWidth">
-                        <img :src="formOne.coming_icon" style="width:100px;height:100px;">
-                        <input class="select_f" type="file"  @change="uploading($event, 2)">
+                        <img 
+                        :src="formOne.coming_icon" 
+                        style="width:100px;height:100px;">
+                        <input 
+                        class="select_f" 
+                        type="file" 
+                        @change="uploading($event, 2)">
                     </el-form-item>
                     <el-form-item label="失效道具icon：" :label-width="formLabelWidth">
-                        <img :src="formOne.lose_icon" style="width:100px;height:100px;">
-                        <input class="select_f" type="file"  @change="uploading($event, 3)">
+                        <img 
+                        :src="formOne.lose_icon" 
+                        style="width:100px;height:100px;">
+                        <input 
+                        class="select_f" 
+                        type="file"  
+                        @change="uploading($event, 3)">
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureEditUser(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureEditUser(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureEditUser(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditUser(1)">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- 装扮 -->
@@ -305,7 +320,9 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="装扮名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.add.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.add.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="作用时长：" :label-width="formLabelWidth">
                         <el-input 
@@ -314,7 +331,9 @@
                         auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="描述：" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.add.description" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.add.description" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="装扮图：" :label-width="formLabelWidth">
                         <input 
@@ -330,13 +349,17 @@
                         class="fileinput"
                         type="file"  
                         @change="uploadingTwo($event, 2, 'add')">
-                        <el-button @click.native.prevent="lookDemo()">特效图页面</el-button>
+                        <el-button 
+                        @click.native.prevent="lookDemo()">特效图页面</el-button>
 						<p style="color:red;display:inline-block;">可以打开特效图页面，将文件拖入查看效果~</p>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureAddTwo(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureAddTwo(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureAddTwo(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureAddTwo(1)">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog title="装扮  编辑" :visible.sync="formTwo.edit.dialogFormVisible" width="80%">
@@ -348,7 +371,9 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="装扮名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.edit.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.edit.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="作用时长：" :label-width="formLabelWidth">
                         <el-input 
@@ -382,20 +407,20 @@
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureEditTwo(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureEditTwo(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureEditTwo(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditTwo(1)">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- 座驾 -->
             <el-dialog title="座驾  新增" :visible.sync="formThree.add.dialogFormVisible" width="80%">
                 <el-form :model="formThree.add">
-                    <!-- <el-form-item label="类型" :label-width="formLabelWidth">
-                        <el-select disabled="disabled" v-model="formThree.add.type">
-                            <el-option label="默认" value="0"></el-option>
-                        </el-select>
-                    </el-form-item> -->
                     <el-form-item label="座驾名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formThree.add.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formThree.add.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="作用时长：" :label-width="formLabelWidth">
                         <el-input 
@@ -404,7 +429,9 @@
                         auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="描述：" :label-width="formLabelWidth">
-                        <el-input v-model="formThree.add.description" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formThree.add.description" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="座驾图：" :label-width="formLabelWidth">
                         <input 
@@ -420,24 +447,25 @@
                         class="fileinput"
                         type="file"  
                         @change="uploadingThree($event, 2, 'add')">
-						<el-button @click.native.prevent="lookDemo()">特效图页面</el-button>
+						<el-button 
+                        @click.native.prevent="lookDemo()">特效图页面</el-button>
 						<p style="color:red;display:inline-block;">可以打开特效图页面，将文件拖入查看效果~</p>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureAddThree(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureAddThree(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureAddThree(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureAddThree(1)">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog title="座驾  编辑" :visible.sync="formThree.edit.dialogFormVisible" width="80%">
                 <el-form :model="formThree.edit">
-                    <!-- <el-form-item label="类型" :label-width="formLabelWidth">
-                        <el-select disabled="disabled" v-model="formThree.edit.type">
-                            <el-option label="默认" value="0"></el-option>
-                        </el-select>
-                    </el-form-item> -->
                     <el-form-item label="座驾名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formThree.edit.name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formThree.edit.name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="作用时长：" :label-width="formLabelWidth">
                         <el-input 
@@ -471,8 +499,11 @@
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="sureEditThree(0)">取 消</el-button>
-                    <el-button type="primary" @click="sureEditThree(1)">确 定</el-button>
+                    <el-button 
+                    @click="sureEditThree(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditThree(1)">确 定</el-button>
                 </div>
             </el-dialog>
 		</el-tabs>
@@ -627,7 +658,7 @@ export default {
             this.formOne.icon = row[index].icon;
             this.formOne.coming_icon = row[index].coming_icon;
             this.formOne.lose_icon = row[index].lose_icon;
-            this.formOne.dialogFormVisible = true;
+            this.formOne.dialogFormVisible=true;
         },
         sureEditUser(type){
             var _this = this;
@@ -658,7 +689,7 @@ export default {
                         }else{
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
-                        _this.formOne.dialogFormVisible = false;
+                        _this.formOne.dialogFormVisible=false;
                     })
                     .catch((err) => {
                         console.log(err);
@@ -783,7 +814,7 @@ export default {
                         else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
-                        _this.formTwo.add.dialogFormVisible = false;
+                        _this.formTwo.add.dialogFormVisible=false;
                     })
                     .catch((err) => {
                         console.log(err);
@@ -820,7 +851,7 @@ export default {
                         else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
-                        _this.formTwo.add.dialogFormVisible = false;
+                        _this.formTwo.add.dialogFormVisible=false;
                     })
                     .catch((err) => {
                         console.log(err);
@@ -839,7 +870,7 @@ export default {
             _this.formTwo.edit.attire_icon_show = val.icon;
             _this.formTwo.edit.attire_icon = '';
             _this.formTwo.edit.dynamic_effect_url = val.dynamic_effect_url;
-            _this.formTwo.edit.dialogFormVisible = true;
+            _this.formTwo.edit.dialogFormVisible=true;
         },
         uploadingTwo(a, b, c) {
             var _this = this;
@@ -927,7 +958,7 @@ export default {
                         else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
-                        _this.formThree.add.dialogFormVisible = false;
+                        _this.formThree.add.dialogFormVisible=false;
                     })
                     .catch((err) => {
                         console.log(err);
@@ -964,7 +995,7 @@ export default {
                         else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
-                        _this.formThree.add.dialogFormVisible = false;
+                        _this.formThree.add.dialogFormVisible=false;
                     })
                     .catch((err) => {
                         console.log(err);
@@ -982,7 +1013,7 @@ export default {
             _this.formThree.edit.car_icon_show = val.icon;
             _this.formThree.edit.car_icon = '';
             _this.formThree.edit.dynamic_effect_url = val.dynamic_effect_url;
-            _this.formThree.edit.dialogFormVisible = true;
+            _this.formThree.edit.dialogFormVisible=true;
         },
         uploadingThree(a, b, c) {
             var _this = this;

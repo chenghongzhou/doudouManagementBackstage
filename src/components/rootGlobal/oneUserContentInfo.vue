@@ -8,13 +8,21 @@
                             <h4>头像</h4>
                             <div class="uer_avator">
                                 <el-popover trigger="click" placement="left">
-                                    <img :src="userinfo.icon" alt="" style="width:350px;height:350px;">
+                                    <img 
+                                    :src="userinfo.icon"
+                                    style="width:350px;height:350px;">
                                     <div slot="reference" class="name-wrapper">
-                                        <img :src="userinfo.icon" alt="" style="width:240px;height:240px;">
+                                        <img 
+                                        :src="userinfo.icon" 
+                                        style="width:240px;height:240px;">
                                     </div>
                                 </el-popover>
-                                <div style="padding: 0px;display: inline-block;">
-                                    <el-button type="text" class="button" @click="deleteUsericon()" size="mini">删除</el-button>
+                                <div style="padding:0px;display:inline-block;">
+                                    <el-button 
+                                    type="text" 
+                                    class="button" 
+                                    @click="deleteUsericon()" 
+                                    size="mini">删除</el-button>
                                 </div>
                             </div>
                         </div>
@@ -28,9 +36,12 @@
                                 <el-col :span="12" class="grid-info"><div>uid：<span>{{userinfo.uid}}</span></div></el-col>
                                 <el-col :span="12" class="grid-info">
                                     <div>
-                                        <!-- <span>{{userinfo.nickname}}</span> -->
                                         <div style="display:inline-block;">昵称：</div>
-                                        <el-input v-model="userinfo.nickname" @focus="judgeChange(0)" @blur="judgeChangeNickname" style="width:200px;"></el-input>
+                                        <el-input 
+                                        v-model="userinfo.nickname" 
+                                        @focus="judgeChange(0)" 
+                                        @blur="judgeChangeNickname" 
+                                        style="width:200px;"></el-input>
                                         <p style="margin: 0;font-size:12px;height:20px;color:red;"># 输入完成后，点击输入框外即可完成修改！</p>
                                     </div>
                                 </el-col>
@@ -70,15 +81,26 @@
                         <div>
                             <h4>相册</h4>
                             <div class="uer_container">
-                                <div class="user-photo"  v-for="(o, index) in userinfo.photo_wall" :key="o" style="">
+                                <div 
+                                class="user-photo"  
+                                v-for="(o, index) in userinfo.photo_wall" 
+                                :key="o">
                                     <el-popover trigger="click" placement="left">
-                                        <img :src="o" alt="" style="width:300px;height:300px;">
+                                        <img 
+                                        :src="o" 
+                                        style="width:300px;height:300px;">
                                         <div slot="reference" class="name-wrapper">
-                                            <img :src="o" alt="" style="width:100px;height:100px;">
+                                            <img 
+                                            :src="o" 
+                                            style="width:100px;height:100px;">
                                         </div>
                                     </el-popover>
-                                    <div style="padding: 0px;display: inline-block;">
-                                        <el-button type="text" class="button" @click="deletePhoto(userinfo.uid,index)" size="mini">删除</el-button>
+                                    <div style="padding:0px;display:inline-block;">
+                                        <el-button 
+                                        type="text" 
+                                        class="button" 
+                                        @click="deletePhoto(userinfo.uid,index)" 
+                                        size="mini">删除</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -112,17 +134,27 @@
                                 <el-col :span="12" class="grid-info"><div>当前版本：<span>{{userinfo.version_name}}</span></div></el-col>
                                 <el-col :span="24" class="grid-info">
                                     <div>
-                                        <!-- <span class="txt-size">{{userinfo.signature}}</span> -->
                                         <div style="display:inline-block;">个性签名:</div>
-                                        <el-input v-model="userinfo.signature" @focus="judgeChange(1)" @blur="judgeChangeSignature" style="width:450px;"></el-input>
+                                        <el-input 
+                                        v-model="userinfo.signature" 
+                                        @focus="judgeChange(1)" 
+                                        @blur="judgeChangeSignature" 
+                                        style="width:450px;"></el-input>
                                         <p style="margin: 0;font-size:12px;height:20px;color:red;"># 输入完成后，点击输入框外即可完成修改！</p>
                                     </div>
                                 </el-col>
                                 <el-col :span="24" class="grid-info"><div>标签：<span class="txt-size">{{userinfo.labels}}</span></div></el-col>
                                 <el-col :span="24" class="grid-info">
                                     <div v-if="userinfo.voice_signature">录音签名：
-                                        <audio :src="userinfo.voice_signature" controls="controls" preload="none"></audio>
-                                        <el-button type="primary" size="mini" icon="close" @click="deleteAudio()">删除签名录音</el-button>
+                                        <audio 
+                                        :src="userinfo.voice_signature" 
+                                        controls="controls" 
+                                        preload="none"></audio>
+                                        <el-button 
+                                        type="primary" 
+                                        size="mini" 
+                                        icon="close" 
+                                        @click="deleteAudio()">删除签名录音</el-button>
                                     </div>
                                     <div v-else>暂无录音签名</div>
                                 </el-col>
@@ -138,10 +170,20 @@
                         <div>
                             <h4>录音库</h4>
                             <div class="uer_container">
-                                <div class="user-voice" v-for="(item, index) in userinfo.voice_data" :key="index" style="">
-                                    <audio :src="item.voice_url" controls="controls" preload="none"></audio>
-                                    <div style="padding: 0px;display: inline-block;">
-                                        <el-button type="text" class="button" @click="deleteAll(1,userinfo.uid,index)" size="mini">删除</el-button>
+                                <div 
+                                class="user-voice" 
+                                v-for="(item, index) in userinfo.voice_data" 
+                                :key="index">
+                                    <audio 
+                                    :src="item.voice_url" 
+                                    controls="controls" 
+                                    preload="none"></audio>
+                                    <div style="padding:0px;display:inline-block;">
+                                        <el-button 
+                                        type="text" 
+                                        class="button" 
+                                        @click="deleteAll(1,userinfo.uid,index)" 
+                                        size="mini">删除</el-button>
                                     </div>
                                 </div>
                                 <div v-if="!userinfo.voice_data">
@@ -178,20 +220,25 @@
                     </div>
                 </el-col>
             </el-row>
-            
         </el-dialog>
         <el-dialog  title="提示"  :visible.sync="titleialogVisible"  width="30%">
             <span>确定要修改昵称吗？</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="titleialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="nickNameChange()">确 定</el-button>
+                <el-button 
+                @click="titleialogVisible = false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="nickNameChange()">确 定</el-button>
             </span>
         </el-dialog>
         <el-dialog  title="提示"  :visible.sync="signDialogVisible"  width="30%">
             <span>确定要修改签名吗？</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="signDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="signatureChange()">确 定</el-button>
+                <el-button 
+                @click="signdialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="signatureChange()">确 定</el-button>
             </span>
         </el-dialog>
     </section>
@@ -317,7 +364,7 @@ export default {
             if(this.changeBeforeValue.signature == this.userinfo.signature){
                 return;
             }else{
-                this.signDialogVisible = true;
+                this.signdialogVisible=true;
             }
         },
         // 修改昵称
@@ -355,7 +402,7 @@ export default {
                 .then((res) => {
                     if(res.data.ret){
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.signDialogVisible = false;
+                        _this.signdialogVisible=false;
                         _this.getUserInfo(_this.userinfo.uid);
                     }else{
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -369,7 +416,7 @@ export default {
     mounted() {
         var _this = this;
         Event.$on("show-one-user", function(obj) {
-            _this.dialogVisible = true;
+            _this.dialogVisible=true;
             _this.getUserInfo(obj.uid);
         });
     }
@@ -377,14 +424,14 @@ export default {
 </script>
 <style scoped>
 el-dialog {
-    background-color: red;
+    background-color:red;
 }
 .content {
     background-color: rgba(0, 134, 139, 0.5);
 }
 
 .grid-content {
-    text-align: center;
+    text-align:center;
     background: #ffffff;
     border-radius: 10px;
     padding-bottom: 20px;
@@ -396,34 +443,33 @@ el-dialog {
 }
 .grid-content-second{
     height: 480px;
-    margin-top: 20px;
+    margin-top:20px;
     /* border: 1px solid orchid; */
 }
 .uer_container {
-    width: 100%;
+    width:100%;
     height: 100%;
     /* border: 1px solid blue; */
-    overflow: hidden;
+    overflow:hidden;
 }
 
 h4{
     margin: 10px 0;
     padding: 20px;
-    font-size: 20px;
+    font-size:20px;
 }
 /* 相册 */
 .user-photo {
     float: left;
-    display: inline-block;
     margin: 2px 2px;
     background-color: #f0f8ff;
 }
 /* 详细资料 */
 .user-info-detail{
-    width: 100%;
+    width:100%;
     height: 100%;
     margin-left: 10px;
-    overflow: hidden;
+    overflow:hidden;
     padding: 0 10px;
     /* border: 1px solid red; */
 }
@@ -432,7 +478,7 @@ h4{
     font-size: 16px;
     font-weight: 300;
     border-radius: 4px;
-    text-align: left;
+    text-align:left;
     /* color: #1C1C1C; */
     color: #696969;
     /* background-color: #87CEEB; */

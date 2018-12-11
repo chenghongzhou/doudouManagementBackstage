@@ -1,14 +1,16 @@
 <template>
 	<!-- 发送短信通知 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -21,15 +23,26 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="formCondition.dialogFormVisible=true;">按条件发送</el-button>
-					<el-button type="primary" @click="formPhone.dialogFormVisible=true;">按UID发送</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="formCondition.dialogFormVisible=true;">按条件发送</el-button>
+					<el-button 
+					type="primary" 
+					@click="formPhone.dialogFormVisible=true;">按UID发送</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="create_time" label="添加时间" width="150" sortable ></el-table-column>
 				<el-table-column prop="send_time" label="发送时间" width="150" sortable ></el-table-column>
 				<el-table-column label="性别" width="50" sortable >
@@ -70,18 +83,27 @@
 				<el-table-column prop="operation_name" label="操作人" width="150" sortable ></el-table-column>				
 				<el-table-column label="查看" width="100">
 					<template slot-scope="scope">
-						<el-button type="primary" @click.native.prevent="lookOneUserData(scope.$index, scope.row)" size="small">查看详情</el-button>
+						<el-button 
+						type="primary" 
+						@click.native.prevent="lookOneUserData(scope.$index, scope.row)" 
+						size="small">查看详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 显示为查看内容 -->
 		<el-dialog title="查看详情" :visible.sync="formFind.dialogFormVisible">
-			<el-table :data="formFind.tabData" style="width: 100%">
+			<el-table 
+			:data="formFind.tabData" 
+			style="width:100%">
 				<el-table-column prop="mobile" label="手机号码" width="180"></el-table-column>
 				<el-table-column prop="updatetime" label="日期" width="180"></el-table-column>
 				<el-table-column prop="status" label="状态">
@@ -106,12 +128,22 @@
 				</el-form-item>
 				<el-form-item label="注册时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.registerTime" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.registerTime" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item label="登陆时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.loginTime" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.loginTime" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item label="地区" :label-width="formLabelWidth">
@@ -125,14 +157,23 @@
 					<el-radio v-model="formCondition.channel" label="2">android</el-radio>
 				</el-form-item>
 				<el-form-item label="版本号" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.version_name" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.version_name" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="短信模板ID" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.template_id" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.template_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="短信模板参数" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formCondition.parameter" auto-complete="off"></el-input>
-					<p style="font-weight: bold;">每个参数，用英文逗号隔开（例如：xxx,xxx,xxx,xxx）</p>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formCondition.parameter" 
+					auto-complete="off"></el-input>
+					<p style="font-weight:bold;">每个参数，用英文逗号隔开（例如：xxx,xxx,xxx,xxx）</p>
 				</el-form-item>
 				<el-form-item label="是否定时" :label-width="formLabelWidth">
 					<el-radio v-model="formCondition.is_timing" label="0">无</el-radio>
@@ -140,28 +181,46 @@
 				</el-form-item>
 				<el-form-item v-if="formCondition.is_timing==1" label="定时时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.send_time" type="datetime" placeholder="选择发送的时间"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.send_time" 
+						type="datetime" 
+						placeholder="选择发送的时间"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="conditionSure(0)">取 消</el-button>
-				<el-button type="primary" @click="conditionSure(1)">确 定</el-button>
+				<el-button 
+				@click="conditionSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="conditionSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 		<!-- 按uid发送--对应的dialog -->
 		<el-dialog title="按Phone发送" :visible.sync="formPhone.dialogFormVisible">
 			<el-form :model="formPhone">
 				<el-form-item label="发送的Phone" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formPhone.phone_list" auto-complete="off"></el-input>
-					<p style="font-weight: bold;">每个Phone，用英文逗号隔开(例如:13800000000,13800000001,13800000002)</p>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formPhone.phone_list" 
+					auto-complete="off"></el-input>
+					<p style="font-weight:bold;">每个Phone，用英文逗号隔开(例如:13800000000,13800000001,13800000002)</p>
 				</el-form-item>
 				<el-form-item label="短信模板ID" :label-width="formLabelWidth">
-					<el-input v-model="formPhone.template_id" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formPhone.template_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="短信模板参数" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formPhone.parameter" auto-complete="off"></el-input>
-					<p style="font-weight: bold;">每个参数，用英文逗号隔开（例如：xxx,xxx,xxx,xxx）</p>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formPhone.parameter" 
+					auto-complete="off"></el-input>
+					<p style="font-weight:bold;">每个参数，用英文逗号隔开（例如：xxx,xxx,xxx,xxx）</p>
 				</el-form-item>
 				<el-form-item label="是否定时" :label-width="formLabelWidth">
 					<el-radio v-model="formPhone.is_timing" label="0">无</el-radio>
@@ -169,13 +228,19 @@
 				</el-form-item>
 				<el-form-item v-if="formPhone.is_timing==1" label="定时时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formPhone.send_time" type="datetime" placeholder="选择发送的时间"></el-date-picker>
+						<el-date-picker 
+						v-model="formPhone.send_time" 
+						type="datetime" 
+						placeholder="选择发送的时间"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="phoneSure(0)">取 消</el-button>
-				<el-button type="primary" @click="phoneSure(1)">确 定</el-button>
+				<el-button 
+				@click="phoneSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="phoneSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -286,7 +351,7 @@ export default {
 		conditionSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.formCondition.dialogFormVisible = false;
+				_this.formCondition.dialogFormVisible=false;
 			} else if(val==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -312,7 +377,7 @@ export default {
 				axios.post(allget+'/GlobalSet/sendMsmMess', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formCondition.dialogFormVisible = false;									
+						_this.formCondition.dialogFormVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '发送成功！');
 							_this.getTableData();
@@ -329,7 +394,7 @@ export default {
 		phoneSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.formPhone.dialogFormVisible = false;
+				_this.formPhone.dialogFormVisible=false;
 			} else if(val==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -355,7 +420,7 @@ export default {
 				axios.post(allget+'/GlobalSet/sendMsmMess', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formPhone.dialogFormVisible = false;									
+						_this.formPhone.dialogFormVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '发送成功！');
 							_this.getTableData();
@@ -410,7 +475,7 @@ export default {
 							res.data.obj[i].updatetime = baseConfig.changeDateTime(new Date(res.data.obj[i].updatetime), 0);
 						}
 						_this.formFind.tabData = res.data.obj;
-						_this.formFind.dialogFormVisible = true;
+						_this.formFind.dialogFormVisible=true;
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
 					}
@@ -440,32 +505,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

@@ -1,26 +1,37 @@
 <template>
 	<!-- 世界杯（测试服） -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 			<el-form :inline="true" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				
-                <el-form-item style="float: right;">
-					<el-button type="primary" @click="dialogFormVisible1=true;">新建</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+                <el-form-item style="float:right;">
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible1=true;">新建</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="create_time" label="创建时间" sortable ></el-table-column>
 				<el-table-column prop="id" label="比赛阵容" sortable >
 					<template slot-scope="scope">
@@ -47,35 +58,59 @@
 				
 				<el-table-column label="操作" width="150">
 					<template slot-scope="scope">
-						<el-button type="primary" size='mini' @click.native.prevent="edit(scope.$index,scope.row)">编辑</el-button>
-						<el-button type="danger" size='mini'  @click.native.prevent="delete1(scope.$index,scope.row)">删除</el-button>
+						<el-button 
+						type="primary" 
+						size='mini'
+						@click.native.prevent="edit(scope.$index,scope.row)">编辑</el-button>
+						<el-button 
+						type="danger" 
+						size='mini'  
+						@click.native.prevent="delete1(scope.$index,scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" :current-page="page+1" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 编辑对应的dialog -->
 		<el-dialog title="比赛内容编辑" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
 				<div class="team">
-					<span class="team_A">A队名称:</span><el-input style="width: 100px;margin:0 50px 0 10px;" :value="formTwo.team_A"></el-input>VS
-					<span class="team_B">B队名称:</span><el-input style="width: 100px;margin-left: 10px;" :value="formTwo.team_B"></el-input>
+					<span class="team_A">A队名称:</span>
+					<el-input style="width:100px;margin:0 50px 0 10px;" :value="formTwo.team_A"></el-input>
+					VS
+					<span class="team_B">B队名称:</span>
+					<el-input style="width:100px;margin-left:10px;" :value="formTwo.team_B"></el-input>
 				</div>
 				<div class="image_up">
 					<div class="image_a">
-						<img :src="formTwo.team_A_icon">
-						<input class="select_f" type="file"  @change="uploading($event, 1, 1)">
+						<img 
+						:src="formTwo.team_A_icon">
+						<input 
+						class="select_f" 
+						type="file"  
+						@change="uploading($event, 1, 1)">
 					</div>
 					<div class="image_b">
-						<img :src="formTwo.team_B_icon">
-						<input class="select_f" type="file"  @change="uploading($event, 1, 2)">
+						<img 
+						:src="formTwo.team_B_icon">
+						<input 
+						class="select_f" 
+						type="file"  
+						@change="uploading($event, 1, 2)">
 					</div>
 				</div>
 				<el-form-item label="比赛开始时间" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.start_time" placeholder="2018-6-25 11:00:00" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.start_time" 
+					placeholder="2018-6-25 11:00:00" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="竞猜选项" :label-width="formLabelWidth">
 					<el-select v-model="formTwo.option_num" placeholder="请选择">
@@ -91,42 +126,73 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="发放比例" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.grant_rate" placeholder="请填写小数（0.8）" auto-complete="off"></el-input>	
+					<el-input 
+					v-model="formTwo.grant_rate" 
+					placeholder="请填写小数（0.8）" 
+					auto-complete="off"></el-input>	
 				</el-form-item>
 				<el-form-item label="假数据" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.fake_data" placeholder="请填写整数" auto-complete="off"></el-input>	
+					<el-input 
+					v-model="formTwo.fake_data" 
+					placeholder="请填写整数" 
+					auto-complete="off"></el-input>	
 				</el-form-item>
 				<el-form-item label="A队比分" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.score_A" auto-complete="off"></el-input>	
+					<el-input 
+					v-model="formTwo.score_A" 
+					auto-complete="off"></el-input>	
 				</el-form-item>
 				<el-form-item label="B队比分" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.score_B" auto-complete="off"></el-input>	
+					<el-input 
+					v-model="formTwo.score_B" 
+					auto-complete="off"></el-input>	
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 		<!-- 新加对应的dialog -->
 		<el-dialog title="比赛内容新加" :visible.sync="dialogFormVisible1">
 			<el-form :model="newData">
 				<div class="team">
-					<span class="team_A">A队名称:</span><el-input v-model="newData.team_A" style="width: 100px;margin:0 50px 0 10px;"></el-input>VS
-					<span class="team_B">B队名称:</span><el-input v-model="newData.team_B" style="width: 100px;margin-left: 10px;"></el-input>
+					<span class="team_A">A队名称:</span>
+					<el-input 
+					v-model="newData.team_A" 
+					style="width:100px;margin:0 50px 0 10px;"></el-input>
+					VS
+					<span class="team_B">B队名称:</span>
+					<el-input 
+					v-model="newData.team_B" 
+					style="width:100px;margin-left:10px;"></el-input>
 				</div>
 				<div class="image_up">
 					<div class="image_a">
-						<img :src="newData.team_A_icon">
-						<input class="select_f" type="file"  @change="uploading($event, 2, 1)">
+						<img 
+						:src="newData.team_A_icon">
+						<input 
+						class="select_f" 
+						type="file"  
+						@change="uploading($event, 2, 1)">
 					</div>
 					<div class="image_b">
-						<img :src="newData.team_B_icon">
-						<input class="select_f" type="file"  @change="uploading($event, 2, 2)">
+						<img 
+						:src="newData.team_B_icon">
+						<input 
+						class="select_f" 
+						type="file"  
+						@change="uploading($event, 2, 2)">
 					</div>
 				</div>
 				<el-form-item label="比赛开始时间" :label-width="formLabelWidth">
-					<el-input v-model="newData.start_time" placeholder="2018-6-25 11:00:00" auto-complete="off"></el-input>
+					<el-input 
+					v-model="newData.start_time" 
+					placeholder="2018-6-25 11:00:00" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="竞猜选项" :label-width="formLabelWidth">
 					<el-select v-model="newData.option_num" placeholder="请选择">
@@ -142,13 +208,19 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="发放比例" :label-width="formLabelWidth">
-					<el-input v-model="newData.grant_rate" placeholder="请填写小数（0.8）" auto-complete="off"></el-input>	
+					<el-input 
+					v-model="newData.grant_rate" 
+					placeholder="请填写小数（0.8）" 
+					auto-complete="off"></el-input>	
 				</el-form-item>
 				
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible1 = false">取 消</el-button>
-				<el-button type="primary" @click="newAdd()">确 定</el-button>
+				<el-button 
+				@click="dialogFormVisible1=false">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="newAdd()">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -246,7 +318,7 @@ export default {
 		// 编辑世界杯内容
 		edit(index, row){
 			var _this = this;
-			_this.dialogFormVisible = true;
+			_this.dialogFormVisible=true;
 			_this.formTwo.id = row.id;
 			_this.formTwo.status = row.status;
 			_this.formTwo.team_A = row.team_A;
@@ -267,7 +339,7 @@ export default {
 		addSure(type){
 			var _this = this; 
 			if(type == 0) {
-				_this.dialogFormVisible = false;
+				_this.dialogFormVisible=false;
 				_this.formTwo.id = "";
 				_this.formTwo.status = "";
 				_this.formTwo.team_A = "";
@@ -304,7 +376,7 @@ export default {
 						_this.listLoading = false;
 						if(res.data.ret) {
 							_this.getTableData();
-							_this.dialogFormVisible = false;
+							_this.dialogFormVisible=false;
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg);
 						}
@@ -407,10 +479,10 @@ export default {
 		/* border: 1px solid red; */
 	}
 	.team_A el-input{
-		margin-left: 100px;
+		margin-left:100px;
 	}
 	.team_B{
-		display: inline-block;
+		display:inline-block;
 		margin-left: 50px;
 	}
 	.image_up{
@@ -424,7 +496,7 @@ export default {
 		float: left;
 		width: 50%;
 		height: 300px;
-		text-align: center;
+		text-align:center;
 	}
 	.image_up .image_a .select_f{
 		position: absolute;
@@ -437,16 +509,16 @@ export default {
 		left: 220px;
 	}
 	.image_up .image_a img{
-		width: 200px;
-		height: 200px;
-		margin-top: 20px;
+		width:200px;
+		height:200px;
+		margin-top:20px;
 	}
 	.image_up .image_b{
 		position: relative;
-		float: right;
+		float:right;
 		width: 50%;
 		height: 300px;
-		text-align: center;
+		text-align:center;
 	}
 	.image_up .image_b .select_f{
 		position: absolute;
@@ -460,10 +532,10 @@ export default {
 		
 	}
 	.image_up .image_b img{
-		display: inline-block;
-		width: 200px;
-		height: 200px;
+		display:inline-block;
+		width:200px;
+		height:200px;
 		margin: 0 auto;
-		margin-top: 20px;
+		margin-top:20px;
 	}
 </style>

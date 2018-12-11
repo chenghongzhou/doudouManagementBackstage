@@ -1,39 +1,62 @@
 <template>
     <!-- 提现审核页面(二次审核) -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="dataTime">日期</span>
-                        <el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.choiceDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        placeholder="选择日期范围"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>uid</span>
-                    <el-input style="width:100px;" clearable placeholder="请输入uid" v-model="formOne.find">
-                    </el-input>
+                    <el-input 
+                    style="width:100px;" 
+                    clearable 
+                    placeholder="请输入uid" 
+                    v-model="formOne.find"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>最大金额(元)</span>
-                    <el-input style="width:110px;" clearable placeholder="请输入金额" v-model="formOne.max_num">
-                    </el-input>
+                    <el-input 
+                    style="width:110px;" 
+                    clearable 
+                    placeholder="请输入金额" 
+                    v-model="formOne.max_num"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>最小金额(元)</span>
-                    <el-input style="width:110px;" clearable placeholder="请输入金额" v-model="formOne.min_num">
-                    </el-input>
+                    <el-input 
+                    style="width:110px;" 
+                    clearable 
+                    placeholder="请输入金额" 
+                    v-model="formOne.min_num"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button style="margin-left:150px;" type="success" @click="dialogVisible = true">一键提现</el-button>
+                    <el-button 
+                    style="margin-left:150px;" 
+                    type="success" 
+                    @click="dialogVisible=true">一键提现</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
         <template>
-            <el-table :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="req_time" label="请求时间" width="200" sortable></el-table-column>
                 <el-table-column prop="uid" label="用户uid" width="100" sortable></el-table-column>
                 <el-table-column prop="nickname" label="用户昵称" width="100" sortable></el-table-column>
@@ -57,7 +80,10 @@
                 <el-table-column prop="order_id" label="订单id" width="300" sortable></el-table-column>
                 <el-table-column label="操作" min-width="100" sortable>
                     <template slot-scope="scope">
-                        <el-button type="primary" @click.native.prevent="Auditing(scope.$index, scope.row)" size="small">审核</el-button>
+                        <el-button 
+                        type="primary" 
+                        @click.native.prevent="Auditing(scope.$index, scope.row)" 
+                        size="small">审核</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -65,8 +91,9 @@
                 <el-pagination 
                 layout="total,prev,pager,next,jumper" 
                 @current-change="oneHandleCurrentChange" 
-                :page-size="20" :total="formOne.totalPage" 
-                style="float: right;"></el-pagination>
+                :page-size="20" 
+                :total="formOne.totalPage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
         <el-dialog title="审核详情" :visible.sync="addDialog.dialogShow">
@@ -74,19 +101,28 @@
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="本次提现" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.num" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.num" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="账号" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.uid" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.uid" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="昵称" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.nickname" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.nickname" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -112,86 +148,129 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="注册渠道"  :label-width="formLabelWidth">
-                            <el-input disabled style="width:200px;" v-model="addDialog.channel" auto-complete="off"></el-input>
+                        <el-form-item label="注册渠道" :label-width="formLabelWidth">
+                            <el-input 
+                            disabled 
+                            style="width:200px;" 
+                            v-model="addDialog.channel" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="注册时间" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.addtime" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.addtime" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="累计通话时长" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.accumulate_time" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.accumulate_time" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                          <el-form-item label="累计通话收益" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.call_ticket" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.call_ticket" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="累计礼物收益" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.gift_ticket" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.gift_ticket" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                          <el-form-item label="累计其它收益" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.other_ticket" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.other_ticket" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="随机通话次数" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.rand_num" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.rand_num" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="好友通话次数" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.friend_num" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.friend_num" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="累计充值金额" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.total_pay_money" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.total_pay_money" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="历史提现次数" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.history_cash_times" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.history_cash_times" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="历史提现金额" :label-width="formLabelWidth">
-                            <el-input disabled v-model="addDialog.history_cash_money" auto-complete="off"></el-input>
+                            <el-input 
+                            disabled 
+                            v-model="addDialog.history_cash_money" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-form-item label="拒绝原因" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.reason" placeholder="如果拒绝请输入拒绝原因！" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.reason" 
+                    placeholder="如果拒绝请输入拒绝原因！" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="sendSure(0)">拒 绝</el-button>
-                <el-button type="primary" @click.native.prevent="sendSure(1)">通 过</el-button>
+                <el-button 
+                @click.native.prevent="sendSure(0)">拒 绝</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="sendSure(1)">通 过</el-button>
             </div>
         </el-dialog>
         <!-- 一键提现二次确认 -->
         <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
             <span>确认要一键提现？</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="onePass">确 定</el-button>
+                <el-button 
+                @click="dialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="onePass">确 定</el-button>
             </span>
         </el-dialog>
     </section>
@@ -314,7 +393,7 @@ export default {
             var params = {
                 id: id
             };
-            _this.addDialog.dialogShow = true;
+            _this.addDialog.dialogShow=true;
             _this.addDialog.id = id;
             _this.addDialog.order_id = rows.order_id;
             _this.addDialog.uid = rows.uid;
@@ -497,7 +576,7 @@ export default {
                 .then((res) => {
                     if (res.data.ret) {
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.dialogVisible = false;
+                        _this.dialogVisible=false;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }

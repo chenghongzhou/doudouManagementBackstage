@@ -1,32 +1,43 @@
 <template>
 	<!-- 全局参数 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
-					<el-button type="primary" @click="formTwo.dialogVisible=true;">添加新参数</el-button>
+					<el-button 
+					type="primary" 
+					@click="formTwo.dialogVisible=true;">添加新参数</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="id" label="ID" width="80" sortable ></el-table-column>
 				<el-table-column prop="g_key" label="键" width="150"></el-table-column>
 				<el-table-column prop="value" label="值" min-width="400"></el-table-column>
 				<el-table-column prop="desc" label="描述" width="250"></el-table-column>
 				<el-table-column label="操作" width="150">
 					<template slot-scope="scope">
-						<el-button type="primary" @click.native.prevent="changeOneUserData(scope.$index, scope.row)" size="small">编辑</el-button>
-						<!-- <el-button type="primary" @click.native.prevent="deleteOneUserData(scope.$index, scope.row)" size="small">删除</el-button> -->
+						<el-button 
+						type="primary" 
+						@click.native.prevent="changeOneUserData(scope.$index, scope.row)" 
+						size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 			<!-- 编辑修改--对应的dialog -->
 			<el-dialog title="编辑修改" :visible.sync="formOne.dialogVisible">
@@ -35,54 +46,88 @@
 						<el-input disabled v-model="formOne.id" auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="键" :label-width="formLabelWidth">
-						<el-input v-model="formOne.g_key" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.g_key" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id!=37" label="值" :label-width="formLabelWidth">
-						<el-input v-model="formOne.value" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.value" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="图片地址" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_img" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_img" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="跳转地址" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_jump_url" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_jump_url" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="跳转方式" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_jump_type" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_jump_type" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="标题" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_jump_title" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_jump_title" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="分享内容" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_share_content" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_share_content" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item v-if="formOne.id==37" label="是否显示" :label-width="formLabelWidth">
-						<el-input v-model="formOne.values.home_h5_is_show" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.values.home_h5_is_show" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="描述" :label-width="formLabelWidth">
-						<el-input type="textarea" autosize v-model="formOne.desc" auto-complete="off"></el-input>
+						<el-input 
+						type="textarea" 
+						autosize 
+						v-model="formOne.desc" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="editorSure(0)">取 消</el-button>
-					<el-button type="primary" @click="editorSure(1)">确 定</el-button>
+					<el-button 
+					@click="editorSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="editorSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 			<!-- 新增修改--对应的dialog -->
 			<el-dialog title="添加新参数" :visible.sync="formTwo.dialogVisible">
 				<el-form :model="formTwo">
 					<el-form-item label="键" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.g_key" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.g_key" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="值" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.value" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.value" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="描述" :label-width="formLabelWidth">
-						<el-input type="textarea" autosize v-model="formTwo.desc" auto-complete="off"></el-input>
+						<el-input 
+						type="textarea" 
+						autosize 
+						v-model="formTwo.desc" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="addSure(0)">取 消</el-button>
-					<el-button type="primary" @click="addSure(1)">确 定</el-button>
+					<el-button 
+					@click="addSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="addSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</template>
@@ -184,13 +229,13 @@ export default {
 				_this.formOne.values.home_h5_share_content = '';
 				_this.formOne.values.home_h5_is_show = '';
 			}
-			_this.formOne.dialogVisible = true;
+			_this.formOne.dialogVisible=true;
 		},
 		// 编辑修改确定
 		editorSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formOne.dialogVisible = false;
+				_this.formOne.dialogVisible=false;
 			} else if(type==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -209,7 +254,7 @@ export default {
 				axios.post(allget+'/GlobalSet/editGlobalSet', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formOne.dialogVisible = false;									
+						_this.formOne.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '编辑修改成功！');
 							_this.getTableData();
@@ -226,7 +271,7 @@ export default {
 		addSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formTwo.dialogVisible = false;
+				_this.formTwo.dialogVisible=false;
 			} else if(type==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -241,7 +286,7 @@ export default {
 				axios.post(allget+'/GlobalSet/addGlobalSet', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formTwo.dialogVisible = false;									
+						_this.formTwo.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '新增成功！');
 							_this.getTableData();
@@ -299,32 +344,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

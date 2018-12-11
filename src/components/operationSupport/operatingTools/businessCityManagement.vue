@@ -2,7 +2,7 @@
 	<!-- 商城管理 -->
 	<section>
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<span>商品类型</span>
 					<el-select v-model="formOne.type">
@@ -12,12 +12,15 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="formOne.add.dialogVisible=true;">新增</el-button>
-					<el-button type="primary" @click="getOneData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="formOne.add.dialogVisible=true;">新增</el-button>
+					<el-button 
+					type="primary" 
+					@click="getOneData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
 			<el-table 
 			ref="tableHeight" 
@@ -139,10 +142,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="原始价格" :label-width="formLabelWidth">
-					<el-input v-model="formOne.edit.original_price" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.edit.original_price" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="出售价格" :label-width="formLabelWidth">
-					<el-input v-model="formOne.edit.price" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.edit.price" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item disabled label="是否限购" :label-width="formLabelWidth">
 					<el-select v-model="formOne.edit.is_stock">
@@ -151,7 +158,9 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="库存" :label-width="formLabelWidth">
-					<el-input v-model="formOne.edit.stock" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.edit.stock" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item disabled label="是否会员专属" :label-width="formLabelWidth">
 					<el-select v-model="formOne.edit.is_vip_exclusive">
@@ -166,10 +175,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="限时时长-小时" :label-width="formLabelWidth">
-					<el-input v-model="formOne.edit.limit_time" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.edit.limit_time" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="备注" :label-width="formLabelWidth">
-					<el-input v-model="formOne.edit.remark" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.edit.remark" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="商品图片" :label-width="formLabelWidth">
 					<input 
@@ -191,8 +204,11 @@
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="editorSure(0)">取 消</el-button>
-				<el-button type="primary" @click="editorSure(1)">确 定</el-button>
+				<el-button 
+				@click="editorSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="editorSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 		<!-- 新增 -->
@@ -219,10 +235,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="原始价格" :label-width="formLabelWidth">
-					<el-input v-model="formOne.add.original_price" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.add.original_price" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="出售价格" :label-width="formLabelWidth">
-					<el-input v-model="formOne.add.price" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.add.price" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item disabled label="是否限购" :label-width="formLabelWidth">
 					<el-select v-model="formOne.add.is_stock">
@@ -231,7 +251,9 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="库存" :label-width="formLabelWidth">
-					<el-input v-model="formOne.add.stock" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.add.stock" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item disabled label="是否会员专属" :label-width="formLabelWidth">
 					<el-select v-model="formOne.add.is_vip_exclusive">
@@ -246,10 +268,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="限时时长-小时" :label-width="formLabelWidth">
-					<el-input v-model="formOne.add.limit_time" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.add.limit_time" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="备注" :label-width="formLabelWidth">
-					<el-input v-model="formOne.add.remark" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formOne.add.remark" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="商品图片" :label-width="formLabelWidth">
 					<input 
@@ -271,8 +297,11 @@
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -393,7 +422,7 @@ export default {
 			_this.formOne.edit.product_icon_show = obj.product_icon;
 			_this.formOne.edit.status = obj.status;
 			_this.formOne.edit.product_icon = '';
-			_this.formOne.edit.dialogVisible = true;
+			_this.formOne.edit.dialogVisible=true;
 		},
 		deleteChange(obj) {
 			var _this = this;
@@ -695,32 +724,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

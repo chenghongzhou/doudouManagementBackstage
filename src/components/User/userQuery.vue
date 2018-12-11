@@ -1,19 +1,25 @@
 <template>
-<!-- dom结构内容 -->
 	<section>
-		<!--工具条-->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="filters">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="filters">
 				<el-form-item>
 					<div class="block">
                       	<span class="registerTime">注册时间</span>
-                      	<el-date-picker v-model="time_register" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                      	<el-date-picker 
+						  v-model="time_register" 
+						  type="daterange" 
+						  range-separator=" 至 " 
+						  placeholder="选择日期范围"></el-date-picker>
                     </div>
 				</el-form-item>
 				<el-form-item>
 					<div class="block">
                       	<span class="landTime">登录时间</span>
-                      	<el-date-picker v-model="time_land" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                      	<el-date-picker 
+						  v-model="time_land" 
+						  type="daterange" 
+						  range-separator=" 至 " 
+						  placeholder="选择日期范围"></el-date-picker>
                     </div>
 				</el-form-item>
 				<el-form-item>	
@@ -21,25 +27,40 @@
 					style="width:120px;" 
 					v-model="value" 
 					placeholder="渠道号">
-						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+						<el-option 
+						v-for="item in options" 
+						:key="item.value" 
+						:label="item.label" 
+						:value="item.value"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-input style="width: 120px;" placeholder="请输入UID" icon="search" v-model="uid"></el-input>
+					<el-input 
+					style="width:120px;"
+					placeholder="请输入UID" 
+					icon="search" 
+					v-model="uid"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" v-on:click="page=0,getUser()">查询</el-button>
-					<el-button type="primary" v-on:click="handleDownload">导出</el-button>
+					<el-button 
+					type="primary" 
+					v-on:click="page=0,getUser()">查询</el-button>
+					<el-button 
+					type="primary" 
+					v-on:click="handleDownload">导出</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户详情的弹出框  -->
 		<el-dialog title="用户详情" :visible.sync="dialogVisible" size="large">
 			<el-row  v-loading="isgetuser" element-loading-text="拼命加载中" :gutter="20">
 				<el-col :span="12">头像<div class="bg-purple" ></div>
 					<div style="width:220px;height:220px;margin:auto">
-						<span class="photo_close" @click="deleteAll(2,userinfo.uid)">x</span>					
-						<img style="width:200px;height:200px;" :src="userinfo.icon" alt="" >
+						<span 
+						class="photo_close" 
+						@click="deleteAll(2,userinfo.uid)">x</span>					
+						<img 
+						style="width:200px;height:200px;" 
+						:src="userinfo.icon" />
 					</div> 
 				</el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">用户uid：{{userinfo.uid}}</div></el-col>
@@ -56,9 +77,17 @@
 				<el-col :span="6"><div class="grid-content bg-purple">豆币：{{userinfo.chat_gold}}</div></el-col>
 				<el-col :span="12" style="height:50px">
 					<div class="grid-content " style="height:50px;float:left">
-						<audio :src="userinfo.voice_signature" controls="controls" preload="none"></audio>
+						<audio 
+						:src="userinfo.voice_signature" 
+						controls="controls" 
+						preload="none"></audio>
 					</div>
-					<el-button type="primary" size="mini" icon="close" v-if="userinfo.voice_signature!=null" @click="deleteAll(3,userinfo.uid)"></el-button>
+					<el-button 
+					type="primary" 
+					size="mini" 
+					icon="close" 
+					v-if="userinfo.voice_signature!=null" 
+					@click="deleteAll(3,userinfo.uid)"></el-button>
 				</el-col>	
 				<el-col :span="6"><div class="grid-content bg-purple">累计充值金额：{{userinfo.money}}</div></el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">渠道：{{userinfo.channel}}</div></el-col>
@@ -67,11 +96,17 @@
 				<el-col :span="12" style="height:350px">相册：
 					<div class="grid-content" style="overflow:auto;height:350px">
 						<el-col :span="6" v-for="(o, index) in allimg" :key="o" style="float:left;margin: 2px 0;">
-							<el-card :body-style="{ padding: '0px' }">
-							<img :src="o" class="image" style="width:110px;height:110px;">
-							<div style="padding: 0px;">															
-								<el-button type="text" class="button" @click="deleteAll(1,userinfo.uid,index)">删除</el-button>
-							</div>
+							<el-card :body-style="{padding:'0px'}">
+								<img 
+								:src="o" 
+								class="image" 
+								style="width:110px;height:110px;">
+								<div style="padding:0px;">															
+									<el-button 
+									type="text" 
+									class="button" 
+									@click="deleteAll(1,userinfo.uid,index)">删除</el-button>
+								</div>
 							</el-card>	
 						</el-col>
 					</div>
@@ -94,16 +129,22 @@
 				<el-col :span="6"><div class="grid-content bg-purple">账号状态：{{userinfo.status}}</div></el-col>
 			</el-row>
 		</el-dialog>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table :data="users" border fit highlight-current-row v-loading="listLoading"  style="width: 100%;" :height="tableHeight" >
+			<el-table 
+			:data="users" 
+			border fit highlight-current-row 
+			v-loading="listLoading"  
+			style="width:100%;" 
+			:height="tableHeight" >
 				<el-table-column type="index" width="70" ></el-table-column>
 				<el-table-column prop="addtime" label="注册时间" width="110" sortable ></el-table-column>
 				<el-table-column prop="channel" label="渠道" width="100" sortable></el-table-column>
-				<!-- 可以进行点击的出现用户详情 -->
 				<el-table-column label="UID" width="80" sortable>
 					<template slot-scope="scope">
-						<el-button type="primary" size="small" @click="showUserActivity(scope.$index, scope.row.uid)">{{scope.row.uid}}</el-button>
+						<el-button 
+						type="primary" 
+						size="small"
+						@click="showUserActivity(scope.$index, scope.row.uid)">{{scope.row.uid}}</el-button>
 					</template>
 				</el-table-column>
 				<el-table-column prop="nickname" label="昵称" width="100" sortable></el-table-column>
@@ -111,9 +152,13 @@
                 <el-table-column  label="用户头像" min-width="120" sortable >
 					<template slot-scope="scope">
 						<el-popover trigger="hover" placement="left">
-							<img :src="scope.row.icon" alt="" style="width:300px;height:300px;">
+							<img 
+							:src="scope.row.icon" 
+							style="width:300px;height:300px;">
 							<div slot="reference" class="name-wrapper">
-								<img :src="scope.row.icon" alt="" style="width:100px;height:100px;">
+								<img 
+								:src="scope.row.icon" 
+								style="width:100px;height:100px;">
 							</div>
 						</el-popover>
 					</template>
@@ -125,28 +170,61 @@
                 <el-table-column label="操作" min-width="270" >
 					<template slot-scope="scope">	
 						<el-row :gutter="20">
-							<el-col :span="6"><el-button type="info" style="marginBottom:10px;" @click="getuserinfo(scope.row.uid)" >用户详情</el-button></el-col>
+							<el-col :span="6">
+								<el-button 
+								type="info" 
+								style="marginBottom:10px;"
+								@click="getuserinfo(scope.row.uid)" >用户详情</el-button>
+							</el-col>
 							<div v-if="scope.row.status==0">
-								<el-col :span="4"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(1,scope.row.uid)">封号</el-button></el-col>
+								<el-col :span="4">
+									<el-button 
+									type="danger" 
+									style="marginBottom:10px;" 
+									@click="userOperation(1,scope.row.uid)">封号</el-button>
+								</el-col>
 							</div>
 							<div v-else-if="scope.row.status==1">
-								<el-col :span="4"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(2,scope.row.uid)">解封</el-button></el-col>
+								<el-col :span="4">
+									<el-button 
+									type="danger" 
+									style="marginBottom:10px;" 
+									@click="userOperation(2,scope.row.uid)">解封</el-button>
+								</el-col>
 							</div>
-							<el-col :span="5"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(3,scope.row.uid)">踢下线</el-button></el-col>
+							<el-col :span="5">
+								<el-button 
+								type="danger" 
+								style="marginBottom:10px;" 
+								@click="userOperation(3,scope.row.uid)">踢下线</el-button>
+							</el-col>
 							<div v-if="scope.row.is_up_list==0">
-								<el-col :span="4"><el-button type="warning" style="marginBottom:10px;" @click="userOperation(4,scope.row.uid)">上榜</el-button></el-col>
+								<el-col :span="4">
+									<el-button 
+									type="warning" 
+									style="marginBottom:10px;" 
+									@click="userOperation(4,scope.row.uid)">上榜</el-button>
+								</el-col>
 							</div>
 							<div v-else-if="scope.row.is_up_list==1">
-								<el-col :span="4"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(5,scope.row.uid)">下榜</el-button></el-col>
+								<el-col :span="4">
+									<el-button 
+									type="danger" 
+									style="marginBottom:10px;" 
+									@click="userOperation(5,scope.row.uid)">下榜</el-button>
+								</el-col>
 							</div>
 						</el-row>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" :current-page="page+1" style="float:right; ">
-				</el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
@@ -214,7 +292,7 @@ export default {
 					.then((data) => {
 						if (data.data.ret) {
 							this.userinfo = data.data.data[0];
-							this.dialogVisible = true;
+							this.dialogVisible=true;
 
 							this.$message({
 								type: 'success',
@@ -278,7 +356,7 @@ export default {
 				// 	.then((data) => {
 				// 		if (data.data.ret) {
 				// 			this.userinfo = data.data.data[0];
-				// 			this.dialogVisible = true;
+				// 			this.dialogVisible=true;
 				// 			this.$message({
 				// 				type: 'success',
 				// 				message: '删除成功!'
@@ -377,7 +455,7 @@ export default {
 				.then((data) => {
 					if (data.data.ret) {
 						this.userinfo = data.data.data[0];
-						this.dialogVisible = true;
+						this.dialogVisible=true;
 						this.isgetuser=false;
 					} else {
 						this.$notify.error({
@@ -486,16 +564,16 @@ export default {
     height: 36px;
 	margin-bottom: 5px;
 	line-height: 36px;
-	text-align: center;
+	text-align:center;
 }
 .photo_close {
-	display: block;
+	display:block;
 	position: relative;
 	width: 20px;
 	height: 20px;
 	border-radius: 50% !important;
 	background-color: #ff5353;
-	text-align: center;
+	text-align:center;
 	line-height: 20px;
 	color: #fff;
     right: -190px;

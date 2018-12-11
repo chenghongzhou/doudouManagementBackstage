@@ -71,7 +71,7 @@ export default {
     color: #000;
     font-size: 40px;
     margin: 20px auto 0;
-    display: block !important;
+    display:block !important;
     color: #8492a6;
 }
 .welcome {
@@ -82,6 +82,6 @@ export default {
     width: 500px;
 }
 .welcome-right {
-    width: 200px;
+    width:200px;
 }
 </style>

@@ -1,15 +1,17 @@
 <template>
 	<!-- 用户投诉管理 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -30,7 +32,7 @@
 				</el-form-item>
 				<el-form-item>
 					<span>投诉类型</span>
-					<el-select style="width: 100px;" v-model="content">
+					<el-select style="width:100px;" v-model="content">
 						<el-option label="全部" value=""></el-option>
 						<el-option label="色情" value="1"></el-option>
 						<el-option label="欺诈" value="2"></el-option>
@@ -41,29 +43,33 @@
 				</el-form-item>
 				<el-form-item>
 					<span>UID</span>
-					<el-input style="width:100px;" placeholder="请输入内容" v-model="find" clearable>
-					</el-input>
+					<el-input 
+                    style="width:100px;" 
+                    placeholder="请输入内容" 
+                    v-model="find" 
+                    clearable></el-input>
 				</el-form-item>
 				<el-form-item>
 					<span>处理状态</span>
-					<el-select style="width: 100px;" v-model="status">
+					<el-select style="width:100px;" v-model="status">
 						<el-option label="全部" value=""></el-option>
 						<el-option label="已忽略" value="1"></el-option>
 						<el-option label="已警告" value="2"></el-option>
 						<el-option label="已封号" value="3"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
 			<el-table 
             :data="onePageTabData" 
             border fit highlight-current-row 
-            style="width: 100%;" 
+            style="width:100%;" 
             v-loading="listLoading" 
             :height="tableHeight">
 				<el-table-column prop="id" label="投诉ID"></el-table-column>
@@ -75,7 +81,9 @@
 				<el-table-column prop="num" label="投诉次数">
                     <!-- 点击投诉次数，出现对应的内容 -->
                     <template slot-scope="scope">
-                        <el-button type="primary" @click="getInfo(scope.row.complain_uid)">{{scope.row.num}}</el-button>
+                        <el-button 
+                        type="primary" 
+                        @click="getInfo(scope.row.complain_uid)">{{scope.row.num}}</el-button>
                     </template>
                 </el-table-column>
 				<el-table-column prop="warn_num" label="警告次数"></el-table-column>
@@ -84,9 +92,13 @@
 				<el-table-column prop="evidences" label="图片">
 					<template slot-scope="scope">
 						<el-popover trigger="hover" v-if="changeData(scope.row.evidences)" placement="left">
-							<img :src="changeData(scope.row.evidences)" alt="" style="width:300px;height:500px;">
+							<img 
+                            :src="changeData(scope.row.evidences)" 
+                            style="width:300px;height:500px;">
 							<div slot="reference" class="name-wrapper">
-								<img :src="changeData(scope.row.evidences)" alt="" style="width:100px;height:100px;">
+								<img 
+                                :src="changeData(scope.row.evidences)" 
+                                style="width:100px;height:100px;">
 							</div>
 						</el-popover>
 					</template>
@@ -98,13 +110,22 @@
 						<div v-else-if="scope.row.status==3">已封号</div>
 						<el-row v-else-if="scope.row.status==0">
 							<el-col :span="8">
-								<el-button size="mini" type="success" @click="ignore(scope.$index, scope.row)">忽视</el-button>
+								<el-button 
+                                size="mini" 
+                                type="success" 
+                                @click="ignore(scope.$index, scope.row)">忽视</el-button>
 							</el-col>
 							<el-col :span="8">
-								<el-button size="mini" type="warning" @click="warning(scope.$index, scope.row)">警告</el-button>
+								<el-button 
+                                size="mini" 
+                                type="warning" 
+                                @click="warning(scope.$index, scope.row)">警告</el-button>
 							</el-col>
 							<el-col :span="8">
-								<el-button size="mini" type="info" @click="dialogFormVisible=true, getter(scope.$index, scope.row)">封号</el-button>
+								<el-button 
+                                size="mini" 
+                                type="info" 
+                                @click="dialogFormVisible=true,getter(scope.$index, scope.row)">封号</el-button>
 							</el-col>
 						</el-row>
 					</template>
@@ -113,7 +134,6 @@
             <el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper" 
-                :current-page="page" 
                 @current-change="handleCurrentChange" 
                 :page-size="20" 
                 :total="totalpage" 
@@ -134,23 +154,32 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="封号理由" :label-width="formLabelWidth">
-					<el-input v-model="form.reason" auto-complete="off"></el-input>
+					<el-input 
+                    v-model="form.reason" 
+                    auto-complete="off"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
-				<el-button type="primary" @click="title()">确 定</el-button>
+				<el-button 
+                @click="dialogFormVisible=false">取 消</el-button>
+				<el-button 
+                type="primary" 
+                @click="title()">确 定</el-button>
 			</div>
 		</el-dialog>
 		<el-dialog title="提示" :visible.sync="dialogtitle" width="30%">
 			<span>请选择封号时长</span>
 			<span slot="footer" class="dialog-footer">
-				<el-button @click="dialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="dialogtitle = false">确 定</el-button>
+				<el-button 
+                @click="dialogVisible=false">取 消</el-button>
+				<el-button 
+                type="primary" 
+                @click="dialogtitle=false">确 定</el-button>
 			</span>
 		</el-dialog>
         <el-dialog title="投诉详情" :visible.sync="complaint.dialogVisible" width="80%">
-            <el-table :data="complaint.tabData">
+            <el-table 
+            :data="complaint.tabData">
                 <el-table-column property="id" label="ID" width="150"></el-table-column>
                 <el-table-column property="time" label="日期" width="200"></el-table-column>
                 <el-table-column property="uid" label="投诉人"></el-table-column>
@@ -161,9 +190,13 @@
 				<el-table-column prop="evidences" label="图片">
 					<template slot-scope="scope">
 						<el-popover trigger="hover" v-if="changeData(scope.row.evidences)" placement="left">
-							<img :src="changeData(scope.row.evidences)" alt="" style="width:300px;height:500px;">
+							<img 
+                            :src="changeData(scope.row.evidences)" 
+                            style="width:300px;height:500px;">
 							<div slot="reference" class="name-wrapper">
-								<img :src="changeData(scope.row.evidences)" alt="" style="width:100px;height:100px;">
+								<img 
+                                :src="changeData(scope.row.evidences)" 
+                                style="width:100px;height:100px;">
 							</div>
 						</el-popover>
 					</template>
@@ -175,13 +208,22 @@
 						<div v-else-if="scope.row.status==3">已封号</div>
 						<el-row v-else-if="scope.row.status==0">
 							<el-col :span="8">
-								<el-button size="mini" type="success" @click="ignore(scope.$index, scope.row)">忽视</el-button>
+								<el-button 
+                                size="mini" 
+                                type="success" 
+                                @click="ignore(scope.$index, scope.row)">忽视</el-button>
 							</el-col>
 							<el-col :span="8">
-								<el-button size="mini" type="warning" @click="warning(scope.$index, scope.row)">警告</el-button>
+								<el-button 
+                                size="mini" 
+                                type="warning" 
+                                @click="warning(scope.$index, scope.row)">警告</el-button>
 							</el-col>
 							<el-col :span="8">
-								<el-button size="mini" type="info" @click="dialogFormVisible=true, getter(scope.$index, scope.row)">封号</el-button>
+								<el-button 
+                                size="mini" 
+                                type="info" 
+                                @click="dialogFormVisible=true,getter(scope.$index, scope.row)">封号</el-button>
 							</el-col>
 						</el-row>
 					</template>
@@ -192,12 +234,17 @@
         <el-dialog title="警告" :visible.sync="warnInfo.dialogFormVisible">
             <el-form :model="warnInfo">
                 <el-form-item label="警告文字" :label-width="formLabelWidth">
-                    <el-input v-model="warnInfo.warn_content" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="warnInfo.warn_content" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="warnInfo.dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureWarn">确 定</el-button>
+                <el-button 
+                @click="warnInfo.dialogFormVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="sureWarn">确 定</el-button>
             </div>
         </el-dialog>
 	</section>
@@ -238,7 +285,7 @@ export default {
             },
 			dialogtitle: false,
 			operate_user: null,
-			page: 1,
+			page: 0,
 			totalpage: null,
 			star: '0',
             end: '20',
@@ -299,7 +346,7 @@ export default {
                     _this.listLoading = false;
                     _this.listData = res.data.data;
                     _this.totalpage = res.data.data.length;
-                    _this.page = 1;
+                    _this.page = 0;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -322,7 +369,7 @@ export default {
         },
         // 警告
         warning(index, row) {
-            this.warnInfo.dialogFormVisible = true;
+            this.warnInfo.dialogFormVisible=true;
             this.warnInfo.uid = row.complain_uid;
             this.warnInfo.id = row.id;
         },
@@ -341,7 +388,7 @@ export default {
             };
             axios.post(allget+url, formData, config)
                 .then((res) => {
-                    _this.warnInfo.dialogFormVisible = false;
+                    _this.warnInfo.dialogFormVisible=false;
                     if (res.data.ret) {
                         baseConfig.successTipMsg(_this, res.data.msg);
                     } else {
@@ -376,7 +423,7 @@ export default {
                 _this.dialogtitle = true;
                 return;
             }
-            _this.dialogFormVisible = false;
+            _this.dialogFormVisible=false;
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
@@ -402,7 +449,7 @@ export default {
                 .then((res) => {
                     console.log(res.data.data);
                     _this.complaint.tabData = res.data.data; 
-                    _this.complaint.dialogVisible = true;
+                    _this.complaint.dialogVisible=true;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -424,10 +471,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

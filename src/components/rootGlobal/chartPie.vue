@@ -4,7 +4,7 @@
 	<section class="chart-container">
 		<el-dialog title="饼状图" :width="dialogWidth" :visible.sync="dialogVisible" @open="show()" size="large">
             <div class="chartPie"></div>
-            <p style="color: red; font-size: 20px; font-family: '微软雅黑';">总量数值为：{{total_num}}</p>
+            <p style="color:red; font-size:20px; font-family: '微软雅黑';">总量数值为：{{total_num}}</p>
 		</el-dialog>
 	</section>
 </template>
@@ -79,7 +79,7 @@ export default {
         //基于准备好的dom，初始化echarts实例
         _this.$nextTick(function(){
             Event.$on('show-chart-pie', function(obj){
-                _this.dialogVisible = true;
+                _this.dialogVisible=true;
                 _this.chartData = obj.data;
                 _this.total_num = obj.data.total;
                 _this.dialogWidth = lookWidth*0.8+'px'; //设置进行dialog的宽度进行设置为屏幕的80%
@@ -92,9 +92,9 @@ export default {
 <style scoped>
 /* 这个样式规则限制使得它们应用于<style scoped>元素的父<div>元素及其内部的所有元素上。我们称之为“范围” */
 .chart-container .chartPie{
-    width: 100%; height: 600px;
+    width:100%; height:600px;
 }
 .chart-container .chartPie .chartPieDiv{
-    width: 100%; height: 600px !important;    
+    width:100%; height:600px !important;    
 }
 </style>

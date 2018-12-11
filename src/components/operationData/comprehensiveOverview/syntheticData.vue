@@ -11,8 +11,8 @@
 			label="综合数据" 
 			name="one" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
@@ -60,7 +60,7 @@
 			name="two" 
 			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
+					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
@@ -105,8 +105,8 @@
 			label="付费渗透" 
 			name="three" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formThree">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formThree">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
@@ -154,8 +154,8 @@
 			label="累积数据" 
 			name="four" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formFour">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formFour">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>

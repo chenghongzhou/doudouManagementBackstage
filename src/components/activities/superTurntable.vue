@@ -26,7 +26,7 @@
             :data="onePageTabData" 
             border fit highlight-current-row 
             v-loading="listLoading" 
-            style="width: 100%;" :height="tableHeight">
+            style="width:100%;" :height="tableHeight">
 				<el-table-column 
                 prop="time" 
                 label="时间" 

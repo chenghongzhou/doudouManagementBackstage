@@ -1,22 +1,26 @@
 <template>
 	<!-- 网红通话汇总 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
 			<el-table 
             :data="listData" 
@@ -180,10 +184,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

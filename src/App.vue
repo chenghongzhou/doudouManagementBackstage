@@ -75,7 +75,7 @@ export default {
     z-index: -1;
 }
 html {
-	width: 100%;
+	width:100%;
 	height: 100%;
 }
 a:hover, a:visited, a:link, a:active {
@@ -85,7 +85,7 @@ a:hover, a:visited, a:link, a:active {
 body {
 
 	margin: 0px;
-	padding: 0px;
+	padding:0px;
 	/*background: url(assets/bg1.jpg) center !important;
 	background-size: cover;*/
 	background: #fdfdfd;
@@ -97,7 +97,7 @@ body {
 	position: absolute;
 	top: 0px;
 	bottom: 0px;
-	width: 100%;
+	width:100%;
 	height: 100%;
 }
 .el-submenu [class^=fa] {
@@ -130,7 +130,7 @@ body {
 	background-color: #e3efff !important;
 }
 .el-table .cell, .el-table th>div{
-	text-align: center !important;
+	text-align:center !important;
 	padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -139,7 +139,7 @@ body {
 	transition: all .2s ease;
 }
 .moon {
-	width: 100px;
+	width:100px;
 	height: 100px;
 	position: absolute;
 	z-index:-1;
@@ -208,7 +208,7 @@ body {
 	background-color: #48566A !important;
 }
 .el-menu-vertical-demo{
-	width: 100%;
+	width:100%;
 }
 /* 弹出dialog添加上背景色 */ 
 .el-dialog__wrapper{

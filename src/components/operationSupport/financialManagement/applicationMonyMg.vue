@@ -2,12 +2,16 @@
 <template>
     <!-- 货币申请及记录 -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="dataTime">日期</span>
-                        <el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.choiceDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        placeholder="选择日期范围"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -31,12 +35,19 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
         <template>
-            <el-table :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="申请时间"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
@@ -85,26 +96,43 @@
                 <el-table-column prop="examine_time" label="审核时间"></el-table-column>
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
-                        <el-button type="primary" @click="pass(scope.$index, onePageData)" size="small">通过</el-button>
-                        <el-button type="warning" @click="refuse(scope.$index, onePageData)" size="small">拒绝</el-button>
+                        <el-button 
+                        type="primary" 
+                        @click="pass(scope.$index, onePageData)" 
+                        size="small">通过</el-button>
+                        <el-button 
+                        type="warning" 
+                        @click="refuse(scope.$index, onePageData)" 
+                        size="small">拒绝</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev,pager,next,jumper" @current-change="oneHandleCurrentChange" :page-size="20" :total="formOne.totalPage" style="float: right;"></el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="oneHandleCurrentChange" 
+                :page-size="20" 
+                :total="formOne.totalPage" 
+                style="float:right;"></el-pagination>
             </el-col>
             <el-dialog title="提示" :visible.sync="passDialogVisible" width="30%">
                 <span>确定要通过吗？</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="passDialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click=surePass()>确 定</el-button>
+                    <el-button 
+                    @click="passDialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click=surePass()>确 定</el-button>
                 </span>
             </el-dialog>
             <el-dialog title="提示" :visible.sync="refuseDialogVisible" width="30%">
                 <span>确定要拒绝吗？</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="refuseDialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click=sureRefuse()>确 定</el-button>
+                    <el-button 
+                    @click="refuseDialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click=sureRefuse()>确 定</el-button>
                 </span>
             </el-dialog>
         </template>
@@ -189,7 +217,7 @@ export default {
         },
         // 通过
         pass(index, row) {
-            this.passDialogVisible = true;
+            this.passdialogVisible=true;
             this.passData.uid = row[index].uid;
             this.passData.id = row[index].id;
             this.passData.type = row[index].type;
@@ -208,7 +236,7 @@ export default {
                 .then((res) => {
                     if(res.data.ret) {
                         baseConfig.successTipMsg(this, res.data.msg);
-                        _this.passDialogVisible = false;
+                        _this.passdialogVisible=false;
                         _this.getTableData();
                     }else{
                         baseConfig.warningTipMsg(this, res.data.msg);
@@ -219,7 +247,7 @@ export default {
                 });
         },
         refuse(index, row) {
-            this.refuseDialogVisible = true;
+            this.refusedialogVisible=true;
             this.passData.id = row[index].id;
         },
         sureRefuse() {
@@ -233,7 +261,7 @@ export default {
                 .then((res) => {
                     if(res.data.ret) {
                         baseConfig.successTipMsg(this, res.data.msg);
-                        _this.refuseDialogVisible = false;
+                        _this.refusedialogVisible=false;
                         _this.getTableData();
                     }else{
                         baseConfig.warningTipMsg(this, res.data.msg);

@@ -2,7 +2,7 @@
     <!-- 礼物数据统计 -->
     <section>
         <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
@@ -34,8 +34,7 @@
                         :value="key"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-                    <!-- <el-button type="primary" @click="chartLineShow">饼状图</el-button> -->
+                <el-form-item style="margin-left:100px;">
                     <el-button 
                     type="primary" 
                     @click="getTableData">查询</el-button>
@@ -59,13 +58,12 @@
             </el-table>
             <!-- 折线图 -->
             <!-- <el-dialog title="占比饼状图" :width="dialogWidth" :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine" style="width: 100%;height: 500px;"></div>
+                <div class="chartLine" style="width:100%;height: 500px;"></div>
             </el-dialog> -->
             <!--翻页-->
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper"  
-                :current-page="page" 
                 @current-change="handleCurrentChange" 
                 :page-size="20" 
                 :total="totalpage" 
@@ -97,7 +95,7 @@ export default {
             channelData: {},
             channelId: null,
             chartLine: null,
-            page: 1,
+            page: 0,
             totalpage: null,
             star: '0',
             end: '20',
@@ -210,7 +208,6 @@ export default {
                     if (res.data.ret) {
                         _this.tabData = res.data.data;
                         _this.totalpage = res.data.data.length;
-                        
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -230,7 +227,7 @@ export default {
             });
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
     },
     mounted() {
@@ -250,7 +247,7 @@ export default {
 
 <style lang="css" scoped>
 .infomation {
-    width: 100%;
+    width:100%;
     height: 100%;
 }
 </style>

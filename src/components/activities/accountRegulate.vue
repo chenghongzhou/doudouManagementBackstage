@@ -1,13 +1,20 @@
 <template>
 	<!-- 家族账号管理 -->
 	<section>
-		<el-tabs v-model="tabActiveName" type="border-card" @tab-click="handleClick">
+		<el-tabs 
+        v-model="tabActiveName" 
+        type="border-card" 
+        @tab-click="handleClick">
             <!-- 账号管理 -->
-			<el-tab-pane label="账号管理" name="first">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+			<el-tab-pane 
+            label="账号管理" 
+            name="first">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
                         <el-form-item>
-							<el-button type="primary" @click="formOne.addAccountInfo.dialogShow=true;">添加账号</el-button>
+							<el-button 
+                            type="primary"
+                            @click="formOne.addAccountInfo.dialogShow=true;">添加账号</el-button>
 						</el-form-item>
                         <!--<el-form-item>
                             <span>上级UID</span>
@@ -15,10 +22,15 @@
                         </el-form-item>-->
                         <el-form-item>
                             <span>UID</span>
-                            <el-input style="width:150px;" placeholder="请输入内容" v-model="formTwo.bind_uid"></el-input>
+                            <el-input 
+                            style="width:150px;" 
+                            placeholder="请输入内容" 
+                            v-model="formTwo.bind_uid"></el-input>
                         </el-form-item> 
 						<el-form-item>
-							<el-button type="primary" @click="getAccountTable">查询</el-button>
+							<el-button 
+                            type="primary" 
+                            @click="getAccountTable">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -27,7 +39,8 @@
                     ref="tableOneHeight" 
                     :data="onePageTabData" 
                     border fit highlight-current-row 
-                    v-loading="listLoading" style="width: 100%;" 
+                    v-loading="listLoading" 
+                    style="width:100%;" 
                     :height="tableOneHeight">
                         <el-table-column type="index" width="50"></el-table-column>
 						<el-table-column prop="name" label="登录账号" width="200"></el-table-column>
@@ -71,7 +84,13 @@
 			<!--成员列表弹框-->
             <el-dialog title="账号添加" :visible.sync="formOne.btns.two.dialogShow">
 				<template>
-					<el-table ref="tableTwoHeight" :data="formTwo.tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableTwoHeight">
+					<el-table 
+                    ref="tableTwoHeight" 
+                    :data="formTwo.tabData" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading" 
+                    style="width:100%;" 
+                    :height="tableTwoHeight">
 						<el-table-column prop="create_time" label="绑定时间" width="150"></el-table-column>
 						<el-table-column prop="uid" label="UID" width="100"></el-table-column>
 						<el-table-column prop="name" label="账号" width="150"></el-table-column>
@@ -95,40 +114,57 @@
                         @current-change="twoHandleCurrentChange"
                         :page-size="20"
                         :total="formTwo.totalPage"
-                        style="text-align: right;">
+                        style="text-align:right;">
                         </el-pagination>
                     </el-col>
 				</template>
 			</el-dialog>
-			
             <!-- 账号添加弹窗 -->
             <el-dialog title="账号添加" :visible.sync="formOne.addAccountInfo.dialogShow">
 				<el-form :model="formOne.addAccountInfo">
 					<el-form-item label="账号" :label-width="formLabelWidth">
-						<el-input v-model="formOne.addAccountInfo.account" placeholder="请填写手机号码~" auto-complete="off"></el-input>
+						<el-input 
+                        v-model="formOne.addAccountInfo.account" 
+                        placeholder="请填写手机号码~" 
+                        auto-complete="off"></el-input>
 					</el-form-item>
                     <el-form-item label="密码" :label-width="formLabelWidth">
-						<el-input v-model="formOne.addAccountInfo.password" placeholder="请填写密码~" auto-complete="off"></el-input>
+						<el-input 
+                        v-model="formOne.addAccountInfo.password" 
+                        placeholder="请填写密码~" 
+                        auto-complete="off"></el-input>
 					</el-form-item>
                     <el-form-item label="UID" :label-width="formLabelWidth">
-						<el-input v-model="formOne.addAccountInfo.uid" placeholder="请填写uid~" auto-complete="off"></el-input>
+						<el-input 
+                        v-model="formOne.addAccountInfo.uid" 
+                        placeholder="请填写uid~" 
+                        auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="addAccountSure(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="addAccountSure(1)">确 定</el-button>
+					<el-button 
+                    @click.native.prevent="addAccountSure(0)">取 消</el-button>
+					<el-button 
+                    type="primary" 
+                    @click.native.prevent="addAccountSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
             <!-- 第一屏btns中添加成员、重置密码、删除账号 -->
             <el-dialog title="添加成员" :visible.sync="formOne.btns.one.dialogShow">
 				<el-form :model="formOne.btns.one">
 					<el-form-item label="UID" :label-width="formLabelWidth">
-						<el-input v-model="formOne.btns.one.uid_list" placeholder="uid之间用英文状态输入的,隔开" auto-complete="off"></el-input>
+						<el-input 
+                        v-model="formOne.btns.one.uid_list" 
+                        placeholder="uid之间用英文状态输入的,隔开" 
+                        auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="oneBtn(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="oneBtn(1)">确 定</el-button>
+					<el-button 
+                    @click.native.prevent="oneBtn(0)">取 消</el-button>
+					<el-button 
+                    type="primary" 
+                    @click.native.prevent="oneBtn(1)">确 定</el-button>
 				</div>
 			</el-dialog>
             <el-dialog title="重置密码" :visible.sync="formOne.btns.three.dialogShow">
@@ -136,8 +172,11 @@
 					<p>确定将密码重置为123456？</p>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="threeBtn(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="threeBtn(1)">确 定</el-button>
+					<el-button 
+                    @click.native.prevent="threeBtn(0)">取 消</el-button>
+					<el-button 
+                    type="primary" 
+                    @click.native.prevent="threeBtn(1)">确 定</el-button>
 				</div>
 			</el-dialog>
             <el-dialog title="删除账号" :visible.sync="formOne.btns.four.dialogShow">
@@ -145,8 +184,11 @@
 					<p>是否将账号进行删除？</p>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="fourBtn(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="fourBtn(1)">确 定</el-button>
+					<el-button 
+                    @click.native.prevent="fourBtn(0)">取 消</el-button>
+					<el-button 
+                    type="primary" 
+                    @click.native.prevent="fourBtn(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</el-tabs>

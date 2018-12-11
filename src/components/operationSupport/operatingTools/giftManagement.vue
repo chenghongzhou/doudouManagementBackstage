@@ -7,7 +7,7 @@
 			<el-tab-pane 
 			label="普通礼物" 
 			name="first" 
-			:style="{height: tabSearchHeight+'px'}">
+			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item>
@@ -470,8 +470,8 @@
 			label="标签管理" 
 			name="four" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formFour">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formFour">
 						<el-form-item>
 							<el-button 
 							type="primary" 
@@ -528,13 +528,20 @@
 					width="80%">
 						<el-form :model="formFour.editor">
 							<el-form-item label="标签ID" :label-width="formLabelWidth">
-								<el-input v-model="formFour.editor.id" auto-complete="off" disabled></el-input>
+								<el-input 
+								v-model="formFour.editor.id" 
+								auto-complete="off" 
+								disabled></el-input>
 							</el-form-item>
 							<el-form-item label="标签名称" :label-width="formLabelWidth">
-								<el-input v-model="formFour.editor.tab_name" auto-complete="off"></el-input>
+								<el-input 
+								v-model="formFour.editor.tab_name" 
+								auto-complete="off"></el-input>
 							</el-form-item>
 							<el-form-item label="标签排序" :label-width="formLabelWidth">
-								<el-input v-model="formFour.editor.sort" auto-complete="off"></el-input>
+								<el-input 
+								v-model="formFour.editor.sort" 
+								auto-complete="off"></el-input>
 							</el-form-item>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
@@ -551,10 +558,14 @@
 					:visible.sync="formFour.addDialogShow">
 						<el-form :model="formFour.add">
 							<el-form-item label="标签名称" :label-width="formLabelWidth">
-								<el-input v-model="formFour.add.tab_name" auto-complete="off"></el-input>
+								<el-input 
+								v-model="formFour.add.tab_name" 
+								auto-complete="off"></el-input>
 							</el-form-item>
 							<el-form-item label="标签排序" :label-width="formLabelWidth">
-								<el-input v-model="formFour.add.sort" auto-complete="off"></el-input>
+								<el-input 
+								v-model="formFour.add.sort" 
+								auto-complete="off"></el-input>
 							</el-form-item>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
@@ -574,13 +585,19 @@
 			width="80%">
 				<el-form :model="giftUploading.params">
 					<el-form-item label="礼物排序" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="礼物名称" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.name" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.name" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="礼物价格" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.price" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.price" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="图片上传" :label-width="formLabelWidth">
 						<span class="showbtn">选择文件</span>
@@ -637,7 +654,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="礼物描述" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.desc" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.desc" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="上架时间" :label-width="formLabelWidth">
 						<div class="block">
@@ -660,7 +679,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="转盘概率" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.probability" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.probability" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="是否为特殊礼物" :label-width="formLabelWidth">
 						<el-select v-model="giftUploading.params.is_special">
@@ -669,7 +690,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="库存数量" :label-width="formLabelWidth">
-						<el-input v-model="giftUploading.params.stock_num" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftUploading.params.stock_num" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
@@ -690,13 +713,19 @@
 						<el-input disabled v-model="giftEditorloading.params.id" auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="礼物排序" :label-width="formLabelWidth">
-						<el-input v-model="giftEditorloading.params.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftEditorloading.params.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="礼物名称" :label-width="formLabelWidth">
-						<el-input v-model="giftEditorloading.params.name" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftEditorloading.params.name" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="礼物价格" :label-width="formLabelWidth">
-						<el-input v-model="giftEditorloading.params.price" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftEditorloading.params.price" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="图片上传" :label-width="formLabelWidth">
 						<span class="showbtn">选择文件</span>
@@ -776,7 +805,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="转盘概率" :label-width="formLabelWidth">
-						<el-input v-model="giftEditorloading.params.probability" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftEditorloading.params.probability" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="是否为特殊礼物" :label-width="formLabelWidth">
 						<el-select v-model="giftEditorloading.params.is_special">
@@ -785,7 +816,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="库存数量" :label-width="formLabelWidth">
-						<el-input v-model="giftEditorloading.params.stock_num" auto-complete="off"></el-input>
+						<el-input 
+						v-model="giftEditorloading.params.stock_num" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
@@ -801,7 +834,8 @@
 			title="礼物数量特效详情" 
 			:visible.sync="giftNumTable.dialogShow" 
 			width="80%">
-				<el-table :data="giftNumTable.giftNumArr">
+				<el-table 
+				:data="giftNumTable.giftNumArr">
 					<el-table-column property="gift_id" label="礼物ID" width="50"></el-table-column>
 					<el-table-column property="num" label="数量" width="50"></el-table-column>
 					<el-table-column property="num_name" label="礼物数字描述" min-width="100"></el-table-column>
@@ -825,7 +859,10 @@
 						<template slot-scope="scope">
 							<div slot="reference" class="name-wrapper">
 								<p v-if="scope.row.num_img_url==''||scope.row.num_img_url==null">无标识图</p>
-								<img v-else :src="scope.row.num_img_url" style="width:100px;height:auto;">
+								<img 
+								v-else 
+								:src="scope.row.num_img_url" 
+								style="width:100px;height:auto;">
 							</div>
 						</template>
 					</el-table-column>
@@ -1307,7 +1344,7 @@ export default {
 			_this.giftEditorloading.file_pic = '';
 			_this.giftEditorloading.file_gif = '';
 			_this.giftEditorloading.file_corner = '';
-			_this.giftEditorloading.dialogShow = true;
+			_this.giftEditorloading.dialogShow=true;
 		},
 		// 确定礼物的编辑操作
 		editorGiftSure(type) {
@@ -1428,7 +1465,7 @@ export default {
 			_this.formFour.editor.id = rows.id;
 			_this.formFour.editor.tab_name = rows.tab_name;
 			_this.formFour.editor.sort = rows.sort;
-			_this.formFour.editorDialogShow = true; 
+			_this.formFour.editordialogShow=true; 
 		},
 		// 编辑标签的确定,0->取消，1->确定
 		editorLabelSure(type) {
@@ -1620,7 +1657,7 @@ export default {
 				.then((res) => {
 					_this.listLoading = false;
 					if(res.data.ret) {
-						_this.giftNumTable.dialogShow = true;
+						_this.giftNumTable.dialogShow=true;
 						_this.giftNumTable.giftNumArr = res.data.data;
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg); 
@@ -1643,7 +1680,7 @@ export default {
 			// 在这里进行对应的文件置空，选中的也进行置空
 			_this.giftSpecial.num_url = '';
 			_this.giftSpecial.effect_url = '';
-			_this.giftSpecial.dialogShow = true;
+			_this.giftSpecial.dialogShow=true;
 		},
 		// 进行特效礼物的上传
 		specialGiftSure(type) {
@@ -1795,7 +1832,7 @@ export default {
 		// 点击查看的svga文件
 		lookSvga(val) {
 			var _this = this;
-			_this.svga.dialogShow = true;
+			_this.svga.dialogShow=true;
 			if(_this.player) {
 				_this.parser.load(val, function(videoItem) {
 					_this.player.setVideoItem(videoItem);
@@ -1830,7 +1867,7 @@ export default {
 <style lang="css" scoped>
 /* 引入的图片展示样式 */
 .el-form-item__content{
-	overflow: hidden;
+	overflow:hidden;
 }
 .showbtn{
 	position: absolute;
@@ -1839,7 +1876,7 @@ export default {
 	width: 150px;
 	height: 30px;
 	line-height: 30px;
-	text-align: center;
+	text-align:center;
 	font-size: 12px;
 	color: #fff;
 	background-color: #00b3ee;
@@ -1862,7 +1899,7 @@ export default {
 	width: 150px;
 	height: 16px;
 	line-height: 16px;
-	overflow: hidden;
+	overflow:hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }

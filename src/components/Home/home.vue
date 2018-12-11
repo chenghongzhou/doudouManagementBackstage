@@ -1,7 +1,13 @@
 <template lang="html">
     <el-row class="container">
         <!-- 头部的导航栏 -->
-        <el-menu theme="dark" :default-active="indexPath" class="el-menu-demo" mode="horizontal" router @select="handleSelect">
+        <el-menu 
+        theme="dark" 
+        :default-active="indexPath" 
+        class="el-menu-demo" 
+        mode="horizontal" 
+        router 
+        @select="handleSelect">
             <!-- 前面的logo -->
             <div class="el_logo">
                 <div class="logo"></div>
@@ -12,17 +18,27 @@
             <el-menu-item index="/operationSupport" :route="{path: '/operationSupport'}">运营支撑</el-menu-item>
             <el-menu-item index="/activities" :route="{path: '/activities'}">活动专区</el-menu-item>
             <el-menu-item index="/systemSetup" :route="{path: '/systemSetup'}">系统设置</el-menu-item> -->
-            <el-menu-item v-for="(item, indexs) in dataView" :key="indexs" :index="item.path" :router="{path: item.path}">{{item.name}}</el-menu-item>
+            <el-menu-item 
+            v-for="(item, indexs) in dataView" 
+            :key="indexs" 
+            :index="item.path" 
+            :router="{path: item.path}">{{item.name}}</el-menu-item>
             <!-- 加上uid查询的功能 -->
             <div class="uidFind">
-                <input v-model="uidFind" placeholder="请输入uid进行查询" />
+                <input 
+                v-model="uidFind" 
+                placeholder="请输入uid进行查询" />
                 <!-- <div @click="goToShowUidContent()">用户详情</div> -->
-                <div @click="goToShowUidContent()">用户详情</div>
+                <div 
+                @click="goToShowUidContent()">用户详情</div>
             </div>
             <!-- 用户头像、用户简介 -->
             <el-col :span="4" class="userinfo">
                 <el-dropdown trigger="hover">
-                    <span class="el-dropdown-link userinfo-inner"><img :src="sysUserAvatar" /> {{sysUserName}}</span>
+                    <span class="el-dropdown-link userinfo-inner">
+                        <img 
+                        :src="sysUserAvatar" /> {{sysUserName}}
+                    </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>我的消息</el-dropdown-item>
                         <el-dropdown-item>设置</el-dropdown-item>
@@ -169,7 +185,7 @@ export default {
 .uidFind input{
     width: 150px; height: 40px;
     padding: 0; margin: 0;
-    text-align: left; line-height: 40px;
+    text-align:left; line-height: 40px;
     position: absolute; left: 0; top: 0;
     border: none; outline: none;
     text-indent: 20px;
@@ -178,7 +194,7 @@ export default {
 }
 .uidFind div{
     width: 70px; height: 40px;
-    text-align: center; line-height: 40px;
+    text-align:center; line-height: 40px;
     position: absolute; left: 150px; top: 0;
     background: cadetblue; color: #fff;
     cursor: pointer;
@@ -190,7 +206,7 @@ export default {
     height: 60px;
     text-align: right;
     padding-right: 35px;
-    float: right !important;
+    float:right !important;
 }
 .userinfo-inner {
     cursor: pointer;
@@ -201,18 +217,18 @@ export default {
     height: 40px;
     border-radius: 20px;
     margin: 10px 0px 10px 10px;
-    float: right;
+    float:right;
 }
 /* 设置logo宽度自适应，和下面的左边导航栏进行匹配,宽度设置为13% */
 .el_logo{
     width: 13%; 
     height: 60px;
     min-width: 150px;
-    display: block;
+    display:block;
     float: left;
 }
 .logo {
-    display: block;
+    display:block;
     float: left;
     width: 58px;
     height: 28px;
@@ -222,7 +238,7 @@ export default {
 }
 .nav-view {
     /*height: 100%;*/
-    width: 100%;
+    width:100%;
     /* min-width: 1080px; */
 }
 /* .nav-head {
@@ -275,7 +291,7 @@ export default {
     /* min-width: 1200px; */
 }
 .content-container {
-    display: inline-block;
+    display:inline-block;
     overflow-y: scroll;
     padding: 20px;
 }

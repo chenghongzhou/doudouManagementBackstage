@@ -2,50 +2,81 @@
 	<!-- 财务日报 -->
 	<section>
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
             	<el-form-item>
                     <span>uid/昵称：</span>
-                    <el-input style="width:120px;" placeholder="请输入uid" v-model="uid" clearable>
-                    </el-input>
+                    <el-input 
+					style="width:120px;" 
+					placeholder="请输入uid" 
+					v-model="uid" 
+					clearable></el-input>
                </el-form-item>
                 <el-form-item>
                     <span>渠道</span>
-                    <el-select v-model="channelId" style="margin-left: 20px;" placeholder="全部">
-                    	<el-option v-for="item in channelData" :key="item.id" :label="item.annotation" :value="item.id"></el-option>
+                    <el-select 
+					v-model="channelId" 
+					style="margin-left:20px;" 
+					placeholder="全部">
+                    	<el-option 
+						v-for="item in channelData" 
+						:key="item.id" 
+						:label="item.annotation" 
+						:value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     <span>状态</span>
-                    <el-select v-model="statusId" style="margin-left: 20px;" placeholder="全部">
-                    	<el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    <el-select 
+					v-model="statusId" 
+					style="margin-left:20px;" 
+					placeholder="全部">
+                    	<el-option 
+						v-for="item in status" 
+						:key="item.value" 
+						:label="item.label" 
+						:value="item.value"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     <span>充值类型</span>
-                    <el-select v-model="rechargeId" style="margin-left: 20px;" placeholder="全部">
-                    	<el-option v-for="item in recharge" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    <el-select 
+					v-model="rechargeId" 
+					style="margin-left:20px;" 
+					placeholder="全部">
+                    	<el-option 
+						v-for="item in recharge" 
+						:key="item.value" 
+						:label="item.label" 
+						:value="item.value"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-					<el-button type="primary" @click="chartLineShow">折线图</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+                <el-form-item style="margin-left:100px;">
+					<el-button 
+					type="primary" 
+					@click="chartLineShow">折线图</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
 			<el-table 
 			ref="tableHeight" 
 			:data="tabData" 
 			border fit highlight-current-row 
 			v-loading="listLoading" 
-			style="width: 100%;" 
+			style="width:100%;" 
 			:height="tableHeight">
 				<el-table-column prop="create_time" label="时间" min-width="90"></el-table-column>
 				<el-table-column prop="uid" label="用户id" min-width="60"></el-table-column>
@@ -104,7 +135,7 @@
 				:total="totalpage" 
 				:page-size="20" 
 				@current-change="handleCurrentChange" 
-				style="float: right;"></el-pagination>
+				style="float:right;"></el-pagination>
             </el-col>
 		</template>
 	</section>
@@ -286,7 +317,7 @@ export default {
             })
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
 		},
 		getChannelData() {
 			var url = '/GlobalSet/getChannel';
@@ -318,7 +349,7 @@ export default {
 
 <style lang="css" scoped>
    .infomation{
-       width: 100%;
+       width:100%;
        height: 100%;
    }
 </style>

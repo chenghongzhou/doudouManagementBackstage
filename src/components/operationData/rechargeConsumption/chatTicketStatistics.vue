@@ -27,9 +27,15 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="chartPieShowOne">产出占比图</el-button>					
-					<el-button type="primary" @click="chartPieShowTwo">消耗占比图</el-button>					
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="chartPieShowOne">产出占比图</el-button>					
+					<el-button 
+					type="primary" 
+					@click="chartPieShowTwo">消耗占比图</el-button>					
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -348,11 +354,11 @@ export default {
 		// 饼状图展示
 		chartPieShowOne() {
 			var _this = this;
-			_this.dialogChartPieOne.dialogVisible = true;
+			_this.dialogChartPieOne.dialogVisible=true;
 		},
 		chartPieShowTwo() {
 			var _this = this;
-			_this.dialogChartPieTwo.dialogVisible = true;
+			_this.dialogChartPieTwo.dialogVisible=true;
 		},
 		showOne() {
 			var _this = this;

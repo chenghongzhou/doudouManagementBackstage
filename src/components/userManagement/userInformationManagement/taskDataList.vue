@@ -1,19 +1,26 @@
 <template>
 	<!-- 任务进度查询 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
                     <span>UID：</span>
-					<el-input placeholder="UID" style="width: 120px;" clearable v-model="formOne.uid" auto-complete="off"></el-input>
+					<el-input 
+					placeholder="UID" 
+					style="width: 120px;" 
+					clearable 
+					v-model="formOne.uid" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item>
                     <span>任务类型</span>
@@ -25,18 +32,29 @@
                 </el-form-item>
 				<el-form-item>
                     <span>动作类型</span>
-                    <el-select style="width: 200px;" v-model="action_type">
-						<el-option v-for="item in formOne.action_type" :key="item.value" :label="item.name" :value="item.action_type"></el-option>
+                    <el-select style="width:200px;" v-model="action_type">
+						<el-option 
+						v-for="item in formOne.action_type" 
+						:key="item.value" 
+						:label="item.name" 
+						:value="item.action_type"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item style="float:right;">
-					<el-button type="primary" @click="getTableData(0)">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData(0)">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="uid" label="UID" ></el-table-column>
 				<el-table-column prop="nickname" label="昵称" ></el-table-column>
 				<el-table-column prop="type" label="任务类型" >
@@ -61,9 +79,13 @@
 				</el-table-column>
 				<el-table-column prop="reward_num" label="奖励数量" ></el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>

@@ -1,14 +1,16 @@
 <template>
 	<!-- 发送系统通知 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -21,15 +23,26 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="formCondition.dialogFormVisible=true;">按条件发送</el-button>
-					<el-button type="primary" @click="formUid.dialogFormVisible=true;">按UID发送</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="formCondition.dialogFormVisible=true;">按条件发送</el-button>
+					<el-button 
+					type="primary" 
+					@click="formUid.dialogFormVisible=true;">按UID发送</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="time" label="添加时间" width="150" sortable ></el-table-column>
 				<el-table-column prop="send_time" label="发送时间" width="150" sortable ></el-table-column>
 				<el-table-column prop="uid_list" label="接收人列表" width="150" sortable ></el-table-column>
@@ -70,14 +83,22 @@
 				</el-table-column>
 				<el-table-column label="操作" width="100">
 					<template slot-scope="scope">
-						<el-button v-if="scope.row.send_status==0" type="primary" @click.native.prevent="cacelOneUserData(scope.$index, scope.row)" size="small">取消发送</el-button>
+						<el-button 
+						v-if="scope.row.send_status==0" 
+						type="primary" 
+						@click.native.prevent="cacelOneUserData(scope.$index, scope.row)" 
+						size="small">取消发送</el-button>
 						<p v-else-if="scope.row.send_status==1||scope.row.send_status==2">不可改</p>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 按条件发送--对应的dialog -->
@@ -90,12 +111,22 @@
 				</el-form-item>
 				<el-form-item label="注册时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.registerTime" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.registerTime" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item label="登陆时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.loginTime" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.loginTime" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item label="地区" :label-width="formLabelWidth">
@@ -109,7 +140,9 @@
 					<el-radio v-model="formCondition.channel" label="2">android</el-radio>
 				</el-form-item>
 				<el-form-item label="版本号" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.version_name" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.version_name" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="发送群体" :label-width="formLabelWidth">
 					<el-select v-model="formCondition.identity">
@@ -120,11 +153,18 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="发送文字" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="5000" v-model="formCondition.content" auto-complete="off"></el-input>
-					<p style="font-weight: bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="5000" 
+					v-model="formCondition.content" 
+					auto-complete="off"></el-input>
+					<p style="font-weight:bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
 				</el-form-item>
 				<el-form-item label="显示的文字" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.display" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.display" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="链接类型" :label-width="formLabelWidth">
 					<el-select v-model="formCondition.Link_type">
@@ -135,10 +175,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="ios中链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.ios_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.ios_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="安卓中链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formCondition.android_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formCondition.android_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="是否定时" :label-width="formLabelWidth">
 					<el-radio v-model="formCondition.is_timing" label="0">无</el-radio>
@@ -146,28 +190,46 @@
 				</el-form-item>
 				<el-form-item v-if="formCondition.is_timing==1" label="定时时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formCondition.send_time" type="datetime" placeholder="选择发送的时间"></el-date-picker>
+						<el-date-picker 
+						v-model="formCondition.send_time" 
+						type="datetime" 
+						placeholder="选择发送的时间"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="conditionSure(0)">取 消</el-button>
-				<el-button type="primary" @click="conditionSure(1)">确 定</el-button>
+				<el-button 
+				@click="conditionSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="conditionSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 		<!-- 按uid发送--对应的dialog -->
 		<el-dialog title="按Uid发送" :visible.sync="formUid.dialogFormVisible">
 			<el-form :model="formUid">
 				<el-form-item label="发送的Uid" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formUid.uid_list" auto-complete="off"></el-input>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formUid.uid_list" 
+					auto-complete="off"></el-input>
 					<p>每个Uid，用英文逗号隔开(例如:10000,10001,12201)</p>
 				</el-form-item>
 				<el-form-item label="发送文字" :label-width="formLabelWidth">
-					<el-input type="textarea" :rows="2" :maxlength="50" v-model="formUid.content" auto-complete="off"></el-input>
-					<p style="font-weight: bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
+					<el-input 
+					type="textarea" 
+					:rows="2" 
+					:maxlength="50" 
+					v-model="formUid.content" 
+					auto-complete="off"></el-input>
+					<p style="font-weight:bold;">在发送文字正文中相应位置插入{messageDisplay}超链接才生效</p>
 				</el-form-item>
 				<el-form-item label="显示的文字" :label-width="formLabelWidth">
-					<el-input v-model="formUid.display" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formUid.display" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="链接类型" :label-width="formLabelWidth">
 					<el-select v-model="formUid.Link_type">
@@ -178,10 +240,14 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="ios中链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formUid.ios_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formUid.ios_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="安卓中链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formUid.android_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formUid.android_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="是否定时" :label-width="formLabelWidth">
 					<el-radio v-model="formUid.is_timing" label="0">无</el-radio>
@@ -189,13 +255,19 @@
 				</el-form-item>
 				<el-form-item v-if="formUid.is_timing==1" label="定时时间" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formUid.send_time" type="datetime" placeholder="选择发送的时间"></el-date-picker>
+						<el-date-picker 
+						v-model="formUid.send_time" 
+						type="datetime" 
+						placeholder="选择发送的时间"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="uidSure(0)">取 消</el-button>
-				<el-button type="primary" @click="uidSure(1)">确 定</el-button>
+				<el-button 
+				@click="uidSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="uidSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -312,7 +384,7 @@ export default {
 		conditionSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.formCondition.dialogFormVisible = false; 
+				_this.formCondition.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -344,7 +416,7 @@ export default {
 				axios.post(allget+'/GlobalSet/sendSystemMessage', formData, config)
 				.then((res) => {
 					_this.listLoading = false;	
-					_this.formCondition.dialogFormVisible = false;									
+					_this.formCondition.dialogFormVisible=false;									
 					if(res.data.ret) {	
 						baseConfig.successTipMsg(_this, '发送成功！');
 						_this.getTableData();
@@ -360,7 +432,7 @@ export default {
 		uidSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.formUid.dialogFormVisible = false; 
+				_this.formUid.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -392,7 +464,7 @@ export default {
 				axios.post(allget+'/GlobalSet/sendSystemMessage', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formUid.dialogFormVisible = false;									
+						_this.formUid.dialogFormVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '发送成功！');
 							_this.getTableData();
@@ -477,32 +549,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

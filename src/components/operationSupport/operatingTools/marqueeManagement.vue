@@ -35,8 +35,12 @@
 					</el-select>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="dialogFormVisible=true;">新增公告</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible=true;">新增公告</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -87,7 +91,6 @@
 				@current-change="handleCurrentChange" 
 				:page-size="20" 
 				:total="totalpage" 
-				:current-page="page+1" 
 				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
@@ -115,13 +118,19 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="IOS中的链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.ios_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.ios_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="安卓中的链接地址" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.android_link" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.android_link" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="链接提示文字" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.display" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.display" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="轮播时间段" :label-width="formLabelWidth">
 					<div class="block">
@@ -135,8 +144,11 @@
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -199,7 +211,7 @@ export default {
 		addSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.dialogFormVisible = false; 
+				_this.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
 				// 进行添加的操作
@@ -221,7 +233,7 @@ export default {
 					axios.post(allget+'/Marquee/sendOperationMarquee', formData, config)
 						.then((res) => {
 							_this.listLoading = false;	
-							_this.dialogFormVisible = false;								
+							_this.dialogFormVisible=false;								
 							if(res.data.ret) {	
 								baseConfig.successTipMsg(_this, '新增成功！');
 								_this.getTableData();
@@ -324,32 +336,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

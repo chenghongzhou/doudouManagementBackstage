@@ -1,10 +1,12 @@
 <template>
     <!-- 五四活动后台 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="uid" label="用户id"></el-table-column>
                 <el-table-column prop="nickname" label="用户昵称"></el-table-column>
                 <el-table-column prop="one" label="点赞礼物数" sortable></el-table-column>
@@ -67,10 +69,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

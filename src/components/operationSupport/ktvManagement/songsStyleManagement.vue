@@ -84,10 +84,14 @@
 						<el-input disabled="disabled" v-model="formOne.id" auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="名称" :label-width="formLabelWidth">
-						<el-input v-model="formOne.name" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.name" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
-						<el-input v-model="formOne.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formOne.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" :label-width="formLabelWidth">
 						<el-select v-model="formOne.status" placeholder="状态">
@@ -97,8 +101,11 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="editorSure(0)">取 消</el-button>
-					<el-button type="primary" @click="editorSure(1)">确 定</el-button>
+					<el-button 
+					@click="editorSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="editorSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 			<el-dialog title="新增标签" :visible.sync="formTwo.dialogVisible">
@@ -107,7 +114,9 @@
 						<el-input placeholder="注意名称不要重复啦~" v-model="formTwo.name" auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="排序ID" :label-width="formLabelWidth">
-						<el-input v-model="formTwo.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="formTwo.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="状态" :label-width="formLabelWidth">
 						<el-select v-model="formTwo.status" placeholder="状态">
@@ -117,8 +126,11 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click="addSure(0)">取 消</el-button>
-					<el-button type="primary" @click="addSure(1)">确 定</el-button>
+					<el-button 
+					@click="addSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click="addSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</template>
@@ -212,13 +224,13 @@ export default {
 			_this.formOne.name = rows.name;
 			_this.formOne.sort = rows.sort;
 			_this.formOne.status = rows.status;
-			_this.formOne.dialogVisible = true; 
+			_this.formOne.dialogVisible=true; 
 		},
 		// 编辑修改确定
 		editorSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formOne.dialogVisible = false;
+				_this.formOne.dialogVisible=false;
 			} else if(type==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -234,7 +246,7 @@ export default {
 				axios.post(allget+'/NewMusic/editSingerLabel', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formOne.dialogVisible = false;									
+						_this.formOne.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '编辑修改成功！');
 							_this.getTableData();
@@ -251,7 +263,7 @@ export default {
 		addSure(type) {
 			var _this = this;
 			if(type==0) {
-				_this.formTwo.dialogVisible = false;
+				_this.formTwo.dialogVisible=false;
 			} else if(type==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -266,7 +278,7 @@ export default {
 				axios.post(allget+'/NewMusic/addSingerLabel', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
-						_this.formTwo.dialogVisible = false;									
+						_this.formTwo.dialogVisible=false;									
 						if(res.data.ret) {	
 							baseConfig.successTipMsg(_this, '新增成功！');
 							_this.getTableData();

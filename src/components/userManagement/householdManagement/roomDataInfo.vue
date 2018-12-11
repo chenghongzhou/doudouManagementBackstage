@@ -1,15 +1,17 @@
 <template>
     <!-- 房间详细数据 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -22,18 +24,27 @@
                 </el-form-item>
                 <el-form-item>
                     <span>房间ID</span>
-                    <el-input style="width:90px;" clearable placeholder="房间id" v-model="room_id">
-                    </el-input>
+                    <el-input 
+                    style="width:90px;" 
+                    clearable 
+                    placeholder="房间id" 
+                    v-model="room_id"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>族长UID</span>
-                    <el-input style="width:90px;" clearable placeholder="族长UID" v-model="owner_uid">
-                    </el-input>
+                    <el-input 
+                    style="width:90px;" 
+                    clearable 
+                    placeholder="族长UID" 
+                    v-model="owner_uid"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>房间名称</span>
-                    <el-input style="width:90px;" clearable placeholder="房间名称" v-model="room_name">
-                    </el-input>
+                    <el-input 
+                    style="width:90px;" 
+                    clearable 
+                    placeholder="房间名称" 
+                    v-model="room_name"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>房间类型</span>
@@ -43,15 +54,26 @@
                         <el-option label="个人房间" value="1"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
             <!-- 按单次显示 -->
-            <el-table :data="listData" v-if="type==0" v-loading="listLoading" key="times" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-if="type==0" 
+            v-loading="listLoading" 
+            key="times" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="date" label="时间"></el-table-column>
                 <el-table-column prop="room_id" label="房间ID"></el-table-column>
                 <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -72,7 +94,17 @@
                 <el-table-column prop="cost_people" label="消费人数"></el-table-column>
             </el-table>
             <!-- 按日期分日显示  按日期合计显示 -->
-            <el-table :data="listData" v-else-if="type==1 || type==2" key="days" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-else-if="type==1 || type==2" 
+            key="days" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="date" label="时间"></el-table-column>
                 <el-table-column prop="room_id" label="房间ID"></el-table-column>
                 <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -92,7 +124,10 @@
                 <el-table-column label="补贴">
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
-                            <el-button type="primary" size="mini" @click="checkSubsidy(scope.row.room_name,scope.row.yun_xin_room_id)">补贴</el-button>
+                            <el-button 
+                            type="primary" 
+                            size="mini" 
+                            @click="checkSubsidy(scope.row.room_name,scope.row.yun_xin_room_id)">补贴</el-button>
                         </div>
                     </template>
                 </el-table-column>
@@ -101,13 +136,17 @@
             <el-dialog title="补贴" :visible.sync="dialogShow" center>
                 <el-form :model="subsidy_info">
                     <div>
-                        <span>  </span>{{subsidy_info.name}} 房间的补贴为：{{subsidy_info.num}}</div>
+                        <span></span>{{subsidy_info.name}} 房间的补贴为：{{subsidy_info.num}}
+                    </div>
                 </el-form>
             </el-dialog>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -201,7 +240,7 @@ export default {
         checkSubsidy(name,yunid){
             var _this = this;
             this.subsidy_info.name = name; 
-            this.dialogShow = true;
+            this.dialogShow=true;
             var url = '/NewFamily/getRoomSubsidyData';
             var params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
@@ -230,10 +269,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

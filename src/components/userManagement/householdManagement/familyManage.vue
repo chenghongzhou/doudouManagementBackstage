@@ -1,31 +1,40 @@
 <template>
     <!-- 家族查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>家族ID</span>
-                    <el-input style="width:150px;" placeholder="请输入内容" v-model="searchUid">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    placeholder="请输入内容" 
+                    v-model="searchUid"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
                 </el-form-item>
-
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="create_time" label="创建时间"></el-table-column>
                 <el-table-column prop="family_id" label="家族ID"></el-table-column>
                 <el-table-column prop="family_name" label="家族名称"></el-table-column>
@@ -34,9 +43,13 @@
                 <el-table-column prop="family_icon" label="家族头像">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.family_icon" alt="" style="width:300px;height:300px;">
+                            <img 
+                            :src="scope.row.family_icon" 
+                            style="width:300px;height:300px;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.family_icon" alt="" style="width:100px;height:100px;">
+                                <img 
+                                :src="scope.row.family_icon" 
+                                style="width:100px;height:100px;">
                             </div>
                         </el-popover>
                     </template>
@@ -47,18 +60,27 @@
                 <el-table-column label="操作" width="180px">
                     <template slot-scope="scope">
                         <el-col :span="12">
-                            <el-button size="mini" type="primary" @click="familydetail(scope.$index, scope.row)">家族详情</el-button>
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            @click="familydetail(scope.$index, scope.row)">家族详情</el-button>
                         </el-col>
                         <el-col :span="12">
-                            <el-button size="mini" type="danger" @click="lister(scope.$index, scope.row)">成员列表</el-button>
+                            <el-button 
+                            size="mini" 
+                            type="danger" 
+                            @click="lister(scope.$index, scope.row)">成员列表</el-button>
                         </el-col>
                     </template>
                 </el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20"  @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20"  
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
         <!-- Table -->
@@ -69,92 +91,153 @@
                         <div class="avator">头像</div>
                         <div class="picture">
                             <el-popover trigger="hover" placement="left">
-                                <img :src=form.family_icon alt="" style="width:400px;height:400px;">
+                                <img 
+                                :src=form.family_icon
+                                style="width:400px;height:400px;">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src=form.family_icon alt="" style="width:120px;height:120px;">
+                                    <img 
+                                    :src=form.family_icon 
+                                    style="width:120px;height:120px;">
                                 </div>
                             </el-popover>
                         </div>
                         <div class="delete">
-                            <el-button type="primary" size="mini" @click="familyChange(1)">删除</el-button>
+                            <el-button 
+                            type="primary" 
+                            size="mini" 
+                            @click="familyChange(1)">删除</el-button>
                         </div>
                     </div>
                     <div class="image_box" v-if="form.index_background_pic">
                         <div class="avator">主页背景图</div>
                         <div class="picture">
                             <el-popover trigger="hover" placement="left">
-                                <img :src=form.index_background_pic alt="" style="width:400px;height:400px;">
+                                <img 
+                                :src=form.index_background_pic
+                                style="width:400px;height:400px;">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src=form.index_background_pic alt="" style="width:120px;height:120px;">
+                                    <img 
+                                    :src=form.index_background_pic
+                                    style="width:120px;height:120px;">
                                 </div>
                             </el-popover>
                         </div>
                         <div class="delete">
-                            <el-button type="primary" @click="familyChange(4)" size="mini">删除</el-button>
+                            <el-button 
+                            type="primary" 
+                            @click="familyChange(4)" 
+                            size="mini">删除</el-button>
                         </div>
                     </div>
                     <div class="image_box" v-if="form.chat_background_pic">
                         <div class="avator">聊天背景图</div>
                         <div class="picture">
                             <el-popover trigger="hover" placement="left">
-                                <img :src=form.chat_background_pic alt="" style="width:400px;height:400px;">
+                                <img 
+                                :src=form.chat_background_pic 
+                                style="width:400px;height:400px;">
                                 <div slot="reference" class="name-wrapper">
-                                    <img :src=form.chat_background_pic alt="" style="width:120px;height:120px;">
+                                    <img 
+                                    :src=form.chat_background_pic 
+                                    style="width:120px;height:120px;">
                                 </div>
                             </el-popover>
                         </div>
                         <div class="delete">
-                            <el-button type="primary" @click="familyChange(5)" size="mini">删除</el-button>
+                            <el-button 
+                            type="primary" 
+                            @click="familyChange(5)" 
+                            size="mini">删除</el-button>
                         </div>
                     </div>
                 </div>
                 <div class="family_detail">
                     <el-form :model="form">
                         <el-form-item label="家族ID" :label-width="formLabelWidth">
-                            <el-input v-model="form.family_id" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.family_id" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="家族名称" :label-width="formLabelWidth">
-                            <el-input v-model="form.family_name" @focus="judgeChange(0)" @blur="familyChange(0)" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.family_name" 
+                            @focus="judgeChange(0)" 
+                            @blur="familyChange(0)" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                             <p style="margin: 0;font-size:12px;height:20px;color:red;"># 输入完成后，点击输入框外即可完成修改！</p>
                         </el-form-item>
                         <el-form-item label="创建者UID" :label-width="formLabelWidth">
-                            <el-input v-model="form.owner_uid" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.owner_uid" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="创建者昵称" :label-width="formLabelWidth">
-                            <el-input v-model="form.nickname" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.nickname" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="家族等级" :label-width="formLabelWidth">
-                            <el-input v-model="form.level" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.level" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="家族人数" :label-width="formLabelWidth">
-                            <el-input v-model="form.member_num" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.member_num" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="荣耀值" :label-width="formLabelWidth">
-                            <el-input v-model="form.honour_num" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.honour_num" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="家族介绍" :label-width="formLabelWidth">
-                            <el-input v-model="form.intro" @focus="judgeChange(2)" @blur="familyChange(2)" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.intro" 
+                            @focus="judgeChange(2)"
+                            @blur="familyChange(2)" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                             <p style="margin: 0;font-size:12px;height:20px;color:red;"># 输入完成后，点击输入框外即可完成修改！</p>
                         </el-form-item>
                         <el-form-item label="家族公告" :label-width="formLabelWidth">
-                            <el-input v-model="form.notice" @focus="judgeChange(3)" @blur="familyChange(3)" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.notice" 
+                            @focus="judgeChange(3)" 
+                            @blur="familyChange(3)" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                             <p style="margin: 0;font-size:12px;height:20px;color:red;"># 输入完成后，点击输入框外即可完成修改！</p>
                         </el-form-item>
                         <el-form-item label="创建时间" :label-width="formLabelWidth">
-                            <el-input v-model="form.create_time" :disabled="true" style="width:200px;" auto-complete="off"></el-input>
+                            <el-input 
+                            v-model="form.create_time" 
+                            :disabled="true" 
+                            style="width:200px;" 
+                            auto-complete="off"></el-input>
                         </el-form-item>
                     </el-form>
-                    <!-- <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogTableVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
-                    </div> -->
                 </div>
-
             </div>
         </el-dialog>
         <!-- 家族详情 -->
         <el-dialog :title=familyName :visible.sync="dialogTableVisible1">
-            <el-table :data="familyListData" border>
+            <el-table 
+            :data="familyListData" 
+            border>
                 <el-table-column type="index" label="成员"></el-table-column>
                 <el-table-column property="nickname" label="昵称"></el-table-column>
                 <el-table-column property="uid" label="uid"></el-table-column>
@@ -441,18 +524,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
-.bindingTitle {
-    margin-left: 130px;
-}
 .family_content {
-    overflow: hidden;
-    /* border: 1px solid blue; */
+    overflow:hidden;
 }
 .image_container {
     float: left;
@@ -461,39 +534,39 @@ export default {
     height: 100%;
 }
 .image_container img {
-    width: 300px;
-    height: 200px;
+    width:300px;
+    height:200px;
 }
 .image_container .image_box {
     margin-top: 10px;
     border: 1px solid #666;
 }
 .image_container .image_box .avator {
-    display: inline-block;
+    display:inline-block;
     width: 80px;
     height: 120px;
     line-height: 120px;
-    text-align: center;
+    text-align:center;
     vertical-align: top;
     /* border: 1px solid aqua; */
 }
 .image_container .image_box .picture {
-    display: inline-block;
+    display:inline-block;
     vertical-align: middle;
     /* border: 1px solid saddlebrown; */
 }
 .image_container .image_box .delete {
-    display: inline-block;
+    display:inline-block;
     /* border: 1px solid darkblue; */
 }
 .family_detail {
-    float: right;
+    float:right;
     width: 59%;
     height: 100%;
     /* border: 1px solid red; */
 }
 .dialog-footer {
-    display: block;
+    display:block;
     margin-top: 0px;
     margin-left: -50px;
     /* border: 1px solid red; */

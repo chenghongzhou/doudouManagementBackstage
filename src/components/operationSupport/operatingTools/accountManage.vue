@@ -1,15 +1,17 @@
 <template>
     <!-- 账号修改，注册 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item label="操作类型" :label-width="formLabelWidth">
@@ -20,20 +22,29 @@
                         <el-option label="注册" value="3"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item class="search-span">
-                    <el-button id="searchBtn" type="primary" @click="getData(1)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="form.dialogFormVisible=true">修改账号</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="logout.dialogVisible=true">注销账号</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="register.dialogVisible=true">注册账号</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getData(1)">查询</el-button>
                 </el-form-item>
-                <el-form-item>
-                    <el-button id="handBinding" type="primary" @click="form.dialogFormVisible = true ">修改账号</el-button>
-                    <el-button id="handBinding" type="primary" @click="logout.dialogVisible = true ">注销账号</el-button>
-                    <el-button id="handBinding" type="primary" @click="register.dialogVisible = true ">注册账号</el-button>
-                </el-form-item>
-
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" border fit highlight-current-row style="width: 100%;" v-loading="listLoading" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            v-loading="listLoading" 
+            :height="tableHeight">
                 <el-table-column prop="operate_time" label="操作时间"></el-table-column>
                 <el-table-column prop="type" :formatter="agentCode" label="操作类型"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
@@ -42,44 +53,73 @@
                 <el-table-column prop="code" label="验证码"></el-table-column>
                 <el-table-column prop="before_phone" label="原账号"></el-table-column>
                 <el-table-column prop="operate_user" label="操作人"></el-table-column>
-
             </el-table>
         </template>
         <el-dialog title="修改账户" :visible.sync="form.dialogFormVisible">
             <el-form :model="form">
-                <p class="bindingTitle" style="color: red;">用户须知：<br>1、操作前先查询要更换的手机号码是否已注册，如已注册，请先解绑！<br> 2、操作时请务必确定用户处于离线状态！
+                <p class="bindingTitle" style="color:red;">
+                    用户须知：
+                    <br>
+                    1、操作前先查询要更换的手机号码是否已注册，如已注册，请先解绑！
+                    <br> 
+                    2、操作时请务必确定用户处于离线状态！
                 </p>
                 <el-form-item label="UID：" :label-width="formLabelWidth">
-                    <el-input v-model="form.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="form.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="手机号码：" :label-width="formLabelWidth">
-                    <el-input v-model="form.phone" placeholder="要绑定的新手机号码" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="form.phone"
+                    placeholder="要绑定的新手机号码" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="form.dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="changeAccount()">确 定</el-button>
+                <el-button 
+                @click="form.dialogFormVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="changeAccount()">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="注销账户" :visible.sync="logout.dialogVisible">
             <el-form :model="logout">
-                <p class="bindingTitle" style="color: red;">用户须知：<br>1、注销账号后，用户数据将全部删除，请先确定账号归属以及告知用户注销风险！<br> 2、操作时请务必确定用户处于离线状态！
+                <p class="bindingTitle" style="color:red;">
+                    用户须知：
+                    <br>
+                    1、注销账号后，用户数据将全部删除，请先确定账号归属以及告知用户注销风险！
+                    <br> 
+                    2、操作时请务必确定用户处于离线状态！
                 </p>
                 <el-form-item label="UID：" :label-width="formLabelWidth">
-                    <el-input v-model="logout.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="logout.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="logout.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="logout.dialogVisible = false,logoutAccount()">确 定</el-button>
+                <el-button 
+                @click="logout.dialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="logout.dialogVisible=false,logoutAccount()">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="注册账户" :visible.sync="register.dialogVisible">
             <el-form :model="register">
-                <p class="bindingTitle" style="color: red;">用户须知：<br>1、操作前先查询要手机号码/UID是否已注册！<br> 2、虚拟/不存在的手机号码请选择固定验证码！
+                <p class="bindingTitle" style="color:red;">
+                    用户须知：
+                    <br>
+                    1、操作前先查询要手机号码/UID是否已注册！
+                    <br> 
+                    2、虚拟/不存在的手机号码请选择固定验证码！
                 </p>
                 <el-form-item label="UID：" :label-width="formLabelWidth">
-                    <el-input v-model="register.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="register.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="账号性别" :label-width="formLabelWidth">
                     <el-select v-model="register.sex" placeholder="请选择性别">
@@ -88,7 +128,9 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="手机号码：" :label-width="formLabelWidth">
-                    <el-input v-model="register.phone" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="register.phone" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="验证码类型" :label-width="formLabelWidth">
                     <el-select v-model="register.is_code" placeholder="请选择验证码类型">
@@ -97,18 +139,27 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item v-if="register.is_code==1" label="验证码：" :label-width="formLabelWidth">
-                    <el-input v-model="register.code" placeholder="请输入4为数字" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="register.code" 
+                    placeholder="请输入4为数字" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="register.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="registerAccount()">确 定</el-button>
+                <el-button 
+                @click="register.dialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="registerAccount()">确 定</el-button>
             </div>
         </el-dialog>
-        <!--工具条-->
         <el-col :span="24" class="toolbar">
-            <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-            </el-pagination>
+            <el-pagination 
+            layout="total,prev,pager,next,jumper" 
+            @current-change="handleCurrentChange" 
+            :page-size="20" 
+            :total=1000 
+            style="float:right;"></el-pagination>
         </el-col>
     </section>
 </template>
@@ -222,7 +273,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                            form.dialogFormVisible = false;
+                            form.dialogFormVisible=false;
                         baseConfig.successTipMsg(this, res.data.msg);
                         this.form.uid = "";
                         this.form.phone = "";
@@ -308,7 +359,7 @@ export default {
                         this.register.is_code = "";
                         this.register.code = "";
                         _this.getData();
-                        _this.register.dialogVisible = false;
+                        _this.register.dialogVisible=false;
                     } else {
                         baseConfig.warningTipMsg(this, res.data.msg);
                     }
@@ -328,9 +379,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#searchBtn {
-    margin-right: 50px;
-}
 .bindingTitle {
     margin-left: 130px;
 }

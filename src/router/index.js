@@ -472,9 +472,9 @@ export const asyncRouterMap = [
                 children: [
                     { path: '/operationData/operationDataStatistics/newUserCastDatalist', component: newUserCastDatalist, name: '新用户红包领取统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },                    
                     // { path: '/operationData/operationDataStatistics/h5ShareStatistics', component: h5ShareStatistics, name: '分享页数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },                    
-                    { path: '/operationData/operationDataStatistics/im', component: imMessageStatistics, name: 'IM消息统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },                    
-                    { path: '/operationSupport/operationDataStatistics/roomTabDataInfo', component: roomTabDataInfo, name: '房间功能标签使用统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                  
-                    { path: '/operationSupport/operationDataStatistics/propTotalData', component: propTotalData, name: '道具统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                  
+                    { path: '/operationData/operationDataStatistics/imMessageStatistics', component: imMessageStatistics, name: 'IM消息统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M'] } },                    
+                    { path: '/operationData/operationDataStatistics/roomTabDataInfo', component: roomTabDataInfo, name: '房间功能标签使用统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                  
+                    { path: '/operationData/operationDataStatistics/propTotalData', component: propTotalData, name: '道具统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                  
                 ],
             },
             {
@@ -555,6 +555,7 @@ export const asyncRouterMap = [
                     
                 ],
             },
+            // 代理版块功能取消
             // {
             //     path: '/userManagement',
             //     component: userManagement,
@@ -646,6 +647,7 @@ export const asyncRouterMap = [
                     { path: '/operationSupport/callLog/GrabChatCallDetails', component: GrabChatCallDetails, name: '抢聊通话明细', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'C'] } },
                 ],
             },
+            // 录音版块的功能取消
             // {
             //     path: '/operationSupport',
             //     component: operationSupport,

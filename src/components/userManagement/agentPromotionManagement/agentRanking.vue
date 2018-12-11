@@ -1,32 +1,52 @@
 <template>
     <!-- 代理排行榜 -->
-    <!-- dom结构内容 -->
     <section>
-        <el-tabs type="border-card" v-model="activeName">
-            <el-tab-pane label="付费代理排行" name="first">
+        <el-tabs 
+        type="border-card" 
+        v-model="activeName">
+            <el-tab-pane 
+            label="付费代理排行" 
+            name="first">
                 <!-- 付费代理排行 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate1" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate1"
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
                             <span>uid</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="uid" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="uid" 
+                            clearable></el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)"  style="width: 100%;" :height="tableHeight">
+					<el-table 
+                    ref="tableHeight" 
+                    :data="listData" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)"  
+                    style="width:100%;" 
+                    :height="tableHeight">
 						<el-table-column type="index" label="排名" center></el-table-column>
 						<el-table-column prop="uid" label="UID"></el-table-column>
 						<el-table-column prop="phone"  label="账号"></el-table-column>
@@ -38,37 +58,59 @@
 						<el-table-column prop="turn_agent_num" label="已转付费代理数"></el-table-column>
 						<el-table-column prop="total_agent_money" label="累计获得豆票数"></el-table-column>
 					</el-table>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper"
+                        @current-change="handleCurrentChange" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
 				</template>
             </el-tab-pane>
-            <el-tab-pane label="普通代理排行" name="second">
+            <el-tab-pane 
+            label="普通代理排行" 
+            name="second">
                 <!-- 普通代理排行 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
                             <span>uid</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="uid1" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="uid1" 
+                            clearable></el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData1(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData1(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="listData1" border fit highlight-current-row v-loading="listLoading1" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)"  style="width: 100%;" :height="tableHeight">
+					<el-table 
+                    ref="tableHeight" 
+                    :data="listData1" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading1" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)"  
+                    style="width:100%;" 
+                    :height="tableHeight">
 						<el-table-column type="index" label="排名"></el-table-column>
 						<el-table-column prop="uid" label="UID"></el-table-column>
 						<el-table-column prop="username"  label="账号"></el-table-column>
@@ -76,10 +118,13 @@
 						<el-table-column prop="spread_num" label="推广用户数"></el-table-column>
 						<el-table-column prop="turn_agent_num" label="已转付费代理数"></el-table-column>
 					</el-table>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange1" :page-size="20" :total=1000 :current-page="page1+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange1" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
 				</template>
             </el-tab-pane>

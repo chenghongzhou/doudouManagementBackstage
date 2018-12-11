@@ -10,8 +10,8 @@
 			label="家族活动数据统计" 
 			name="first" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
@@ -23,10 +23,14 @@
 							</div>
 						</el-form-item>
 						<el-form-item label="房间ID">
-							<el-input v-model="formOne.family_id" auto-complete="off"></el-input>
+							<el-input 
+							v-model="formOne.family_id" 
+							auto-complete="off"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableFind">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableFind">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -73,13 +77,19 @@
 							</div>
 						</el-form-item>
 						<el-form-item label="房间ID">
-							<el-input v-model="formTwo.family_id" auto-complete="off"></el-input>
+							<el-input 
+							v-model="formTwo.family_id" 
+							auto-complete="off"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="bannerNewloading.dialogShow = true;">新增活动</el-button>							
+							<el-button 
+							type="primary" 
+							@click="bannerNewloading.dialogShow=true;">新增活动</el-button>							
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableManage">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableManage">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -172,19 +182,29 @@
 						</div>
 					</el-form-item>
 					<el-form-item label="家族ID" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.family_id" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.family_id" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="活动主题" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.theme" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.theme" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="弹窗图片" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.pop_banner" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.pop_banner" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="消息banner图片" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.message_banner" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.message_banner" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="主活动顶部图片" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.banner" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.banner" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="活动详情" :label-width="formLabelWidth">
 						<el-input 
@@ -498,32 +518,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

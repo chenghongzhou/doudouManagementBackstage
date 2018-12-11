@@ -1,25 +1,39 @@
 <template>
     <!-- 设备封禁记录 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="banImEiIpByHand()">添加封禁</el-button>
-                    <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="banImEiIpByHand()">添加封禁</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="onePageTabData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageTabData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="kick_time" label="封禁时间"></el-table-column>
                 <el-table-column prop="im_ei" label="IP/设备号"></el-table-column>
                 <el-table-column prop="free_time" label="解封时间"></el-table-column>
@@ -28,37 +42,58 @@
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <p v-if="scope.row.status==0">已解封</p>
-                        <el-button v-else-if="scope.row.status==1" size="mini" type="primary" @click="freeImEi(scope.$index, scope.row)">解封</el-button>
+                        <el-button 
+                        v-else-if="scope.row.status==1" 
+                        size="mini" 
+                        type="primary" 
+                        @click="freeImEi(scope.$index, scope.row)">解封</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev,pager,next,jumper" :current-page="page" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
         <el-dialog title="封禁设备" :visible.sync="banInfo.dialogVisible">
             <el-form :model="banInfo">
                 <el-form-item label="IP/设备号：" :label-width="formLabelWidth">
-                    <el-input v-model="banInfo.im_ei_list" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="banInfo.im_ei_list" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="封号原因：" :label-width="formLabelWidth">
-                    <el-input v-model="banInfo.reason" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="banInfo.reason" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="banInfo.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureban">确 定</el-button>
+                <el-button 
+                @click="banInfo.dialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="sureban">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="解封设备" :visible.sync="freeInfo.dialogVisible">
             <el-form :model="freeInfo">
                 <el-form-item label="解封原因：" :label-width="formLabelWidth">
-                    <el-input v-model="freeInfo.reason" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="freeInfo.reason" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="freeInfo.dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureFree">确 定</el-button>
+                <el-button 
+                @click="freeInfo.dialogVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="sureFree">确 定</el-button>
             </div>
         </el-dialog>
     </section>
@@ -79,7 +114,7 @@ export default {
             formLabelWidth: "120px",
             listLoading: false,
             operate_user: null,
-            page: 1,
+            page: 0,
             totalpage: null,
             star: "0",
             end: "20",
@@ -123,7 +158,6 @@ export default {
                     if (res.data.ret) {
                         this.listData = res.data.data;
                         _this.totalpage = res.data.data.length;
-                        _this.page = 1;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -135,7 +169,7 @@ export default {
         // 封号
         banImEiIpByHand() {
             var _this = this;
-            _this.banInfo.dialogVisible = true;
+            _this.banInfo.dialogVisible=true;
         },
         sureban() {
             var _this = this;
@@ -152,7 +186,7 @@ export default {
                         _this.banInfo.im_ei_list = "";
                         _this.banInfo.reason = "";
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.banInfo.dialogVisible = false;
+                        _this.banInfo.dialogVisible=false;
                         _this.getData();
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -164,7 +198,7 @@ export default {
         },
         //解封
         freeImEi(index, row) {
-            this.freeInfo.dialogVisible = true;
+            this.freeInfo.dialogVisible=true;
             this.freeInfo.id = row.id;
         },
         sureFree() {
@@ -179,7 +213,7 @@ export default {
                 .then((res) => {
                     if(res.data.ret){
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.freeInfo.dialogVisible = false;
+                        _this.freeInfo.dialogVisible=false;
                         _this.freeInfo.reason = "";
                         _this.getData();
                     } else {
@@ -202,9 +236,7 @@ export default {
 
 <style lang="css" scoped>
 .search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
+    float:right;
 }
 </style>
+

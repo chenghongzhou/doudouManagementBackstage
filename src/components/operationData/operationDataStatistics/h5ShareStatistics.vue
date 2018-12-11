@@ -1,9 +1,8 @@
 <template>
     <!-- 分渠道数据 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
@@ -16,13 +15,13 @@
                         </el-date-picker>
                     </div>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
+                <el-form-item style="margin-left:100px;">
                     <span>渠道</span>
                     <el-select 
                     v-model="channelId" 
                     multiple 
                     collapse-tags 
-                    style="margin-left: 20px;" 
+                    style="margin-left:20px;" 
                     placeholder="请选择">
                         <el-option 
                         v-for="(item, key) of channelData" 
@@ -32,9 +31,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
+                <el-form-item style="float:right;">
                     <el-button 
-                    id="searchBtn" 
                     type="primary" 
                     @click="getData()">查询</el-button>
                 </el-form-item>
@@ -55,7 +53,6 @@
                 <el-table-column prop="share_listen" label="播放次数"></el-table-column>
                 <el-table-column prop="share_down" label="下载app按钮点击数"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper" 
@@ -155,10 +152,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

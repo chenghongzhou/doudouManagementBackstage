@@ -1,11 +1,20 @@
 <template>
 	<!-- 房间标签 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-tabs v-model="tabActiveName" type="border-card" @tab-click="handleClick">
-			<el-tab-pane label="功能标签" name="first" :style="{ height: tabSearchHeight+'px' }">
-				<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;height:100%;">
+		<el-tabs 
+        v-model="tabActiveName" 
+        type="border-card" 
+        @tab-click="handleClick">
+			<el-tab-pane 
+            label="功能标签" 
+            name="first" 
+            :style="{height:tabSearchHeight+'px'}">
+				<el-table 
+                ref="tableHeight" 
+                :data="onePageTabData" 
+                border fit highlight-current-row 
+                v-loading="listLoading" 
+                style="width:100%;height:100%;">
 					<el-table-column prop="id" label="标签ID" sortable></el-table-column>
 					<el-table-column prop="label_name" label="标签名称" sortable></el-table-column>
 					<el-table-column prop="position" label="位置" sortable></el-table-column>
@@ -13,22 +22,33 @@
 					<el-table-column prop="status" :formatter="judgeStatus" label="状态" sortable></el-table-column>
 					<el-table-column prop="sort" label="当前排序" sortable></el-table-column>
 					<el-table-column prop="is_room_show" :formatter="judgeRoomShow" label="是否房间设置标签" sortable></el-table-column>
-
 					<el-table-column label="操作">
 						<template slot-scope="scope">
-							<el-button type="danger" @click.native.prevent="deleteOneUserData(scope.$index, tabData)" size="small">删除</el-button>
-							<el-button type="primary" @click.native.prevent="editOneUserData(scope.$index, tabData)" size="small">编辑</el-button>
+							<el-button 
+                            type="danger" 
+                            @click.native.prevent="deleteOneUserData(scope.$index, tabData)" 
+                            size="small">删除</el-button>
+							<el-button 
+                            type="primary" 
+                            @click.native.prevent="editOneUserData(scope.$index, tabData)" 
+                            size="small">编辑</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
-				<!--工具条-->
 				<el-col :span="24" class="toolbar">
-					<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+					<el-pagination 
+                    layout="total,prev,pager,next,jumper" 
+                    @current-change="handleCurrentChange" 
+                    :page-size="20" 
+                    :total="totalpage" 
+                    style="float:right;"></el-pagination>
 				</el-col>
 				<el-dialog title="编辑标签" :visible.sync="formTwo.dialogFormVisible">
 					<el-form :model="formTwo">
 						<el-form-item label="标签名称：" :label-width="formLabelWidth">
-							<el-input v-model="formTwo.label_name" auto-complete="off"></el-input>
+							<el-input 
+                            v-model="formTwo.label_name" 
+                            auto-complete="off"></el-input>
 						</el-form-item>
 						<el-form-item label="状态" :label-width="formLabelWidth">
 							<el-select v-model="formTwo.status">
@@ -37,7 +57,9 @@
 							</el-select>
 						</el-form-item>
 						<el-form-item label="标签sort：" placeholder="标签名称" :label-width="formLabelWidth">
-							<el-input v-model="formTwo.sort" placeholder="sort"></el-input>
+							<el-input 
+                            v-model="formTwo.sort" 
+                            placeholder="sort"></el-input>
 						</el-form-item>
 						<el-form-item label="房间设置标签" :label-width="formLabelWidth">
 							<el-select v-model="formTwo.is_room_show">
@@ -47,17 +69,14 @@
 						</el-form-item>
 					</el-form>
 					<div slot="footer" class="dialog-footer">
-						<el-button @click="formTwo.dialogFormVisible = false">取 消</el-button>
-						<el-button type="primary" @click="sureEditUser()">确 定</el-button>
+						<el-button 
+                        @click="formTwo.dialogFormVisible=false">取 消</el-button>
+						<el-button 
+                        type="primary" 
+                        @click="sureEditUser()">确 定</el-button>
 					</div>
 				</el-dialog>
 			</el-tab-pane>
-			<!-- <el-tab-pane label="官方标签" name="second" :style="{ height: tabSearchHeight+'px' }">
-				<el-table ref="tableHeight" :data="tabData1" border fit highlight-current-row v-loading="listLoading1" style="width: 100%;height:100%;">
-
-				</el-table>
-			</el-tab-pane> -->
-
 		</el-tabs>
 	</section>
 </template>
@@ -172,7 +191,7 @@ export default {
             this.formTwo.sort = row[index].sort;
             this.formTwo.status = row[index].status;
             this.formTwo.is_room_show = row[index].is_room_show;
-            this.formTwo.dialogFormVisible = true;
+            this.formTwo.dialogFormVisible=true;
         },
         sureEditUser() {
             var _this = this;
@@ -187,7 +206,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                        _this.formTwo.dialogFormVisible = false;
+                        _this.formTwo.dialogFormVisible=false;
                         baseConfig.normalTipMsg(_this, res.data.msg);
                         _this.getTableData();
                     } else {
@@ -235,51 +254,51 @@ p {
     margin: 0;
 }
 .excelBox > p {
-    width: 100%;
+    width:100%;
     height: 50px;
     line-height: 50px;
-    font-weight: bold;
+    font-weight:bold;
     background: #e3efff;
-    text-align: center;
+    text-align:center;
 }
 .excelBox .excelInput {
-    width: 100%;
+    width:100%;
     height: 60px;
 }
 .excelBox .select {
-    width: 100%;
+    width:100%;
     height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p {
-    width: 100%;
+    width:100%;
     height: 36px;
     text-indent: 20px;
     line-height: 36px;
 }
 .excelBox .excelInput input {
-    width: 300px;
-    display: block;
+    width:300px;
+    display:block;
     margin: 0 auto;
 }
 .excelBox .select > div {
-    width: 300px;
-    display: block;
+    width:300px;
+    display:block;
     margin: 0 auto;
 }
 .btns {
-    width: 100%;
+    width:100%;
     height: 50px;
 }
 .btns button {
     width: 80px;
     height: 40px;
-    text-align: center;
+    text-align:center;
     line-height: 40px;
     border: none;
     border-radius: 5px;
     background-color: #78b2ff;
-    margin-top: 20px;
+    margin-top:20px;
     color: #fff;
 }
 .btns button:nth-of-type(1) {

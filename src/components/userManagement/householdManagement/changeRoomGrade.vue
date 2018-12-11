@@ -1,14 +1,16 @@
 <template>
 	<!-- 修改房间等级 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
                 <el-form-item>
@@ -20,17 +22,30 @@
                     </el-select>
                 </el-form-item>
 				<el-form-item>
-					<el-input placeholder="房间ID" style="width: 120px;" v-model="formOne.room_id" auto-complete="off"></el-input>
+					<el-input 
+					placeholder="房间ID" 
+					style="width:120px;" 
+					v-model="formOne.room_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
                 <el-form-item style="float:right;">
-					<el-button type="primary" @click="dialogFormVisible=true;">修改房间等级</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible=true;">修改房间等级</el-button>
+					<el-button 
+					type="primary" 
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="tabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="room_id" label="房间ID" width="80" ></el-table-column>
 				<el-table-column prop="room_name" label="房间名称" width="80" ></el-table-column>
 				<el-table-column prop="room_type" label="房间类型" width="250">
@@ -44,26 +59,38 @@
 				<el-table-column prop="operate_user" label="操作人" min-width="100" ></el-table-column>
 				<el-table-column prop="operate_time" label="操作时间" min-width="100"></el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 新增--对应的dialog -->
 		<el-dialog title="修改房间等级" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
-				<p style="color: red;margin-left: 120px;">用户须知：</p>
-				<p style="color: red;margin-left: 120px;">1、请注意个人和家族房间等级的上下限！</p>
+				<p style="color:red;margin-left: 120px;">用户须知：</p>
+				<p style="color:red;margin-left: 120px;">1、请注意个人和家族房间等级的上下限！</p>
 				<el-form-item label="房间ID" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.room_id" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.room_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
                 <el-form-item label="修改为：" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.level" placeholder="请输入要修改为的等级" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.level" 
+					placeholder="请输入要修改为的等级" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -118,7 +145,7 @@ export default {
 		addSure(val) {
 			var _this = this;
 			if(val==0) {
-                _this.dialogFormVisible = false; 
+                _this.dialogFormVisible=false; 
                 _this.formTwo.room_id = ""; 
                 _this.formTwo.level = ""; 
 			} else if(val==1) {
@@ -138,7 +165,7 @@ export default {
                         _this.listLoading = false;
                         if (res.data.ret) {
                             baseConfig.successTipMsg(_this, '修改成功！');
-                            _this.dialogFormVisible = false;
+                            _this.dialogFormVisible=false;
                             _this.getTableData();
                         } else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
@@ -192,32 +219,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

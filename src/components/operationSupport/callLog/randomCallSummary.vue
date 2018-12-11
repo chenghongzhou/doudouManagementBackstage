@@ -1,25 +1,33 @@
 <template>
 	<!-- 随机通话汇总 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="onePageTabData" border v-loading="listLoading" fit highlight-current-row style="width: 100%;" :height="tableHeight">
+			<el-table 
+            :data="onePageTabData" 
+            border fit highlight-current-row
+            v-loading="listLoading"  
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="time" label="日期"></el-table-column>
 				<el-table-column prop="totalrandcallaa" label="AA通话次数"></el-table-column>
 				<el-table-column prop="totalnumaa" label="AA通话人数"></el-table-column>
@@ -100,7 +108,12 @@
                 </el-table-column>
 			</el-table>
             <el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" :current-page="page" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
@@ -119,7 +132,7 @@ export default {
             listData: [],
             formLabelWidth: "120px",
             listLoading: false,
-			page: 1,
+			page: 0,
 			totalpage: null,
 			star: '0',
 			end: '20',
@@ -149,7 +162,6 @@ export default {
                     _this.listLoading = false;
                     if (res.data.ret) {
                         this.listData = res.data.data;
-						_this.page = 1;
 						_this.totalpage = res.data.data.length;
                     } else {
                         baseConfig.warningTipMsg(this, res.data.msg);
@@ -184,10 +196,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

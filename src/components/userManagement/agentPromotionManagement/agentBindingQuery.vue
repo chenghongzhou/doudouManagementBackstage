@@ -1,34 +1,48 @@
 <template>
     <!-- 代理绑定查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>UID</span>
-                    <el-input style="width:150px;" placeholder="请输入内容" v-model="searchUid">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    placeholder="请输入内容" 
+                    v-model="searchUid"></el-input>
                 </el-form-item>
                 <el-form-item style="margin-left: 200px;">
-                    <el-button id="handBinding" type="primary" @click="dialogFormVisible = true ">手动绑定代理关系</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="dialogFormVisible=true">手动绑定代理关系</el-button>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
                 </el-form-item>
-
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
                 <el-table-column prop="is_agent" :formatter="agentJudeg" label="是否为付费代理"></el-table-column>
@@ -38,7 +52,12 @@
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
                             <span>{{scope.row.spread}}</span>
-                            <el-button v-if="scope.row.spread" type="primary" @click="dialogTableVisible = true, getDetailData(1, scope.row.uid)" size="mini" style="margin-left: 10px;">明细</el-button>
+                            <el-button 
+                            v-if="scope.row.spread" 
+                            type="primary" 
+                            @click="dialogTableVisible=true, getDetailData(1, scope.row.uid)" 
+                            size="mini" 
+                            style="margin-left:10px;">明细</el-button>
                         </div>
                     </template>
                 </el-table-column>
@@ -46,7 +65,12 @@
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
                             <span>{{scope.row.agent_1}}</span>
-                            <el-button v-if="scope.row.spread" type="primary" @click="dialogTableVisible = true, getDetailData(2, scope.row.uid)" size="mini" style="margin-left: 10px;">明细</el-button>
+                            <el-button 
+                            v-if="scope.row.spread" 
+                            type="primary" 
+                            @click="dialogTableVisible=true, getDetailData(2, scope.row.uid)" 
+                            size="mini" 
+                            style="margin-left:10px;">明细</el-button>
                         </div>
                     </template>
                 </el-table-column>
@@ -54,20 +78,30 @@
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
                             <span>{{scope.row.agent_2}}</span>
-                            <el-button v-if="scope.row.spread" type="primary" @click="dialogTableVisible = true, getDetailData(3, scope.row.uid)" size="mini" style="margin-left: 10px;">明细</el-button>
+                            <el-button 
+                            v-if="scope.row.spread" 
+                            type="primary" 
+                            @click="dialogTableVisible=true, getDetailData(3, scope.row.uid)" 
+                            size="mini" 
+                            style="margin-left:10px;">明细</el-button>
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" width="180px">
                     <template slot-scope="scope">
-                        <el-button size="mini" type="primary" v-if="scope.row.wx_invite_uid!=0" @click="cancel(scope.$index, scope.row)">取消绑定</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="primary" 
+                        v-if="scope.row.wx_invite_uid!=0" 
+                        @click="cancel(scope.$index, scope.row)">取消绑定</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </template>
         <!-- Table -->
         <el-dialog title="明细列表" :visible.sync="dialogTableVisible" center>
-            <el-table :data="detialData">
+            <el-table 
+            :data="detialData">
                 <el-table-column property="addtime" label="注册时间"></el-table-column>
                 <el-table-column property="uid" label="UID"></el-table-column>
                 <el-table-column property="username" label="账号"></el-table-column>
@@ -78,16 +112,23 @@
         <el-dialog title="代理关系绑定" :visible.sync="dialogFormVisible">
             <el-form :model="form">
                 <el-form-item label="被绑定者UID：" :label-width="formLabelWidth">
-                    <el-input v-model="form.uid_str" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="form.uid_str" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <p class="bindingTitle">*多个之间用英文逗号分隔</p>
                 <el-form-item label="绑定者UID：" :label-width="formLabelWidth">
-                    <el-input v-model="form.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="form.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false,handBinding()">确 定</el-button>
+                <el-button 
+                @click="dialogFormVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="dialogFormVisible=false,handBinding()">确 定</el-button>
             </div>
         </el-dialog>
     </section>
@@ -239,12 +280,6 @@
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
 .bindingTitle {
     margin-left: 130px;
 }

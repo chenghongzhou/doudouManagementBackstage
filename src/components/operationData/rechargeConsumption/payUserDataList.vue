@@ -2,7 +2,7 @@
 	<!-- 付费用户数据  折线图直接写在页面中不分组件 -->
 	<section>
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
@@ -28,22 +28,25 @@
                         :value="key"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-					<el-button type="primary" @click="chartLineShow">折线图</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+                <el-form-item style="margin-left:100px;">
+					<el-button 
+                    type="primary" 
+                    @click="chartLineShow">折线图</el-button>
+					<el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
 				</el-form-item>
-                <el-form-item style="margin-left: 100px;">
+                <el-form-item style="margin-left:100px;">
                     <div class="infomation"  @click="infoDialogVisible=true;">
                         <i class="el-icon-question" style="color: #999;"></i>
                     </div>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
 			<el-table 
             ref="tableHeight" 
-            :data="tabData" 
+            :data="onePageTabData" 
             border fit highlight-current-row 
             v-loading="listLoading" 
             style="width:100%;" 
@@ -66,7 +69,6 @@
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper"  
-                :current-page="page" 
                 @current-change="handleCurrentChange" 
                 :page-size="20" 
                 :total="totalpage" 
@@ -74,7 +76,7 @@
 			</el-col>
 			<!-- 折线图 -->
 			<el-dialog title="折线图" :width="dialogWidth"  :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine"  style="width: 100%;height: 600px;"></div>
+                <div class="chartLine"  style="width:100%;height:600px;"></div>
             </el-dialog>
             <!-- 问题信息 -->
             <el-dialog title="字段说明" :width="dialogWidth"  :visible.sync="infoDialogVisible" >
@@ -104,7 +106,9 @@ import echarts from 'echarts';
 export default {
 	data() {
 		return {
-			totalpage:null,
+            totalpage:null,
+            star: '0',
+            end: '20',
 			page:0,
 			tableHeight: null, // table展示的页面的高度多少
 			// 搜索条件的组装字段
@@ -189,11 +193,20 @@ export default {
                 ]
             }
 		};
-	},
+    },
+    computed: {
+        onePageTabData() {
+            var _this = this;
+            return _this.tabData.slice(_this.star, _this.end);
+        },
+    },
 	methods: {
 		handleCurrentChange(val){
-			this.page=val-1;
-//			this.getTableData()
+			// val指的是当前点击是第一页
+			var _this = this;
+			_this.page = val;
+			_this.star = (_this.page-1)*20;
+			_this.end = _this.star+20;
 		},
 		// 搜索条件
 		searchCondition() {
@@ -202,7 +215,6 @@ export default {
             obj.date_s = baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0);
             obj.date_e = baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0);
             obj.channel = this.channelId.join(',');
-            obj.page= _this.page;
 			return obj;
 		},
 		// 获取数据列表
@@ -216,7 +228,6 @@ export default {
 			} else {
                axios.get(allget+url, {params: params})
                    .then((res) => {
-                   	console.log(res)
                        _this.listLoading = false;
                        if(res.data.ret) {
                            _this.tabData = res.data.data;
@@ -252,7 +263,7 @@ export default {
             })
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
 	},
 	mounted() {
@@ -272,7 +283,7 @@ export default {
 
 <style lang="css" scoped>
    .infomation{
-       width: 100%;
+       width:100%;
        height: 100%;
    }
 </style>

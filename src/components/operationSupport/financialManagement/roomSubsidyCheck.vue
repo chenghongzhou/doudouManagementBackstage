@@ -1,15 +1,17 @@
 <template>
     <!-- 房间流水补贴审核 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -22,22 +24,37 @@
                 </el-form-item>
                 <el-form-item>
                     <span>UID</span>
-                    <el-input style="width:150px;" clearable placeholder="请输入uid" v-model="uid">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    clearable 
+                    placeholder="请输入uid" 
+                    v-model="uid"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>房间ID</span>
-                    <el-input style="width:150px;" clearable placeholder="房间ID" v-model="room_id">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    clearable 
+                    placeholder="房间ID" 
+                    v-model="room_id"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="create_time" label="发放时间"></el-table-column>
                 <el-table-column prop="room_id" label="房间ID"></el-table-column>
                 <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -58,29 +75,50 @@
                 </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button v-if="scope.row.is_give==0" type="primary" size="mini" @click="passRoom(scope.$index,scope.row,1)">通过</el-button>
-                        <el-button v-if="scope.row.is_give==0" type="warning" size="mini" @click="passRoom(scope.$index,scope.row,2)">拒绝</el-button>
-                        <el-button v-else-if="scope.row.is_give==1" disabled size="mini">已通过</el-button>
-                        <el-button v-else-if="scope.row.is_give==2" disabled size="mini">已拒绝</el-button>
+                        <el-button 
+                        v-if="scope.row.is_give==0" 
+                        type="primary" 
+                        size="mini" 
+                        @click="passRoom(scope.$index,scope.row,1)">通过</el-button>
+                        <el-button 
+                        v-if="scope.row.is_give==0" 
+                        type="warning" 
+                        size="mini" 
+                        @click="passRoom(scope.$index,scope.row,2)">拒绝</el-button>
+                        <el-button 
+                        v-else-if="scope.row.is_give==1" 
+                        disabled 
+                        size="mini">已通过</el-button>
+                        <el-button 
+                        v-else-if="scope.row.is_give==2" 
+                        disabled 
+                        size="mini">已拒绝</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-dialog title="拒绝原因" :visible.sync="dialogFormVisible">
                 <el-form :model="passData">
                     <el-form-item label="拒绝原因" :label-width="formLabelWidth">
-                        <el-input v-model="passData.refuse_reason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="passData.refuse_reason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="refusePass">确 定</el-button>
+                    <el-button 
+                    @click="dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="refusePass">确 定</el-button>
                 </div>
             </el-dialog>
-
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -181,7 +219,7 @@ export default {
                         console.log(err);
                     });
             } else if (type == 2) {
-                _this.dialogFormVisible = true;
+                _this.dialogFormVisible=true;
             }
         },
         refusePass() {
@@ -217,10 +255,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

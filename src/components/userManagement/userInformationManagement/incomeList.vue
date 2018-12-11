@@ -1,10 +1,8 @@
 <template>
     <!-- 收入榜单查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <span>渠道</span>
                     <el-select 
@@ -30,17 +28,29 @@
                 </el-form-item>
                 <el-form-item>
                     <span>UID</span>
-                    <el-input style="width:150px;" clearable placeholder="请输入uid" v-model="uid">
-                    </el-input>
+                    <el-input 
+                    style="width:150px;" 
+                    clearable 
+                    placeholder="请输入uid" 
+                    v-model="uid"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column type="index" :index="indexMethod" label="排名"></el-table-column>
                 <el-table-column prop="channel" label="渠道"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
@@ -56,10 +66,13 @@
                 <el-table-column prop="addtime" label="注册时间"></el-table-column>
                 <el-table-column prop="lasttime" label="最后一次登录时间"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20" @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20" 
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -141,10 +154,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

@@ -1,15 +1,17 @@
 <template>
     <!-- 房间功能标签使用统计 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item style="margin-left: 50px;">
@@ -20,18 +22,26 @@
                         <el-option label="个人" value="1"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageTabData"
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <template v-for="col in cols">
-                    <el-table-column :prop="col.prop" :label="col.label" :key="col.prop"></el-table-column>
+                    <el-table-column 
+                    :prop="col.prop" 
+                    :label="col.label" 
+                    :key="col.prop"></el-table-column>
                 </template>
-                
                 <!-- <el-table-column prop="date" label="日期"></el-table-column>
                 <el-table-column prop="1" label="推荐"></el-table-column>
                 <el-table-column prop="2" label="相亲"></el-table-column>
@@ -41,9 +51,13 @@
                 <el-table-column prop="6" label="开黑"></el-table-column>
                 <el-table-column prop="7" label="其他"></el-table-column> -->
             </el-table>
-            <!--工具条-->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
             
         </template>
@@ -67,7 +81,7 @@ export default {
             room_type: null,
             propList: [],
             totalpage: null,  
-			page: 1,  
+			page: 0,  
 			star: '0',  
             end: '20',
             cols: [],  
@@ -192,10 +206,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

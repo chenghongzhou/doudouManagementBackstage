@@ -1,30 +1,41 @@
 <template>
     <!-- 用户认证审核(可操作) -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" style="width:250px;" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        style="width:250px;" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>UID：</span>
-                    <el-input style="width:100px;" @clear="clearInput" placeholder="请输入UID" v-model="find" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:100px;" 
+                    @clear="clearInput" 
+                    placeholder="请输入UID" 
+                    v-model="find" 
+                    clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>身份证号码：</span>
-                    <el-input style="width:145px;" @clear="clearInput" placeholder="请输入身份证号码" v-model="identity_card" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:145px;" 
+                    @clear="clearInput" 
+                    placeholder="请输入身份证号码" 
+                    v-model="identity_card" 
+                    clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>审核状态：</span>
-                    <el-select style="width: 100px;" v-model="status">
+                    <el-select style="width:100px;" v-model="status">
                         <el-option label="全部" value=""></el-option>
                         <el-option label="待审核" value="1"></el-option>
                         <el-option label="已通过" value="2"></el-option>
@@ -34,17 +45,27 @@
                 </el-form-item>
                 <el-form-item>
                     <span>支付宝账号：</span>
-                    <el-input style="width:140px;" @clear="clearInput" placeholder="请输入支付宝账号" v-model="pay_account" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:140px;" 
+                    @clear="clearInput" 
+                    placeholder="请输入支付宝账号" 
+                    v-model="pay_account" 
+                    clearable></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="onePageTabData" border fit highlight-current-row style="width: 100%;" v-loading="listLoading" :height="tableHeight">
+            <el-table 
+            :data="onePageTabData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            v-loading="listLoading" 
+            :height="tableHeight">
                 <el-table-column prop="req_time" label="申请时间"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
@@ -52,9 +73,13 @@
                 <el-table-column prop="icon" label="用户头像">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.icon" alt="" style="width:300px;height:400px;">
+                            <img 
+                            :src="scope.row.icon" 
+                            style="width:300px;height:400px;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.icon" alt="" style="width:100px;height:100px;">
+                                <img 
+                                :src="scope.row.icon" 
+                                style="width:100px;height:100px;">
                             </div>
                         </el-popover>
                     </template>
@@ -62,9 +87,13 @@
                 <el-table-column prop="aut_icon" label="手持证件照">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.aut_icon" alt="" style="width:300px;height:400px;">
+                            <img 
+                            :src="scope.row.aut_icon" 
+                            style="width:300px;height:400px;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.aut_icon" alt="" style="width:100px;height:100px;">
+                                <img 
+                                :src="scope.row.aut_icon" 
+                                style="width:100px;height:100px;">
                             </div>
                         </el-popover>
                     </template>
@@ -72,9 +101,13 @@
                 <el-table-column prop="identity_card_icon" label="身份证照片">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" v-if="scope.row.identity_card_icon" placement="right">
-                            <img :src="scope.row.identity_card_icon" alt="" style="width:300px;height:400px;">
+                            <img 
+                            :src="scope.row.identity_card_icon"
+                            style="width:300px;height:400px;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.identity_card_icon" alt="" style="width:100px;height:100px;">
+                                <img 
+                                :src="scope.row.identity_card_icon" 
+                                style="width:100px;height:100px;">
                             </div>
                         </el-popover>
                     </template>
@@ -97,53 +130,89 @@
                     <template slot-scope="scope">
                         <el-row v-if="scope.row.status==1">
                             <el-col :span="8">
-                                <el-button size="mini" type="success" @click="pass(scope.$index, scope.row)">通过</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="success" 
+                                @click="pass(scope.$index, scope.row)">通过</el-button>
                             </el-col>
                             <el-col :span="8">
-                                <el-button size="mini" type="danger" @click="refuseBtn(scope.$index, scope.row)">拒绝</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="danger" 
+                                @click="refuseBtn(scope.$index, scope.row)">拒绝</el-button>
                             </el-col>
                             <el-col :span="8">
-                                <el-button style="margin-right: 20px;" size="mini" type="info" @click="revamp(scope.$index, scope.row)">修改信息</el-button>
+                                <el-button 
+                                style="margin-right:20px;" 
+                                size="mini" 
+                                type="info" 
+                                @click="revamp(scope.$index, scope.row)">修改信息</el-button>
                             </el-col>
                         </el-row>
                         <el-row :gutter="20" v-else-if="scope.row.status==2">
                             <el-col :span="12">
-                                <el-button size="mini" type="success" @click="clearDate(scope.$index, scope.row)">清除认证</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="success" 
+                                @click="clearDate(scope.$index, scope.row)">清除认证</el-button>
                             </el-col>
                             <el-col :span="12">
-                                <el-button size="mini" type="info" @click="revamp(scope.$index, scope.row)">修改信息</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="info" 
+                                @click="revamp(scope.$index, scope.row)">修改信息</el-button>
                             </el-col>
                         </el-row>
                         <el-row v-else-if="scope.row.status==3">
-                            <el-button size="mini" type="info" @click="revamp(scope.$index, scope.row)">修改信息</el-button>
+                            <el-button 
+                            size="mini" 
+                            type="info" 
+                            @click="revamp(scope.$index, scope.row)">修改信息</el-button>
                         </el-row>
                         <el-row v-else-if="scope.row.status==4">
-                            <el-button size="mini" type="info" @click="revamp(scope.$index, scope.row)">修改信息</el-button>
+                            <el-button 
+                            size="mini" 
+                            type="info" 
+                            @click="revamp(scope.$index, scope.row)">修改信息</el-button>
                         </el-row>
                     </template>
                 </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
             <!-- 确定通过弹窗 -->
             <el-dialog title="提示" :visible.sync="passDialogVisible" width="30%">
                 <span>确定要通过吗？</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="passDialogVisible=false">取 消</el-button>
-                    <el-button type="primary" @click="passDialogVisible=false,surePass()">确 定</el-button>
+                    <el-button 
+                    @click="passDialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="passDialogVisible=false,surePass()">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 拒绝弹窗 -->
             <el-dialog title="拒绝" :visible.sync="refuse.DialogVisible">
                 <el-form :model="refuse">
                     <el-form-item label="拒绝原因" :label-width="formLabelWidth">
-                        <el-input v-model="refuse.reason" placeholder="请输入拒绝原因" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="refuse.reason" 
+                        placeholder="请输入拒绝原因"
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="refuse.DialogVisible=false,refuse.reason=''">取 消</el-button>
-                    <el-button type="primary" @click="sureRefuse()">确 定</el-button>
+                    <el-button 
+                    @click="refuse.DialogVisible=false,refuse.reason=''">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureRefuse()">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog 
@@ -171,7 +240,7 @@
                         </template>
                     </el-form-item>
                     <el-form-item label="请求时间" :label-width="formLabelWidth">
-                        <el-input style="width: 200px;" v-model="info.req_time"></el-input>
+                        <el-input style="width:200px;" v-model="info.req_time"></el-input>
                     </el-form-item>
                     <el-form-item label="身份认证照片" :label-width="formLabelWidth">
                         <template slot-scope="scope">
@@ -188,7 +257,7 @@
                         </template>
                     </el-form-item>
                     <el-form-item label="认证状态" :label-width="formLabelWidth">
-                        <el-select style="width: 100px;" v-model="info.status">
+                        <el-select style="width:100px;" v-model="info.status">
                             <el-option label="未认证" value="0"></el-option>
                             <el-option label="认证中" value="1"></el-option>
                             <el-option label="认证成功" value="2"></el-option>
@@ -196,44 +265,65 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="身份证号码" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.identity_card"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.identity_card"></el-input>
                     </el-form-item>
                     <el-form-item label="真实姓名" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.name"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.name"></el-input>
                     </el-form-item>
                     <el-form-item label="支付宝" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.pay_account"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.pay_account"></el-input>
                     </el-form-item>
                     <el-form-item label="本月剩余提现次数" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.pay_account"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.pay_account"></el-input>
                     </el-form-item>
                     <el-form-item label="认证方式" :label-width="formLabelWidth">
-                        <el-select style="width: 100px;" v-model="info.type">
+                        <el-select style="width:100px;" v-model="info.type">
                             <el-option label="真人认证" value="0"></el-option>
                             <el-option label="实名认证" value="1"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="失败原因" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.fail_reason"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.fail_reason"></el-input>
                     </el-form-item>
                     <el-form-item label="认证时间" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.auth_time"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.auth_time"></el-input>
                     </el-form-item>
                     <el-form-item label="操作人姓名" :label-width="formLabelWidth">
-                        <el-input style="width:200px;" v-model="info.auth_user"></el-input>
+                        <el-input 
+                        style="width:200px;" 
+                        v-model="info.auth_user"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="info.dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureRevamp()">确定修改</el-button>
+                    <el-button 
+                    @click="info.dialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureRevamp()">确定修改</el-button>
                 </div>
             </el-dialog>
             <!-- 清除认证弹窗 -->
             <el-dialog title="提示" :visible.sync="clear.dialogVisible" width="30%">
                 <span>确定清除认证</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="clear.dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureClear()">确 定</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="clear.dialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureClear()">确 定</el-button>
                 </span>
             </el-dialog>
         </template>
@@ -348,7 +438,7 @@ export default {
         },
         // 通过
         pass(index, row) {
-            this.passDialogVisible = true;
+            this.passdialogVisible=true;
             this.passUid = row.uid;
         },
         surePass() {
@@ -373,7 +463,7 @@ export default {
         },
         // 拒绝
         refuseBtn(index, row) {
-            this.refuse.DialogVisible = true;
+            this.refuse.dialogVisible=true;
             this.refuse.uid = row.uid;
         },
         sureRefuse() {
@@ -391,7 +481,7 @@ export default {
             axios.get(url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                        _this.refuse.DialogVisible = false;
+                        _this.refuse.dialogVisible=false;
                         baseConfig.successTipMsg(_this, res.data.msg);
                         _this.refuse.reason = "";
                         _this.getData();
@@ -406,7 +496,7 @@ export default {
         // 修改信息
         revamp(index, row) {
             var _this = this;
-            _this.info.dialogVisible = true;
+            _this.info.dialogVisible=true;
             _this.info.uid = row.uid;
             _this.info.nickname = row.nickname;
             _this.info.aut_icon = row.aut_icon;
@@ -445,7 +535,7 @@ export default {
                 .then((res) => {
                     if (res.data.ret) {
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.info.dialogVisible = false;
+                        _this.info.dialogVisible=false;
                         _this.getData();
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -457,7 +547,7 @@ export default {
         },
         // 清除认证
         clearDate(index, row) {
-            this.clear.dialogVisible = true;
+            this.clear.dialogVisible=true;
             this.clear.uid = row.uid;
         },
         sureClear() {
@@ -471,7 +561,7 @@ export default {
                 .then((res) => {
                     if (res.data.ret) {
                         baseConfig.successTipMsg(_this, res.data.msg);
-                        _this.clear.dialogVisible = false;
+                        _this.clear.dialogVisible=false;
                         _this.getData();
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -491,10 +581,5 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

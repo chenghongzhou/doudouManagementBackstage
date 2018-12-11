@@ -1,25 +1,36 @@
 <template>
     <!-- 录音下榜列表 -->
-    <!-- dom结构内容 -->
 	<section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+						v-model="formOne.startDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+					<el-button 
+					type="primary" 
+					@click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="listData" border fit highlight-current-row style="width: 100%;" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" :height="tableHeight">
+			<el-table 
+			:data="listData" 
+			border fit highlight-current-row 
+			style="width:100%;" 
+			v-loading="listLoading" 
+			element-loading-text="拼命加载中" 
+			element-loading-spinner="el-icon-loading" 
+			element-loading-background="rgba(0, 0, 0, 0.8)" 
+			:height="tableHeight">
 				<el-table-column prop="time" label="日期"></el-table-column>
 				<el-table-column prop="complain"  label="被投诉次数"></el-table-column>
 				<el-table-column prop="id" label="录音编码" ></el-table-column>
@@ -27,7 +38,9 @@
                 <el-table-column label="录音内容" width="300">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<audio controls="controls" :src="scope.row.voice_url"></audio>
+							<audio 
+							controls="controls" 
+							:src="scope.row.voice_url"></audio>
 						</div>
 					</template>
 				</el-table-column>
@@ -35,22 +48,31 @@
 				<el-table-column label="操作" min-width="120">
 					<template slot-scope="scope">
                         <div v-if="scope.row.status==0">
-                            <el-col :span="8"><el-button size="warning" type="info">状态不对</el-button></el-col>
+                            <el-col :span="8">
+								<el-button 
+								size="warning" 
+								type="info">状态不对</el-button>
+							</el-col>
                         </div>
                         <div v-else-if="scope.row.status==1">
-                            <el-col :span="8"><el-button size="primary" type="danger" @click="dealVoiceOffData(scope.$index, scope.row)">再次推荐</el-button></el-col>
+                            <el-col :span="8">
+								<el-button 
+								size="primary" 
+								type="danger" 
+								@click="dealVoiceOffData(scope.$index, scope.row)">再次推荐</el-button>
+							</el-col>
                         </div>
                         <div v-else>
-                            <el-col :span="8"><el-button size="small" type="danger" @click="deleteVoiceComplain(scope.$index, scope.row)">删除</el-button></el-col>
+                            <el-col :span="8">
+								<el-button 
+								size="small" 
+								type="danger" 
+								@click="deleteVoiceComplain(scope.$index, scope.row)">删除</el-button>
+							</el-col>
                         </div>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!-- 工具条 -->
-			<!-- <el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-				</el-pagination>
-			</el-col> -->
 		</template>
     </section>
 </template>
@@ -158,5 +180,5 @@
 </script>
 
 <style lang="css" scoped>
-    
+
 </style>

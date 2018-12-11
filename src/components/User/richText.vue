@@ -5,15 +5,23 @@
 			<el-col :span="24" class="warp-main">
 				<el-form ref="infoForm" :model="infoForm" label-width="120px">
 					<el-form-item label="标题" prop="title">
-						<el-input v-model="infoForm.title"></el-input>
+						<el-input 
+						v-model="infoForm.title"></el-input>
 					</el-form-item>
 					<el-form-item label="详细">
 						<div class="edit_container">
-							<quill-editor class="editer" v-model="infoForm.content" ref="myQuillEditor" :options="editorOption" @ready="onEditorReady($event)"></quill-editor>
+							<quill-editor 
+							class="editer" 
+							v-model="infoForm.content" 
+							ref="myQuillEditor" 
+							:options="editorOption" 
+							@ready="onEditorReady($event)"></quill-editor>
 						</div>
 					</el-form-item>
 					<el-form-item>
-						<el-button type="primary" @click="onSubmit">确认提交</el-button>
+						<el-button 
+						type="primary" 
+						@click="onSubmit">确认提交</el-button>
 					</el-form-item>
 				</el-form>
 			</el-col>
@@ -87,6 +95,6 @@ export default {
 	height: 700px;
 }
 .quill-editor {
-  height: 600px;
+  height:600px;
 }
 </style>

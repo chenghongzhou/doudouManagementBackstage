@@ -1,31 +1,38 @@
 <template>
     <!-- 女性魅力值 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="date">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="date"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>uid</span>
-                    <el-input style="width:200px;" placeholder="请输入uid" v-model="uid" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:200px;" 
+                    placeholder="请输入uid" 
+                    v-model="uid" 
+                    clearable></el-input>
                 </el-form-item>
-
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" v-loading="listLoading" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="addtime" label="注册时间"></el-table-column>
                 <el-table-column prop="uid" label="ID"></el-table-column>
                 <el-table-column prop="anchor_level" :formatter="judgeAnchor" label="是否是主播"></el-table-column>
@@ -34,10 +41,13 @@
                 <el-table-column prop="month_charm" label="前30天魅力值" sortable></el-table-column>
                 <el-table-column prop="charm_score" label="总魅力值"></el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" :page-size="20"  @current-change="handleCurrentChange" :current-page="page+1" :total=totalpage style="float:right; ">
-                </el-pagination>
+                <el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                :page-size="20"  
+                @current-change="handleCurrentChange" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
             </el-col>
         </template>
     </section>
@@ -105,10 +115,5 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

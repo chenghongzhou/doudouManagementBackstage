@@ -6,9 +6,13 @@
             <!--accept定义接收的文件类型,这里只接受图片-->
             <!--<input id="fileinput" @change="uploading($event)" type="file" accept="image/*">-->
             <!-- 定义可以上传任何的文件类型 -->
-         	<input id="fileinput" @change="uploading($event)" type="file">
+         	<input 
+            id="fileinput" 
+            @change="uploading($event)" 
+            type="file">
             <!--图片展示-->
-            <img :src="src"/>
+            <img 
+            :src="src"/>
         </div>
         <div class="btns">
             <!-- 按钮操作部分 -->
@@ -102,33 +106,33 @@ export default {
 
 <style lang="css" scoped>
 .title{
-    width: 100%; height: 50px; line-height: 50px;  text-align: center; 
+    width:100%; height: 50px; line-height: 50px;  text-align:center; 
     background-color: #c9dbf4;
 }
 .top{
-    width: 100%;
-    height: 200px; 
+    width:100%;
+    height:200px; 
     margin: 0 auto;
 }
 .imageUpload #fileinput{
-    display: block; float: left;
-    width: 200px; height: 24px; line-height: 24px; 
+    display:block; float: left;
+    width:200px; height: 24px; line-height: 24px; 
     margin-top: 88px; margin-left: 400px;
 }
 .imageUpload img{
-    display: block; float: left;
-    width: 300px; 
+    display:block; float: left;
+    width:300px; 
     height: 150px;
     margin-top: 25px;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
     background-color: #e3efff;
 }
 .btns button{
     width: 80px; height: 40px;
     background-color: #78B2FF; color: #fff;
-    text-align: center; line-height: 40px;
+    text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
     margin-top: 5px;
 }
@@ -141,21 +145,21 @@ export default {
     cursor: pointer;
 }
 .url{
-    width: 100%; height: 30px; line-height: 30px;
+    width:100%; height: 30px; line-height: 30px;
     margin-top: 30px;
 }
 .url span{
-    display: block; float: left;
+    display:block; float: left;
 }
 .url span:nth-of-type(1){
-    width: 120px; height: 30px; line-height: 30px; text-align: center;
+    width: 120px; height: 30px; line-height: 30px; text-align:center;
 }
 .url span:nth-of-type(2){
     width: 600px; height: 30px; line-height: 30px;
     background: #f1f7ff;
 }
 .url span:nth-of-type(3){
-    width: 80px; height: 30px; line-height: 30px; text-align: center;
+    width: 80px; height: 30px; line-height: 30px; text-align:center;
     color: #fff; background: #78B2FF;
     border-radius: 5px; margin-left: 10px; cursor: pointer;
 }

@@ -1,13 +1,15 @@
 <template>
-<!-- dom结构内容 -->
 	<section>
-		<!--查询条件-->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="filters">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="filters">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="time_register" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="time_register" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
                     </div>
 				</el-form-item>
 				<el-form-item>
@@ -40,25 +42,39 @@
 					<el-input style="width: 120px;" placeholder="请输入UID" icon="search" v-model="uid"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" v-on:click="getUser">查询</el-button>
-					<el-button type="primary" v-on:click="handleDownload">导出</el-button>
+					<el-button 
+					type="primary" 
+					v-on:click="getUser">查询</el-button>
+					<el-button 
+					type="primary" 
+					v-on:click="handleDownload">导出</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--tablel列表-->
 		<template>
-			<el-table :data="pageTw" border fit highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;" :height="tableHeight" >
+			<el-table 
+			:data="pageTw" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			@selection-change="selsChange" 
+			style="width:100%;" 
+			:height="tableHeight" >
 				<el-table-column type="index" width="70" ></el-table-column>
 				<el-table-column prop="time" label="注册时间" width="110" sortable ></el-table-column>
-				<!-- 可以进行点击的出现用户详情 -->
 				<el-table-column label="UID" width="80" sortable>
 					<template slot-scope="scope">
-						<el-button type="primary" size="small" @click="showUserActivity(scope.$index, scope.row.uid)">{{scope.row.uid}}</el-button>
+						<el-button 
+						type="primary" 
+						size="small" 
+						@click="showUserActivity(scope.$index, scope.row.uid)">{{scope.row.uid}}</el-button>
 					</template>
 				</el-table-column>
 				<el-table-column label="被投诉人id" width="80" sortable>
 					<template slot-scope="scope">
-						<el-button type="primary" size="small" @click="showUserActivity(scope.$index, scope.row.complain_uid)">{{scope.row.complain_uid}}</el-button>
+						<el-button 
+						type="primary" 
+						size="small" 
+						@click="showUserActivity(scope.$index, scope.row.complain_uid)">{{scope.row.complain_uid}}</el-button>
 					</template>
 				</el-table-column>
 				<el-table-column prop="num" label="投诉次数" width="80" sortable></el-table-column>
@@ -68,9 +84,17 @@
                 <el-table-column label="投诉证据" min-width="120" sortable >
 					<template slot-scope="scope">
 						<el-popover trigger="hover" placement="left">
-							<img v-for="(imgsrc, index) in scope.row.evidences" :key="index" :src="imgsrc" alt="" style="width:300px;height:300px;" />
+							<img 
+							v-for="(imgsrc, index) in scope.row.evidences" 
+							:key="index" 
+							:src="imgsrc" 
+							style="width:300px;height:300px;" />
 							<div slot="reference" class="name-wrapper">
-								<img v-for="(imgsrc, index) in scope.row.evidences" :key="index" :src="imgsrc" alt="" style="width:100px;height:100px;" />
+								<img 
+								v-for="(imgsrc, index) in scope.row.evidences" 
+								:key="index" 
+								:src="imgsrc"
+								style="width:100px;height:100px;" />
 							</div>
 						</el-popover>
 					</template>
@@ -81,26 +105,57 @@
 					<template slot-scope="scope">	
 						<el-row :gutter="20">
 							<div v-if="scope.row.status==0">
-								<el-col :span="6"><el-button type="info" style="marginBottom:10px;" @click="userOperation(1,scope.row.uid)">忽略</el-button></el-col>
-								<el-col :span="6"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(2,scope.row.uid)">警告</el-button></el-col>
-								<el-col :span="6"><el-button type="danger" style="marginBottom:10px;" @click="userOperation(3,scope.row.uid)">封号</el-button></el-col>
+								<el-col :span="6">
+									<el-button 
+									type="info" 
+									style="marginBottom:10px;"
+									@click="userOperation(1,scope.row.uid)">忽略</el-button>
+								</el-col>
+								<el-col :span="6">
+									<el-button 
+									type="danger" 
+									style="marginBottom:10px;" 
+									@click="userOperation(2,scope.row.uid)">警告</el-button>
+								</el-col>
+								<el-col :span="6">
+									<el-button 
+									type="danger" 
+									style="marginBottom:10px;" 
+									@click="userOperation(3,scope.row.uid)">封号</el-button>
+								</el-col>
 							</div>
 							<div v-else-if="scope.row.status==1">
-								<el-col :span="8"><el-button type="success" style="marginBottom:10px;">已忽略</el-button></el-col>
+								<el-col :span="8">
+									<el-button 
+									type="success" 
+									style="marginBottom:10px;">已忽略</el-button>
+								</el-col>
 							</div>
 							<div v-else-if="scope.row.status==2">
-								<el-col :span="8"><el-button type="success" style="marginBottom:10px;">已警告</el-button></el-col>
+								<el-col :span="8">
+									<el-button 
+									type="success" 
+									style="marginBottom:10px;">已警告</el-button>
+								</el-col>
 							</div>
 							<div v-else-if="scope.row.status==3">
-								<el-col :span="8"><el-button type="success" style="marginBottom:10px;">已封号</el-button></el-col>
+								<el-col :span="8">
+									<el-button 
+									type="success" 
+									style="marginBottom:10px;">已封号</el-button>
+								</el-col>
 							</div>
 						</el-row>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
@@ -270,16 +325,16 @@ export default {
     height: 36px;
 	margin-bottom: 5px;
 	line-height: 36px;
-	text-align: center;
+	text-align:center;
 }
 .photo_close {
-	display: block;
+	display:block;
 	position: relative;
 	width: 20px;
 	height: 20px;
 	border-radius: 50% !important;
 	background-color: #ff5353;
-	text-align: center;
+	text-align:center;
 	line-height: 20px;
 	color: #fff;
     right: -190px;

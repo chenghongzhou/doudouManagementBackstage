@@ -16,10 +16,12 @@
 				:model="formLabelAlign" 
 				style="padding-left:30px;">
 					<el-form-item label="任务名称" style="padding-top: 30px;">
-						<el-input v-model="formLabelAlign.name"></el-input>
+						<el-input 
+						v-model="formLabelAlign.name"></el-input>
 					</el-form-item>
 					<el-form-item label="任务图标">
-						<el-input v-model="formLabelAlign.icon"></el-input>
+						<el-input 
+						v-model="formLabelAlign.icon"></el-input>
 					</el-form-item>
 					<el-form-item label="任务描述">
 						<el-input type="textarea" v-model="formLabelAlign.desc"></el-input>
@@ -39,7 +41,8 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="奖励数量">
-						<el-input v-model="formLabelAlign.reward"></el-input>
+						<el-input 
+						v-model="formLabelAlign.reward"></el-input>
 					</el-form-item>
 					<el-form-item label="跳转类型">
 						<el-select v-model="choice_url" :change="choiceUrlValue(choice_url)">
@@ -49,7 +52,8 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="H5跳转地址" v-if="formLabelAlign.jump_h5_show">
-						<el-input v-model="formLabelAlign.jump_url"></el-input>
+						<el-input 
+						v-model="formLabelAlign.jump_url"></el-input>
 					</el-form-item>
 					<el-form-item label="IOS链接地址" v-if="formLabelAlign.jump_app_show">
 						<el-select v-model="formLabelAlign.ios_link">
@@ -94,7 +98,8 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="排序">
-						<el-input v-model="formLabelAlign.sort"></el-input>
+						<el-input 
+						v-model="formLabelAlign.sort"></el-input>
 					</el-form-item>
 				</el-form>
 				<el-button 
@@ -106,8 +111,8 @@
 			label="操作记录管理" 
 			name="second" 
 			:style="{height:tabSearchHeight+'px'}">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item>
 							<span>任务状态</span>
 							<el-select v-model="formOne.status">
@@ -145,7 +150,9 @@
 						<el-table-column label="任务图标" width="150">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<img :src="scope.row.icon" alt="" style="width:100px;height:100px;">
+									<img 
+									:src="scope.row.icon"
+									style="width:100px;height:100px;">
 								</div>
 							</template>
 						</el-table-column>
@@ -504,32 +511,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

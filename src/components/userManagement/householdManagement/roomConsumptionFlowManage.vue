@@ -1,37 +1,59 @@
 <template>
     <!-- 房间消费流水 -->
-    <!-- dom结构内容 -->
     <section>
-        <el-tabs type="border-card" v-model="activeName">
-            <el-tab-pane label="日统计数据" name="first">
-                <!-- 日统计数据 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+        <el-tabs 
+        type="border-card" 
+        v-model="activeName">
+            <el-tab-pane 
+            label="日统计数据" 
+            name="first">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate1" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate1" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
                             <span>房间UID</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="room_id" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="room_id" 
+                            clearable></el-input>
                         </el-form-item>
                         <el-form-item>
                             <span>族长UID</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="owner_uid" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="owner_uid" 
+                            clearable></el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
                 <template>
-                    <el-table ref="tableHeight" :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;" :height="tableHeight">
+                    <el-table 
+                    ref="tableHeight" 
+                    :data="listData" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)" 
+                    style="width:100%;" 
+                    :height="tableHeight">
                         <el-table-column prop="date" label="开启时间"></el-table-column>
                         <el-table-column prop="room_id" label="房间ID"></el-table-column>
                         <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -42,42 +64,67 @@
                         <el-table-column prop="money" label="单次流水（豆币）"></el-table-column>
                         <el-table-column prop="total_money" label="累计流水（豆币）"></el-table-column>
                     </el-table>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
                 </template>
             </el-tab-pane>
-            <el-tab-pane label="月统计数据" name="second">
+            <el-tab-pane 
+            label="月统计数据" 
+            name="second">
                 <!-- 月统计数据 -->
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
                         <el-form-item>
                             <span>房间UID</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="room_id1" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="room_id1" 
+                            clearable></el-input>
                         </el-form-item>
                         <el-form-item>
                             <span>族长UID</span>
-                            <el-input style="width:100px;" placeholder="请输入内容" v-model="owner_uid1" clearable>
-                            </el-input>
+                            <el-input 
+                            style="width:100px;" 
+                            placeholder="请输入内容" 
+                            v-model="owner_uid1" 
+                            clearable></el-input>
                         </el-form-item>
-                        <el-form-item style="float:right;margin-right: 100px;">
-                            <el-button type="primary" @click="getTbData1(0)">查询</el-button>
+                        <el-form-item style="float:right;margin-right:100px;">
+                            <el-button 
+                            type="primary" 
+                            @click="getTbData1(0)">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!--用户的数据展示列表-->
                 <template>
-                    <el-table ref="tableHeight" :data="listData1" border fit highlight-current-row v-loading="listLoading1" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;" :height="tableHeight">
+                    <el-table 
+                    ref="tableHeight" 
+                    :data="listData1" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading1" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)" 
+                    style="width:100%;" 
+                    :height="tableHeight">
                         <el-table-column prop="date" label="月份"></el-table-column>
                         <el-table-column prop="room_id" label="房间ID"></el-table-column>
                         <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -87,10 +134,13 @@
                         <el-table-column prop="money" label="当月流水（豆币）"></el-table-column>
                         <el-table-column prop="total_money" label="累计流水（豆币）"></el-table-column>
                     </el-table>
-                    <!-- 工具条 -->
                     <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange1" :page-size="20" :total=1000 :current-page="page1+1" style="float:right; ">
-                        </el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange1" 
+                        :page-size="20" 
+                        :total=1000 
+                        style="float:right;"></el-pagination>
                     </el-col>
                 </template>
             </el-tab-pane>

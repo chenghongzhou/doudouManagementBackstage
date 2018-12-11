@@ -9,10 +9,16 @@
 					<div class="grid-content" style="overflow: auto;height: auto;">
 						<el-col :span="4" v-for="(o, index) in allimg" :key="o" style="float: left; margin:2px 0;">
 							<el-card :body-style="{ padding: '0px' }">
-							<img :src="o" class="image" style="width: 110px; height: 110px;">
-							<div style="padding: 0px;">							
-								<el-button type="text" class="button" @click="deleteAll(1,userinfo.uid,index)">删除</el-button>
-							</div>
+								<img 
+								:src="o" 
+								class="image" 
+								style="width:110px; height:110px;">
+								<div style="padding:0px;">							
+									<el-button 
+									type="text" 
+									class="button" 
+									@click="deleteAll(1,userinfo.uid,index)">删除</el-button>
+								</div>
 							</el-card>
 						</el-col>
 					</div>
@@ -24,18 +30,32 @@
 						<el-col :span="12" style="float: left; margin:2px 0;">
 							<el-card :body-style="{ padding: '0px' }">
 							<div class="grid-content" style="height: 50px; float: left;">
-								<audio :src="userinfo.voice_signature" controls="controls" preload="none"></audio>
+								<audio 
+								:src="userinfo.voice_signature" 
+								controls="controls" 
+								preload="none"></audio>
 							</div>
-							<el-button type="primary" size="mini" icon="close" @click="deleteAll(3,userinfo.uid, index)">删除签名录音</el-button>
+							<el-button 
+							type="primary" 
+							size="mini" 
+							icon="close" 
+							@click="deleteAll(3,userinfo.uid, index)">删除签名录音</el-button>
 							</el-card>
 						</el-col>
 						<!-- 录音库里面的内容 -->
 						<el-col :span="6" v-for="(item, index) in allVoiceData" :key="index" style="float: left; margin:2px 0;">
 							<el-card :body-style="{ padding: '0px' }">
 							<div class="grid-content" style="height: 50px; float: left;">
-								<audio :src="item.voice_url" controls="controls" preload="none"></audio>
+								<audio 
+								:src="item.voice_url" 
+								controls="controls" 
+								preload="none"></audio>
 							</div>
-							<el-button type="primary" size="mini" icon="close" @click="deleteAll(3,userinfo.uid, index)">删除录音</el-button>
+							<el-button 
+							type="primary" 
+							size="mini" 
+							icon="close" 
+							@click="deleteAll(3,userinfo.uid, index)">删除录音</el-button>
 							</el-card>
 						</el-col>
 					</div>
@@ -45,7 +65,9 @@
 					<div class="bg-purple" ></div>
 					<div style="width: 220px; height: 220px; margin: auto;">
 						<span class="photo_close" @click="deleteAll(2,userinfo.uid)">x</span>					
-						<img style="width: 200px; height: 200px;" :src="userinfo.icon" alt="" >
+						<img 
+						style="width:200px;height:200px;" 
+						:src="userinfo.icon">
 					</div> 
 				</el-col>
 				<el-col :span="6"><div class="grid-content bg-purple">uid：{{userinfo.uid}}</div></el-col>
@@ -143,7 +165,7 @@ export default {
 				.then((res) => {
 					if (res.data.ret) {
 						_this.userinfo = res.data.data[0];
-						_this.dialogVisible = true;
+						_this.dialogVisible=true;
 						_this.isgetuser = false;
 					} else {
 						baseConfig.normalTipMsg(_this, res.data.msg);
@@ -161,7 +183,7 @@ export default {
         Event.$on('show-one-user', function(obj){
             // console.log('监听到了'+obj.uid);   
             // 监听展示事件，进行状态设置为true，然后拉取出用户的个人数据
-			// _this.dialogVisible = true;
+			// _this.dialogVisible=true;
             _this.getuserinfo(obj.uid);
         });
 	},

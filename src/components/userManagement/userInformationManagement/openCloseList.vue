@@ -1,15 +1,17 @@
 <template>
     <!-- 账号封禁记录（可解禁） -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -20,27 +22,43 @@
                     collapse-tags 
                     style="width:150px;" 
                     placeholder="请选择">
-                        <el-option v-for="(item, key) of channelData" :key="key" :label="item" :value="key">
-                        </el-option>
+                        <el-option 
+                        v-for="(item, key) of channelData" 
+                        :key="key" 
+                        :label="item" 
+                        :value="key"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     <span>UID</span>
-                    <el-input style="width:120px;" placeholder="请输入内容" v-model="find" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    placeholder="请输入内容" 
+                    v-model="find" 
+                    clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>昵称</span>
-                    <el-autocomplete class="inline-input" v-model="nickname" :fetch-suggestions="querySearch" placeholder="请输入内容"></el-autocomplete>
+                    <el-autocomplete 
+                    class="inline-input" 
+                    v-model="nickname" 
+                    :fetch-suggestions="querySearch" 
+                    placeholder="请输入内容"></el-autocomplete>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="onePageTabData" border fit highlight-current-row style="width: 100%;" v-loading="listLoading" :height="tableHeight">
+            <el-table 
+            :data="onePageTabData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            v-loading="listLoading" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="封禁时间"></el-table-column>
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
@@ -70,7 +88,12 @@
                         <div v-if="scope.row.type==4">已警告</div>
                         <div v-if="scope.row.status==0&&scope.row.type==1">已解封</div>
                         <div v-else-if="scope.row.status==1&&scope.row.type==1">已封号
-                            <el-button style="margin-left: 5px;" plain size="mini" type="primary" @click="getter(scope.$index, scope.row)">解封</el-button>
+                            <el-button 
+                            style="margin-left: 5px;" 
+                            plain 
+                            size="mini" 
+                            type="primary" 
+                            @click="getter(scope.$index, scope.row)">解封</el-button>
                         </div>
                         <div v-else-if="scope.row.type==2">踢下线</div>
                         <div v-else-if="scope.row.type==3">封设备</div>
@@ -78,25 +101,38 @@
                 </el-table-column>
             </el-table>
             <el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" :current-page="page" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
         </template>
         <el-dialog title="封号" :visible.sync="dialogFormVisible">
             <el-form :model="reasonform">
                 <el-form-item label="解封原因" placeholder="请输入解封原因，必填" :label-width="formLabelWidth">
-                    <el-input v-model="reasonform.value" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="reasonform.value" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="closeTitle()">确 定</el-button>
+                <el-button 
+                @click="dialogFormVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="closeTitle()">确 定</el-button>
             </div>
         </el-dialog>
         <el-dialog title="提示" :visible.sync="dialogtitle" width="30%">
             <span>请填写解封原因</span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogtitle = false">取 消</el-button>
-                <el-button type="primary" @click="dialogtitle = false">确 定</el-button>
+                <el-button 
+                @click="dialogtitle=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="dialogtitle=false">确 定</el-button>
             </span>
         </el-dialog>
     </section>
@@ -129,7 +165,7 @@ export default {
                 value:""
             },
             nicknameObj: [],
-            page: 1,
+            page: 0,
 			totalpage: null,
 			star: '0',
 			end: '20',
@@ -182,7 +218,6 @@ export default {
                     if(res.data.ret){
                         this.listData = res.data.data;
                         _this.totalpage = res.data.data.length;
-                        _this.page = 1;
                         for(var i = 0;i < res.data.data.length; i++){
                             var timeObj = {}; 
                             timeObj.value = res.data.data[i].nickname;
@@ -198,7 +233,7 @@ export default {
         },
         // 点击解封的时候 获取相应的数值
         getter(index, row) {
-            this.dialogFormVisible = true;
+            this.dialogFormVisible=true;
             this.uid = row.uid;
         },
         // 解封
@@ -214,7 +249,7 @@ export default {
                 _this.dialogtitle = true;
                 return;
             }
-            _this.dialogFormVisible = false;
+            _this.dialogFormVisible=false;
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
@@ -242,7 +277,6 @@ export default {
         },
         loadAll(){
             return this.nicknameObj;
-            
         },
     },
     mounted() {
@@ -260,10 +294,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

@@ -1,13 +1,8 @@
 <template>
     <!-- 用户信息查询 -->
     <section>
-        <el-col 
-        :span="24" 
-        class="toolbar" 
-        style="padding-bottom:0px;">
-            <el-form 
-            :inline="true" 
-            style="overflow:hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-row>
                     <el-button 
                     v-if="collectiveSeal.dialogOne==false" 
@@ -71,8 +66,10 @@
                         v-model="nickname" 
                         placeholder="请输入昵称"></el-input>
                     </el-form-item>
-                    <el-form-item class="search-span" style="float:right;">
-                        <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                    <el-form-item style="float:right;">
+                        <el-button 
+                        type="primary" 
+                        @click="getData(0)">查询</el-button>
                     </el-form-item>
                 </el-row>
             </el-form>
@@ -84,7 +81,7 @@
             v-loading="listLoading" 
             border fit highlight-current-row 
             @selection-change="handleSelectionChange"
-            style="width: 100%;" 
+            style="width:100%;" 
             :height="tableHeight">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column prop="addtime" label="注册时间"></el-table-column>
@@ -94,9 +91,13 @@
                 <el-table-column prop="icon" label="用户头像">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.icon" alt="" style="width:300px;height:300px;">
+                            <img 
+                            :src="scope.row.icon" 
+                            style="width:300px;height:300px;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.icon" alt="" style="width:100px;height:100px;">
+                                <img 
+                                :src="scope.row.icon"
+                                style="width:100px;height:100px;">
                             </div>
                         </el-popover>
                     </template>
@@ -111,31 +112,58 @@
                     <template slot-scope="scope">
                         <el-row>
                             <el-col :span="4">
-                                <el-button size="mini" type="primary" @click="userDetail(scope.$index, scope.row)">用户详情</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="primary" 
+                                @click="userDetail(scope.$index, scope.row)">用户详情</el-button>
                             </el-col>
                             <el-col :span="4" v-if="scope.row.status == 0">
-                                <el-button size="mini" type="danger" @click="title(scope.$index, scope.row)">封号</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="danger" 
+                                @click="title(scope.$index, scope.row)">封号</el-button>
                             </el-col>
                             <el-col :span="4" v-if="scope.row.status == 0">
-                                <el-button size="mini" type="primary" @click="plDown(scope.$index, scope.row)">踢下线</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="primary" 
+                                @click="plDown(scope.$index, scope.row)">踢下线</el-button>
                             </el-col>
                             <el-col :span="4" v-else-if="scope.row.status == 1">
-                                <el-button size="mini" type="warning" @click="Unlock(scope.$index, scope.row)">解封</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="warning" 
+                                @click="Unlock(scope.$index, scope.row)">解封</el-button>
                             </el-col>
                             <el-col :span="4" v-if="scope.row.is_up_list == 0">
-                                <el-button size="mini" type="primary" @click="upList(scope.$index, scope.row)">上榜</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="primary" 
+                                @click="upList(scope.$index, scope.row)">上榜</el-button>
                             </el-col>
                             <el-col :span="4" v-else-if="scope.row.is_up_list == 1">
-                                <el-button size="mini" type="primary" @click="downList(scope.$index, scope.row)">下榜</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="primary" 
+                                @click="downList(scope.$index, scope.row)">下榜</el-button>
                             </el-col>
                             <el-col :span="4">
-                                <el-button size="mini" type="info" @click="prop(scope.$index, scope.row)">道具</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="info" 
+                                @click="prop(scope.$index, scope.row)">道具</el-button>
                             </el-col>
                             <el-col :span="4">
-                                <el-button size="mini" type="primary" @click="resetPass(scope.$index, scope.row)">重置密码</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="primary" 
+                                @click="resetPass(scope.$index, scope.row)">重置密码</el-button>
                             </el-col>
                             <el-col :span="4">
-                                <el-button size="mini" type="warning" @click="warn(scope.$index, scope.row)">警告</el-button>
+                                <el-button 
+                                size="mini" 
+                                type="warning" 
+                                @click="warn(scope.$index, scope.row)">警告</el-button>
                             </el-col>
                         </el-row>
                     </template>
@@ -156,19 +184,26 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="封号原因" :label-width="formLabelWidth">
-                        <el-input v-model="titleInfo.reason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="titleInfo.reason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="titleInfo.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureTitle">确 定</el-button>
+                    <el-button 
+                    @click="titleInfo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureTitle">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- 集体进行封号处理 -->
             <el-dialog title="集体封禁账号" :visible.sync="collectiveSeal.dialogTwo">
                 <el-form :model="collectiveSeal">
                     <el-form-item label="封号账号" :label-width="formLabelWidth">
-                        <el-input v-model="collectiveSeal.uid_list" disabled></el-input>
+                        <el-input 
+                        v-model="collectiveSeal.uid_list" 
+                        disabled></el-input>
                     </el-form-item>
                     <el-form-item label="封号时长" :label-width="formLabelWidth">
                         <el-select v-model="collectiveSeal.day" placeholder="请选择封号时长">
@@ -182,40 +217,55 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="封号原因" :label-width="formLabelWidth">
-                        <el-input v-model="collectiveSeal.reason"></el-input>
+                        <el-input 
+                        v-model="collectiveSeal.reason"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="collectiveSeal.dialogTwo=false">取 消</el-button>
-                    <el-button type="primary" @click="collectiveSealSure">确 定</el-button>
+                    <el-button 
+                    @click="collectiveSeal.dialogTwo=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="collectiveSealSure">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog title="解封账号" :visible.sync="UnlockInfo.dialogFormVisible">
                 <el-form :model="UnlockInfo">
                     <el-form-item label="解封原因" :label-width="formLabelWidth">
-                        <el-input v-model="UnlockInfo.reason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="UnlockInfo.reason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="UnlockInfo.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="srueUnlock">确 定</el-button>
+                    <el-button 
+                    @click="UnlockInfo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="srueUnlock">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog title="踢下线" :visible.sync="plDownInfo.dialogFormVisible">
                 <el-form :model="plDownInfo">
-
                     <el-form-item label="踢掉原因" :label-width="formLabelWidth">
-                        <el-input v-model="plDownInfo.reason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="plDownInfo.reason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="plDownInfo.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureplDown">确 定</el-button>
+                    <el-button 
+                    @click="plDownInfo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureplDown">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- 道具列表 -->
             <el-dialog title="道具列表" :visible.sync="propInfo.dialogFormVisible">
-                <el-table :data="propInfo.data" style="width: 100%">
+                <el-table 
+                :data="propInfo.data" 
+                style="width:100%">
                     <el-table-column prop="prop_id" label="道具id" width="180"></el-table-column>
                     <el-table-column prop="name" label="道具名称" width="180"></el-table-column>
                     <el-table-column prop="status" :formatter="judgeGiftStatus" label="状态"></el-table-column>
@@ -225,30 +275,37 @@
             <el-dialog title="重置密码" :visible.sync="resetPassword.dialogFormVisible" center width="30%">
                 <span>你确定要重置密码？</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="resetPassword.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureReset">确 定</el-button>
+                    <el-button 
+                    @click="resetPassword.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureReset">确 定</el-button>
                 </span>
             </el-dialog>
             <!--警告-->
             <el-dialog title="警告" :visible.sync="warnInfo.dialogFormVisible">
                 <el-form :model="warnInfo">
                     <el-form-item label="警告文字" :label-width="formLabelWidth">
-                        <el-input v-model="warnInfo.warn_content" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="warnInfo.warn_content" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="warnInfo.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureWarn">确 定</el-button>
+                    <el-button 
+                    @click="warnInfo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureWarn">确 定</el-button>
                 </div>
             </el-dialog>
             <el-col :span="24" class="toolbar">
                 <el-pagination 
-                layout="total,prev, pager, next,jumper" 
+                layout="total,prev,pager,next,jumper" 
                 :page-size="20" 
                 @current-change="handleCurrentChange" 
-                :current-page="page+1" 
-                :total=totalpage 
-                style="float:right; ">
+                :total="totalpage" 
+                style="float:right;">
                 </el-pagination>
             </el-col>
         </template>
@@ -425,7 +482,7 @@ export default {
         // 封号
         title(index, rows) {
             this.titleInfo.uid = rows.uid;
-            this.titleInfo.dialogFormVisible = true;
+            this.titleInfo.dialogFormVisible=true;
         },
         sureTitle() {
             var _this = this;
@@ -452,7 +509,7 @@ export default {
                         this.titleInfo.uid = "";
                         this.titleInfo.day = "1";
                         this.titleInfo.reason = "";
-                        this.titleInfo.dialogFormVisible = false;
+                        this.titleInfo.dialogFormVisible=false;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -463,7 +520,7 @@ export default {
         },
         // 解封
         Unlock(index, row) {
-            this.UnlockInfo.dialogFormVisible = true;
+            this.UnlockInfo.dialogFormVisible=true;
             this.UnlockInfo.uid = row.uid;
         },
         srueUnlock() {
@@ -489,7 +546,7 @@ export default {
                         _this.getData();
                         this.UnlockInfo.uid = "";
                         this.UnlockInfo.reason = "";
-                        this.UnlockInfo.dialogFormVisible = false;
+                        this.UnlockInfo.dialogFormVisible=false;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -501,7 +558,7 @@ export default {
         // 踢下线
         plDown(index, row) {
             this.plDownInfo.uid = row.uid;
-            this.plDownInfo.dialogFormVisible = true;
+            this.plDownInfo.dialogFormVisible=true;
         },
         sureplDown() {
             var _this = this;
@@ -526,7 +583,7 @@ export default {
                         _this.getData();
                         _this.plDownInfo.uid = "";
                         _this.plDownInfo.reason = "";
-                        _this.plDownInfo.dialogFormVisible = false;
+                        _this.plDownInfo.dialogFormVisible=false;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -578,7 +635,7 @@ export default {
         // 道具
         prop(index, row) {
             var _this = this;
-            this.propInfo.dialogFormVisible = true;
+            this.propInfo.dialogFormVisible=true;
             var url = "/NewUser/getUserPropList";
             var params = {
                 uid: row.uid
@@ -598,11 +655,11 @@ export default {
         // 重置密码
         resetPass(index, row){
             var _this = this;
-            _this.resetPassword.dialogFormVisible = true;
+            _this.resetPassword.dialogFormVisible=true;
             _this.resetPassword.uid = row.uid;
         },
         warn(index, row){
-            this.warnInfo.dialogFormVisible = true;
+            this.warnInfo.dialogFormVisible=true;
             this.warnInfo.uid = row.uid;
         },
         sureWarn(){
@@ -620,7 +677,7 @@ export default {
             };
             axios.post(allget+url, formData, config)
                 .then((res) => {
-                    _this.warnInfo.dialogFormVisible = false;
+                    _this.warnInfo.dialogFormVisible=false;
                     if (res.data.ret) {
                         baseConfig.successTipMsg(_this, res.data.msg);
                     } else {
@@ -640,7 +697,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                        _this.resetPassword.dialogFormVisible = false;
+                        _this.resetPassword.dialogFormVisible=false;
                         baseConfig.successTipMsg(_this, res.data.msg);
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -714,10 +771,5 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

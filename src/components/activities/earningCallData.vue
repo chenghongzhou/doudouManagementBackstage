@@ -18,13 +18,19 @@
 							placeholder="选择日期范围"></el-date-picker>
 						</el-form-item>
 						<el-form-item label="上级UID">
-							<el-input v-model="formOne.bind_uid" auto-compvare="off"></el-input>
+							<el-input 
+							v-model="formOne.bind_uid" 
+							auto-compvare="off"></el-input>
 						</el-form-item>
 						<el-form-item label="下级UID">
-							<el-input v-model="formOne.uid" auto-compvare="off"></el-input>
+							<el-input 
+							v-model="formOne.uid" 
+							auto-compvare="off"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getOneData">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getOneData">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -67,13 +73,19 @@
 							placeholder="选择日期范围"></el-date-picker>
 						</el-form-item>
 						<el-form-item label="上级UID">
-							<el-input v-model="formTwo.bind_uid" auto-compvare="off"></el-input>
+							<el-input 
+							v-model="formTwo.bind_uid" 
+							auto-compvare="off"></el-input>
 						</el-form-item>
 						<el-form-item label="下级UID">
-							<el-input v-model="formTwo.uid" auto-compvare="off"></el-input>
+							<el-input 
+							v-model="formTwo.uid" 
+							auto-compvare="off"></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTwoData">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTwoData">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>

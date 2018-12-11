@@ -38,7 +38,7 @@
                     type="primary" 
                     @click="getTableData">查询</el-button>
 				</el-form-item>
-                <el-form-item style="margin-left: 100px;">
+                <el-form-item style="margin-left:100px;">
                     <div class="infomation"  @click="infoDialogVisible=true;">
                         <i class="el-icon-question" style="color: #999;"></i>
                     </div>
@@ -240,7 +240,7 @@ export default {
             })
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
 	},
 	mounted() {
@@ -260,7 +260,7 @@ export default {
 
 <style lang="css" scoped>
    .infomation{
-       width: 100%;
+       width:100%;
        height: 100%;
    }
 </style>

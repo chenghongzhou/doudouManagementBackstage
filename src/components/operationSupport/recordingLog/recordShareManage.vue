@@ -1,39 +1,52 @@
 <template>
     <!-- 录音分享卡片 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
         <el-tabs type="border-card">
-            <el-tab-pane label="分享唱片制作">
-
-            </el-tab-pane>
+            <el-tab-pane label="分享唱片制作"></el-tab-pane>
             <el-tab-pane label="分享唱片查询">
-                <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-                    <el-form :inline="true" style="overflow: hidden;">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+                    <el-form :inline="true" style="overflow:hidden;">
                         <el-form-item>
                             <div class="block">
                                 <span class="registerTime">日期</span>
-                                <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                                </el-date-picker>
+                                <el-date-picker 
+                                v-model="formOne.startDate" 
+                                type="daterange" 
+                                range-separator=" 至 " 
+                                start-placeholder="开始日期" 
+                                end-placeholder="结束日期"></el-date-picker>
                             </div>
                         </el-form-item>
-                        <el-form-item class="search-span" style="float:right;">
-                            <el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+                        <el-form-item style="float:right;">
+                            <el-button 
+                            type="primary" 
+                            @click="getData()">查询</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
-                <!-- 用户的数据展示列表 -->
                 <template>
-                    <el-table :data="onePageTabData" border fit highlight-current-row style="width: 100%;" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" :height="tableHeight">
+                    <el-table 
+                    :data="onePageTabData" 
+                    border fit highlight-current-row 
+                    style="width:100%;" 
+                    v-loading="listLoading" 
+                    element-loading-text="拼命加载中" 
+                    element-loading-spinner="el-icon-loading" 
+                    element-loading-background="rgba(0, 0, 0, 0.8)" 
+                    :height="tableHeight">
                         <el-table-column prop="id" label="ID"></el-table-column>
                         <el-table-column prop="time" label="制作时间"></el-table-column>
                         <el-table-column prop="title" label="分享描述"></el-table-column>
                         <el-table-column label="分享图片" min-width="120" sortable>
                             <template slot-scope="scope">
                                 <el-popover trigger="hover" placement="left">
-                                    <img :src="scope.row.img_url" alt="" style="width:300px;height:300px;">
+                                    <img 
+                                    :src="scope.row.img_url" 
+                                    style="width:300px;height:300px;">
                                     <div slot="reference" class="name-wrapper">
-                                        <img :src="scope.row.img_url" alt="" style="width:100px;height:100px;">
+                                        <img 
+                                        :src="scope.row.img_url" 
+                                        style="width:100px;height:100px;">
                                     </div>
                                 </el-popover>
                             </template>
@@ -41,7 +54,9 @@
                         <el-table-column label="分享音频">
                             <template slot-scope="scope">
                                 <div slot="reference" class="name-wrapper">
-                                    <audio controls="controls" :src="scope.row.voice_url"></audio>
+                                    <audio 
+                                    controls="controls" 
+                                    :src="scope.row.voice_url"></audio>
                                 </div>
                             </template>
                         </el-table-column>
@@ -50,19 +65,24 @@
                         <el-table-column label="操作" min-width="120" class="operate">
                             <template slot-scope="scope">
                                 <el-col :span="24">
-                                    <el-button size="warning" type="info">生成分享截图</el-button>
+                                    <el-button 
+                                    size="warning" 
+                                    type="info">生成分享截图</el-button>
                                 </el-col>
                             </template>
                         </el-table-column>
                     </el-table>
-                    <!-- 工具条 -->
                      <el-col :span="24" class="toolbar">
-                        <el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="handleCurrentChange" 
+                        :page-size="20" 
+                        :total="totalpage" 
+                        style="float:right;"></el-pagination>
                     </el-col>
                 </template>
             </el-tab-pane>
         </el-tabs>
-
     </section>
 </template>
 
@@ -195,7 +215,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    .operate{
-        text-align: center;
-    }
+.operate{
+    text-align:center;
+}
 </style>

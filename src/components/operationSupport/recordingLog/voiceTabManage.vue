@@ -1,70 +1,100 @@
 <template>
 	<!-- 录音标签管理 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
-					<el-button type="primary" @click="dialogFormVisible=true;">新增标签</el-button>
+					<el-button 
+                    type="primary" 
+                    @click="dialogFormVisible=true;">新增标签</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="tabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+            ref="tableHeight" 
+            :data="tabData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="tab_name" label="标签名称"  sortable ></el-table-column>
 				<el-table-column prop="create_time" label="添加日期" sortable ></el-table-column>
 				<el-table-column prop="sort" label="当前排序" sortable ></el-table-column>
-				
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button type="danger" @click.native.prevent="deleteOneUserData(scope.$index, tabData)" size="small">删除</el-button>
-						<el-button type="primary" @click.native.prevent="editOneUserData(scope.$index, tabData)" size="small">编辑</el-button>
+						<el-button 
+                        type="danger" 
+                        @click.native.prevent="deleteOneUserData(scope.$index, tabData)" 
+                        size="small">删除</el-button>
+						<el-button 
+                        type="primary" 
+                        @click.native.prevent="editOneUserData(scope.$index, tabData)" 
+                        size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
             <el-dialog title="新增标签" :visible.sync="dialogFormVisible">
                 <el-form :model="form">
                     <el-form-item label="标签名称：" :label-width="formLabelWidth">
-                        <el-input v-model="form.tab_name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="form.tab_name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="标签sort：" placeholder="标签名称" :label-width="formLabelWidth">
-                        <el-input v-model="form.sort" placeholder="sort"></el-input>
+                        <el-input 
+                        v-model="form.sort" 
+                        placeholder="sort"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="addHomeTab()">确 定</el-button>
+                    <el-button 
+                    @click="dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="addHomeTab()">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog title="编辑标签" :visible.sync="formTwo.dialogFormVisible">
                 <el-form :model="formTwo">
                     <el-form-item label="标签名称：" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.tab_name" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formTwo.tab_name" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="标签sort：" placeholder="标签名称" :label-width="formLabelWidth">
-                        <el-input v-model="formTwo.sort" placeholder="sort"></el-input>
+                        <el-input 
+                        v-model="formTwo.sort" 
+                        placeholder="sort"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="formTwo.dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureEditUser()">确 定</el-button>
+                    <el-button 
+                    @click="formTwo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditUser()">确 定</el-button>
                 </div>
             </el-dialog>
             <el-dialog  title="提示" :visible.sync="deleteInfo.dialogVisible"  width="30%">
                 <span>确定要删除？</span>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="deleteInfo.dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="sureDelete()">确 定</el-button>
+                    <el-button 
+                    @click="deleteInfo.dialogVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureDelete()">确 定</el-button>
                 </span>
             </el-dialog>
 		</template>
-		
 	</section>
 </template>
 
@@ -139,7 +169,7 @@ export default {
                 .then((res) => {
                     if(res.data.ret){
                         baseConfig.normalTipMsg(_this, res.data.msg);
-                        _this.dialogFormVisible = false;
+                        _this.dialogFormVisible=false;
                         _this.getTableData();
                     }else{
                         baseConfig.warningTipMsg(_this, res.data.msg);
@@ -154,7 +184,7 @@ export default {
             this.formTwo.tab_name = row[index].tab_name;
             this.formTwo.sort = row[index].sort;
             this.formTwo.id = row[index].id;
-            this.formTwo.dialogFormVisible = true;
+            this.formTwo.dialogFormVisible=true;
         },
         sureEditUser(){
             var _this = this;
@@ -167,7 +197,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if(res.data.ret){
-                        _this.formTwo.dialogFormVisible = false;
+                        _this.formTwo.dialogFormVisible=false;
                         baseConfig.normalTipMsg(_this, res.data.msg);
                         _this.getTableData();
                     }else{
@@ -181,7 +211,7 @@ export default {
         // 删除
         deleteOneUserData(index, row) {
             this.deleteInfo.id = row[index].id;
-            this.deleteInfo.dialogVisible = true;    
+            this.deleteInfo.dialogVisible=true;    
         },
         sureDelete(){   
             var _this = this;
@@ -192,7 +222,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if(res.data.ret){
-                        _this.deleteInfo.dialogVisible = false;
+                        _this.deleteInfo.dialogVisible=false;
                         baseConfig.normalTipMsg(_this, res.data.msg);
                         _this.getTableData();
                     }else{

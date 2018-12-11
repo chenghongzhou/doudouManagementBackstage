@@ -1,8 +1,8 @@
 <template>
     <!-- 实时在线 -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="demonstration">默认日期</span>
@@ -262,6 +262,6 @@ export default {
 
 <style lang="css" scoped>
 .chartLineOne{
-    width: 100%;
+    width:100%;
 }
 </style>

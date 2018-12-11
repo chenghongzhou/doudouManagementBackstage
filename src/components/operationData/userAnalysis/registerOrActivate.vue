@@ -280,7 +280,7 @@ export default {
         },
         // 折线图展示
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
     },
     mounted() {
@@ -328,7 +328,7 @@ export default {
     border: 1px solid #fff;
     min-height: 36px;
     line-height: 36px;
-    text-align: center;
+    text-align:center;
 }
 .row-bg {
     padding: 10px 0;

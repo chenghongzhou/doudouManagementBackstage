@@ -1,29 +1,41 @@
 <template>
 	<!-- 录音投诉管理 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
                 <el-form-item>
                     <span>UID:</span>
-                    <el-input style="width:120px;" v-model="uid" placeholder="请输入UID" clearable></el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    v-model="uid" 
+                    placeholder="请输入UID" 
+                    clearable></el-input>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="onePageTabData" v-loading="listLoading" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+			<el-table 
+            :data="onePageTabData" 
+            v-loading="listLoading" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="date" label="日期"></el-table-column>
 				<el-table-column prop="num" label="被投诉次数"></el-table-column>
 				<el-table-column prop="complain_uid" label="投诉人"></el-table-column>
@@ -33,34 +45,53 @@
 				<el-table-column prop="voice_url" width="300" label="录音内容">
                     <template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<audio controls="controls" :src="scope.row.voice_url"></audio>
+							<audio 
+                            controls="controls" 
+                            :src="scope.row.voice_url"></audio>
 						</div>
 					</template>
                 </el-table-column>
 				<el-table-column prop="desc" label="描述"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-                        <el-button size="mini" type="success" @click="ignore(scope.$index, scope.row)">忽视</el-button>
-                        <el-button size="mini" type="warning" @click="deleteFun(scope.$index, scope.row)">删除</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="success" 
+                        @click="ignore(scope.$index, scope.row)">忽视</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="warning" 
+                        @click="deleteFun(scope.$index, scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
             <el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" :current-page="page" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<el-dialog title="提示" :visible.sync="ignoreDialog" width="30%">
 			<span>确定要忽视吗？</span>
 			<span slot="footer" class="dialog-footer">
-				<el-button @click="ignoreDialog = false">取 消</el-button>
-				<el-button type="primary" @click="ignoreDialog = false,sureIgnore()">确 定</el-button>
+				<el-button 
+                @click="ignoreDialog=false">取 消</el-button>
+				<el-button 
+                type="primary" 
+                @click="ignoreDialog=false,sureIgnore()">确 定</el-button>
 			</span>
 		</el-dialog>
         <el-dialog title="提示" :visible.sync="deleteDialog" width="30%">
 			<span>确定要删除吗？</span>
 			<span slot="footer" class="dialog-footer">
-				<el-button @click="deleteDialog = false">取 消</el-button>
-				<el-button type="primary" @click="deleteDialog = false,sureDeleteFun()">确 定</el-button>
+				<el-button 
+                @click="deleteDialog=false">取 消</el-button>
+				<el-button 
+                type="primary" 
+                @click="deleteDialog=false,sureDeleteFun()">确 定</el-button>
 			</span>
 		</el-dialog>
 	</section>
@@ -88,7 +119,7 @@ export default {
             ignoreId: null,
             deleteDialog: false,
             deleteId: null,
-            page: 1,
+            page: 0,
 			totalpage: null,
 			star: '0',
 			end: '20',
@@ -123,7 +154,6 @@ export default {
                     if(res.data.ret){
                         this.listData = res.data.data;
                         _this.totalpage = res.data.data.length;
-                        _this.page = 1;
                     }else{
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -193,10 +223,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

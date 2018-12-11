@@ -1,37 +1,48 @@
 <template>
 	<!-- 通话数据汇总 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block" v-if="searchType==1">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
+						<el-date-picker 
+						v-model="formOne.startDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						start-placeholder="开始日期" 
+						end-placeholder="结束日期">
 						</el-date-picker>
 					</div>
 					<div class="block" v-else-if="searchType==0">
 						<span class="demonstration">月份</span>
-						<el-date-picker v-model="formOne.month" type="month" placeholder="选择月">
-						</el-date-picker>
+						<el-date-picker 
+						v-model="formOne.month" 
+						type="month"
+						placeholder="选择月"></el-date-picker>
 					</div>
 				</el-form-item>
-				<el-form-item style="margin-left: 100px;">
+				<el-form-item style="margin-left:100px;">
 					<span>查询类型</span>
 					<el-select style="width: 150px;" v-model="searchType">
 						<el-option label="按日查询" value="1"></el-option>
 						<el-option label="按月查询" value="0"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData()">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+					type="primary" 
+					@click="getData()">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="time" label="日期"></el-table-column>
 				<el-table-column prop="totalrandcall" label="随机通话次数"></el-table-column>
 				<el-table-column prop="totalrandtime" label="随机通话时间"></el-table-column>
@@ -50,7 +61,12 @@
 				<el-table-column prop="totalmoney" label="总的消费"></el-table-column>
 			</el-table>
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
@@ -162,10 +178,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

@@ -1,8 +1,8 @@
 <template>
     <!-- 提现审核页面(二级) -->
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="dataTime">日期</span>
@@ -19,7 +19,9 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
@@ -53,7 +55,10 @@
                 <el-table-column prop="order_id" label="订单id" width="300" sortable></el-table-column>
                 <el-table-column label="操作" min-width="100" sortable>
                     <template slot-scope="scope">
-                        <el-button type="primary" @click.native.prevent="Auditing(scope.row)" size="small">审核</el-button>
+                        <el-button 
+                        type="primary" 
+                        @click.native.prevent="Auditing(scope.row)" 
+                        size="small">审核</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -175,12 +180,18 @@
                     </el-col>
                 </el-row>
                 <el-form-item label="拒绝原因" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.reason" placeholder="如果拒绝请输入拒绝原因！" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.reason" 
+                    placeholder="如果拒绝请输入拒绝原因！" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="sendSure(0)">拒 绝</el-button>
-                <el-button type="primary" @click.native.prevent="sendSure(1)">通 过</el-button>
+                <el-button 
+                @click.native.prevent="sendSure(0)">拒 绝</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="sendSure(1)">通 过</el-button>
             </div>
         </el-dialog>
     </section>
@@ -287,7 +298,7 @@ export default {
                 .then((res) => {
                     // 审核按钮点击成功之后再进行对应的内容加载框消失、对话框进行展示
                     _this.listLoading = false;                
-                    _this.addDialog.dialogShow = true;
+                    _this.addDialog.dialogShow=true;
                     if(res.data.ret) {
                         _this.addDialog.num = ((res.data.num-0)/100)+'元';
                         _this.addDialog.uid = res.data.uid;

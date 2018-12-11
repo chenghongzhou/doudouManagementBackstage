@@ -2,7 +2,7 @@
     <!-- 人均使用时长 -->
     <section>
         <el-col :span="24" class="toolbar" style="padding-bottom:0px;over-flow:hidden;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
@@ -225,7 +225,7 @@ export default {
         },
         // 折线图展示
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
     },
     mounted() {
@@ -268,7 +268,7 @@ export default {
     border: 1px solid #fff;
     min-height: 36px;
     line-height: 36px;
-    text-align: center;
+    text-align:center;
 }
 .row-bg {
     padding: 10px 0;

@@ -2,7 +2,7 @@
 	<!-- 财务日报 -->
 	<section>
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
@@ -230,7 +230,7 @@ export default {
             })
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
 	},
 	mounted() {
@@ -250,7 +250,7 @@ export default {
 
 <style lang="css" scoped>
    .infomation{
-       width: 100%;
+       width:100%;
        height: 100%;
    }
 </style>

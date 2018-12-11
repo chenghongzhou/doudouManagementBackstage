@@ -1,15 +1,17 @@
 <template>
 	<!-- 通话记录明细 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-						</el-date-picker>
+						<el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
 					</div>
 				</el-form-item>
                 <el-form-item style="margin-left: 50px;">
@@ -24,17 +26,26 @@
 				</el-form-item>
                 <el-form-item>
 					<span>UID/账号/昵称：</span>
-					<el-input style="width:100px;" placeholder="请输入内容" v-model="uid" clearable>
-                    </el-input>
+					<el-input 
+                    style="width:100px;" 
+                    placeholder="请输入内容" 
+                    v-model="uid" 
+                    clearable></el-input>
 				</el-form-item>
-				<el-form-item class="search-span" style="float:right;">
-					<el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+				<el-form-item style="float:right;">
+					<el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!-- 用户的数据展示列表 -->
 		<template>
-			<el-table :data="listData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
 				<el-table-column prop="chat_id" label="通话ID"></el-table-column>
 				<el-table-column prop="chat_type" label="通话类型">
                     <template slot-scope="scope">
@@ -51,13 +62,14 @@
 				<el-table-column prop="use_time" label="通话时长"></el-table-column>
 				<el-table-column prop="uid_req" label="发起者UID"></el-table-column>
 				<el-table-column prop="uid_res" label="接受者UID"></el-table-column>
-				<!-- <el-table-column prop="gift" label="礼物流水"></el-table-column> -->
-				<!-- <el-table-column prop="listen" label="偷听流水"></el-table-column> -->
-				<!-- <el-table-column prop="num" label="偷听次数"></el-table-column> -->
 			</el-table>
-            <!--翻页-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" :current-page="page+1" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+                layout="total,prev,pager,next,jumper" 
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total="totalpage" 
+                style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 	</section>
@@ -134,10 +146,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

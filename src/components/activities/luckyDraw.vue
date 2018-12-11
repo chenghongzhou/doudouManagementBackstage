@@ -24,22 +24,20 @@
 					<el-button 
                     type="primary" 
                     @click.native.prevent="getTableData">查询</el-button>
-                    <el-button type="primary" @click.native.prevent="handleDownload">导出</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click.native.prevent="handleDownload">导出</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
 			<el-table 
             ref="tableHeight" 
             :data="onePageTabData" 
             border fit highlight-current-row 
             v-loading="listLoading" 
-            style="width: 100%;" :height="tableHeight">
-				<!-- <el-table-column 
-                prop="time" 
-                label="时间" 
-                sortable></el-table-column> -->
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="uid" label="UID"></el-table-column>
                 <el-table-column label="用户昵称">
                     <template slot-scope="scope">{{ scope.row.nickname || '--'}}</template>
@@ -65,7 +63,8 @@
 				<el-pagination 
                 layout="total,prev,pager,next,jumper" 
                 @current-change="oneHandleCurrentChange" 
-                :page-size="20" :total="formOne.totalPage" 
+                :page-size="20" 
+                :total="formOne.totalPage" 
                 style="float:right;"></el-pagination>
 			</el-col>
 		</template>

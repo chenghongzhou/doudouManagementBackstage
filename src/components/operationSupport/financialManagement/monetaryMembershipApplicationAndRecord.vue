@@ -1,11 +1,15 @@
 <template>
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="dataTime">日期</span>
-                        <el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.choiceDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        placeholder="选择日期范围"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
@@ -27,15 +31,28 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="addDialog.dialogShow=true;">赠送</el-button>
-                    <el-button type="primary" @click="propData.dialogShow=true;">道具赠送</el-button>
-                    <el-button type="primary" @click="dressUp.dialogShow=true;">装扮、座驾赠送</el-button>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="addDialog.dialogShow=true;">赠送</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="propData.dialogShow=true;">道具赠送</el-button>
+                    <el-button 
+                    type="primary"
+                    @click="dressUp.dialogShow=true;">装扮、座驾赠送</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
         <template>
-            <el-table :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="onePageData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="日期" width="80" sortable></el-table-column>
                 <el-table-column prop="uid" label="用户uid" width="100" sortable></el-table-column>
                 <el-table-column prop="nickname" label="昵称" width="150" sortable></el-table-column>
@@ -83,11 +100,6 @@
                         </div>
                     </template>
                 </el-table-column>
-                <!-- <el-table-column label="道具名称" width="100" sortable>
-                    <template slot-scope="scope">
-                        <p>{{countProp(scope.row.prop_id)}}</p>
-                    </template>
-                </el-table-column> -->
                 <el-table-column prop="num" label="赠送数量" sortable></el-table-column>
                 <el-table-column prop="operation_reason" label="赠送理由" min-width="200" sortable></el-table-column>
                 <el-table-column label="状态" width="100" sortable>
@@ -104,10 +116,23 @@
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
 	                    <el-row>
-	                        <el-button v-if="scope.row.status==0" size="mini" type="primary" @click="cancell(scope.$index, scope.row)">取消</el-button>
-	                        <el-button v-else-if="scope.row.status==1" size="mini" plain>已通过</el-button>
-	                        <el-button v-else-if="scope.row.status==2" size="mini" plain>已拒绝</el-button>
-	                        <el-button v-else-if="scope.row.status==-1" size="mini" plain>已取消</el-button>
+	                        <el-button 
+                            v-if="scope.row.status==0" 
+                            size="mini" 
+                            type="primary"
+                            @click="cancell(scope.$index, scope.row)">取消</el-button>
+	                        <el-button 
+                            v-else-if="scope.row.status==1" 
+                            size="mini" 
+                            plain>已通过</el-button>
+	                        <el-button 
+                            v-else-if="scope.row.status==2" 
+                            size="mini" 
+                            plain>已拒绝</el-button>
+	                        <el-button 
+                            v-else-if="scope.row.status==-1" 
+                            size="mini" 
+                            plain>已取消</el-button>
 	                    </el-row>
                     </template>
                 </el-table-column>
@@ -124,7 +149,9 @@
         <el-dialog title="赠送申请" :visible.sync="addDialog.dialogShow">
             <el-form :model="addDialog">
                 <el-form-item label="uid" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="addDialog.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-select v-model="addDialog.type">
@@ -143,22 +170,32 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="数量" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.num" placeholder="豆币豆票为数量，会员为月份" auto-complete="off"></el-input>						
+                    <el-input 
+                    v-model="addDialog.num" 
+                    placeholder="豆币豆票为数量，会员为月份" 
+                    auto-complete="off"></el-input>						
                 </el-form-item>
                 <el-form-item label="赠送理由" :label-width="formLabelWidth">
-                    <el-input v-model="addDialog.operation_reason" auto-complete="off"></el-input>						
+                    <el-input 
+                    v-model="addDialog.operation_reason" 
+                    auto-complete="off"></el-input>						
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="sendAdd(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="sendAdd(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="sendAdd(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="sendAdd(1)">确 定</el-button>
             </div>
         </el-dialog>
         <!-- 装扮、座驾赠送 -->
         <el-dialog title="装扮、座驾申请" :visible.sync="dressUp.dialogShow">
             <el-form :model="dressUp">
                 <el-form-item label="uid" :label-width="formLabelWidth">
-                    <el-input v-model="dressUp.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="dressUp.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-select v-model="dressUp.type">
@@ -196,7 +233,8 @@
                     placeholder="装扮、座驾的天数"></el-input>						
                 </el-form-item>
                 <el-form-item label="赠送理由" :label-width="formLabelWidth">
-                    <el-input v-model="dressUp.operation_reason"></el-input>						
+                    <el-input 
+                    v-model="dressUp.operation_reason"></el-input>						
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -211,7 +249,9 @@
         <el-dialog title="道具赠送" :visible.sync="propData.dialogShow">
             <el-form :model="propData">
                 <el-form-item label="uid" :label-width="formLabelWidth">
-                    <el-input v-model="propData.uid" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="propData.uid" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="道具列表" :label-width="formLabelWidth">
                     <el-select v-model="propData.prop_id">
@@ -230,21 +270,34 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="道具数量" :label-width="formLabelWidth">
-                    <el-input v-model="propData.num" auto-complete="off"></el-input>
+                    <el-input 
+                    v-model="propData.num" 
+                    auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item v-if="propData.prescription_type == 1" label="指定时间" :label-width="formLabelWidth">
-                    <el-date-picker v-model="propData.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+                    <el-date-picker 
+                    v-model="propData.choiceDate" 
+                    type="daterange" 
+                    range-separator=" 至 " 
+                    placeholder="选择日期范围"></el-date-picker>
                 </el-form-item>
                 <el-form-item v-if="propData.prescription_type == 2" label="有效时间(分钟)" :label-width="formLabelWidth">
-                    <el-input v-model="propData.time_out" auto-complete="off"></el-input>						
+                    <el-input 
+                    v-model="propData.time_out" 
+                    auto-complete="off"></el-input>						
                 </el-form-item>
                 <el-form-item label="赠送理由" :label-width="formLabelWidth">
-                    <el-input v-model="propData.operation_reason" auto-complete="off"></el-input>						
+                    <el-input 
+                    v-model="propData.operation_reason" 
+                    auto-complete="off"></el-input>						
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native.prevent="sendPropAdd(0)">取 消</el-button>
-                <el-button type="primary" @click.native.prevent="sendPropAdd(1)">确 定</el-button>
+                <el-button 
+                @click.native.prevent="sendPropAdd(0)">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click.native.prevent="sendPropAdd(1)">确 定</el-button>
             </div>
         </el-dialog>
     </section>

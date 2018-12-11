@@ -1,17 +1,24 @@
 <template>
 	<!-- banner管理->table为指的是数据table展示页面 -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-tabs v-model="tabActiveName" type="border-card" @tab-click="handleClick">
+		<el-tabs 
+		v-model="tabActiveName" 
+		type="border-card" @tab-click="handleClick">
 			<!-- Banner条记录查询 -->
-			<el-tab-pane label="Banner条记录查询" name="first" :style="{ height: tabSearchHeight+'px' }">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+			<el-tab-pane 
+			label="Banner条记录查询" 
+			name="first" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 						<el-form-item>
 							<div class="block">
 								<span class="registerTime">日期</span>
-								<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+								<el-date-picker 
+								v-model="formOne.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
@@ -31,13 +38,20 @@
 							</el-select>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" @click="getTableFind">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="getTableFind">查询</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="onePageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="onePageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column prop="add_time" label="注册时间" width="200"></el-table-column>
 						<el-table-column label="banner条位置" width="150">
 							<template slot-scope="scope">
@@ -61,7 +75,9 @@
 						<el-table-column label="banner条图片" width="150">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<img :src="scope.row.image_url" alt="" style="width: 100px; height: auto;">
+									<img 
+									:src="scope.row.image_url" 
+									style="width:100px;height:auto;">
 								</div>
 							</template>
 						</el-table-column>
@@ -94,24 +110,38 @@
 							</template>
 						</el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="oneHandleCurrentChange" :page-size="20" :total="formOne.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="oneHandleCurrentChange" 
+						:page-size="20" 
+						:total="formOne.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
 			<!-- Banner条记录管理 -->
-			<el-tab-pane label="Banner条记录管理" name="second" :style="{ height: tabSearchHeight+'px' }">
-				<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-					<el-form :inline="true" style="overflow: hidden;" :model="formTwo">
+			<el-tab-pane 
+			label="Banner条记录管理" 
+			name="second" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
 						<el-form-item>
-							<el-button type="primary" @click="bannerNewloading.dialogShow = true;">新增Banner条</el-button>							
+							<el-button 
+							type="primary" 
+							@click="bannerNewloading.dialogShow=true;">新增Banner条</el-button>							
 						</el-form-item>
 					</el-form>
 				</el-col>
-				<!--数据展示列表-->
 				<template>
-					<el-table ref="tableHeight" :data="twoPageData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+					<el-table 
+					ref="tableHeight" 
+					:data="twoPageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
 						<el-table-column label="Banner条位置" width="150">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
@@ -135,7 +165,9 @@
 						<el-table-column label="Banner条图片" width="150">
 							<template slot-scope="scope">
 								<div slot="reference" class="name-wrapper">
-									<img :src="scope.row.image_url" style="width: 100px; height: auto;">
+									<img 
+									:src="scope.row.image_url" 
+									style="width:100px;height:auto;">
 								</div>
 							</template>
 						</el-table-column>
@@ -175,14 +207,24 @@
 						<el-table-column prop="end_time" label="直播通话结束时间" width="80"></el-table-column>
 						<el-table-column label="操作" width="150">
 							<template slot-scope="scope">
-								<el-button type="primary" @click.native.prevent="changeOneUserData(scope.$index, scope.row)" size="small">编辑</el-button>								
-								<el-button type="primary" @click.native.prevent="deleteOneUserData(scope.$index, scope.row)" size="small">删除</el-button>
+								<el-button 
+								type="primary" 
+								@click.native.prevent="changeOneUserData(scope.$index, scope.row)" 
+								size="small">编辑</el-button>								
+								<el-button 
+								type="primary" 
+								@click.native.prevent="deleteOneUserData(scope.$index, scope.row)" 
+								size="small">删除</el-button>
 							</template>
 						</el-table-column>
 					</el-table>
-					<!--工具条-->
 					<el-col :span="24" class="toolbar">
-						<el-pagination layout="total,prev,pager,next,jumper" @current-change="twoHandleCurrentChange" :page-size="20" :total="formTwo.TotalPage" style="float:right;"></el-pagination>
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="twoHandleCurrentChange" 
+						:page-size="20" 
+						:total="formTwo.TotalPage" 
+						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
 			</el-tab-pane>
@@ -206,16 +248,25 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="banner排序" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="banner标题" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.title" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.title" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="图片上传" :label-width="formLabelWidth">
 						<span class="showbtn">选择文件</span>
-						<input class="filepic fileinput" @change="uploading($event, 0)" type="file">
+						<input 
+						class="filepic fileinput" 
+						@change="uploading($event, 0)" 
+						type="file">
 						<span class="showname">{{bannerNewloading.pic_name}}</span>
-				        <img :src="bannerNewloading.src_pic" style="width:200px;height:auto;margin-left:200px;"/>
+				        <img 
+						:src="bannerNewloading.src_pic" 
+						style="width:200px;height:auto;margin-left:200px;"/>
 					</el-form-item>
 					<el-form-item label="跳转类型" :label-width="formLabelWidth">
 						<el-select v-model="bannerNewloading.params.type">
@@ -227,28 +278,48 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="拨打电话uid" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.req_uid" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.req_uid" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="接听电话uid" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.res_uid" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.res_uid" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="显示开始时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.show_s_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.show_s_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="显示结束时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.show_e_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.show_e_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="直播通话开始时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.start_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.start_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="直播通话结束时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.end_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.end_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="跳转链接" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.jump_url" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.jump_url" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="跳转参数" :label-width="formLabelWidth">
-						<el-input v-model="bannerNewloading.params.page_param" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerNewloading.params.page_param" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="展示频率" :label-width="formLabelWidth">
 						<el-select v-model="bannerNewloading.params.show_type">
@@ -264,8 +335,11 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="addBannerSure(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="addBannerSure(1)">确 定</el-button>
+					<el-button 
+					@click.native.prevent="addBannerSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click.native.prevent="addBannerSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 			<!-- banner条编辑修改 -->
@@ -288,16 +362,25 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="banner排序" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.sort" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.sort" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="banner标题" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.title" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.title" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="图片上传" :label-width="formLabelWidth">
 						<span class="showbtn">选择文件</span>
-						<input class="filepic fileinput" @change="uploading($event, 1)" type="file">
+						<input 
+						class="filepic fileinput" 
+						@change="uploading($event, 1)" 
+						type="file">
 						<span class="showname">{{bannerEditorloading.pic_name}}</span>
-				        <img :src="bannerEditorloading.src_pic" style="width:200px;height:auto;margin-left:200px;"/>
+				        <img 
+						:src="bannerEditorloading.src_pic" 
+						style="width:200px;height:auto;margin-left:200px;"/>
 					</el-form-item>
 					<el-form-item label="跳转类型" :label-width="formLabelWidth">
 						<el-select v-model="bannerEditorloading.params.type">
@@ -309,28 +392,48 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="拨打电话uid" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.req_uid" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.req_uid" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="接听电话uid" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.res_uid" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.res_uid" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="显示开始时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.show_s_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.show_s_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="显示结束时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.show_e_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.show_e_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="直播通话开始时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.start_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.start_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="直播通话结束时间" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.end_time" placeholder="2018-01-01 01:01:01" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.end_time" 
+						placeholder="2018-01-01 01:01:01" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="跳转链接" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.jump_url" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.jump_url" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="跳转参数" :label-width="formLabelWidth">
-						<el-input v-model="bannerEditorloading.params.page_param" auto-complete="off"></el-input>
+						<el-input 
+						v-model="bannerEditorloading.params.page_param" 
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="展示频率" :label-width="formLabelWidth">
 						<el-select v-model="bannerEditorloading.params.show_type">
@@ -346,8 +449,11 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button @click.native.prevent="editorBannerSure(0)">取 消</el-button>
-					<el-button type="primary" @click.native.prevent="editorBannerSure(1)">确 定</el-button>
+					<el-button 
+					@click.native.prevent="editorBannerSure(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click.native.prevent="editorBannerSure(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</el-tabs>
@@ -630,7 +736,7 @@ export default {
 			} else {
 				_this.bannerEditorloading.params.show_e_time = rows.show_e_time;
 			}
-			_this.bannerEditorloading.dialogShow = true;
+			_this.bannerEditorloading.dialogShow=true;
 		},
 		// 确定进行修改的
 		editorBannerSure(type) {
@@ -758,32 +864,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;
@@ -804,7 +910,7 @@ p{ margin: 0; }
 	width: 150px;
 	height: 30px;
 	line-height: 30px;
-	text-align: center;
+	text-align:center;
 	font-size: 12px;
 	color: #fff;
 	background-color: #00b3ee;
@@ -827,7 +933,7 @@ p{ margin: 0; }
 	width: 150px;
 	height: 16px;
 	line-height: 16px;
-	overflow: hidden;
+	overflow:hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }

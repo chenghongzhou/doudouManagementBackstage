@@ -58,7 +58,6 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
 				layout="total,prev,pager,next,jumper" 
@@ -72,7 +71,9 @@
 		<el-dialog title="添加弹幕" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
 				<el-form-item label="弹幕内容" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.content" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.content" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="展示位置" :label-width="formLabelWidth">
 					<el-select v-model="formTwo.position">
@@ -83,12 +84,17 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="弹幕序号" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.sort" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.sort" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -154,7 +160,7 @@ export default {
 		addSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.dialogFormVisible = false; 
+				_this.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
 				let formData = new FormData();
@@ -170,7 +176,7 @@ export default {
 					axios.post(allget+'/GlobalSet/addScreen', formData, config)
 						.then((res) => {
 							_this.listLoading = false;	
-							_this.dialogFormVisible = false;								
+							_this.dialogFormVisible=false;								
 							if(res.data.ret) {	
 								baseConfig.successTipMsg(_this, '新增成功！');
 								_this.getTableData();
@@ -268,32 +274,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

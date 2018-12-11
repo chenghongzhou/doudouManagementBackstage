@@ -22,8 +22,12 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item>
-						<el-button type="primary" @click="chartLineShow">导出</el-button>
-						<el-button type="primary" @click="getOneData">查询</el-button>
+						<el-button 
+						type="primary" 
+						@click="chartLineShow">导出</el-button>
+						<el-button 
+						type="primary" 
+						@click="getOneData">查询</el-button>
 					</el-form-item>
 				</el-form>	
 			</el-col>		
@@ -83,7 +87,9 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item>
-						<el-button type="primary" @click="getTwoData">查询</el-button>
+						<el-button 
+						type="primary" 
+						@click="getTwoData">查询</el-button>
 					</el-form-item>
 				</el-form>
 			</el-col>
@@ -232,7 +238,7 @@
 				return obj; 
 			},
 			chartLineShow(){
-	            this.dialogVisible = true;
+	            this.dialogVisible=true;
 			},
 			handleClick(tab, event){
 				// console.log('不进行处理');

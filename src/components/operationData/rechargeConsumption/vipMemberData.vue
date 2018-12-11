@@ -1,10 +1,8 @@
 <template>
     <!-- vip会员数据 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;" :model="formOne">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;" :model="formOne">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
@@ -37,13 +35,16 @@
                         :value="key"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="margin-left: 100px;">
-                    <el-button type="primary" @click="chartLineShow">饼状图</el-button>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
+                <el-form-item style="margin-left:100px;">
+                    <el-button 
+                    type="primary" 
+                    @click="chartLineShow">饼状图</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="getTableData">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!--用户的数据展示列表-->
         <template>
             <el-table 
             ref="tableHeight" 
@@ -69,13 +70,11 @@
             </el-table>
             <!-- 折线图 -->
             <el-dialog title="占比饼状图" :width="dialogWidth" :visible.sync="dialogVisible" @open="show">
-                <div class="chartLine" style="width: 100%;height: 500px;"></div>
+                <div class="chartLine" style="width:100%;height: 500px;"></div>
             </el-dialog>
-            <!--翻页-->
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
                 layout="total,prev,pager,next,jumper"  
-                :current-page="page" 
                 @current-change="handleCurrentChange" 
                 :page-size="20" 
                 :total="totalpage" 
@@ -107,7 +106,7 @@ export default {
             channelData: {},
             channelId: null,
             chartLine: null,
-            page: 1,
+            page: 0,
             totalpage: null,
             star: '0',
             end: '20',
@@ -219,7 +218,6 @@ export default {
                         _this.tabData = res.data.list;
                         _this.totalpage = res.data.list.length;
                         // 这里是手动分页，接口参数没有page，固每次请求数据时可以将page重置
-                        _this.page = 1;
                         //动态加载表格中的数据 男女比例数据加载
                         for(var i = 0; i<res.data.sex.length; i++){
                             if(res.data.sex[i].sex == 2) {
@@ -259,7 +257,7 @@ export default {
             });
         },
         chartLineShow() {
-            this.dialogVisible = true;
+            this.dialogVisible=true;
         }
     },
     mounted() {
@@ -279,7 +277,7 @@ export default {
 
 <style lang="css" scoped>
 .infomation {
-    width: 100%;
+    width:100%;
     height: 100%;
 }
 </style>

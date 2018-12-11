@@ -1,32 +1,38 @@
 <template>
     <!-- 用户货币明细查询 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 工具条/头部的搜索条件搜索 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" style="width:250px;" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        style="width:250px;" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>货币类型：</span>
-                    <el-select  style="width: 100px;" v-model="money_type">
+                    <el-select  style="width:100px;" v-model="money_type">
                         <el-option label="豆币" value="1"></el-option>
                         <el-option label="豆票" value="2"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     <span>UID：</span>
-                    <el-input style="width:100px;" clearable placeholder="请输入uid" v-model="uid">
-                    </el-input>
+                    <el-input 
+                    style="width:100px;" 
+                    clearable 
+                    placeholder="请输入uid" 
+                    v-model="uid"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>消耗/获得：</span>
-                    <el-select style="width: 100px;" v-model="type">
+                    <el-select style="width:100px;" v-model="type">
                         <el-option label="全部" value=""></el-option>
                         <el-option label="获得" value="2"></el-option>
                         <el-option label="消耗" value="1"></el-option>
@@ -93,16 +99,29 @@
                 </el-form-item>
                 <el-form-item>
                     <span>触发人：</span>
-                    <el-input style="width:120px;" clearable placeholder="请输入触发人" v-model="trigger_uid">
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    clearable 
+                    placeholder="请输入触发人" 
+                    v-model="trigger_uid"></el-input>
                 </el-form-item>
-                <el-form-item class="search-span" style="float:right;">
-                    <el-button id="searchBtn" type="primary" @click="getData(0)">查询</el-button>
+                <el-form-item style="float:right;">
+                    <el-button 
+                    type="primary" 
+                    @click="getData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
         <template>
-            <el-table :data="listData" v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="time" label="日期"></el-table-column>
                 <el-table-column prop="uid" label="用户id"></el-table-column>
                 <el-table-column prop="money_type" :formatter="judgeMoney" label="货币类型"></el-table-column>
@@ -117,9 +136,8 @@
                 layout="total,prev,pager,next,jumper" 
                 :page-size="20" 
                 @current-change="handleCurrentChange" 
-                :current-page="page+1" 
-                :total=totalpage 
-                style="float:right; ">
+                :total="totalpage" 
+                style="float:right;">
             </el-pagination>
             </el-col>
         </template>
@@ -315,10 +333,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
+
 </style>

@@ -1,14 +1,16 @@
 <template>
 	<!-- 房间置顶管理（测试服） -->
-	<!-- dom结构内容 -->
 	<section>
-		<!-- 工具条/头部的搜索条件搜索 -->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" style="overflow: hidden;" :model="formOne">
+		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
 					<div class="block">
 						<span class="registerTime">日期</span>
-						<el-date-picker v-model="formOne.choiceDate" type="daterange" range-separator=" 至 " placeholder="选择日期范围"></el-date-picker>
+						<el-date-picker 
+						v-model="formOne.choiceDate" 
+						type="daterange" 
+						range-separator=" 至 " 
+						placeholder="选择日期范围"></el-date-picker>
 					</div>
 				</el-form-item>
 				<el-form-item>
@@ -28,20 +30,37 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-input placeholder="房间ID" style="width: 120px;" v-model="formOne.room_id" auto-complete="off"></el-input>
+					<el-input 
+					placeholder="房间ID" 
+					style="width:120px;" 
+					v-model="formOne.room_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-input placeholder="房间名称" style="width: 120px;" v-model="formOne.room_name" auto-complete="off"></el-input>
+					<el-input 
+					placeholder="房间名称" 
+					style="width:120px;" 
+					v-model="formOne.room_name" 
+					auto-complete="off"></el-input>
 				</el-form-item>
                 <el-form-item>
-					<el-button type="primary" @click="dialogFormVisible=true;">添加房间置顶计划</el-button>
-					<el-button type="primary" @click="getTableData">查询</el-button>
+					<el-button 
+					type="primary" 
+					@click="dialogFormVisible=true;">添加房间置顶计划</el-button>
+					<el-button 
+					type="primary"
+					@click="getTableData">查询</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
-		<!--用户的数据展示列表-->
 		<template>
-			<el-table ref="tableHeight" :data="onePageTabData" border fit highlight-current-row v-loading="listLoading" style="width: 100%;" :height="tableHeight">
+			<el-table 
+			ref="tableHeight" 
+			:data="onePageTabData" 
+			border fit highlight-current-row 
+			v-loading="listLoading" 
+			style="width:100%;" 
+			:height="tableHeight">
 				<el-table-column prop="id" label="ID" width="80" sortable ></el-table-column>
 				<el-table-column prop="room_id" label="家族ID" ></el-table-column>
 				<el-table-column prop="room_name" label="家族名称" ></el-table-column>
@@ -67,28 +86,41 @@
 				<el-table-column label="操作" width="150">
 					<template slot-scope="scope">
 						<p v-if="scope.row.status=='1' && (new Date(scope.row.end_time) <= new Date())"  size="small" >已结束</p>
-						<el-button v-else-if="scope.row.status=='1' && (new Date(scope.row.end_time) > new Date())" type="primary" size="small" @click.native.prevent="cancelTop(scope.row)">取消置顶</el-button>
-						<el-button v-else-if="scope.row.status=='0'" plain size="small">已取消</el-button>
+						<el-button 
+						v-else-if="scope.row.status=='1' && (new Date(scope.row.end_time) > new Date())" 
+						type="primary" 
+						size="small" 
+						@click.native.prevent="cancelTop(scope.row)">取消置顶</el-button>
+						<el-button 
+						v-else-if="scope.row.status=='0'" 
+						plain 
+						size="small">已取消</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<!--工具条-->
 			<el-col :span="24" class="toolbar">
-				<el-pagination layout="total,prev,pager,next,jumper" @current-change="handleCurrentChange" :page-size="20" :total="totalpage" style="float:right;"></el-pagination>
+				<el-pagination 
+				layout="total,prev,pager,next,jumper" 
+				@current-change="handleCurrentChange" 
+				:page-size="20" 
+				:total="totalpage" 
+				style="float:right;"></el-pagination>
 			</el-col>
 		</template>
 		<!-- 新增--对应的dialog -->
 		<el-dialog title="新增房间置顶" :visible.sync="dialogFormVisible">
 			<el-form :model="formTwo">
 				<el-form-item>
-					<span style="display: inline-block;margin: 0 10px 0 60px;">置顶类型</span>
+					<span style="display:inline-block;margin: 0 10px 0 60px;">置顶类型</span>
 					<el-select style="width: 120px;" v-model="formTwo.choice">
 						<el-option label="精选" value="1"></el-option>
 						<el-option label="推荐" value="2"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="房间ID" :label-width="formLabelWidth">
-					<el-input v-model="formTwo.room_id" auto-complete="off"></el-input>
+					<el-input 
+					v-model="formTwo.room_id" 
+					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="置顶位置" :label-width="formLabelWidth">
 					<el-select v-model="formTwo.position">
@@ -106,13 +138,21 @@
 				</el-form-item>
 				<el-form-item label="置顶时间段" :label-width="formLabelWidth">
 					<div class="block">
-						<el-date-picker v-model="formTwo.choiceDate" type="datetimerange" range-separator=" 至 " start-placeholder="开始时间" end-placeholder="结束时间"></el-date-picker>
+						<el-date-picker 
+						v-model="formTwo.choiceDate" 
+						type="datetimerange" 
+						range-separator=" 至 " 
+						start-placeholder="开始时间" 
+						end-placeholder="结束时间"></el-date-picker>
 					</div>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="addSure(0)">取 消</el-button>
-				<el-button type="primary" @click="addSure(1)">确 定</el-button>
+				<el-button 
+				@click="addSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="addSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
 	</section>
@@ -181,7 +221,7 @@ export default {
 		addSure(val) {
 			var _this = this;
 			if(val==0) {
-				_this.dialogFormVisible = false;
+				_this.dialogFormVisible=false;
 			} else if(val==1) {
 				_this.listLoading = true;
 				// 进行添加的操作
@@ -200,7 +240,7 @@ export default {
 					axios.post(allget+'/NewFamily/addRoomSortPlan', formData, config)
 						.then((res) => {
 							_this.listLoading = false;	
-							_this.dialogFormVisible = false;					
+							_this.dialogFormVisible=false;					
 							if(res.data.ret) {
 								baseConfig.successTipMsg(_this, '新增成功！');
 								_this.getTableData();
@@ -280,32 +320,32 @@ export default {
 }
 p{ margin: 0; }
 .excelBox>p{
-	width: 100%; height: 50px; line-height: 50px; font-weight: bold;
-	background: #e3efff; text-align: center;
+	width:100%; height: 50px; line-height: 50px; font-weight:bold;
+	background: #e3efff; text-align:center;
 }
 .excelBox .excelInput{
-	width: 100%; height: 60px;
+	width:100%; height: 60px;
 }
 .excelBox .select{
-	width: 100%; height: 80px;
+	width:100%; height: 80px;
 }
 .excelBox .excelInput p,
 .excelBox .select p{
-	width: 100%; height: 36px; text-indent: 20px; line-height: 36px;
+	width:100%; height: 36px; text-indent: 20px; line-height: 36px;
 }
 .excelBox .excelInput input{
-    width: 300px; display: block; margin: 0 auto;
+    width:300px; display:block; margin: 0 auto;
 }
 .excelBox .select>div{
-	width: 300px; display: block; margin: 0 auto;
+	width:300px; display:block; margin: 0 auto;
 }
 .btns{
-    width: 100%; height: 50px;
+    width:100%; height: 50px;
 }
 .btns button{
-    width: 80px; height: 40px; text-align: center; line-height: 40px;
+    width: 80px; height: 40px; text-align:center; line-height: 40px;
     border: none; border-radius: 5px;
-    background-color: #78B2FF; margin-top: 20px; color: #fff;
+    background-color: #78B2FF; margin-top:20px; color: #fff;
 }
 .btns button:nth-of-type(1){
     margin-left: 150px; cursor: pointer;

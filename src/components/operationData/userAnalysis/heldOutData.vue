@@ -333,7 +333,7 @@ export default {
 		// 折线图展示
 		chartLineShow() {
 			var _this = this;	
-			_this.dialogChartOne.dialogVisible = true;
+			_this.dialogChartOne.dialogVisible=true;
 		},
 	},
 	mounted() {

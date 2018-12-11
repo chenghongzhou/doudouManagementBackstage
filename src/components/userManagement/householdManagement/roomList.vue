@@ -1,26 +1,34 @@
 <template>
     <!-- 房间列表 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 房间数据统计 -->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" style="overflow: hidden;">
+        <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+            <el-form :inline="true" style="overflow:hidden;">
                 <el-form-item>
                     <div class="block">
                         <span class="registerTime">日期</span>
-                        <el-date-picker v-model="formOne.startDate" type="daterange" range-separator=" 至 " start-placeholder="开始日期" end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-date-picker 
+                        v-model="formOne.startDate" 
+                        type="daterange" 
+                        range-separator=" 至 " 
+                        start-placeholder="开始日期" 
+                        end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </el-form-item>
                 <el-form-item>
                     <span>房间UID</span>
-                    <el-input style="width:120px;" placeholder="请输入内容" v-model="room_id" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    placeholder="请输入内容" 
+                    v-model="room_id" 
+                    clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>族长UID</span>
-                    <el-input style="width:120px;" placeholder="请输入内容" v-model="owner_uid" clearable>
-                    </el-input>
+                    <el-input 
+                    style="width:120px;" 
+                    placeholder="请输入内容" 
+                    v-model="owner_uid" 
+                    clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <span>展示类型</span>
@@ -30,14 +38,24 @@
                         <el-option label="个人房间" value="1"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item style="float:right;margin-right: 100px;">
-                    <el-button type="primary" @click="getTbData(0)">查询</el-button>
+                <el-form-item style="float:right;margin-right:100px;">
+                    <el-button 
+                    type="primary" 
+                    @click="getTbData(0)">查询</el-button>
                 </el-form-item>
             </el-form>
         </el-col>
-        <!--用户的数据展示列表-->
         <template>
-            <el-table ref="tableHeight" :data="listData" border fit highlight-current-row v-loading="listLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)" style="width: 100%;" :height="tableHeight">
+            <el-table 
+            ref="tableHeight" 
+            :data="listData" 
+            border fit highlight-current-row 
+            v-loading="listLoading" 
+            element-loading-text="拼命加载中" 
+            element-loading-spinner="el-icon-loading" 
+            element-loading-background="rgba(0, 0, 0, 0.8)" 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="create_time" label="开启时间"></el-table-column>
                 <el-table-column prop="room_id" label="房间ID"></el-table-column>
                 <el-table-column prop="room_name" label="房间名称"></el-table-column>
@@ -45,9 +63,13 @@
                 <el-table-column prop="room_pic" label="展示图">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.room_pic" alt="" style="width: 300px; height: auto;">
+                            <img 
+                            :src="scope.row.room_pic" 
+                            style="width:300px; height: auto;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.room_pic" alt="" style="width: 100px; height: auto;">
+                                <img 
+                                :src="scope.row.room_pic" 
+                                style="width:100px;height:auto;">
                             </div>
                         </el-popover>
                     </template>
@@ -59,9 +81,13 @@
                 <el-table-column prop="room_background_pic" label="房间背景图">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
-                            <img :src="scope.row.room_background_pic" alt="" style="width: 300px; height: auto;">
+                            <img 
+                            :src="scope.row.room_background_pic" 
+                            style="width:300px;height:auto;">
                             <div slot="reference" class="name-wrapper">
-                                <img :src="scope.row.room_background_pic" alt="" style="width: 100px; height: 150px;">
+                                <img 
+                                :src="scope.row.room_background_pic" 
+                                style="width:100px;height:150px;">
                             </div>
                         </el-popover>
                     </template>
@@ -71,7 +97,6 @@
                         <p>{{Number(scope.row.pit_rate).toFixed(0)}}</p>
                     </template>
                 </el-table-column>
-
                 <el-table-column prop="total_cost_money" label="累积消费金额(豆币)"></el-table-column>
                 <el-table-column prop="total_cost_num" label="累积消费人次"></el-table-column>
                 <el-table-column prop="total_cost_people" label="累积消费人数"></el-table-column>
@@ -84,34 +109,71 @@
                 </el-table-column>
                 <el-table-column prop="total_into_num" label="房间进入人次"></el-table-column>
                 <el-table-column prop="total_into_people" label="房间进入人数"></el-table-column>
-
                 <el-table-column prop="last_open_time" label="最后直播时间"></el-table-column>
                 <el-table-column prop="total_honour" label="热力值"></el-table-column>
                 <el-table-column prop="room_status" label="操作" width='130px;' fixed="right">
-                    <template slot-scope="scope" style="width: 300px;">
-                        <el-button size="mini" type="danger" @click="deleteBgImg(scope.$index, scope.row)">删除背景图</el-button>
-                        <el-button size="mini" type="danger" @click="deleteRoomPic(scope.$index, scope.row)">删除展示图</el-button>
-                        <div v-if="scope.row.room_status==0" style="display: inline-block;">
-                            <el-button size="mini" type="danger" style="margin-top: 2px;" @click="closeRoomModal(scope.$index, scope.row)">关闭房间</el-button>
+                    <template slot-scope="scope" style="width:300px;">
+                        <el-button 
+                        size="mini" 
+                        type="danger" 
+                        @click="deleteBgImg(scope.$index, scope.row)">删除背景图</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="danger" 
+                        @click="deleteRoomPic(scope.$index, scope.row)">删除展示图</el-button>
+                        <div v-if="scope.row.room_status==0" style="display:inline-block;">
+                            <el-button 
+                            size="mini" 
+                            type="danger" 
+                            style="margin-top:2px;"
+                            @click="closeRoomModal(scope.$index, scope.row)">关闭房间</el-button>
                         </div>
-                        <div v-else-if="scope.row.room_status==1" style="display: inline-block;">
-                            <el-button size="mini" type="primary" style="margin-top: 2px;" @click="openRoomModal(scope.$index, scope.row)">开启房间</el-button>
+                        <div v-else-if="scope.row.room_status==1" style="display:inline-block;">
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            style="margin-top:2px;" 
+                            @click="openRoomModal(scope.$index, scope.row)">开启房间</el-button>
                         </div>
-                        <div v-if="scope.row.room_status==2" style="display: inline-block;">
-                            <el-button size="mini" type="danger" style="margin-top: 2px;" @click="deblockRoomModal(scope.$index, scope.row)">解封房间</el-button>
+                        <div v-if="scope.row.room_status==2" style="display:inline-block;">
+                            <el-button 
+                            size="mini" 
+                            type="danger" 
+                            style="margin-top:2px;" 
+                            @click="deblockRoomModal(scope.$index, scope.row)">解封房间</el-button>
                         </div>
-                        <div v-else style="display: inline-block;">
-                            <el-button size="mini" type="primary" style="margin-top: 2px;" @click="benRoomModal(scope.$index, scope.row)">封禁房间</el-button>
+                        <div v-else style="display:inline-block;">
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            style="margin-top:2px;" 
+                            @click="benRoomModal(scope.$index, scope.row)">封禁房间</el-button>
                         </div>
-                        <el-button size="mini" type="primary" style="margin-top: 2px;" @click="editRoom(scope.$index, scope.row)">编辑房间ID</el-button>
-                        <el-button size="mini" type="primary" style="margin-top: 2px;" @click="changeName(scope.$index, scope.row)">改房名</el-button>
-                        <el-button size="mini" type="primary" style="margin-top: 2px;" @click="changeIntro(scope.$index, scope.row)">改公告</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="primary" 
+                        style="margin-top:2px;" 
+                        @click="editRoom(scope.$index, scope.row)">编辑房间ID</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="primary" 
+                        style="margin-top:2px;" 
+                        @click="changeName(scope.$index, scope.row)">改房名</el-button>
+                        <el-button 
+                        size="mini" 
+                        type="primary" 
+                        style="margin-top:2px;" 
+                        @click="changeIntro(scope.$index, scope.row)">改公告</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <!-- 工具条 -->
             <el-col :span="24" class="toolbar">
-                <el-pagination layout="total,prev, pager, next,jumper" @current-change="handleCurrentChange" :page-size="20" :total=1000 :current-page="page+1" style="float:right; ">
+                <el-pagination 
+                layout="total,prev,pager,next,jumper"
+                @current-change="handleCurrentChange" 
+                :page-size="20" 
+                :total=1000 
+                style="float:right;">
                 </el-pagination>
             </el-col>
             <!-- 开启房间弹窗 -->
@@ -120,71 +182,96 @@
                     <div>
                         <span>你将要开启的房间--</span>{{roomName}}</div>
                     <el-form-item label="原因" width="120px">
-                        <el-input v-model="formInfo.oppenReason" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="formInfo.oppenReason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="formInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureOpenRoom">确 定</el-button>
+                    <el-button 
+                    @click="formInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureOpenRoom">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 关闭房间弹窗 -->
             <el-dialog title="关闭房间" :visible.sync="closeFormInfo.dialogShow" center>
                 <el-form :model="closeFormInfo">
-                    <div>
-                        <span>你将要关闭的房间--</span>{{roomName}}</div>
+                    <div><span>你将要关闭的房间--</span>{{roomName}}</div>
                     <el-radio v-model="radio" label="0">关闭</el-radio>
                     <el-radio v-model="radio" label="1">封禁</el-radio>
                     <el-form-item label="原因" width="100px">
-                        <el-input style="width: 80%;" v-model="closeFormInfo.oppenReason" auto-complete="off"></el-input>
+                        <el-input 
+                        style="width:80%;" 
+                        v-model="closeFormInfo.oppenReason" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="closeFormInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureCloseRoom">确 定</el-button>
+                    <el-button 
+                    @click="closeFormInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureCloseRoom">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 编辑房间弹窗 -->
             <el-dialog title="编辑房间" :visible.sync="editFormInfo.dialogShow" center>
                 <el-form :model="editFormInfo">
-                    <div>
-                        <span>你将要编辑的房间--</span>{{editFormInfo.editRoomName}}</div>
+                    <div><span>你将要编辑的房间--</span>{{editFormInfo.editRoomName}}</div>
                     <el-form-item label="房间id" width="120px">
-                        <el-input v-model="editFormInfo.editRoomId" style="width: 300px;" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="editFormInfo.editRoomId" 
+                        style="width:300px;" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="editFormInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureEditRoom">确 定</el-button>
+                    <el-button 
+                    @click="editFormInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditRoom">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 改房间名 -->
             <el-dialog title="改房间名" :visible.sync="changeFormNameInfo.dialogShow" center>
                 <el-form :model="changeFormNameInfo">
-                    <div>
-                        <span>你将要改名的房间：</span>{{changeFormNameInfo.old_room_name}}</div>
+                    <div><span>你将要改名的房间：</span>{{changeFormNameInfo.old_room_name}}</div>
                     <el-form-item label="房间名" width="120px">
-                        <el-input v-model="changeFormNameInfo.room_name" style="width: 300px;" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="changeFormNameInfo.room_name" 
+                        style="width:300px;" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="changeFormNameInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureChangeRoomName">确 定</el-button>
+                    <el-button 
+                    @click="changeFormNameInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureChangeRoomName">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 改房间公告 -->
             <!-- 该房间名 -->
             <el-dialog title="改房间公告" :visible.sync="changeFormIntroInfo.dialogShow" center>
                 <el-form :model="changeFormIntroInfo">
-                    <div>
-                        <span>你将要改公告的房间：</span>{{changeFormIntroInfo.room_name}}</div>
+                    <div><span>你将要改公告的房间：</span>{{changeFormIntroInfo.room_name}}</div>
                     <el-form-item label="房间公告" width="120px">
-                        <el-input v-model="changeFormIntroInfo.room_intro" style="width: 300px;" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="changeFormIntroInfo.room_intro" 
+                        style="width:300px;" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="changeFormIntroInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureChangeIntroName">确 定</el-button>
+                    <el-button 
+                    @click="changeFormIntroInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureChangeIntroName">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 封禁房间 -->
@@ -200,28 +287,39 @@
                         <el-option label="永久封禁" value=""></el-option>
                     </el-select>
                     <el-form-item label="封禁原因：" width="120px">
-                        <el-input v-model="deblockInfo.reason" style="width: 400px;" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="deblockInfo.reason" 
+                        style="width:400px;" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="deblockInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureBen">确 定</el-button>
+                    <el-button 
+                    @click="deblockInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureBen">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 解封房间 -->
             <el-dialog title="解封房间" :visible.sync="noBlockInfo.dialogShow" center>
                 <el-form :model="noBlockInfo">
                     <el-form-item label="解封原因：" width="120px">
-                        <el-input v-model="noBlockInfo.reason" style="width: 400px;" auto-complete="off"></el-input>
+                        <el-input 
+                        v-model="noBlockInfo.reason" 
+                        style="width:400px;" 
+                        auto-complete="off"></el-input>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="noBlockInfo.dialogShow = false">取 消</el-button>
-                    <el-button type="primary" @click="sureDeblock">确 定</el-button>
+                    <el-button 
+                    @click="noBlockInfo.dialogShow=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureDeblock">确 定</el-button>
                 </span>
             </el-dialog>
         </template>
-
     </section>
 </template>
 <script>
@@ -535,7 +633,7 @@ export default {
         },
         // 开启房间
         openRoomModal(index, row) {
-            this.formInfo.dialogShow = true;
+            this.formInfo.dialogShow=true;
             this.roomName = row.room_name;
             this.yun_xin_room_id = row.yun_xin_room_id;
         },
@@ -565,7 +663,7 @@ export default {
         },
         // 关闭房间
         closeRoomModal(index, row) {
-            this.closeFormInfo.dialogShow = true;
+            this.closeFormInfo.dialogShow=true;
             this.roomName = row.room_name;
             this.yun_xin_room_id = row.yun_xin_room_id;
         },
@@ -595,7 +693,7 @@ export default {
         },
         // 封禁房间
         benRoomModal(index, row) {
-            this.deblockInfo.dialogShow = true;
+            this.deblockInfo.dialogShow=true;
             this.deblockInfo.yun_xin_room_id = row.yun_xin_room_id;
         },
         sureBen() {
@@ -626,7 +724,7 @@ export default {
         },
         // 解封房间
         deblockRoomModal(index, row) {
-            this.noBlockInfo.dialogShow = true;
+            this.noBlockInfo.dialogShow=true;
             this.noBlockInfo.yun_xin_room_id = row.yun_xin_room_id;
         },
         sureDeblock() {
@@ -655,7 +753,7 @@ export default {
         },
         // 编辑房间
         editRoom(index, row) {
-            this.editFormInfo.dialogShow = true;
+            this.editFormInfo.dialogShow=true;
             this.editFormInfo.editRoomName = row.room_name;
             this.editFormInfo.editRoomId = row.room_id;
             this.editFormInfo.yun_xin_room_id = row.yun_xin_room_id;
@@ -684,7 +782,7 @@ export default {
         },
         // 更改房间名
         changeName(index, row) {
-            this.changeFormNameInfo.dialogShow = true;
+            this.changeFormNameInfo.dialogShow=true;
             this.changeFormNameInfo.old_room_name = row.room_name;
             this.changeFormNameInfo.room_name = row.room_name;
             this.changeFormNameInfo.yun_xin_room_id = row.yun_xin_room_id;
@@ -713,7 +811,7 @@ export default {
         },
         // 更改房间公告
         changeIntro(index, row) {
-            this.changeFormIntroInfo.dialogShow = true;
+            this.changeFormIntroInfo.dialogShow=true;
             this.changeFormIntroInfo.room_name = row.room_name;
             this.changeFormIntroInfo.yun_xin_room_id = row.yun_xin_room_id;
             this.changeFormIntroInfo.room_intro = row.room_intro;

@@ -1,10 +1,12 @@
 <template>
     <!-- 情人节数据统计活动后台 -->
-    <!-- dom结构内容 -->
     <section>
-        <!-- 用户的数据展示列表 -->
         <template>
-            <el-table :data="listData" border fit highlight-current-row style="width: 100%;" :height="tableHeight">
+            <el-table 
+            :data="listData" 
+            border fit highlight-current-row 
+            style="width:100%;" 
+            :height="tableHeight">
                 <el-table-column prop="date" label="时间"></el-table-column>
                 <el-table-column prop="num" label="今日报名人数"></el-table-column>
                 <el-table-column prop="heart_num" label="今日心动人数"></el-table-column>
@@ -57,10 +59,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.search-span {
-    float: right;
-}
-#searchBtn {
-    margin-right: 50px;
-}
 </style>
