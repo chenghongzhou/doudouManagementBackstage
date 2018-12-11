@@ -1,83 +1,74 @@
 <template>
 	<!-- 房间标签 -->
 	<section>
-		<el-tabs 
-        v-model="tabActiveName" 
-        type="border-card" 
-        @tab-click="handleClick">
-			<el-tab-pane 
-            label="功能标签" 
-            name="first" 
-            :style="{height:tabSearchHeight+'px'}">
-				<el-table 
-                ref="tableHeight" 
-                :data="onePageTabData" 
-                border fit highlight-current-row 
-                v-loading="listLoading" 
-                style="width:100%;height:100%;">
-					<el-table-column prop="id" label="标签ID" sortable></el-table-column>
-					<el-table-column prop="label_name" label="标签名称" sortable></el-table-column>
-					<el-table-column prop="position" label="位置" sortable></el-table-column>
-					<el-table-column prop="create_time" label="添加日期" sortable></el-table-column>
-					<el-table-column prop="status" :formatter="judgeStatus" label="状态" sortable></el-table-column>
-					<el-table-column prop="sort" label="当前排序" sortable></el-table-column>
-					<el-table-column prop="is_room_show" :formatter="judgeRoomShow" label="是否房间设置标签" sortable></el-table-column>
-					<el-table-column label="操作">
-						<template slot-scope="scope">
-							<el-button 
-                            type="danger" 
-                            @click.native.prevent="deleteOneUserData(scope.$index, tabData)" 
-                            size="small">删除</el-button>
-							<el-button 
-                            type="primary" 
-                            @click.native.prevent="editOneUserData(scope.$index, tabData)" 
-                            size="small">编辑</el-button>
-						</template>
-					</el-table-column>
-				</el-table>
-				<el-col :span="24" class="toolbar">
-					<el-pagination 
-                    layout="total,prev,pager,next,jumper" 
-                    @current-change="handleCurrentChange" 
-                    :page-size="20" 
-                    :total="totalpage" 
-                    style="float:right;"></el-pagination>
-				</el-col>
-				<el-dialog title="编辑标签" :visible.sync="formTwo.dialogFormVisible">
-					<el-form :model="formTwo">
-						<el-form-item label="标签名称：" :label-width="formLabelWidth">
-							<el-input 
-                            v-model="formTwo.label_name" 
-                            auto-complete="off"></el-input>
-						</el-form-item>
-						<el-form-item label="状态" :label-width="formLabelWidth">
-							<el-select v-model="formTwo.status">
-								<el-option label="下架" value="0"></el-option>
-								<el-option label="上架" value="1"></el-option>
-							</el-select>
-						</el-form-item>
-						<el-form-item label="标签sort：" placeholder="标签名称" :label-width="formLabelWidth">
-							<el-input 
-                            v-model="formTwo.sort" 
-                            placeholder="sort"></el-input>
-						</el-form-item>
-						<el-form-item label="房间设置标签" :label-width="formLabelWidth">
-							<el-select v-model="formTwo.is_room_show">
-								<el-option label="否" value="0"></el-option>
-								<el-option label="是" value="1"></el-option>
-							</el-select>
-						</el-form-item>
-					</el-form>
-					<div slot="footer" class="dialog-footer">
-						<el-button 
-                        @click="formTwo.dialogFormVisible=false">取 消</el-button>
-						<el-button 
-                        type="primary" 
-                        @click="sureEditUser()">确 定</el-button>
-					</div>
-				</el-dialog>
-			</el-tab-pane>
-		</el-tabs>
+        <el-table 
+        ref="tableHeight" 
+        :data="onePageTabData" 
+        border fit highlight-current-row 
+        v-loading="listLoading" 
+        style="width:100%;"
+        :height="tabSearchHeight">
+            <el-table-column prop="id" label="标签ID" sortable></el-table-column>
+            <el-table-column prop="label_name" label="标签名称" sortable></el-table-column>
+            <el-table-column prop="position" label="位置" sortable></el-table-column>
+            <el-table-column prop="create_time" label="添加日期" sortable></el-table-column>
+            <el-table-column prop="status" :formatter="judgeStatus" label="状态" sortable></el-table-column>
+            <el-table-column prop="sort" label="当前排序" sortable></el-table-column>
+            <el-table-column prop="is_room_show" :formatter="judgeRoomShow" label="是否房间设置标签" sortable></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button 
+                    type="danger" 
+                    @click.native.prevent="deleteOneUserData(scope.$index, tabData)" 
+                    size="small">删除</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click.native.prevent="editOneUserData(scope.$index, tabData)" 
+                    size="small">编辑</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-col :span="24" class="toolbar">
+            <el-pagination 
+            layout="total,prev,pager,next,jumper" 
+            @current-change="handleCurrentChange" 
+            :page-size="20" 
+            :total="totalpage" 
+            style="float:right;"></el-pagination>
+        </el-col>
+        <el-dialog title="编辑标签" :visible.sync="formTwo.dialogFormVisible">
+            <el-form :model="formTwo">
+                <el-form-item label="标签名称：" :label-width="formLabelWidth">
+                    <el-input 
+                    v-model="formTwo.label_name" 
+                    auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="状态" :label-width="formLabelWidth">
+                    <el-select v-model="formTwo.status">
+                        <el-option label="下架" value="0"></el-option>
+                        <el-option label="上架" value="1"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="标签sort：" placeholder="标签名称" :label-width="formLabelWidth">
+                    <el-input 
+                    v-model="formTwo.sort" 
+                    placeholder="sort"></el-input>
+                </el-form-item>
+                <el-form-item label="房间设置标签" :label-width="formLabelWidth">
+                    <el-select v-model="formTwo.is_room_show">
+                        <el-option label="否" value="0"></el-option>
+                        <el-option label="是" value="1"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button 
+                @click="formTwo.dialogFormVisible=false">取 消</el-button>
+                <el-button 
+                type="primary" 
+                @click="sureEditUser()">确 定</el-button>
+            </div>
+        </el-dialog>
 	</section>
 </template>
 
@@ -225,7 +216,7 @@ export default {
     mounted() {
         var _this = this;
         this.$nextTick(function() {
-			_this.tabSearchHeight = baseConfig.lineNumber(tabPageHeight);
+			_this.tabSearchHeight = baseConfig.lineNumber(pageHeight);
 			console.log(_this.tabSearchHeight)
             _this.getTableData();
         });
