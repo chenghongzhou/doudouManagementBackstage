@@ -198,7 +198,7 @@
                 </span>
             </el-dialog>
             <!-- 拒绝弹窗 -->
-            <el-dialog title="拒绝" :visible.sync="refuse.DialogVisible">
+            <el-dialog title="拒绝" :visible.sync="refuse.dialogVisible">
                 <el-form :model="refuse">
                     <el-form-item label="拒绝原因" :label-width="formLabelWidth">
                         <el-input 
@@ -209,7 +209,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button 
-                    @click="refuse.DialogVisible=false,refuse.reason=''">取 消</el-button>
+                    @click="refuse.dialogVisible=false,refuse.reason=''">取 消</el-button>
                     <el-button 
                     type="primary" 
                     @click="sureRefuse()">确 定</el-button>
@@ -353,7 +353,7 @@ export default {
             passDialogVisible: false,
             passUid: null, //pass UID
             refuse: {
-                DialogVisible: false,
+                dialogVisible: false,
                 reason: null,
                 uid: null
             },
@@ -402,7 +402,8 @@ export default {
         getData() {
             var _this = this;
             _this.listLoading = true;
-            let url = allget+"/NewUser/getRealName";
+            // let url = allget+"/NewUser/getRealName";
+            let url = 'https://manage.dianliaoapp.com/ydlManage/server/index.php'+"/NewUser/getRealName";
             let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
@@ -438,7 +439,7 @@ export default {
         },
         // 通过
         pass(index, row) {
-            this.passdialogVisible=true;
+            this.passDialogVisible=true;
             this.passUid = row.uid;
         },
         surePass() {
@@ -463,6 +464,7 @@ export default {
         },
         // 拒绝
         refuseBtn(index, row) {
+            console.log(1111);
             this.refuse.dialogVisible=true;
             this.refuse.uid = row.uid;
         },
