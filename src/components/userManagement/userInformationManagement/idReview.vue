@@ -402,8 +402,7 @@ export default {
         getData() {
             var _this = this;
             _this.listLoading = true;
-            // let url = allget+"/NewUser/getRealName";
-            let url = 'https://manage.dianliaoapp.com/ydlManage/server/index.php'+"/NewUser/getRealName";
+            let url = allget+"/NewUser/getRealName";
             let params = {
                 date_s: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 date_e: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
