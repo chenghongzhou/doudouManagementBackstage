@@ -39,7 +39,7 @@
                     @click="getTableData">查询</el-button>
 				</el-form-item>
                 <el-form-item style="margin-left:100px;">
-                    <div class="infomation"  @click="infoDialogVisible=true;">
+                    <div class="infomation"  @click="infodialogVisible=true;">
                         <i class="el-icon-question" style="color: #999;"></i>
                     </div>
 				</el-form-item>
@@ -82,7 +82,7 @@
             <el-dialog 
             title="字段说明" 
             :width="dialogWidth"  
-            :visible.sync="infoDialogVisible">
+            :visible.sync="infodialogVisible">
                 <p>日在线时长分布：打开应用，且使用时间大于0秒即开始计算使用时长；应用被主动关闭、或进入后台超过30秒认为使用结束。(单个用户多次使用的，时间累计，用户数去重)。</p>
                 <p>单次在线时长分布：打开应用，且使用时间大于0秒即开始计算使用时长；应用被主动关闭、或进入后台超过30秒认为使用结束。(单个用户多次使用的，按时长分别统计，用户数不去重)。</p>
             </el-dialog>
@@ -108,7 +108,7 @@ export default {
 			tabData: [], 
 			formLabelWidth: '120px', // 设置dialog弹框的宽度
             dialogVisible: false,
-            infoDialogVisible: false,
+            infodialogVisible: false,
             dialogWidth: null,
             channelData: {},
             channelId: null,

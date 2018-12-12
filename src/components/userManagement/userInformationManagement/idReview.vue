@@ -187,14 +187,14 @@
                 style="float:right;"></el-pagination>
 			</el-col>
             <!-- 确定通过弹窗 -->
-            <el-dialog title="提示" :visible.sync="passDialogVisible" width="30%">
+            <el-dialog title="提示" :visible.sync="passdialogVisible" width="30%">
                 <span>确定要通过吗？</span>
                 <span slot="footer" class="dialog-footer">
                     <el-button 
-                    @click="passDialogVisible=false">取 消</el-button>
+                    @click="passdialogVisible=false">取 消</el-button>
                     <el-button 
                     type="primary" 
-                    @click="passDialogVisible=false,surePass()">确 定</el-button>
+                    @click="passdialogVisible=false,surePass()">确 定</el-button>
                 </span>
             </el-dialog>
             <!-- 拒绝弹窗 -->
@@ -350,7 +350,7 @@ export default {
             status: null,
             find: null,
             operate_user: null,
-            passDialogVisible: false,
+            passdialogVisible: false,
             passUid: null, //pass UID
             refuse: {
                 dialogVisible: false,
@@ -438,7 +438,7 @@ export default {
         },
         // 通过
         pass(index, row) {
-            this.passDialogVisible=true;
+            this.passdialogVisible=true;
             this.passUid = row.uid;
         },
         surePass() {

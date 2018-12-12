@@ -231,7 +231,7 @@
                 @click="nickNameChange()">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog  title="提示"  :visible.sync="signDialogVisible"  width="30%">
+        <el-dialog  title="提示"  :visible.sync="signdialogVisible"  width="30%">
             <span>确定要修改签名吗？</span>
             <span slot="footer" class="dialog-footer">
                 <el-button 
@@ -259,7 +259,7 @@ export default {
                 signature: "",
             },
             titleialogVisible: false,
-            signDialogVisible: false,
+            signdialogVisible: false,
         };
     },
     methods: {

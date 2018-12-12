@@ -115,21 +115,21 @@
                 :total="formOne.totalPage" 
                 style="float:right;"></el-pagination>
             </el-col>
-            <el-dialog title="提示" :visible.sync="passDialogVisible" width="30%">
+            <el-dialog title="提示" :visible.sync="passdialogVisible" width="30%">
                 <span>确定要通过吗？</span>
                 <span slot="footer" class="dialog-footer">
                     <el-button 
-                    @click="passDialogVisible=false">取 消</el-button>
+                    @click="passdialogVisible=false">取 消</el-button>
                     <el-button 
                     type="primary" 
                     @click=surePass()>确 定</el-button>
                 </span>
             </el-dialog>
-            <el-dialog title="提示" :visible.sync="refuseDialogVisible" width="30%">
+            <el-dialog title="提示" :visible.sync="refusedialogVisible" width="30%">
                 <span>确定要拒绝吗？</span>
                 <span slot="footer" class="dialog-footer">
                     <el-button 
-                    @click="refuseDialogVisible=false">取 消</el-button>
+                    @click="refusedialogVisible=false">取 消</el-button>
                     <el-button 
                     type="primary" 
                     @click=sureRefuse()>确 定</el-button>
@@ -163,8 +163,8 @@ export default {
             },
             listLoading: false,
             formLabelWidth: "120px",
-            passDialogVisible: false,
-            refuseDialogVisible: false,
+            passdialogVisible: false,
+            refusedialogVisible: false,
             operation_name: null,
             passData: {
                 uid: null,

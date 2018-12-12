@@ -37,7 +37,7 @@
                     @click="getTableData">查询</el-button>
 				</el-form-item>
                 <el-form-item style="margin-left:100px;">
-                    <div class="infomation"  @click="infoDialogVisible=true;">
+                    <div class="infomation"  @click="infodialogVisible=true;">
                         <i class="el-icon-question" style="color: #999;"></i>
                     </div>
 				</el-form-item>
@@ -79,7 +79,7 @@
                 <div class="chartLine"  style="width:100%;height:600px;"></div>
             </el-dialog>
             <!-- 问题信息 -->
-            <el-dialog title="字段说明" :width="dialogWidth"  :visible.sync="infoDialogVisible" >
+            <el-dialog title="字段说明" :width="dialogWidth"  :visible.sync="infodialogVisible" >
                 <p>充值金额：平台全部充值总金额。</p>
                 <p>付费ARPPU值：充值金额/付费用户；保留小数点后两位</p>
                 <p>活跃ARPU值：充值金额/日活跃用户；保留小数点后两位。</p>
@@ -119,7 +119,7 @@ export default {
 			tabData: [], 
 			formLabelWidth: '120px', // 设置dialog弹框的宽度
             dialogVisible: false,
-            infoDialogVisible: false,
+            infodialogVisible: false,
             dialogWidth: null,
             channelData: {},
             channelId: null,
