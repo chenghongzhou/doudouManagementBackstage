@@ -116,6 +116,11 @@
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
 	                    <el-row>
+                            <el-button 
+                            v-if="(scope.row.type!=1)&&(scope.row.type!=2)&&scope.row.status==0" 
+                            size="mini" 
+                            type="primary"
+                            @click="pass(scope.$index, scope.row)">通过</el-button>
 	                        <el-button 
                             v-if="scope.row.status==0" 
                             size="mini" 
@@ -640,7 +645,33 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-		}
+		},
+        // 通过记录
+        pass(index, row){
+            var _this = this;
+            console.log(row);
+			var id=row.id;
+			var uid=row.uid;
+			var type=row.type;
+			var num=row.num;
+            var examine_name=_this.dressUp.operation_name;
+            var url = '/NewMoney/sendMoneyToPass';
+            var params = {
+                id: id,
+                uid: uid,
+                type: type,
+                num: num,
+                examine_name: examine_name,
+            };
+            axios.get(allget+url, {params: params})
+                .then((res) => {
+                    baseConfig.successTipMsg(_this, res.data.msg);
+                    _this.getTableData();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
     },
     mounted() {
         var _this = this;
