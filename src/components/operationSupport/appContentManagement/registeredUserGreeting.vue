@@ -28,7 +28,6 @@
 				@click="submit()">提交</button>
 			</div>
 		</div>
-		<!-- 工具条/头部的搜索条件搜索 -->
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 			<el-form :inline="true" style="overflow:hidden;" :model="formOne">
 				<el-form-item>
