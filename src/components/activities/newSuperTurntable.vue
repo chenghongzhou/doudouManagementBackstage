@@ -204,6 +204,7 @@ export default {
 			obj.date_s = baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0);
 			obj.date_e = baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0);
 			obj.room_id = _this.formOne.room_id;
+			obj.level = _this.formOne.level;
 			obj.page = _this.formOne.Page;
 			return obj; 
 		},
