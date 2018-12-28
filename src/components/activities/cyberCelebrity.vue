@@ -14,17 +14,22 @@
 				<el-form 
 				:inline="true" 
 				:model="formOne">
-					<el-form-item label="礼物">
-						<el-select v-model="formOne.type" placeholder="全部">
-							<el-option label="全部" value="0"></el-option>
-							<el-option label="活动礼物1" value="603"></el-option> 
-							<el-option label="活动礼物2" value="604"></el-option>
+					<el-form-item label="活动类型">
+						<el-select v-model="formOne.type" @change="changeType" placeholder="请选择的网红活动">
+							<el-option label="网红活动1" value="online_celebrity"></el-option> 
+							<el-option label="网红活动2" value="online_celebrity_2"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="礼物类型">
+						<el-select v-model="formOne.gift_id" placeholder="全部">
+							<el-option
+							v-for="(item, index) in formOne.gift_id_list" 
+							:key="index"
+							:label="item.name" 
+							:value="item.value"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item>
-						<el-button 
-						type="primary" 
-						@click="chartLineShow">导出</el-button>
 						<el-button 
 						type="primary" 
 						@click="getOneData">查询</el-button>
@@ -50,14 +55,6 @@
 					style="float:right;">
 				</el-pagination>
 			</el-col>
-			<!-- 折线图 -->
-			<el-dialog 
-			title="折线图" 
-			:width="dialogWidth"  
-			:visible.sync="dialogVisible" 
-			@open="show">
-                <div class="chartLine" style="width:100%;height:600px;"></div>
-            </el-dialog>
    		</el-tab-pane>
     	<el-tab-pane 
 		label="页面按钮数据" 
@@ -70,8 +67,14 @@
 				<el-form 
 				:inline="true" 
 				:model="formTwo">
-					<el-form-item label="页面按钮">
+					<el-form-item label="活动类型">
 						<el-select v-model="formTwo.type" placeholder="全部">
+							<el-option label="网红活动1" value="online_celebrity"></el-option>
+							<el-option label="网红活动2" value="online_celebrity_2"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="页面按钮">
+						<el-select v-model="formTwo.page_id" placeholder="全部">
 							<el-option label="全部" value="0"></el-option>
 							<el-option label="落地页" value="100"></el-option> 
 							<el-option label="落地页-去围观" value="1"></el-option>					    
@@ -124,100 +127,39 @@
 	export default{
 		data(){
 			return{
-				dialogVisible:false,
 				tabHeight: null,
 				activeName:'first',
 				tabSearchPageHeight:null,
            		dialogWidth: null,	
 				formOne:{
 					tabData:[],
-					type:'',
+					type:'online_celebrity_2',
+					gift_id_list: [],					
+					gift_id: '',
 					page:0,
 					totalPage:0,
 				},
 				formTwo:{
 					tabData:[],
-					type:'',
+					type:'online_celebrity_2',
+					page_id:'',
 					page: 0,
 					totalPage:0,
 				},
-	            chartLineData: {
-	                title: {
-	                        text: '礼物统计'
-	                    },
-	                tooltip : {
-	                    trigger: 'axis'
-	                },
-	                toolbox: {
-	                    show : true,
-	                    feature : {
-	                        mark : {show: true},
-	                        dataView : {show: true, readOnly: false},
-	                        magicType: {show: true, type: ['line', 'bar']},
-	                        restore : {show: true},
-	                        saveAsImage : {show: true}
-	                    }
-	                },
-	                calculable : true,
-	                legend: {
-	                    data:['消耗豆币数量']
-	                },
-	                xAxis: [
-	                    {
-	                        type: 'category',
-	                        data: []
-	                    }
-	                ],
-	                yAxis: [
-	                    {
-	                        type : 'value',
-	                        name : '消耗豆币',
-	                        axisLabel : {
-	                            formatter: '{value} '
-	                        }
-	                    },
-	                    {
-	                        type : 'value',
-	                        name : '消耗率',
-	                        axisLabel : {
-	                            formatter: '{value} %'
-	                        }
-	                    },
-	                ],
-	                series: [
-	                    {
-	                        name:'消耗豆币数量',
-	                        type:'bar',
-	                        data:[]
-	                    },
-	                    {
-	                        name:'',
-	                        type:'bar',
-	                        data:[]
-	                    },
-	                    {
-	                        name:'',
-	                        type:'bar',
-	                        data:[]
-	                    },
-	                    {
-	                        name:'',
-	                        type:'bar',
-	                        data:[]
-	                    }
-	                ]
-	            }
 			}
 		},
 		mounted(){
-			this.$nextTick(function() { 
-		        this.dialogWidth = lookWidth*0.8+'px'; //设置进行dialog的宽度进行设置为屏幕的80%
-				this.tabHeight = baseConfig.lineNumber(tabHeight);
-				this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
-				this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
-				this.getOneData();
-				this.getTwoData();
-//				console.log(this.tabHeight,this.tabPageHeight,this.tabSearchPageHeight)
+			var _this = this;
+			_this.$nextTick(function() { 
+		        _this.dialogWidth = lookWidth*0.8+'px'; //设置进行dialog的宽度进行设置为屏幕的80%
+				_this.tabHeight = baseConfig.lineNumber(tabHeight);
+				_this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
+				_this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
+				_this.changeType("online_celebrity_2");
+				setTimeout(function() {
+					_this.getOneData();
+					_this.getTwoData();
+				}, 1500);
 			})			
 		},
 		methods:{
@@ -225,23 +167,21 @@
 			searchConditionGift(){
 				var _this = this;
 				var obj = {};
-				obj.activity ="online_celebrity";
-				obj.gift_id = _this.formOne.type;
+				obj.activity = _this.formOne.type;
+				obj.gift_id = _this.formOne.gift_id;
 				obj.page=_this.formOne.page;
 				return obj; 
 			},
 			searchConditionData(){
 				var _this = this;
 				var obj = {};
-				obj.activity ="online_celebrity";
-				obj.page_id = _this.formTwo.type;
+				obj.activity = _this.formTwo.type;
+				obj.page_id = _this.formTwo.page_id;
 				return obj; 
 			},
-			chartLineShow(){
-	            this.dialogVisible=true;
-			},
 			handleClick(tab, event){
-				// console.log('不进行处理');
+				console.log('进行了盒子风格切换');
+				// console.log(tab.name);
 			},
 			oneHandleCurrentChange(val){
 				formOne.page=val-1;
@@ -256,27 +196,13 @@
        			var params=_this.searchConditionGift();
 				axios.get(wechatget+'/ydlManage/server/index.php/NewActivity/getGiftRecord', {params: params})
 				.then((res) => {
-//					console.log(res.data.data.length)
 					if(res.data.ret == 1) {
 						if(res.data.data.length>0){
 							_this.formOne.tabData = res.data.data;
 						 	_this.formOne.totalPage = res.data.data.length;
-                      	   // 根据获取数据，动态赋值折线图所需的数据
-                           // 赋值前先清空
-                           _this.chartLineData.xAxis[0].data = [];
-                           _this.chartLineData.series[0].data = [];
-                           _this.chartLineData.series[1].data = [];
-                           _this.chartLineData.series[2].data = [];
-                           _this.chartLineData.series[3].data = [];
-                           for(var i = res.data.data.length-1; i >= 0; i--){
-                               _this.chartLineData.xAxis[0].data.push(_this.formOne.tabData[i].time); // 横坐标
-                               _this.chartLineData.series[0].data.push(_this.formOne.tabData[i].price); // 消耗都避暑
-//                             _this.chartLineData.series[1].data.push(_this.formOne.tabData[i].active_ARPPU); // 活跃ARPU值
-//                             _this.chartLineData.series[2].data.push(_this.formOne.tabData[i].consume_rate); // 日付费率
-//                             _this.chartLineData.series[3].data.push(_this.formOne.tabData[i].cumulative_consume_rate); // 累计付费率
-                           }
 						}else{
 							_this.formTwo.tabData =[];
+						 	_this.formOne.totalPage = 0;
 							baseConfig.successTipMsg(_this, "暂无数据");
 						}
 					} else {
@@ -292,12 +218,13 @@
        			var params=_this.searchConditionData();
 				axios.get(wechatget+'/ydlManage/server/index.php/NewActivity/getPageView', {params: params})
 				.then((res) => {
-//					console.log(res)
 					if(res.data.ret == 1) {
 						if(res.data.data.length>0){
 							_this.formTwo.tabData = res.data.data;
+							_this.formTwo.totalPage = res.data.data.length;
 						}else{
 							_this.formTwo.tabData =[];
+							_this.formTwo.totalPage = 0;
 							baseConfig.successTipMsg(_this, "暂无数据");
 						}
 					} else {
@@ -308,13 +235,28 @@
 					console.log(err);
 				})
 			},
-	        show() {
-	            this.$nextTick(function() {
-	                this.chartLine = echarts.init(document.querySelector('.chartLine'));
-	                document.querySelector('.chartLine').style.border = "1px solid #4488BB";
-	                this.chartLine.setOption(this.chartLineData);
-	            })
-	        }
+			changeType(val) {
+				var _this = this;
+				var params = {
+					activity: val,
+				};
+				axios.get(wechatget+'/ydlManage/server/index.php/NewActivity/getGiftList', {params: params})
+					.then((res) => {
+						if(res.data.ret==1) {
+							_this.formOne.gift_id = res.data.data[0];
+							_this.getOneData();
+							_this.formOne.gift_id_list = [
+								{ name: '礼物活动一', value: res.data.data[0], }, 
+								{ name: '礼物活动二', value: res.data.data[1], }, 
+							];
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			},
 		}
 	}
 </script>
