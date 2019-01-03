@@ -49,11 +49,13 @@
 					border fit highlight-current-row 
 					v-loading="listLoading" 
 					style="width:100%;" 
+					:row-class-name="tableRowClassName"
 					:height="tableHeight">
 						<el-table-column prop="date" label="日期" width="200"></el-table-column>
 						<el-table-column prop="num" label="次数" min-width="100"></el-table-column>
 						<el-table-column prop="gain" label="收益" min-width="100"></el-table-column>
 						<el-table-column prop="cost" label="支出" min-width="100"></el-table-column>
+						<el-table-column prop="gain_cost" label="支出 - 收益" min-width="100"></el-table-column>
 						<el-table-column prop="one" label="礼物一" min-width="100"></el-table-column>
 						<el-table-column prop="two" label="礼物二" min-width="100"></el-table-column>
 						<el-table-column prop="three" label="礼物三" min-width="100"></el-table-column>
@@ -105,10 +107,11 @@
 				<template>
 					<el-table 
 					ref="tableHeight" 
-					:data="formTwo.Tabdata" 
+					:data="formTwo.TabData" 
 					border fit highlight-current-row 
 					v-loading="listLoading" 
 					style="width:100%;" 
+					:row-class-name="tableRowClassNameElse"
 					:height="tableHeight">
 						<el-table-column prop="date" label="日期" width="200"></el-table-column>
 						<el-table-column prop="num" label="次数" min-width="80"></el-table-column>
@@ -168,7 +171,7 @@ export default {
                 level: '1',
 				room_id: '',
 				TabData: [],
-				TotalPage: null, 
+				TotalPage: 1000, 
 				Page: 0, 
 				star: '0',
 				end: '20',
@@ -177,7 +180,7 @@ export default {
 				choiceDate: [new Date()-7*24*60*60*1000, new Date()],
 				uid: '',
 				TabData: [], 
-				TotalPage: null, 
+				TotalPage: 1000, 
 				Page: 0, 
 				star: '0',
 				end: '20',
@@ -221,8 +224,11 @@ export default {
 					.then((res) => {
 						_this.listLoading = false;	
 						if(res.data.ret) {
-							_this.formOne.TotalPage = res.data.data.length; 
+							var obj = res.data.total;
+							obj.date = '总计';
+							res.data.data.unshift(obj);
 							_this.formOne.TabData = res.data.data;
+							console.log(_this.formOne.TabData);
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -255,8 +261,12 @@ export default {
 					.then((res) => {
 						_this.listLoading = false;	
 						if(res.data.ret) {
-							_this.formTwo.TotalPage = res.data.data.length; 
+							console.log(res.data.total);
+							var obj = res.data.total;
+							obj.date = '总计';
+							res.data.data.unshift(obj);
 							_this.formTwo.TabData = res.data.data;
+							console.log(_this.formTwo.TabData);
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -270,6 +280,20 @@ export default {
 		handleClick(tab, event) {
 			var _this = this;
 			// console.log(tab.label);
+		},
+		tableRowClassName({row, rowIndex}) {
+			console.log(rowIndex);
+			if(rowIndex===0) {
+				return 'warning-row';
+			} 
+			return '';
+		},
+		tableRowClassNameElse({row, rowIndex}) {
+			console.log(rowIndex);
+			if(rowIndex===0) {
+				return 'warning-row';
+			} 
+			return '';
 		},
 	},
 	mounted() {
@@ -290,5 +314,8 @@ export default {
 }
 .el-tab-pane{
 	height: 800px;
+}
+.el-table .warning-row {
+	background: oldlace;
 }
 </style>
