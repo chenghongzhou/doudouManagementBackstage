@@ -55,7 +55,7 @@
 						<el-table-column prop="num" label="次数" min-width="100"></el-table-column>
 						<el-table-column prop="gain" label="收益" min-width="100"></el-table-column>
 						<el-table-column prop="cost" label="支出" min-width="100"></el-table-column>
-						<el-table-column prop="gain_cost" label="支出 - 收益" min-width="100"></el-table-column>
+						<el-table-column prop="gain_cost" label="利润" min-width="100"></el-table-column>
 						<el-table-column prop="one" label="礼物一" min-width="100"></el-table-column>
 						<el-table-column prop="two" label="礼物二" min-width="100"></el-table-column>
 						<el-table-column prop="three" label="礼物三" min-width="100"></el-table-column>
@@ -117,6 +117,7 @@
 						<el-table-column prop="num" label="次数" min-width="80"></el-table-column>
 						<el-table-column prop="gain" label="收益" min-width="80"></el-table-column>
 						<el-table-column prop="cost" label="支出" min-width="80"></el-table-column>
+						<el-table-column prop="gain_cost" label="利润" min-width="80"></el-table-column>
 						<el-table-column prop="one" label="礼物一" min-width="80"></el-table-column>
 						<el-table-column prop="two" label="礼物二" min-width="80"></el-table-column>
 						<el-table-column prop="three" label="礼物三" min-width="80"></el-table-column>
@@ -227,8 +228,10 @@ export default {
 							var obj = res.data.total;
 							obj.date = '总计';
 							res.data.data.unshift(obj);
+							for(var i=0; i<res.data.data.length; i++) {
+								res.data.data[i].gain_cost = res.data.data[i].gain-res.data.data[i].cost;
+							}
 							_this.formOne.TabData = res.data.data;
-							console.log(_this.formOne.TabData);
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -261,12 +264,13 @@ export default {
 					.then((res) => {
 						_this.listLoading = false;	
 						if(res.data.ret) {
-							console.log(res.data.total);
 							var obj = res.data.total;
 							obj.date = '总计';
 							res.data.data.unshift(obj);
+							for(var i=0; i<res.data.data.length; i++) {
+								res.data.data[i].gain_cost = res.data.data[i].gain-res.data.data[i].cost;
+							}
 							_this.formTwo.TabData = res.data.data;
-							console.log(_this.formTwo.TabData);
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg); 
 						}
@@ -282,14 +286,12 @@ export default {
 			// console.log(tab.label);
 		},
 		tableRowClassName({row, rowIndex}) {
-			console.log(rowIndex);
 			if(rowIndex===0) {
 				return 'warning-row';
 			} 
 			return '';
 		},
 		tableRowClassNameElse({row, rowIndex}) {
-			console.log(rowIndex);
 			if(rowIndex===0) {
 				return 'warning-row';
 			} 
