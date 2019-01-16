@@ -222,5 +222,8 @@ body {
 .el-menu-item-group{
 	height: 38px !important; line-height: 38px !important;
 }
+.el-input.is-disabled .el-input__inner{
+	color: #000 !important;
+}
 </style>
 

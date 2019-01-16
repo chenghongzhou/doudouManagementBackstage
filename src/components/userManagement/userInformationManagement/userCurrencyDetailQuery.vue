@@ -288,8 +288,44 @@ export default {
                 return "直播间内礼物红包返还";
             }else if(row.trade_type==53){
                 return "平台奖励获得";
+            }else if(row.trade_type==54){
+                return "解锁用户格子";
+            }else if(row.trade_type==59) {
+                return "兑换万能钥匙消费失败返还";
             }else if(row.trade_type==62) {
                 return "系统扣除";
+            }else if(row.trade_type==63){
+                return "货币调整系统补贴豆币";
+            }else if(row.trade_type==64){
+                return "货币调整系统补贴代理豆币";
+            }else if(row.trade_type==65) {
+                return "货币调整系统补贴豆票";
+            }else if(row.trade_type==66) {
+                return "发起抢聊获得的红包豆票";
+            }else if(row.trade_type==71){
+                return "使用道具财富卡获得";
+            }else if(row.trade_type==76){
+                return "使用道具充值优惠卡获得";
+            }else if(row.trade_type==81) {
+                return "对方使用通话卡通话获得";
+            }else if(row.trade_type==82){
+                return "购买商品消费";
+            }else if(row.trade_type==85) {
+                return "红包兑换";
+            }else if(row.trade_type==86){
+                return "直播间开黑下单礼物消费";
+            }else if(row.trade_type==87) {
+                return "直播间开黑下单礼物获得";
+            }else if(row.trade_type==88){
+                return "音乐消费";
+            }else if(row.trade_type==89){
+                return "牛牛游戏消费";
+            }else if(row.trade_type==90){
+                return "牛牛游戏获得";
+            }else if(row.trade_type==91){
+                return "炸金花游戏消费";
+            }else if(row.trade_type==92){
+                return "炸金花游戏获得";
             }
         },
         // 获取数据
