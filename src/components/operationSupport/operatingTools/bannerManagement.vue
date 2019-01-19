@@ -90,6 +90,7 @@
 									<p v-else-if="scope.row.type==2">H5页面</p>
 									<p v-else-if="scope.row.type==6">偷听界面</p>
 									<p v-else-if="scope.row.type==0">不跳转</p>
+									<p v-else-if="scope.row.type==12">跳转到游戏</p>
 								</div>
 							</template>
 						</el-table-column>
@@ -171,6 +172,15 @@
 								</div>
 							</template>
 						</el-table-column>
+						<el-table-column label="新版本Banner条图片" width="150">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<img 
+									:src="scope.row.new_image_url" 
+									style="width:100px;height:auto;">
+								</div>
+							</template>
+						</el-table-column>
 						<el-table-column prop="jump_url" label="跳转地址" min-width="150"></el-table-column>
 						<el-table-column prop="page_param" label="跳转参数" width="50"></el-table-column>
 						<el-table-column label="跳转类型" width="80">
@@ -180,6 +190,7 @@
 									<p v-else-if="scope.row.type==2">H5页面</p>
 									<p v-else-if="scope.row.type==6">偷听界面</p>
 									<p v-else-if="scope.row.type==0">不跳转</p>
+									<p v-else-if="scope.row.type==12">跳转到游戏</p>
 								</div>
 							</template>
 						</el-table-column>
@@ -205,6 +216,15 @@
 						<el-table-column prop="res_uid" label="接听电话Uid" width="50"></el-table-column>
 						<el-table-column prop="start_time" label="直播通话开始时间" width="80"></el-table-column>
 						<el-table-column prop="end_time" label="直播通话结束时间" width="80"></el-table-column>
+						<el-table-column label="游戏类型" width="80">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.game_type==0">非游戏</p>
+									<p v-else-if="scope.row.game_type==1">猫猫</p>
+									<p v-else-if="scope.row.game_type==6">牛牛</p>
+								</div>
+							</template>
+						</el-table-column>
 						<el-table-column label="操作" width="150">
 							<template slot-scope="scope">
 								<el-button 
@@ -275,6 +295,7 @@
 							<el-option label="应用内" value="1"></el-option>
 							<el-option label="应用外" value="3"></el-option>
 							<el-option label="偷听界面" value="6"></el-option>
+							<el-option label="跳转到游戏" value="12"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="拨打电话uid" :label-width="formLabelWidth">
@@ -333,6 +354,35 @@
 							<el-option label="展示" value="1"></el-option>
 						</el-select>
 					</el-form-item>
+					<el-form-item label="游戏类型" :label-width="formLabelWidth">
+						<el-select v-model="bannerNewloading.params.game_type">
+							<el-option label="非游戏" value="0"></el-option>
+							<el-option label="猫猫" value="1"></el-option>
+							<el-option label="牛牛" value="6"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="屏幕展示方式" :label-width="formLabelWidth">
+						<el-select v-model="bannerNewloading.params.is_vertical">
+							<el-option label="横屏" value="0"></el-option>
+							<el-option label="竖屏" value="1"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="最少金币" :label-width="formLabelWidth">
+						<el-input 
+						v-model="bannerNewloading.params.min_gold" 
+						auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="新版本图片上传" :label-width="formLabelWidth">
+						<span class="showbtn">选择文件</span>
+						<input 
+						class="filepic fileinput" 
+						@change="newUploading($event, 0)" 
+						type="file">
+						<span class="showname">{{bannerNewloading.new_pic_name}}</span>
+				        <img 
+						:src="bannerNewloading.new_src_pic" 
+						style="width:200px;height:auto;margin-left:200px;"/>
+					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
 					<el-button 
@@ -389,6 +439,7 @@
 							<el-option label="应用内" value="1"></el-option>
 							<el-option label="应用外" value="3"></el-option>
 							<el-option label="偷听界面" value="6"></el-option>
+							<el-option label="跳转到游戏" value="12"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="拨打电话uid" :label-width="formLabelWidth">
@@ -441,11 +492,42 @@
 							<el-option label="一天显示一次" value="1"></el-option>
 						</el-select>
 					</el-form-item>
+
 					<el-form-item label="上线设置" :label-width="formLabelWidth">
 						<el-select v-model="bannerEditorloading.params.is_show">
 							<el-option label="不展示" value="0"></el-option>
 							<el-option label="展示" value="1"></el-option>
 						</el-select>
+					</el-form-item>
+					<el-form-item label="游戏类型" :label-width="formLabelWidth">
+						<el-select v-model="bannerEditorloading.params.game_type">
+							<el-option label="非游戏" value="0"></el-option>
+							<el-option label="猫猫" value="1"></el-option>
+							<el-option label="牛牛" value="6"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="屏幕展示方式" :label-width="formLabelWidth">
+						<el-select v-model="bannerEditorloading.params.is_vertical">
+							<el-option label="横屏" value="0"></el-option>
+							<el-option label="竖屏" value="1"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="最少金币" :label-width="formLabelWidth">
+						<el-input 
+						v-model="bannerEditorloading.params.min_gold" 
+						auto-complete="off"></el-input>
+					</el-form-item>
+
+					<el-form-item label="新版本图片上传" :label-width="formLabelWidth">
+						<span class="showbtn">选择文件</span>
+						<input 
+						class="filepic fileinput" 
+						@change="newUploading($event, 1)" 
+						type="file">
+						<span class="showname">{{bannerEditorloading.new_pic_name}}</span>
+				        <img 
+						:src="bannerEditorloading.new_src_pic" 
+						style="width:200px;height:auto;margin-left:200px;"/>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
@@ -492,6 +574,9 @@ export default {
 				file_pic: '',
 				src_pic: '',
 				pic_name: '',
+				new_file_pic: '',
+				new_src_pic: '',
+				new_pic_name: '',
 				params: {
 					position: '0',
 					sort: '',
@@ -507,6 +592,9 @@ export default {
 					is_show: '1',
 					show_s_time: '',
 					show_e_time: '',
+					game_type: '',
+					is_vertical: '',
+					min_gold: '',
 				},
 			},
 			bannerEditorloading: {
@@ -514,6 +602,9 @@ export default {
 				file_pic: '',
 				src_pic: '',
 				pic_name: '',
+				new_file_pic: '',
+				new_src_pic: '',
+				new_pic_name: '',
 				params: {
 					position: '',
 					id: '',
@@ -530,6 +621,9 @@ export default {
 					is_show: '',
 					show_s_time: '',
 					show_e_time: '',
+					game_type: '',
+					is_vertical: '',
+					min_gold: '',
 				},
 			},
 			listLoading: false, 
@@ -638,6 +732,21 @@ export default {
 				_this.bannerEditorloading.pic_name = event.target.files[0].name;
 			}
       	}, 
+    // 得到上传文件type(0->新增banner，1->编辑banner) 新版图片地址
+        newUploading(event, type) {
+			var _this = this;
+			if(type==0) {
+				_this.bannerNewloading.new_file_pic = event.target.files[0];
+		  	    var windowURL = window.URL || window.webkitURL;
+				_this.bannerNewloading.new_src_pic = windowURL.createObjectURL(event.target.files[0]);
+				_this.bannerNewloading.new_pic_name = event.target.files[0].name;
+			} else if(type==1) {
+				_this.bannerEditorloading.new_file_pic = event.target.files[0];
+		  	    var windowURL = window.URL || window.webkitURL;
+				_this.bannerEditorloading.new_src_pic = windowURL.createObjectURL(event.target.files[0]);
+				_this.bannerEditorloading.new_pic_name = event.target.files[0].name;
+			}
+      	},
 		// banner条新增
 		addBannerSure(type) {
 			var _this = this;
@@ -662,6 +771,10 @@ export default {
 			  	formData.append('pic', _this.bannerNewloading.file_pic); //提交的新增图标的文件
 			  	formData.append('show_s_time', _this.bannerNewloading.params.show_s_time);
 			  	formData.append('show_e_time', _this.bannerNewloading.params.show_e_time);
+				formData.append('game_type', _this.bannerNewloading.params.game_type);
+				formData.append('is_vertical', _this.bannerNewloading.params.is_vertical);
+				formData.append('min_gold', _this.bannerNewloading.params.min_gold);
+				formData.append('new_pic', _this.bannerNewloading.new_file_pic); //提交的新增游戏图标的文件
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
@@ -726,6 +839,10 @@ export default {
 			_this.bannerEditorloading.params.show_type = rows.show_type;
 			_this.bannerEditorloading.params.is_show = rows.is_show;
 			_this.bannerEditorloading.src_pic = rows.image_url;
+			_this.bannerEditorloading.new_src_pic = rows.new_image_url;
+			_this.bannerEditorloading.params.game_type = rows.game_type;
+			_this.bannerEditorloading.params.is_vertical = rows.is_vertical;
+			_this.bannerEditorloading.params.min_gold = rows.min_gold;
 			if(rows.show_s_time==null||rows.show_s_time=='null') {//为null时特殊处理
 				_this.bannerEditorloading.params.show_s_time = '';
 			} else {
@@ -763,6 +880,10 @@ export default {
 			  	formData.append('pic', _this.bannerEditorloading.file_pic); //提交的新增图标的文件
 			  	formData.append('show_s_time', _this.bannerEditorloading.params.show_s_time);
 			  	formData.append('show_e_time', _this.bannerEditorloading.params.show_e_time);
+				formData.append('game_type', _this.bannerEditorloading.params.game_type);
+			  	formData.append('new_pic', _this.bannerEditorloading.new_file_pic); //提交的新增游戏图标的文件
+			  	formData.append('is_vertical', _this.bannerEditorloading.params.is_vertical);
+			  	formData.append('min_gold', _this.bannerEditorloading.params.min_gold);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
@@ -799,6 +920,9 @@ export default {
 				file_pic: '',
 				src_pic: '',
 				pic_name: '',
+				new_file_pic: '',
+				new_src_pic: '',
+				new_pic_name: '',
 				params: {
 					position: '0',
 					sort: '',
@@ -814,6 +938,9 @@ export default {
 					is_show: '1',
 					show_s_time: '',
 					show_e_time: '',
+					game_type: '',
+					is_vertical: '',
+					min_gold: '',
 				},
 			};
 			_this.bannerEditorloading = {
@@ -821,6 +948,9 @@ export default {
 				file_pic: '',
 				src_pic: '',
 				pic_name: '',
+				new_file_pic: '',
+				new_src_pic: '',
+				new_pic_name: '',
 				params: {
 					position: '',
 					id: '',
@@ -837,6 +967,9 @@ export default {
 					is_show: '',
 					show_s_time: '',
 					show_e_time: '',
+					game_type: '',
+					is_vertical: '',
+					min_gold: '',
 				},
 			};
 		},
