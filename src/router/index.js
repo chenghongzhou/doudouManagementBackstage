@@ -351,22 +351,25 @@ export const constantRouterMap = [
         path: '/login',
         component: Login,
         name: '',
+        meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C', 'G'] },
         hidden: true, //hidden为自定义属性，如果hidden为true则不显示在sidebar侧边栏中
     },
     {
         path: '/home',
         component: Home,
         name: '',
+        meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C', 'G'] },
         hidden: true,
         children: [
-            { path: '/hello', component: Hello, name: '欢迎', hidden: true },
-            { path: '/401', component: Err401, name: '401' },
+            { path: '/hello', component: Hello, name: '欢迎', meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C', 'G'] }, hidden: true },
+            { path: '/401', component: Err401, name: '401', meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C', 'G'] }, },
         ],
     },
     {
         path: '/empty',
         component: empty,
         name: '',
+        meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C', 'G'] },
         hidden: true,
     },
 ];
@@ -593,7 +596,7 @@ export const asyncRouterMap = [
         path: '/operationSupport',
         component: Home,
         name: '运营支撑',
-        meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'M', 'C'] },
+        meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2', 'C'] },
         children: [
             {
                 path: '/operationSupport',

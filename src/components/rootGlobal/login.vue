@@ -106,48 +106,50 @@ export default {
                     }
                     else {
                         //进行登录的操作
-                        if (store.getters.roles.length === 0) {
+                        if (store.getters.roles.length===0) {
                             store.dispatch('GetInfo', loginParams)
-                            .then((res) => {
-                                if(res.data.ret) {
-                                    // 去触发生成动态权限
-                                    var roles = store.state.user.roles;
-                                    store.dispatch('GenerateRoutes', { roles })
-                                    .then(() => { // 生成可访问的路由表
-                                        router.addRoutes(store.getters.addRouters);           
-                                    })
-                                    .catch((err) => {
-                                        console.log(err);
-                                    });
-                                    // 用户保存密码在cookie中，下次直接登录
-                                    if(_this.checked==false) {
-                                        baseConfig.setCookie('loginParams', '', 0);
-                                    } else if(_this.checked==true) {
-                                        // 在这里进行存入到cookie里面的时候只保存对应的账号、密码
-                                        baseConfig.setCookie(
-                                            'loginParams', 
-                                            JSON.stringify(
-                                                { 
-                                                    username: loginParams.username, 
-                                                    password: loginParams.password, 
-                                                    phone: loginParams.phone,
-                                                }
-                                            ), 
-                                            7
-                                        );
+                                .then((res) => {
+                                    if(res.data.ret) {
+                                        // 去触发生成动态权限
+                                        var roles = store.state.user.roles;
+                                        store.dispatch('GenerateRoutes', { roles })
+                                            .then(() => { // 生成可访问的路由表
+                                                router.addRoutes(store.getters.addRouters);           
+                                            })
+                                            .catch((err) => {
+                                                console.log(err);
+                                            });
+                                        // 用户保存密码在cookie中，下次直接登录
+                                        if(_this.checked==false) {
+                                            baseConfig.setCookie('loginParams', '', 0);
+                                        } else if(_this.checked==true) {
+                                            // 在这里进行存入到cookie里面的时候只保存对应的账号、密码
+                                            baseConfig.setCookie(
+                                                'loginParams', 
+                                                JSON.stringify(
+                                                    { 
+                                                        username: loginParams.username, 
+                                                        password: loginParams.password, 
+                                                        phone: loginParams.phone,
+                                                    }
+                                                ), 
+                                                7
+                                            );
+                                        }
+                                        // 完成登录操作，跳转到hello的组建
+                                        _this.listLoading = false;
+                                        _this.$router.push({ path: '/hello', });
+                                    } else {
+                                        _this.listLoading = false;
                                     }
-                                    // 完成登录操作，跳转到hello的组建
+                                })
+                                .catch((err) => {
                                     _this.listLoading = false;
-                                    _this.$router.push({ path: '/hello', });
-                                } else {
-                                    _this.listLoading = false;
-                                }
-                            })
-                            .catch((err) => {
-                                _this.listLoading = false;
-                                console.log(err);
-                            });
-                        } else {}
+                                    console.log(err);
+                                });
+                        } else {
+                            // 登录时不存在vuex直接存有角色信息
+                        }
                     }
                 } else {
                     _this.listLoading = false;
@@ -189,12 +191,12 @@ export default {
                         // 去触发生成动态权限
                         var roles = store.state.user.roles;
                         store.dispatch('GenerateRoutes', { roles })
-                        .then(() => { // 生成可访问的路由表
-                            router.addRoutes(store.getters.addRouters);           
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
+                            .then(() => { // 生成可访问的路由表
+                                router.addRoutes(store.getters.addRouters);           
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         // 完成登录操作，跳转到hello的组建
                         // 页面进行刷新全部进入的hello组建
                         _this.listLoading = false;

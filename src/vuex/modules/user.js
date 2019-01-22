@@ -1,7 +1,6 @@
 import { allget } from '../../api/api';
 import md5 from '../../public_js/md5';
 import axios from 'axios';
-import { userInfo } from 'os';
 const user = {
     state: {
         user: '',
@@ -105,6 +104,7 @@ const user = {
                 } finally {  }
             })
             .catch(e => {
+                console.log(e);
                 reject(e);
             });
         },

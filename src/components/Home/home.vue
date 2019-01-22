@@ -77,7 +77,6 @@ export default {
         dataView() {
             // 拿取store中的路由表的相应内容
             let thatDdta = store.getters.addRouters;
-            // console.log(store.getters.addRouters);            
             return store.getters.addRouters;
         }
     },
