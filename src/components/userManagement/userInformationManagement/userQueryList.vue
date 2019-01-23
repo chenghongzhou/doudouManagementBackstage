@@ -187,6 +187,46 @@
                         v-model="titleInfo.reason" 
                         auto-complete="off"></el-input>
                     </el-form-item>
+                    <div>同IP用户</div>
+                    <template>
+                        <el-table 
+                        :data="kickIpData" 
+                        v-loading="listLoading" 
+                        border fit highlight-current-row 
+                        @selection-change="handleSelectionChange"
+                        style="width:100%;" 
+                        :height="tableHeightOther">
+                            <el-table-column prop="uid" label="UID" ></el-table-column>
+                            <el-table-column prop="phone" label="手机号"></el-table-column>
+                            <el-table-column prop="longitude" label="经度"></el-table-column>
+                            <!-- <el-table-column prop="latitude" label="纬度"></el-table-column> -->
+                            <el-table-column prop="province" label="省"></el-table-column>
+                            <el-table-column prop="city" label="市"></el-table-column>
+                            <el-table-column prop="address" label="地址"></el-table-column>
+                            <el-table-column prop="ip" label="IP"></el-table-column>
+                            <el-table-column prop="imei" label="设备号"></el-table-column>
+                        </el-table> 
+                    </template>     
+                    <div>同设备用户</div>
+                    <template>
+                        <el-table 
+                        :data="kickMobelData" 
+                        v-loading="listLoading" 
+                        border fit highlight-current-row 
+                        @selection-change="handleSelectionChange"
+                        style="width:100%;" 
+                        :height="tableHeightOther">
+                            <el-table-column prop="uid" label="UID"></el-table-column>
+                            <el-table-column prop="phone" label="手机号"></el-table-column>
+                            <el-table-column prop="longitude" label="经度"></el-table-column>
+                            <!-- <el-table-column prop="latitude" label="纬度"></el-table-column> -->
+                            <el-table-column prop="province" label="省"></el-table-column>
+                            <el-table-column prop="city" label="市"></el-table-column>
+                            <el-table-column prop="address" label="地址"></el-table-column>
+                            <el-table-column prop="ip" label="IP"></el-table-column>
+                            <el-table-column prop="imei" label="设备号"></el-table-column>
+                        </el-table> 
+                    </template>    
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button 
@@ -227,6 +267,7 @@
                     type="primary" 
                     @click="collectiveSealSure">确 定</el-button>
                 </div>
+
             </el-dialog>
             <el-dialog title="解封账号" :visible.sync="UnlockInfo.dialogFormVisible">
                 <el-form :model="UnlockInfo">
@@ -328,6 +369,8 @@ export default {
             },
             recordStatus: "",
             listData: [],
+            kickIpData: [],
+            kickMobelData: [],
             formLabelWidth: "120px",
             listLoading: false,
             uid: "",
@@ -379,6 +422,7 @@ export default {
                 operate_user: '',
                 multipleSelection: [],
             },
+            tableHeightOther: '200px'
         };
     },
     methods: {
@@ -480,8 +524,31 @@ export default {
         },
         // 封号
         title(index, rows) {
+            console.log(index, rows)
             this.titleInfo.uid = rows.uid;
             this.titleInfo.dialogFormVisible=true;
+            this.detailOther(index, rows)
+        },
+        //设备等详情信息展示
+        detailOther(index, rows){
+            var _this = this;
+            var url = "/NewUser/kickInfo";
+            let params = {
+                uid : rows.uid
+            };
+            axios.get(allget+url, {params: params})
+                .then((res) => {
+                    if (res.data.ret) {
+                        _this.kickIpData = res.data.ip_user_list;
+                        _this.kickMobelData = res.data.imei_user_list;
+                        console.log(_this.listData, _this.kickMobelData)
+                    } else {
+                        baseConfig.warningTipMsg(_this, res.data.msg);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         },
         sureTitle() {
             var _this = this;

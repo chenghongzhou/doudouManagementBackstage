@@ -326,6 +326,7 @@ import accountRegulate from '../components/activities/accountRegulate.vue';// �
 import earningCallData from '../components/activities/earningCallData.vue';// 收益通话数据
 import cyberCelebrity from '../components/activities/cyberCelebrity.vue';// 网红活动
 import bargain from '../components/activities/bargain.vue';// 砍价
+import cardCollect from '../components/activities/cardCollect.vue';// 喵星人集卡
 
 // 活动专区end
 // 5、系统设置
@@ -732,6 +733,7 @@ export const asyncRouterMap = [
                     { path: '/activities/earningCallData', component: earningCallData, name: '收益通话数据', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/cyberCelebrity', component: cyberCelebrity, name: '网红活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/bargain', component: bargain, name: '砍价', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/cardCollect', component: cardCollect, name: '喵星人集卡', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
