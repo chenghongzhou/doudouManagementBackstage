@@ -187,7 +187,7 @@
                         v-model="titleInfo.reason" 
                         auto-complete="off"></el-input>
                     </el-form-item>
-                    <div>同IP用户</div>
+                    <div class="addTitle">同IP用户：</div>
                     <template>
                         <el-table 
                         :data="kickIpData" 
@@ -207,7 +207,7 @@
                             <el-table-column prop="imei" label="设备号"></el-table-column>
                         </el-table> 
                     </template>     
-                    <div>同设备用户</div>
+                    <div class="addTitle">同设备用户：</div>
                     <template>
                         <el-table 
                         :data="kickMobelData" 
@@ -837,5 +837,8 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-
+.addTitle{
+    margin-top:10px;
+    margin-bottom:10px;
+}
 </style>
