@@ -1,5 +1,5 @@
 <template>
-	<!-- 抽奖活动 -->
+	<!-- 红包雨 -->
 	<section>
 		<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 			<el-form :inline="true" :model="formOne">
@@ -14,19 +14,9 @@
 					</div>
 				</el-form-item>
                 <el-form-item>
-					<el-input 
-                    placeholder="UID" 
-                    style="width:120px;" 
-                    v-model="formOne.uid" 
-                    auto-complete="off"></el-input>
-				</el-form-item>
-                <el-form-item>
 					<el-button 
                     type="primary" 
                     @click.native.prevent="getTableData">查询</el-button>
-                    <el-button 
-                    type="primary" 
-                    @click.native.prevent="handleDownload">导出</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -38,26 +28,22 @@
             v-loading="listLoading" 
             style="width:100%;" 
             :height="tableHeight">
-                <el-table-column prop="uid" label="UID"></el-table-column>
-                <el-table-column label="用户昵称">
-                    <template slot-scope="scope">{{ scope.row.nickname || '--'}}</template>
-                </el-table-column>
-				<el-table-column prop="left_chance" label="抽奖剩余次数"></el-table-column>
-				<el-table-column prop="count_total" label="已抽奖次数"></el-table-column>
-				<el-table-column prop="count_100" label="iPhone Xs "></el-table-column>
-				<el-table-column prop="count_0" label="8888 豆币"></el-table-column>
-				<el-table-column prop="count_1" label="888 豆币"></el-table-column>
-				<el-table-column prop="count_2" label="168 豆币"></el-table-column>
-				<el-table-column prop="count_3" label="88 豆币"></el-table-column>
-				<el-table-column prop="count_4" label="8 豆币"></el-table-column>
-				<el-table-column prop="chance" label="获取抽奖次数"></el-table-column>
-				<el-table-column prop="chance_gold_egg" label="砸蛋获取抽奖次数"></el-table-column>
-				<el-table-column prop="chance_gift" label="送礼物获取抽奖次数"></el-table-column>
-                <el-table-column prop="chance_invite" label="好友注册数量"></el-table-column>
-                <el-table-column label="好友id">
-                    <template slot-scope="scope">{{ scope.row.friend_list || '--'}}</template>
-                </el-table-column>
-                <el-table-column prop="recharge" label="好友充值金额"></el-table-column>
+                <el-table-column prop="date" label="日期"></el-table-column>
+				<el-table-column prop="people" label="活动参与人数"></el-table-column>
+				<el-table-column prop="down_rain" label="准点红包数量"></el-table-column>
+				<el-table-column prop="req_rain" label="求雨红包数量"></el-table-column>
+				<el-table-column prop="count_0" label="有钱装扮"></el-table-column>
+				<el-table-column prop="count_1" label="灯笼礼物"></el-table-column>
+				<el-table-column prop="count_2" label="爆竹装扮"></el-table-column>
+				<el-table-column prop="count_3" label="猪宝宝礼物"></el-table-column>
+				<el-table-column prop="count_4" label="猪年大吉座驾"></el-table-column>
+				<el-table-column prop="count_5" label="猪猪装扮"></el-table-column>
+				<el-table-column prop="count_6" label="猪福装扮"></el-table-column>
+				<el-table-column prop="count_7" label="花旦装扮"></el-table-column>
+                <el-table-column prop="count_8" label="豆币"></el-table-column>
+				<el-table-column prop="count_9" label="2019礼物"></el-table-column>
+				<el-table-column prop="count_10" label="财神到礼物"></el-table-column>
+                <el-table-column prop="count_11" label="财神帽装扮"></el-table-column>
 			</el-table>
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -86,8 +72,8 @@ export default {
                 tabData: [],
                 totalPage: null,
                 star: '0',
-                end: '20',
-                page:0
+				end: '20',
+				page:0
             },
 			listLoading: false,
 		};
@@ -111,13 +97,12 @@ export default {
 		getTableData() {
 			var _this = this ;
 			_this.listLoading = true;
-            var url = '/NewActivity/getLotteryStat';
+            var url = '/NewActivity/getRedPackageRainData';
 			var params = {
                // type: _this.formOne.type,
                start_date : _this.formOne.choiceDate?baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0):'',
-               end_date : _this.formOne.choiceDate?baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0):'',
-               user_id : _this.formOne.uid,
-               page:_this.formOne.page,
+			   end_date : _this.formOne.choiceDate?baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0):'',
+			   page : _this.formOne.page
             };
             axios.get(allget+url, { params: params })
             .then((res) => {
@@ -127,22 +112,22 @@ export default {
                     for(var i=0; i<res.data.data.length; i++) {
                         var obj = {};
                         for(var key in res.data.data[i]) {
-                            obj.uid = res.data.data[i].uid;
-                            obj.nickname = res.data.data[i].nickname;
-                            obj.left_chance = res.data.data[i].left_chance;
-                            obj.count_total = res.data.data[i].count_total;
-                            obj.count_100 = res.data.data[i].count_100;
-                            obj.count_0 = res.data.data[i].count_0;
-                            obj.count_1 = res.data.data[i].count_1;
-                            obj.count_2 = res.data.data[i].count_2;
-                            obj.count_3 = res.data.data[i].count_3;
-                            obj.count_4 = res.data.data[i].count_4;
-                            obj.chance = res.data.data[i].chance;
-                            obj.chance_gold_egg = res.data.data[i].chance_gold_egg;
-                            obj.chance_gift = res.data.data[i].chance_gift;
-                            obj.chance_invite = res.data.data[i].chance_invite;
-                            obj.recharge = res.data.data[i].recharge;
-                            obj.friend_list = res.data.data[i].friend_list;
+                            obj.date = res.data.data[i].date;
+                            obj.people = res.data.data[i].people;
+                            obj.down_rain = res.data.data[i].down_rain;
+                            obj.req_rain = res.data.data[i].req_rain;
+                            obj.count_0 = res.data.data[i].有钱装扮;
+                            obj.count_1 = res.data.data[i].灯笼礼物;
+                            obj.count_2 = res.data.data[i].爆竹装扮;
+                            obj.count_3 = res.data.data[i].猪宝宝礼物;
+                            obj.count_4 = res.data.data[i].猪年大吉座驾;
+                            obj.count_5 = res.data.data[i].猪猪装扮;
+                            obj.count_6 = res.data.data[i].猪福装扮;
+                            obj.count_7 = res.data.data[i].花旦装扮;
+                            obj.count_8 = res.data.data[i].豆币;
+                            obj.count_9 = res.data.data[i]['2019礼物'];
+                            obj.count_10 = res.data.data[i].财神到礼物;
+							obj.count_11 = res.data.data[i].财神帽装扮;
                         }
                         arr.push(obj);
                     }
