@@ -179,19 +179,60 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="拒绝原因" :label-width="formLabelWidth">
-                    <el-input 
-                    v-model="addDialog.reason" 
-                    placeholder="如果拒绝请输入拒绝原因！" 
-                    auto-complete="off"></el-input>
-                </el-form-item>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="金币兑换豆票数" :label-width="formLabelWidth">
                             <el-input disabled v-model="addDialog.gold_to_chat_ticket" auto-complete="off"></el-input>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="转盘获得豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.turn_table_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="活动获得豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.activity_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="后台赠送豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.manage_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="系统赠送豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.system_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="兑换获得豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.exchange_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                 <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="发消息获得豆票" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.im_ticket" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="充值卡获得豆币" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.recharge_prop_give_gold" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-form-item label="拒绝原因" :label-width="formLabelWidth">
+                    <el-input 
+                    v-model="addDialog.reason" 
+                    placeholder="如果拒绝请输入拒绝原因！" 
+                    auto-complete="off"></el-input>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button 
@@ -245,6 +286,13 @@ export default {
                 operation_name: '',
                 reason: '',
                 gold_to_chat_ticket:'',
+                turn_table_ticket:'',
+                activity_ticket:'',
+                manage_ticket:'',
+                system_ticket:'',
+                exchange_ticket:'',
+                im_ticket:'',
+                recharge_prop_give_gold:''
             },
             listLoading: false,
             formLabelWidth: '120px',
@@ -336,8 +384,15 @@ export default {
                         if(res.data.gold_to_chat_ticke){
                             _this.addDialog.gold_to_chat_ticket = res.data.gold_to_chat_ticke+'豆票';
                         }else{
-                            _this.addDialog.gold_to_chat_ticket = '0';
+                            _this.addDialog.gold_to_chat_ticket = '0.00豆票';
                         }
+                        _this.addDialog.turn_table_ticket = res.data.turn_table_ticket+'豆票';
+                        _this.addDialog.activity_ticket = res.data.activity_ticket+'豆票';
+                        _this.addDialog.manage_ticket = res.data.manage_ticket+'豆票';
+                        _this.addDialog.system_ticket = res.data.system_ticket+'豆票';
+                        _this.addDialog.exchange_ticket = res.data.exchange_ticket+'豆票';
+                        _this.addDialog.im_ticket = res.data.im_ticket+'豆票';
+                        _this.addDialog.recharge_prop_give_gold = res.data.recharge_prop_give_gold+'豆币';
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
