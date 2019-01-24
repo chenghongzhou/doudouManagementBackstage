@@ -162,11 +162,6 @@
 							</template>
 						</el-table-column>
 					</el-table>
-					<!-- 
-                    { path: '/activities/gameSettings', component: gameSettings, name: '游戏设置', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-					import gameSettings from '../components/activities/gameSettings.vue';// 游戏设置
-
-					 -->
 					<el-col :span="24" class="toolbar">
 						<el-pagination 
 						layout="total,prev,pager,next,jumper" 
@@ -178,6 +173,37 @@
 				</template>
 			</el-tab-pane>
 		</el-tabs>
+		<!-- 编辑房间游戏 -->
+		<el-dialog title="编辑游戏" :visible.sync="editGame.dialogvisible">
+			<el-form :model="editGame">
+				<el-form-item label="房间云信ID" :label-width="formLabelWidth">
+					<el-input 
+					disabled="disabled"
+					v-model="editGame.yun_xin_room_id" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="游戏等级" :label-width="formLabelWidth">
+					<el-select
+					v-model="editGame.gambling_list"
+					multiple
+					collapse-tags
+					placeholder="请选择游戏">
+						<el-option
+						v-for="item in editGame.all_gambling_list"
+						:key="item.value"
+						:label="item.label"
+						:value="item.value"></el-option>
+					</el-select>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button 
+				@click="editRoomGameSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="editRoomGameSure(1)">确 定</el-button>
+			</div>
+		</el-dialog>
 		<!-- 编辑游戏 -->
 		<el-dialog title="编辑游戏" :visible.sync="edit.dialogvisible">
 			<el-form :model="edit">
@@ -226,7 +252,7 @@
 						<el-option label="转盘" value="0"></el-option>
 						<el-option label="喵星人" value="1"></el-option>
 						<el-option label="炸金花" value="2"></el-option>
-						<el-option label="牛牛" value="1"></el-option>
+						<el-option label="牛牛" value="6"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="显示类型" :label-width="formLabelWidth">
@@ -301,6 +327,12 @@ export default {
 				page: 0, 
 				star: '0',
 				end: '20',
+			},
+			editGame: {
+				dialogvisible: false,
+				yun_xin_room_id: '',
+				all_gambling_list: [],//全部的房间游戏可供选择
+				gambling_list: [],//编辑房间游戏的需要
 			},
 			tabActiveName: 'first',//游戏列表、房间游戏列表
 			formLabelWidth: '130px', 
@@ -388,7 +420,7 @@ export default {
 					});
 			}
 		},
-		// 在列表中进行搜索条件
+		// 房间游戏搜索时间
 		searchConditionManage() {
 			var _this = this;
 			var obj = {};
@@ -396,7 +428,7 @@ export default {
 			obj.page = _this.formTwo.page;
 			return obj;
 		},
-		// 获取banner管理的数据
+		// 房间游戏
 		getTableManage() {
 			var _this = this ;
 			var url = '/NewActivity/getRoomGameList';
@@ -425,7 +457,38 @@ export default {
 		},
 		editRoomGame(row) {
 			var _this = this;
-			console.log(row);
+			_this.editGame.yun_xin_room_id = row.yun_xin_room_id;
+			_this.editGame.dialogvisible = true;
+		},
+		editRoomGameSure(val) {
+			var _this = this;
+			if(val==0) {
+				_this.editGame.dialogvisible = false;
+			} else if(val==1) {
+				console.log(_this.editGame.yun_xin_room_id);
+				console.log(_this.editGame.gambling_list);
+				let formData = new FormData();
+				formData.append('yun_xin_room_id', _this.editGame.yun_xin_room_id);
+				formData.append('gambling_list', _this.editGame.gambling_list);
+				let config = {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				};
+				axios.post(allget+'/NewActivity/editRoomGame', formData, config)
+					.then((res) => {
+						_this.editGame.dialogvisible = false;
+						if(res.data.ret) {
+							baseConfig.successTipMsg(_this, '新增成功！');
+							_this.getTableManage();
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
 		},
 		// 顶部tab进行页面的切换
 		handleClick(tab, event) {
@@ -444,6 +507,32 @@ export default {
 			} 
 			return '';
 		},
+		allRoomGame() {
+			var _this = this;
+			var url = '/NewActivity/getGameList';
+			var params = {
+				type: 1,
+			};
+			axios.get(allget+url, { params: params })
+				.then((res) => {
+					if(res.data.ret) {
+						var obj = {};
+						res.data.data.forEach((item, index) => {
+							obj = {
+								label: item.name,
+								value: item.id,
+							};
+							_this.editGame.all_gambling_list.push(obj);
+						});
+						console.log(_this.editGame.all_gambling_list);
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 	},
 	mounted() {
 		var _this = this;
@@ -454,6 +543,7 @@ export default {
 			_this.tableTwoHeight = baseConfig.lineNumber(tabSearchPageHeight);
 			_this.getTableFind();
 			_this.getTableManage();
+			_this.allRoomGame();
 		})
 	}
 };
