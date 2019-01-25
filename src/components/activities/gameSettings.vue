@@ -16,7 +16,6 @@
 					:data="formOne.tabData" 
 					border fit highlight-current-row 
 					style="width:100%;" 
-					:row-class-name="tableRowClassName"
 					:height="tableOneHeight">
 						<el-table-column prop="id" label="游戏ID" width="50"></el-table-column>
 						<el-table-column prop="name" label="游戏名称" width="100"></el-table-column>
@@ -121,7 +120,6 @@
 					:data="formTwo.tabData" 
 					border fit highlight-current-row 
 					style="width:100%;" 
-					:row-class-name="tableRowClassNameElse"
 					:height="tableTwoHeight">
 						<el-table-column prop="yun_xin_room_id" label="房间云信ID" width="150"></el-table-column>
 						<el-table-column prop="room_id" label="房间ID" min-width="80"></el-table-column>
@@ -518,18 +516,6 @@ export default {
 		handleClick(tab, event) {
 			var _this = this;
 			// console.log(tab.label);
-		},
-		tableRowClassName({row, rowIndex}) {
-			if(rowIndex===0) {
-				return 'warning-row';
-			} 
-			return '';
-		},
-		tableRowClassNameElse({row, rowIndex}) {
-			if(rowIndex===0) {
-				return 'warning-row';
-			} 
-			return '';
 		},
 		allRoomGame() {
 			var _this = this;
