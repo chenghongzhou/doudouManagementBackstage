@@ -381,8 +381,8 @@ export default {
                         _this.addDialog.history_cash_times = res.data.history_cash_times;
                         _this.addDialog.history_cash_money = ((res.data.history_cash_money-0)/100)+'元';
                         _this.addDialog.reason = '';
-                        if(res.data.gold_to_chat_ticke){
-                            _this.addDialog.gold_to_chat_ticket = res.data.gold_to_chat_ticke+'豆票';
+                        if(res.data.gold_to_chat_ticket){
+                            _this.addDialog.gold_to_chat_ticket = res.data.gold_to_chat_ticket+'豆票';
                         }else{
                             _this.addDialog.gold_to_chat_ticket = '0.00豆票';
                         }
