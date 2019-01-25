@@ -106,10 +106,10 @@
 							<div class="grid-content bg-purple">合计</div>
 						</el-col>
 						<el-col :span="7">
-							<div class="grid-content bg-purple">购买金币数：{{formTwo.totalDataObj.gold_to_dou}}</div>
+							<div class="grid-content bg-purple">购买金币数：{{formTwo.totalDataObj.dou_to_gold}}</div>
 						</el-col>
 						<el-col :span="7">
-							<div class="grid-content bg-purple-light">兑换金币数：{{formTwo.totalDataObj.dou_to_gold}}</div>
+							<div class="grid-content bg-purple-light">兑换金币数：{{formTwo.totalDataObj.gold_to_dou}}</div>
 						</el-col>
 					</el-row>
 				</div>
