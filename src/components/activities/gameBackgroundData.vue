@@ -78,7 +78,7 @@
 			:style="{height:tabSearchHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formTwo">
-						<el-form-item label="房间ID">
+						<el-form-item label="uid">
 							<el-input 
 							v-model="formTwo.uid" 
 							auto-complete="off"></el-input>
