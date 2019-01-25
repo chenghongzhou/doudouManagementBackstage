@@ -109,6 +109,9 @@
 							<el-button 
 							type="primary" 
 							@click="getTableManage">查询</el-button>
+							<el-button 
+							type="primary" 
+							@click="phoneCode.dialogvisible=true;">发送验证码</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -173,6 +176,23 @@
 				</template>
 			</el-tab-pane>
 		</el-tabs>
+		<!-- 发送手机验证码 -->
+		<el-dialog title="发送手机验证码" :visible.sync="phoneCode.dialogvisible">
+			<el-form :model="phoneCode">
+				<el-form-item label="用户手机号码" :label-width="formLabelWidth">
+					<el-input 
+					v-model="phoneCode.phone" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button 
+				@click="sendPhoneCode(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click="sendPhoneCode(1)">确 定</el-button>
+			</div>
+		</el-dialog>
 		<!-- 编辑房间游戏 -->
 		<el-dialog title="编辑游戏" :visible.sync="editGame.dialogvisible">
 			<el-form :model="editGame">
@@ -288,7 +308,7 @@
 import Event from './../../public_js/event.js';
 import store from '../../vuex/store';
 import axios from 'axios';
-import { allget } from '../../api/api.js';
+import { allget, khserverget } from '../../api/api.js';
 export default {
 	data() {
 		return {
@@ -305,6 +325,10 @@ export default {
 				page: 0, 
 				star: '0',
 				end: '20',
+			},
+			phoneCode: {
+				dialogvisible: false,
+				phone: '',
 			},
 			edit: {
 				dialogvisible: false,
@@ -334,7 +358,7 @@ export default {
 				all_gambling_list: [],//全部的房间游戏可供选择
 				gambling_list: [],//编辑房间游戏的需要
 			},
-			tabActiveName: 'first',//游戏列表、房间游戏列表
+			tabActiveName: 'second',//游戏列表、房间游戏列表
 			formLabelWidth: '130px', 
 		};
 	},
@@ -532,6 +556,29 @@ export default {
 				.catch((err) => {
 					console.log(err);
 				});
+		},
+		sendPhoneCode(val) {
+			var _this = this;
+			if(val==0) {
+				_this.phoneCode.dialogvisible = false;
+			} else if(val==1) {
+				var url = '/HAccount/getVerifyCode';
+				var params = {
+					type: 1,
+					phone: _this.phoneCode.phone,
+				};
+				axios.get(khserverget+url, { params: params })
+					.then((res) => {
+						if(res.data.code) {
+							baseConfig.successTipMsg(_this, '已发送成功~');
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg); 
+						}
+					})	
+					.catch((err) => {
+						console.log(err);
+					});
+			}
 		},
 	},
 	mounted() {
