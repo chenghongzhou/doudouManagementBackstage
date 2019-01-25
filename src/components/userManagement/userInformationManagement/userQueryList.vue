@@ -106,6 +106,7 @@
                 <el-table-column prop="city" label="城市"></el-table-column>
                 <el-table-column prop="lasttime" label="最近登录时间"></el-table-column>
                 <el-table-column prop="status" :formatter="judgeStatus" label="状态"></el-table-column>
+                <el-table-column prop="repeat_user_num" label="同设备IP数量"></el-table-column>
                 <el-table-column prop="is_online" :formatter="judgeOnline" label="是否在线"></el-table-column>
                 <el-table-column label="操作" width="350">
                     <template slot-scope="scope">
