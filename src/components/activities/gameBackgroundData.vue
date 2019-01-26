@@ -22,9 +22,9 @@
 								<span class="registerTime">日期</span>
 								<el-date-picker 
 								v-model="formOne.choiceDate" 
-								type="daterange" 
+								type="datetimerange" 
 								range-separator=" 至 " 
-								placeholder="选择日期范围"></el-date-picker>
+								placeholder="选择时间范围"></el-date-picker>
 							</div>
 						</el-form-item>
 						<el-form-item>
@@ -88,7 +88,7 @@
 								<span class="registerTime">日期</span>
 								<el-date-picker 
 								v-model="formTwo.choiceDate" 
-								type="daterange" 
+								type="datetimerange" 
 								range-separator=" 至 " 
 								placeholder="选择日期范围"></el-date-picker>
 							</div>
@@ -211,8 +211,8 @@ export default {
 			// 请求的总和
 			var params1 = {
 				room_id: _this.formOne.room_id,
-				begin_time:	baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0),
-				end_time: baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0),
+				begin_time:	baseConfig.changeDateTime(_this.formOne.choiceDate[0], 1),
+				end_time: baseConfig.changeDateTime(_this.formOne.choiceDate[1], 1),
 				type: 0,
 			};
 			axios.get(khserverget+url, { params: params1 })
@@ -231,10 +231,11 @@ export default {
 			// 请求的按日求和返回
 			var params2 = {
 				room_id: _this.formOne.room_id,
-				begin_time:	baseConfig.changeDateTime(_this.formOne.choiceDate[0], 0),
-				end_time: baseConfig.changeDateTime(_this.formOne.choiceDate[1], 0),
+				begin_time:	baseConfig.changeDateTime(_this.formOne.choiceDate[0], 1),
+				end_time: baseConfig.changeDateTime(_this.formOne.choiceDate[1], 1),
 				type: 1,
 			};
+
 			axios.get(khserverget+url, { params: params2 })
 				.then((res) => {
 					if(res.data.code) {
@@ -255,8 +256,8 @@ export default {
 			// 总和返回
 			var params1 = {
 				uid: _this.formTwo.uid,
-				begin_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 0),
-				end_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 0),
+				begin_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 1),
+				end_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 1),
 				type: 0,
 			};
 			axios.get(khserverget+url, { params: params1 })
@@ -274,8 +275,8 @@ export default {
 			// 流水返回
 			var params2 = {
 				uid: _this.formTwo.uid,
-				begin_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 0),
-				end_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 0),
+				begin_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 1),
+				end_time: baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 1),
 				type: 1,
 			};
 			axios.get(khserverget+url, { params: params2 })
