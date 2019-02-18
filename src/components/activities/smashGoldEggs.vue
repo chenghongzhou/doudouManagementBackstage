@@ -119,6 +119,51 @@
 					</el-col>
 				</template>
 			</el-tab-pane>
+			<el-tab-pane 
+			label="黑名单" 
+			name="four" 
+			:style="{height:tabHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;">
+						<el-form-item>
+							<el-button 
+							type="primary" 
+							@click="addThief.dialogShow=true;">添加</el-button>
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<template>
+					<el-table 
+					ref="tabSearchPageHeight" 
+					:data="formFour.tabData" 
+					border fit highlight-current-row 
+					style="width:100%;" 
+					:row-class-name="tableRowClassName"
+					:height="tabSearchPageHeight">
+						<el-table-column prop="uid" label="用户UID"></el-table-column>
+						<el-table-column prop="time" label="过期时间"></el-table-column>
+						<el-table-column label="编辑" min-width="100">
+							<template slot-scope="scope">
+								<el-button 
+								type="primary" 
+								@click.native.prevent="addThief.dialogShow=true;addThief.uid=scope.row.uid;addThief.choiceDate=scope.row.time;addThief.isable=false" 
+								size="small">编辑</el-button>								
+							</template>
+						</el-table-column>
+					</el-table>
+					<el-col
+					:span="24"
+					class="toolbar">
+						<el-pagination
+						layout="total, prev, pager, next, jumper"
+						@current-change="fourHandleCurrentChange"
+						:page-size="20"
+						:total="formFour.totalPage"
+						style="float:right;">
+						</el-pagination>
+					</el-col>
+				</template>
+			</el-tab-pane>
 			<el-dialog
 			title="作弊添加"
 			:visible.sync="addDialog.dialogShow">
@@ -153,6 +198,34 @@
 					<el-button 
 					type="primary" 
 					@click.native.prevent="twoDeleteBtn(1)">确 定</el-button>
+				</div>
+			</el-dialog>
+			<el-dialog
+			title="黑名单添加"
+			:visible.sync="addThief.dialogShow">
+				<el-form :model="addThief">
+					<el-form-item label="用户UID" :label-width="formLabelWidth" v-if="addThief.isable">
+						<el-input 
+						v-model="addThief.uid"></el-input>
+					</el-form-item>
+					<el-form-item label="用户UID" :label-width="formLabelWidth" v-else>
+						<el-input 
+						v-model="addThief.uid" disabled></el-input>
+					</el-form-item>
+					<el-form-item label="过期时间" :label-width="formLabelWidth">
+							<el-date-picker 
+							v-model="addThief.choiceDate" 
+							type="datetime" 
+							value-format="yyyy-MM-dd"
+							placeholder="选择日期范围" style="width:100%"></el-date-picker>
+					</el-form-item>
+				</el-form>
+				<div slot="footer" class="dialog-footer">
+					<el-button 
+					@click.native.prevent="fourAddBtn(0)">取 消</el-button>
+					<el-button 
+					type="primary" 
+					@click.native.prevent="fourAddBtn(1)">确 定</el-button>
 				</div>
 			</el-dialog>
 		</el-tabs>
@@ -191,10 +264,23 @@ export default {
 				totalPage: 1000,
 				page: 0,
 			},
+			formFour: {
+				tabData: [], 
+				totalPage: 1000, 
+				page: 1, 
+				star: '0',
+				end: '20',
+			},
 			addDialog: {
 				dialogShow: false,
 				uid: '',
 				cheat: '',
+			},
+			addThief: {
+				dialogShow: false,
+				uid: '',
+				choiceDate: '',
+				isable:true,
 			},
 			deleteDialog: {
 				dialogShow: false,
@@ -227,6 +313,13 @@ export default {
 			var _this = this;
 			_this.formThree.page = val-1;
 			_this.getThreeData();
+		},
+		fourHandleCurrentChange(val) {
+			var _this = this;
+			_this.formFour.page = val-1;
+			_this.formFour.star = _this.formFour.page*20;
+			_this.formFour.end = _this.formFour.star+20;
+			_this.getFourData();
 		},
 		getOneData() {
 			var _this = this ;
@@ -303,6 +396,24 @@ export default {
 				console.log(err);
 			})
 		},
+		getFourData(){
+			var _this = this ;
+			var url = '/NewActivity/getGoldEggThiefList';
+			var params = {
+				page: _this.formFour.page,
+			};
+			axios.get(allget+url, {params: params})
+			.then((res) => {
+				if(res.data.ret) {
+					_this.formFour.tabData = res.data.data;
+				} else {
+					baseConfig.warningTipMsg(_this, res.data.msg);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		},
 		twoAddBtn(type) {
 			var _this = this ;
 			var url = '/NewActivity/addGoldEggCheat';
@@ -330,6 +441,35 @@ export default {
 				})
 			}
 			_this.addDialog.dialogShow = false;
+		},
+		fourAddBtn(type) {
+			var _this = this ;
+			_this.addThief.isable = true;
+			var url = '/NewActivity/setGoldEggThief';
+			var params = {
+				uid: _this.addThief.uid,
+				time: _this.addThief.choiceDate
+			};
+			if(type==0) {
+				_this.addThief.uid = '';
+				_this.addThief.choiceDate = '';
+			} else if(type==1) {
+				axios.get(allget+url, {params: params})
+				.then((res) => {
+					if(res.data.ret) {
+						baseConfig.successTipMsg(_this, '添加成功~');
+						_this.addThief.uid = '';
+						_this.addThief.choiceDate = '';
+						_this.getFourData();
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+			}
+			_this.addThief.dialogShow = false;
 		},
 		deleteSure(obj) {
 			var _this = this;
@@ -385,6 +525,7 @@ export default {
 			_this.getOneData();
 			_this.getTwoData();
 			_this.getThreeData();
+			_this.getFourData();
 		})
 	}
 };
