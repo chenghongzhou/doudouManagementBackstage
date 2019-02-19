@@ -216,7 +216,7 @@
 							<el-date-picker 
 							v-model="addThief.choiceDate" 
 							type="datetime" 
-							value-format="yyyy-MM-dd"
+							
 							placeholder="选择日期范围" style="width:100%"></el-date-picker>
 					</el-form-item>
 				</el-form>
