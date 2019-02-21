@@ -1,5 +1,5 @@
 <template>
-    <!-- 用户认证审核(可操作) -->
+    <!-- 用户认证审核(可操 作) -->
     <section>
         <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
             <el-form :inline="true" style="overflow:hidden;">
