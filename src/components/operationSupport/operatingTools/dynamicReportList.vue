@@ -53,6 +53,15 @@
                 <el-table-column prop="complaint_uid" label="被举报UID"></el-table-column>
                 <el-table-column prop="complaint" label="被举报记录"></el-table-column>
                 <el-table-column prop="warning" label="警告次数"></el-table-column>
+                <el-table-column label="举报状态" width="80">
+					<template slot-scope="scope">
+						<div slot="reference" class="name-wrapper">
+							<p v-if="scope.row.status == 0">举报处理中</p>
+							<p v-else-if="scope.row.status==1">举报成功</p>
+                            <p v-else-if="scope.row.status==2">举报失败</p>
+						</div>
+					</template>
+				</el-table-column>
                 <el-table-column label="详细内容" width="350">
                     <template slot-scope="scope">
                         <el-row>

@@ -72,6 +72,14 @@
                         </el-popover>
                     </template>
                 </el-table-column>
+                <el-table-column label="审核状态" width="80">
+					<template slot-scope="scope">
+						<div slot="reference" class="name-wrapper">
+							<p v-if="scope.row.status == 1">待审核</p>
+							<p v-else-if="scope.row.status==0">已审核</p>
+						</div>
+					</template>
+				</el-table-column>
                 <el-table-column label="操作" width="350">
                     <template slot-scope="scope">
                         <el-row>

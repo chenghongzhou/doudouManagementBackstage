@@ -60,7 +60,8 @@
 				<el-table-column label="跳转类型" width="100">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<p v-if="scope.row.type==1">应用</p>
+							<p v-if="scope.row.type==1">应用内</p>
+							<p v-if="scope.row.type==3">应用外</p>
 							<p v-else-if="scope.row.type==2">H5页面</p>
 							<p v-else-if="scope.row.type==6">偷听界面</p>
 							<p v-else-if="scope.row.type==0">不跳转</p>
@@ -171,21 +172,21 @@
 							<el-option label="H5跳转" value="2"></el-option>
 							<el-option label="应用内" value="1"></el-option>
 							<el-option label="应用外" value="3"></el-option>
-							<el-option label="偷听界面" value="6"></el-option>
-							<el-option label="跳转到游戏" value="12"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="显示开始时间" :label-width="formLabelWidth">
-						<el-input 
-						v-model="addNewloading.params.show_s_time" 
-						placeholder="2018-01-01 01:01:01" 
-						auto-complete="off"></el-input>
+							<el-date-picker 
+							v-model="addNewloading.params.show_s_time" 
+							type="datetime" 
+							value-format="yyyy-MM-dd HH:mm:ss"
+							placeholder="选择日期范围" style="width:100%"></el-date-picker>
 					</el-form-item>
 					<el-form-item label="显示结束时间" :label-width="formLabelWidth">
-						<el-input 
-						v-model="addNewloading.params.show_e_time" 
-						placeholder="2018-01-01 01:01:01" 
-						auto-complete="off"></el-input>
+							<el-date-picker 
+							v-model="addNewloading.params.show_e_time" 
+							type="datetime" 
+							value-format="yyyy-MM-dd HH:mm:ss"
+							placeholder="选择日期范围" style="width:100%"></el-date-picker>
 					</el-form-item>
 					<el-form-item label="跳转链接" :label-width="formLabelWidth">
 						<el-input 
@@ -257,21 +258,21 @@
 							<el-option label="H5跳转" value="2"></el-option>
 							<el-option label="应用内" value="1"></el-option>
 							<el-option label="应用外" value="3"></el-option>
-							<el-option label="偷听界面" value="6"></el-option>
-							<el-option label="跳转到游戏" value="12"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="显示开始时间" :label-width="formLabelWidth">
-						<el-input 
+						<el-date-picker 
 						v-model="editorloading.params.show_s_time" 
-						placeholder="2018-01-01 01:01:01" 
-						auto-complete="off"></el-input>
+						type="datetime" 
+						value-format="yyyy-MM-dd HH:mm:ss"
+						placeholder="选择日期范围" style="width:100%"></el-date-picker>
 					</el-form-item>
 					<el-form-item label="显示结束时间" :label-width="formLabelWidth">
-						<el-input 
+						<el-date-picker 
 						v-model="editorloading.params.show_e_time" 
-						placeholder="2018-01-01 01:01:01" 
-						auto-complete="off"></el-input>
+						type="datetime" 
+						value-format="yyyy-MM-dd HH:mm:ss"
+						placeholder="选择日期范围" style="width:100%"></el-date-picker>
 					</el-form-item>
 					<el-form-item label="跳转链接" :label-width="formLabelWidth">
 						<el-input 
@@ -330,8 +331,8 @@ export default {
 					index_position: '',
 					title: '',
 					type: '2',
-					start_time: '',
-					end_time: '',
+					show_s_time: '',
+					show_e_time: '',
 					jump_url: '',
 					page_param: '',
 					show_type: '0',
@@ -352,14 +353,16 @@ export default {
 					index_position: '',
 					title: '',
 					type: '2',
-					start_time: '',
-					end_time: '',
+					show_s_time: '',
+					show_e_time: '',
 					jump_url: '',
 					page_param: '',
 					show_type: '0',
 					share_content:'',
 					is_show:'0',
-					id:''
+					id:'',
+					s_time_spare:'',
+					e_time_spare:'',
 				},
 			},
 			listLoading: false, 
@@ -456,9 +459,9 @@ export default {
 				formData.append('show_type', _this.addNewloading.params.show_type);
 				formData.append('share_content', _this.addNewloading.params.share_content);
 				formData.append('is_show', _this.addNewloading.params.is_show);
-		  	formData.append('image', _this.addNewloading.file_pic); //提交的新增图标的文件
-		  	formData.append('show_s_time', _this.addNewloading.params.show_s_time);
-		  	formData.append('show_e_time', _this.addNewloading.params.show_e_time);
+			  	formData.append('image', _this.addNewloading.file_pic); //提交的新增图标的文件
+			  	formData.append('show_s_time', _this.addNewloading.params.show_s_time);
+			  	formData.append('show_e_time', _this.addNewloading.params.show_e_time);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
@@ -514,13 +517,17 @@ export default {
 
 				if(rows.show_s_time==null||rows.show_s_time=='null') {//为null时特殊处理
 					_this.editorloading.params.show_s_time = '';
+					_this.editorloading.params.s_time_spare  = '';
 				} else {
-					_this.editorloading.params.show_s_time = rows.show_s_time;
+					_this.editorloading.params.s_time_spare = rows.show_s_time;
+					_this.editorloading.params.show_s_time = new Date(rows.show_s_time);
 				}
 				if(rows.show_e_time==null||rows.show_e_time=='null') {//为null时特殊处理
 					_this.editorloading.params.show_e_time = '';
+					_this.editorloading.params.e_time_spare = '';
 				} else {
-					_this.editorloading.params.show_e_time = rows.show_e_time;
+					_this.editorloading.params.e_time_spare = rows.show_e_time;
+					_this.editorloading.params.show_e_time = new Date(rows.show_e_time);
 				}
 				_this.editorloading.dialogFormVisible = true;
 		},
@@ -531,6 +538,12 @@ export default {
 				_this.resetForm();
 			} else if(type==1) {
 				_this.listLoading = true;
+				if(_this.editorloading.params.show_s_time.toString().indexOf('(中国标准时间)') != '-1'){
+					_this.editorloading.params.show_s_time = _this.editorloading.params.s_time_spare;
+				}
+				if(_this.editorloading.params.show_e_time.toString().indexOf('(中国标准时间)') != '-1'){
+					_this.editorloading.params.show_e_time = _this.editorloading.params.e_time_spare;
+				}
 				let formData = new FormData();
 				formData.append('index_position', _this.editorloading.params.index_position);
 				formData.append('id', _this.editorloading.params.id);
@@ -540,20 +553,20 @@ export default {
 				formData.append('show_type', _this.editorloading.params.show_type);
 				formData.append('share_content', _this.editorloading.params.share_content);
 				formData.append('is_show', _this.editorloading.params.is_show);
-		  	formData.append('image', _this.editorloading.file_pic); //提交的新增图标的文件
-		  	formData.append('show_s_time', _this.editorloading.params.show_s_time);
-		  	formData.append('show_e_time', _this.editorloading.params.show_e_time);
+			  	formData.append('image', _this.editorloading.file_pic); //提交的新增图标的文件
+			  	formData.append('show_s_time', _this.editorloading.params.show_s_time);
+			  	formData.append('show_e_time', _this.editorloading.params.show_e_time);
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
-				};	
+				};
 				axios.post(allget+'/NewContent/setContentBanner', formData, config)
 					.then((res) => {
 						_this.listLoading = false;	
 						_this.editorloading.dialogShow = false;								
 						if(res.data.ret) {	
-							baseConfig.successTipMsg(_this, '新增成功！');
+							baseConfig.successTipMsg(_this, '修改成功！');
 							_this.getTableData();
 							_this.editorloading.dialogShow = true;
 						} else {
@@ -582,8 +595,8 @@ export default {
 					index_position: '',
 					title: '',
 					type: '2',
-					start_time: '',
-					end_time: '',
+					show_s_time: '',
+					show_e_time: '',
 					jump_url: '',
 					page_param: '',
 					show_type: '0',
@@ -604,8 +617,10 @@ export default {
 					index_position: '',
 					title: '',
 					type: '2',
-					start_time: '',
-					end_time: '',
+					show_s_time: '',
+					show_e_time: '',
+					e_time_spare: '',
+					s_time_spare: '',
 					jump_url: '',
 					page_param: '',
 					show_type: '0',
