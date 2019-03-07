@@ -131,7 +131,7 @@
 		<!-- 动态新增 -->
 			<el-dialog title="动态新增" :visible.sync="addNewloading.dialogFormVisible">
 				<el-form :model="addNewloading.params">
-					<el-form-item label="动态排序" :label-width="formLabelWidth">
+					<!-- <el-form-item label="动态排序" :label-width="formLabelWidth">
 						<el-select v-model="addNewloading.params.index_position">
 							 <el-option
 								v-for="item in addSort"
@@ -140,6 +140,33 @@
 								:value="item">
 							</el-option>
 						</el-select>
+					</el-form-item> -->
+					<div class="addTitle">选择排序参考：</div>
+					<template>
+						<el-table 
+						:data="addSort" 
+						v-loading="listLoading" 
+						border fit highlight-current-row 
+						style="width:100%;margin-bottom:10px;" 
+						:height="tableHeightOther"
+						>
+							<el-table-column prop="index_position" label="可选序号" width='200px'></el-table-column>
+							<el-table-column prop="is_show" label="是否显示在客户端">
+								<template slot-scope="scope">
+									<div slot="reference" class="name-wrapper">
+										<p v-if="scope.row.is_show==0">不显示</p>
+										<p v-else-if="scope.row.is_show==1">显示</p>
+									</div>
+								</template>
+							</el-table-column>
+						</el-table> 
+					</template>     
+					<el-form-item label="动态排序" :label-width="formLabelWidth">
+						<el-input 
+						style="width:250px"
+						v-model="addNewloading.params.index_position" 
+						placeholder="请输入数字,数字不能为1,2"
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="banner标题" :label-width="formLabelWidth">
 						<el-input 
@@ -217,7 +244,7 @@
 			<!-- 动态修改 -->
 			<el-dialog title="动态修改" :visible.sync="editorloading.dialogFormVisible">
 				<el-form :model="editorloading.params">
-					<el-form-item label="动态排序" :label-width="formLabelWidth">
+					<!-- <el-form-item label="动态排序" :label-width="formLabelWidth">
 						<el-select v-model="editorloading.params.index_position">
 							 <el-option
 								v-for="item in editorSort"
@@ -226,6 +253,33 @@
 								:value="item">
 							</el-option>
 						</el-select>
+					</el-form-item> -->
+					<div class="addTitle">选择排序参考：</div>
+					<template>
+						<el-table 
+						:data="editorSort" 
+						v-loading="listLoading" 
+						border fit highlight-current-row 
+						style="width:100%;margin-bottom:10px;" 
+						:height="tableHeightOther"
+						>
+							<el-table-column prop="index_position" label="可选序号" width='200px'></el-table-column>
+							<el-table-column prop="is_show" label="是否显示在客户端">
+								<template slot-scope="scope">
+									<div slot="reference" class="name-wrapper">
+										<p v-if="scope.row.is_show==0">不显示</p>
+										<p v-else-if="scope.row.is_show==1">显示</p>
+									</div>
+								</template>
+							</el-table-column>
+						</el-table> 
+					</template>     
+					<el-form-item label="动态排序" :label-width="formLabelWidth">
+						<el-input 
+						style="width:250px"
+						v-model="editorloading.params.index_position" 
+						placeholder="请输入数字,数字不能为1,2"
+						auto-complete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="banner标题" :label-width="formLabelWidth">
 						<el-input 
@@ -373,6 +427,7 @@ export default {
 			page: 0, 
 			dialogFormVisible: false, 
 			formLabelWidth: '130px', 
+			tableHeightOther: '200px'
 		};
 	},
 	methods: {

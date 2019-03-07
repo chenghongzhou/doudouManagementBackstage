@@ -32,6 +32,17 @@
                             <el-option label="举报失败" value="2"></el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item>
+                        <span>举报类型：</span>
+                        <el-select style="width:100px;" v-model="complaint_content">
+                            <el-option label="全部" value=""></el-option>
+                            <el-option label="色情" value="色情"></el-option>
+                            <el-option label="欺骗" value="欺骗"></el-option>
+                            <el-option label="骚扰" value="骚扰"></el-option>
+                            <el-option label="垃圾广告" value="垃圾广告"></el-option>
+                            <el-option label="其他" value="其他"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item style="float:right;">
                         <el-button 
                         type="primary" 
@@ -53,6 +64,34 @@
                 <el-table-column prop="complaint_uid" label="被举报UID"></el-table-column>
                 <el-table-column prop="complaint" label="被举报记录"></el-table-column>
                 <el-table-column prop="warning" label="警告次数"></el-table-column>
+                <el-table-column prop="complaint_content" label="举报类型"></el-table-column>
+                <el-table-column prop="explains" label="举报说明"></el-table-column>
+                <!-- <el-table-column prop="evidences_list" label="图片">
+					<template slot-scope="scope">
+						<el-popover trigger="hover" v-if="changeData(scope.row.evidences_list)" placement="left">
+							<img 
+                            :src="changeData(scope.row.evidences_list)" 
+                            style="width:300px;height:500px;">
+							<div slot="reference" class="name-wrapper">
+								<img 
+                                :src="changeData(scope.row.evidences_list)" 
+                                style="width:100px;height:100px;">
+							</div>
+						</el-popover>
+					</template>
+				</el-table-column> -->
+                <el-table-column prop="evidences_list" label="举报图片">
+					<template slot-scope="scope">
+                        <div v-if="scope.row.evidences_list && scope.row.evidences_list.length < 1">    
+                            
+                        </div>
+                        <div v-if="scope.row.evidences_list && scope.row.evidences_list.length > 0">
+                           <el-button 
+                            type="primary" 
+                            @click="getImgInfo(scope.$index,scope.row)">{{scope.row.evidences_list.length}}</el-button>
+                        </div>
+					</template>
+				</el-table-column>
                 <el-table-column label="举报状态" width="80">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
@@ -62,13 +101,19 @@
 						</div>
 					</template>
 				</el-table-column>
-                <el-table-column label="详细内容" width="350">
+                <el-table-column label="详细内容" width="150">
                     <template slot-scope="scope">
                         <el-row>
                             <el-col>
+                                 <el-button 
+                                size="mini" 
+                                type="info" 
+                                v-if="scope.row.status==1"
+                                >查看</el-button>
                                 <el-button 
                                 size="mini" 
                                 type="primary" 
+                                v-else
                                 @click="userDetail(scope.$index, scope.row)">查看</el-button>
                             </el-col>
                         </el-row>
@@ -128,70 +173,99 @@
          <!--详情-->
         <el-dialog title="详细内容" :visible.sync="userInfo.dialogFormVisible">
              <el-col style="height: 100%;width:100%;float:none">
-                    <div class="grid-content bg-purple grid-content-second">
-                        <div>
-                            <p class="comment-content">{{userInfo.content}}</p>
+                <div class="grid-content bg-purple grid-content-second">
+                    <div>
+                        <p class="comment-content">{{userInfo.content}}
                             <el-button 
-                                type="danger" 
-                                style="display:inline-block;margin-left:20px;" 
-                                size="mini" 
-                                v-if='userInfo.content'
-                                @click="deleteText(userInfo.content_id)"
-                            >删除</el-button>
+                            type="danger" 
+                            style="display:inline-block;margin-left:20px;" 
+                            size="mini" 
+                            v-if='userInfo.content'
+                            @click="deleteText(userInfo.content_id)"
+                        >删除</el-button>
+                        </p>
+                        
+                        <div class="uer_container">
+                            <div 
+                            class="user-photo"  
+                            v-for="(o, index) in userInfo.srcArr" 
+                            :key="index">
+                                <el-popover trigger="click" placement="left">
+                                    <img 
+                                    :src="o" 
+                                    style="width:300px;height:400px;">
+                                    <div slot="reference" class="name-wrapper">
+                                        <img 
+                                        :src="o" 
+                                        style="width:100px;height:100px;">
+                                    </div>
+                                </el-popover>
+                                <div style="padding:0px;display:inline-block;">
+                                    <el-button 
+                                    type="text" 
+                                    class="button" 
+                                    @click="deletePhoto(index,userInfo.content_id)" 
+                                    size="mini">删除</el-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addTitle">评论：</div>
+                        <template>
+                            <el-table 
+                            :data="userInfo.commentList" 
+                            v-loading="listLoading" 
+                            border fit highlight-current-row 
+                            @selection-change="handleSelectionChange"
+                            style="width:100%;min-height:200px;" 
+                            >
+                                <el-table-column prop="uid" label="UID" width='200px'></el-table-column>
+                                <el-table-column prop="review_content" label="内容"></el-table-column>
+                                <el-table-column label="操作" width="105px">
+                                    <template slot-scope="scope">
+                                        <el-row>
+                                            <el-col>
+                                                <el-button 
+                                                size="mini" 
+                                                type="danger"
+                                                style="margin:0 auto" 
+                                                @click="deteleComment(scope.$index, scope.row)">删除</el-button>
+                                            </el-col>
+                                        </el-row>
+                                    </template>
+                                </el-table-column>
+                            </el-table> 
+                        </template>     
+                    </div>
+                </div>
+            </el-col>
+        </el-dialog>   
+             <!--举报图片详情-->
+        <el-dialog title="举报图片" :visible.sync="userImgInfo.dialogFormVisible">
+             <el-col style="height: 100%;width:100%;float:none">
+                    <div class="grid-content bg-purple grid-content-second" style="height: 120px;width:100%;float:none">
+                        <div>
                             <div class="uer_container">
                                 <div 
-                                class="user-photo"  
-                                v-for="(o, index) in userInfo.srcArr" 
+                                class="user-photo" 
+                                style="margin:20px;" 
+                                v-for="(o, index) in userImgInfo.srcArr" 
                                 :key="index">
                                     <el-popover trigger="click" placement="left">
                                         <img 
                                         :src="o" 
-                                        style="width:300px;height:300px;">
+                                        style="width:300px;height:400px;">
                                         <div slot="reference" class="name-wrapper">
                                             <img 
                                             :src="o" 
                                             style="width:100px;height:100px;">
                                         </div>
                                     </el-popover>
-                                    <div style="padding:0px;display:inline-block;">
-                                        <el-button 
-                                        type="text" 
-                                        class="button" 
-                                        @click="deletePhoto(index,userInfo.content_id)" 
-                                        size="mini">删除</el-button>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="addTitle">评论：</div>
-                            <template>
-                                <el-table 
-                                :data="userInfo.commentList" 
-                                v-loading="listLoading" 
-                                border fit highlight-current-row 
-                                @selection-change="handleSelectionChange"
-                                style="width:100%;" 
-                                :height="tableHeightOther">
-                                    <el-table-column prop="uid" label="UID" ></el-table-column>
-                                    <el-table-column prop="review_content" label="内容"></el-table-column>
-                                    <el-table-column label="操作">
-                                        <template slot-scope="scope">
-                                            <el-row>
-                                                <el-col>
-                                                    <el-button 
-                                                    size="mini" 
-                                                    type="danger"
-                                                    style="margin:0 auto" 
-                                                    @click="deteleComment(scope.$index, scope.row)">删除</el-button>
-                                                </el-col>
-                                            </el-row>
-                                        </template>
-                                    </el-table-column>
-                                </el-table> 
-                            </template>     
                         </div>
                     </div>
                 </el-col>
-            </el-dialog>    
+            </el-dialog>  
             <!-- 个人封号 -->
             <el-dialog title="个人封禁账号" :visible.sync="titleInfo.dialogFormVisible">
                 <el-form :model="titleInfo">
@@ -261,7 +335,7 @@
                             <el-popover trigger="hover" v-if="changeData(scope.row.evidences)" placement="left">
                                 <img 
                                 :src="changeData(scope.row.evidences)" 
-                                style="width:300px;height:500px;">
+                                style="width:300px;height:400px;">
                                 <div slot="reference" class="name-wrapper">
                                     <img 
                                     :src="changeData(scope.row.evidences)" 
@@ -326,6 +400,7 @@ export default {
             uid: "",
             nickname: "",
             status: "-1",
+            complaint_content: '',
             operate_user: '',
             page: 1, // 分页
             totalpage: 1000,
@@ -375,6 +450,10 @@ export default {
                 content_id:null,
                 data:null,
             },
+            userImgInfo: {
+                dialogFormVisible: false, 
+                srcArr:[],
+            },
             tableHeightOther: '200px'
         };
     },
@@ -393,7 +472,8 @@ export default {
                 end_date: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 uid: _this.uid,
                 page: _this.page,
-                status: _this.status
+                status: _this.status,
+                complaint_content: _this.complaint_content,
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -408,6 +488,19 @@ export default {
                     console.error(err);
                 });
         },
+         // 获取图片
+        changeData(val){
+            try{
+                if(val==""){
+                    return '';
+                }else{
+                    return val.length;
+                }
+            }
+            catch(err){
+                console.error("后台返回图片格式改了"+err);
+            }
+        },
         // 用户详情
         userDetail(index, rows) {
             var _this = this;
@@ -418,6 +511,12 @@ export default {
             _this.userInfo.content_id = rows.content_id;
             _this.userInfo.data = rows;
             _this.getCommentData(rows);
+        },
+        // 举报图片
+        getImgInfo(index, rows) {
+            var _this = this;
+            _this.userImgInfo.dialogFormVisible=true;
+            _this.userImgInfo.srcArr = rows.evidences_list;
         },
         //获取评论
         getCommentData(rows){
@@ -693,18 +792,6 @@ export default {
                _this.collectiveSeal.dialogOne = true; 
             }
         },
-        changeData(val){
-            try{
-                if(val==""){
-                    return "";
-                }else{
-                    return JSON.parse(val)[0];
-                }
-            }
-            catch(err){
-                console.error("后台返回图片格式改了"+err);
-            }
-        },
          // 忽略
         ignore(index, row) {
             let _this = this;
@@ -736,6 +823,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.el-dialog .el-dialog__body{
+    padding: 0 !important;
+}
 .addTitle{
     margin-top:10px;
     margin-bottom:10px;
@@ -751,7 +841,7 @@ export default {
     height: 380px;
 }
 .grid-content-second{
-    height: 580px;
+    height:auto;
 }
 .uer_container {
     width:100%;

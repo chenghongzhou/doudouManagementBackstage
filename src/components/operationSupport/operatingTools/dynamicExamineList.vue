@@ -27,8 +27,8 @@
                         <span>审核状态：</span>
                         <el-select style="width:100px;" v-model="status">
                             <el-option label="全部" value="-1"></el-option>
-                            <el-option label="正常" value="0"></el-option>
-                            <el-option label="未处理" value="1"></el-option>
+                            <el-option label="已审核" value="0"></el-option>
+                            <el-option label="未审核" value="1"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item style="float:right;">
@@ -57,13 +57,13 @@
                         @click="getInfo(scope.row.complain_uid)">{{scope.row.complaint}}</el-button>
                     </template>
                 </el-table-column> -->
-                <el-table-column prop="content" label="内容"></el-table-column>
+                <el-table-column prop="content" label="内容" width="400px"></el-table-column>
                 <el-table-column prop="img" label="图片">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="left">
                             <img 
                             :src="scope.row.img" 
-                            style="width:300px;height:300px;">
+                            style="width:300px;height:400px;">
                             <div slot="reference" class="name-wrapper">
                                 <img 
                                 :src="scope.row.img"
@@ -75,7 +75,7 @@
                 <el-table-column label="审核状态" width="80">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<p v-if="scope.row.status == 1">待审核</p>
+							<p v-if="scope.row.status == 1">未审核</p>
 							<p v-else-if="scope.row.status==0">已审核</p>
 						</div>
 					</template>
@@ -157,7 +157,7 @@
                                     <el-popover trigger="click" placement="left">
                                         <img 
                                         :src="o" 
-                                        style="width:300px;height:300px;">
+                                        style="width:300px;height:400px;">
                                         <div slot="reference" class="name-wrapper">
                                             <img 
                                             :src="o" 
@@ -180,8 +180,7 @@
                                 v-loading="listLoading" 
                                 border fit highlight-current-row 
                                 @selection-change="handleSelectionChange"
-                                style="width:100%;" 
-                                :height="tableHeightOther">
+                                style="width:100%;min-height:200px;">
                                     <el-table-column prop="uid" label="UID" ></el-table-column>
                                     <el-table-column prop="review_content" label="内容"></el-table-column>
                                     <el-table-column label="操作">
@@ -321,6 +320,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            
             tableHeight: null,
             formOne: {
                 startDate: [new Date()-7*24*60*60*1000, new Date()]
@@ -777,7 +777,7 @@ export default {
     height: 380px;
 }
 .grid-content-second{
-    height: 580px;
+    height:auto;
 }
 .uer_container {
     width:100%;
