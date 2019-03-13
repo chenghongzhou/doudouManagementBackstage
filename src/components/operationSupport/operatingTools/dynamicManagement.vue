@@ -1,5 +1,5 @@
 <template>
-	<!-- 跑马灯管理 -->
+	<!-- 动态banner条管理 -->
 	<section>
 		<el-col 
 		:span="24" 
@@ -26,7 +26,7 @@
 					v-model="formOne.key_word" 
 					placeholder="请输入关键字查找"></el-input>
 				</el-form-item>
-        <el-form-item>
+        		<el-form-item>
 					<el-button 
 					type="primary" 
 					@click="getTableData">查询</el-button>
@@ -497,7 +497,7 @@ export default {
 				_this.editorloading.src_pic = windowURL.createObjectURL(event.target.files[0]);
 				_this.editorloading.pic_name = event.target.files[0].name;
 			}
-  	}, 
+  		}, 
 		// banner条新增
 		addBannerSure(type) {
 			var _this = this;

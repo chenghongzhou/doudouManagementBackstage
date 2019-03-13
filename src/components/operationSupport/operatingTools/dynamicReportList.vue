@@ -60,8 +60,8 @@
             style="width:100%;" 
             :height="tableHeight">
                 <el-table-column prop="complaint_time" label="时间"></el-table-column>
-                <el-table-column prop="uid" label="举报UID"></el-table-column>
-                <el-table-column prop="complaint_uid" label="被举报UID"></el-table-column>
+                <el-table-column prop="uid" label="被举报UID"></el-table-column>
+                <el-table-column prop="complaint_uid" label="举报UID"></el-table-column>
                 <el-table-column prop="complaint" label="被举报记录"></el-table-column>
                 <el-table-column prop="warning" label="警告次数"></el-table-column>
                 <el-table-column prop="complaint_content" label="举报类型"></el-table-column>
