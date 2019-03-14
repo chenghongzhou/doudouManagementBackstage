@@ -146,6 +146,7 @@
 					</el-form-item>
                     <el-form-item label="添加话题" :label-width="formLabelWidth" style="margin-top:40px;">
                         <el-select v-model="userInfo.topic_id" placeholder="请选择话题" style="width:100%;">
+                            
                             <el-option :label="item.content" 
                                 :value="item.id"
                                 :key="item.id"
@@ -228,6 +229,7 @@
 					</el-form-item>
                     <el-form-item label="添加话题" :label-width="formLabelWidth" style="margin-top:40px;">
                         <el-select v-model="editorloading.topic_id" placeholder="请选择话题" style="width:100%;">
+                            <el-option label=" " value="0"></el-option>
                             <el-option :label="item.content" 
                                 :value="item.id"
                                 :key="item.id"
@@ -319,7 +321,7 @@ export default {
                 pic_list:[],
                 file_pic:'',
                 create_time_spare:'',
-                 d_pic:'',
+                d_pic:0,
             },
             tableHeightOther: '200px'
         };
@@ -407,22 +409,27 @@ export default {
         // 得到上传文件type(0->新增banner，1->编辑banner)
 		uploading(event, type) {
             var _this = this;
-            if(_this.editorloading.fileList.length >=9 || _this.userInfo.fileList.length>=9){
+            var allFiles = event.target.files;
+            if(_this.editorloading.fileList.length>=9 || _this.userInfo.fileList.length>=9 || allFiles.length>9 || _this.editorloading.fileList.length+allFiles.length>9){
                 baseConfig.warningTipMsg(_this, '图片上传不能超过9张');
                 return false;
             };
 			if(type==0) {
-				_this.userInfo.file_pic = event.target.files[0];
-		  	    var windowURL = window.URL || window.webkitURL;
-                _this.userInfo.fileList.push(windowURL.createObjectURL(event.target.files[0]));
-                _this.userInfo.pic_list.push(_this.userInfo.file_pic);
-                console.log(_this.userInfo.fileList)
+				_this.userInfo.file_pic = event.target.files;
+          	    var windowURL = window.URL || window.webkitURL;
+                for(var i=0;i<allFiles.length;i++){
+                    _this.userInfo.fileList.push(windowURL.createObjectURL(event.target.files[i]));
+                     _this.userInfo.pic_list.push(event.target.files[i]);
+                }
 			} else if(type==1) {
-                _this.editorloading.file_pic = event.target.files[0];
-		  	    var windowURL = window.URL || window.webkitURL;
-                _this.editorloading.fileList.push(windowURL.createObjectURL(event.target.files[0]));
-                _this.editorloading.new_list.push(windowURL.createObjectURL(event.target.files[0]));
-                _this.editorloading.pic_list.push(_this.editorloading.file_pic);
+                _this.editorloading.file_pic = event.target.files;
+          	    var windowURL = window.URL || window.webkitURL;
+                for(var i=0;i<allFiles.length;i++){
+                    _this.editorloading.fileList.push(windowURL.createObjectURL(event.target.files[i]));
+                    _this.editorloading.new_list.push(windowURL.createObjectURL(event.target.files[i]));
+                    _this.editorloading.pic_list.push(event.target.files[i]);
+                }
+                
             }
   	    }, 
         //获取上架话题
@@ -449,6 +456,7 @@ export default {
         //删除新加图片
         deleteAddPhoto(index, rows){
             this.userInfo.fileList.splice(index, 1);
+            this.userInfo.pic_list.splice(index, 1);
         },
         addTopicSure(type){
             var _this = this;
@@ -457,7 +465,7 @@ export default {
                 _this.resetForm();
             }else{
                 if(_this.flag == false){
-                    baseConfig.successTipMsg(_this, '正在请求数据中，请稍候');
+                    baseConfig.warningTipMsg(_this, '正在请求数据中，请稍候');
                     return false;
                 }
                 _this.flag=false;
@@ -469,8 +477,7 @@ export default {
                 }
 				formData.append('uid', _this.userInfo.uid);
 				formData.append('content', _this.userInfo.content);
-				formData.append('topic_id', _this.userInfo.topic_id);
-				//formData.append('pic_list', _this.userInfo.pic_list);
+				formData.append('topic_id', _this.userInfo.topic_id || 0);
 			  	formData.append('create_time', _this.userInfo.create_time);
 				let config = {
 					headers: {
@@ -480,9 +487,9 @@ export default {
 				axios.post(allget+'/NewContent/setAdminContentRecord', formData, config)
 					.then((res) => {
                         _this.listLoading = false;	
-                         _this.flag=true;							
+                        _this.flag=true;							
 						if(res.data.ret) {	
-							baseConfig.successTipMsg(_this, '修改成功！');
+							baseConfig.successTipMsg(_this, '添加成功！');
 							_this.getData();
 							_this.userInfo.dialogFormVisible = false;
 						} else {
@@ -528,13 +535,12 @@ export default {
                 new_list:[],
                 file_pic:'',
                 create_time:"",
-                d_pic:'',
+                d_pic:0,
                 create_time_spare:'',
             }
         },
         //编辑
         userDetail(index, rows){
-            console.log(rows)
             this.editorloading.dialogFormVisible = true;
             this.getTopic();
             this.editorloading.uid = rows.uid;
@@ -545,7 +551,6 @@ export default {
             this.editorloading.fileList = rows.pic_list;
             this.editorloading.d_pic = rows.pic_list.length;
             this.commentListId = rows.content_id;
-           // this.editorloading.pic_list = rows.pic_list; d_pic:'',
             this.editorloading.topic_id = rows.topic_id;
             if(rows.create_time==null||rows.create_time=='null') {//为null时特殊处理
                 this.editorloading.create_time = '';
@@ -562,7 +567,7 @@ export default {
                 _this.resetForm();
             }else{
                 if(_this.flag == false){
-                    baseConfig.successTipMsg(_this, '正在请求数据中，请稍候');
+                    baseConfig.warningTipMsg(_this, '正在请求数据中，请稍候');
                     return false;
                 }
                 _this.flag=false;
@@ -580,10 +585,10 @@ export default {
                     var len = _this.editorloading.new_list.length+_this.editorloading.d_pic;
                     var n = 0;
                     for(var i=_this.editorloading.d_pic; i<len;i++){
-                    
                         let file = _this.editorloading.pic_list[n];
                         formData.append('pic_list[' + i + ']', file);
                         n++;
+                        console.log(file,789)
                     }
                 }
                 formData.append('uid', _this.editorloading.uid);
@@ -607,7 +612,7 @@ export default {
 							baseConfig.warningTipMsg(_this, res.data.msg);						
 						}
                         _this.resetForm();
-                        _this.listLoading = fasle;
+                        _this.listLoading = false;
 					})
 					.catch((err) => {
 						console.log(err);
@@ -620,15 +625,15 @@ export default {
             var _this = this;
             var addPic = _this.editorloading.new_list;
             var oldPic = '';
-            console.log(index)
             _this.listLoading = true;
             let newArr = _this.listData.filter((item, index) => {
                 return item.content_id == _this.commentListId;
             });
             oldPic = newArr[0].parmas.pic_list;
-            console.log(newArr.parmas)
-            if(index>=oldPic.length){
+            if(index>=oldPic.length-addPic.length){
                 _this.editorloading.fileList.splice(index, 1);
+                _this.editorloading.pic_list.splice(index-_this.editorloading.d_pic, 1);
+                _this.editorloading.new_list.splice(index-_this.editorloading.d_pic, 1);
             }else{
                 let url = "/NewContent/deleteContentRecordElement";
                 let params = {
