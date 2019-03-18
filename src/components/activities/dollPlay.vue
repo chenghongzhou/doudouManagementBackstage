@@ -10,6 +10,10 @@
 			label="系统赠送次数统计" 
 			name="first" 
 			:style="{height:tabSearchHeight+'px'}">
+			<el-button 
+			type="primary" 
+			style="margin:10px 20px;"
+			@click.native.prevent="handleDownloadOne">导出</el-button>
 				<template>
 					<el-table 
 					ref="tableHeight" 
@@ -41,6 +45,10 @@
 			label="收益数据统计" 
 			name="second" 
 			:style="{height:tabSearchHeight+'px'}">
+			<el-button 
+			type="primary" 
+			style="margin:10px 20px;"
+			@click.native.prevent="handleDownloadTwo">导出</el-button>
 				<template>
 					<el-table 
 					ref="tableHeight" 
@@ -113,7 +121,6 @@
 						<el-table-column prop="count_24" label="蚁人2x5"></el-table-column>
 						<el-table-column prop="count_25" label="灰兔"></el-table-column>
 						<el-table-column prop="count_26" label="小白兔"></el-table-column>
-						
 					</el-table>
 					<el-col :span="24" class="toolbar">
 						<el-pagination 
@@ -137,6 +144,7 @@ import { allget } from '../../api/api.js';
 export default {
 	data() {
 		return {
+			tableOneHeight: null,
 			tableHeight: null, 
 			tabSearchHeight: null,
 			formOne: {
@@ -327,6 +335,24 @@ export default {
 			export_json_to_excel(tHeader, data, 'excel表');
             })
 		},
+		handleDownloadOne() {
+			require.ensure([], () => {
+			const { export_json_to_excel } = require('../vendor/Export2Excel');
+			const tHeader = ['时间','系统充值赠送游戏币个数','系统登陆赠送游戏币个数','送出豆币总数','送出礼物总价值','总次数','用户转增张数'];
+			const filterVal = ['date','buy_num','login_num','chat_gold','chat_ticket','play_num','give_num'];
+			const data = this.formatJson(filterVal, this.formOne.TabData);
+			export_json_to_excel(tHeader, data, 'excel表');
+            })
+		},
+		handleDownloadTwo() {
+			require.ensure([], () => {
+			const { export_json_to_excel } = require('../vendor/Export2Excel');
+			const tHeader = ['时间','页面访问次数','活动参与人数','购买抽奖券人数','购买游戏币个数','游戏花费豆币币数','送出豆币总数','送出礼物总价值','用户转增张数'];
+			const filterVal = ['date','with_num','user_num','buy_people','buy_num','buy_chat_gold','chat_gold','chat_ticket','give_num'];
+			const data = this.formatJson(filterVal, this.formTwo.TabDataPrize);
+			export_json_to_excel(tHeader, data, 'excel表');
+            })
+		},
 		formatJson(filterVal, jsonData) {
 			return jsonData.map(v => filterVal.map(j => {
 			if (j === 'timestamp') {
@@ -357,6 +383,8 @@ export default {
 	mounted() {
 		var _this = this;
 		this.$nextTick(function() {
+				_this.tabHeight = baseConfig.lineNumber(tabHeight);
+				_this.tableOneHeight = baseConfig.lineNumber(tabPageHeight);
 				_this.tableHeight = baseConfig.lineNumber(tabSearchPageHeight);
 				_this.tabSearchHeight = baseConfig.lineNumber(tabSearchHeight);
 				_this.getTablePrize();
