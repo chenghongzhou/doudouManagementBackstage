@@ -51,6 +51,12 @@
             :height="tableHeight">
                 <el-table-column prop="create_time" label="创建时间"></el-table-column>
                 <el-table-column prop="create_time" label="发布时间"></el-table-column>
+                <el-table-column prop="content_id" label="动态ID" width="50px"></el-table-column>
+                <el-table-column prop="topic_id" label="话题ID" width="50px">
+                    <template slot-scope="scope">
+                        {{scope.row.topic_id==0?'':scope.row.topic_id}}
+                    </template>
+                </el-table-column>
                 <el-table-column prop="uid" label="发布UID"></el-table-column>
                 <el-table-column prop="nickname" label="昵称"></el-table-column>
                 <el-table-column prop="icon" label="图片">

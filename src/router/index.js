@@ -335,6 +335,7 @@ import cardCollect from '../components/activities/cardCollect.vue';// 喵星人�
 import moneyRain from '../components/activities/moneyRain.vue';// 红包雨
 import gameSettings from '../components/activities/gameSettings.vue';// 游戏设置
 import gameBackgroundData from '../components/activities/gameBackgroundData.vue';// 游戏数据后台
+import dollPlay from '../components/activities/dollPlay.vue';// 玩玩机
 
 
 // 活动专区end
@@ -750,6 +751,7 @@ export const asyncRouterMap = [
                     { path: '/activities/moneyRain', component: moneyRain, name: '红包雨', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/gameSettings', component: gameSettings, name: '游戏设置', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/gameBackgroundData', component: gameBackgroundData, name: '游戏数据后台', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/dollPlay', component: dollPlay, name: '娃娃机', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
