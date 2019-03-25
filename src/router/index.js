@@ -285,6 +285,8 @@ import dynamicReportList from '../components/operationSupport/operatingTools/dyn
 import dynamicManagement from '../components/operationSupport/operatingTools/dynamicManagement.vue';//动态banner条管理
 import dynamicAdd from '../components/operationSupport/operatingTools/dynamicAdd.vue';//动态内容添加
 import topicManagement from '../components/operationSupport/operatingTools/topicManagement.vue';//动态内容添加
+import dynamicBlackList from '../components/operationSupport/operatingTools/dynamicBlackList.vue';//动态黑名单
+import dynamicCount from '../components/operationSupport/operatingTools/dynamicCount.vue';//动态统计
 // import roomTabDataInfo from '../components/operationSupport/operatingTools/roomTabDataInfo.vue';//房间功能标签使用统计
 // 3-3、录音日志
 import DailyAdditions from '../components/operationSupport/recordingLog/DailyAdditions.vue';//每日新增录音明细
@@ -650,8 +652,10 @@ export const asyncRouterMap = [
                     { path: '/operationSupport/operatingTools/dynamicExamineList', component: dynamicExamineList, name: '用户动态审核列表', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                                        
                     { path: '/operationSupport/operatingTools/dynamicReportList', component: dynamicReportList, name: '用户动态举报列表', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/dynamicManagement', component: dynamicManagement, name: '动态banner条管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },   
-                    { path: '/operationSupport/operatingTools/topicManagement', component: topicManagement, name: '动态话题记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                                                         
-                    { path: '/operationSupport/operatingTools/dynamicAdd', component: dynamicAdd, name: '普通内容记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                                                        
+                    { path: '/operationSupport/operatingTools/topicManagement', component: topicManagement, name: '动态话题记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },   
+                    { path: '/operationSupport/operatingTools/dynamicBlackList', component: dynamicBlackList, name: '动态黑名单', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                                                      
+                    { path: '/operationSupport/operatingTools/dynamicCount', component: dynamicCount, name: '动态统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/operationSupport/operatingTools/dynamicAdd', component: dynamicAdd, name: '普通内容记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ],
             },
             {

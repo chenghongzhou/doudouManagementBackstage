@@ -27,11 +27,13 @@
                         <span>审核状态：</span>
                         <el-select style="width:100px;" v-model="status">
                             <el-option label="全部" value="-1"></el-option>
-                            <el-option label="已审核" value="0"></el-option>
-                            <el-option label="未审核" value="1"></el-option>
+                            <el-option label="待处理" value="0"></el-option>
+                            <el-option label="已封号" value="2"></el-option>
+                            <el-option label="已警告" value="3"></el-option>
+                            <el-option label="已解禁" value="1"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item style="float:right;">
+                    <el-form-item>
                         <el-button 
                         type="primary" 
                         @click="getData(0)">查询</el-button>
@@ -47,88 +49,75 @@
             @selection-change="handleSelectionChange"
             style="width:100%;" 
             :height="tableHeight">
-                <el-table-column prop="content_time" label="时间"></el-table-column>
-                <el-table-column prop="uid" label="UID"></el-table-column>
-                <el-table-column prop="complaint" label="被举报记录"></el-table-column>
-                <!-- <el-table-column prop="complaint" label="被举报记录">
+                <el-table-column prop="create_time" label="时间"></el-table-column>
+                <el-table-column prop="content_id_list" label="动态ID">
                     <template slot-scope="scope">
-                        <el-button 
-                        type="primary" 
-                        @click="getInfo(scope.row.complain_uid)">{{scope.row.complaint}}</el-button>
-                    </template>
-                </el-table-column> -->
-                <el-table-column prop="content" label="内容" width="400px"></el-table-column>
-                <el-table-column prop="img" label="图片">
-                    <template slot-scope="scope">
-                        <el-popover trigger="hover" placement="left">
-                            <img 
-                            :src="scope.row.img" 
-                            style="width:300px;height:400px;">
-                            <div slot="reference" class="name-wrapper">
-                                <img 
-                                :src="scope.row.img"
-                                style="width:100px;height:100px;">
-                            </div>
-                        </el-popover>
-                    </template>
+						{{changeArr(scope.row.content_id_list)}}
+					</template>
                 </el-table-column>
-                <el-table-column label="审核状态" width="80">
+                <el-table-column prop="uid" label="UID"></el-table-column>
+                <el-table-column prop="nickname" label="昵称"></el-table-column>
+                <el-table-column prop="admin" label="操作人"></el-table-column>
+                <el-table-column prop="icon" label="图像">
+					<template slot-scope="scope">
+						<img 
+                        :src="scope.row.icon" 
+                        style="width:100px;height:100px;">
+					</template>
+				</el-table-column>
+                <el-table-column label="处理详情" width="80">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
-							<p v-if="scope.row.status == 1">未审核</p>
-							<p v-else-if="scope.row.status==0">已审核</p>
+							<p v-if="scope.row.status == 0">待处理</p>
+							<p v-else-if="scope.row.status==1">已警告</p>
+                            <p v-else-if="scope.row.status==2">已封号</p>
+                            <p v-else-if="scope.row.status==3">待处理</p>
 						</div>
 					</template>
 				</el-table-column>
+                <el-table-column label="动态详情" width="150">
+                    <template slot-scope="scope">
+                        <el-row>
+                            <el-col>
+                                <el-button 
+                                size="mini" 
+                                type="primary"
+                                @click="dynamicDetail(scope.$index, scope.row)">查看</el-button>
+                            </el-col>
+                        </el-row>
+                    </template>
+                </el-table-column>            
                 <el-table-column label="操作" width="350">
                     <template slot-scope="scope">
                         <el-row>
-                            <el-col :span="4">
-                                <el-button 
-                                size="mini" 
-                                type="primary" 
-                                @click="userDetail(scope.$index, scope.row.parmas)">查看详情</el-button>
-                            </el-col>
-                            <el-col :span="4" v-if="scope.row.status == 1">
-                                <el-button 
-                                size="mini" 
-                                type="primary" 
-                                style="margin-left:25px;"
-                                @click="Unlock(scope.$index, scope.row)">解禁</el-button>
-                            </el-col>
-                            <el-col :span="4" v-if="scope.row.status == 0">
-                                <el-button 
-                                size="mini"
-                                type="info"  
-                                style="margin-left:25px;">解禁</el-button>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-button 
-                                size="mini"
-                                type="warning" 
-                                style="margin-left:25px;"
-                                @click="warnContentRecordUser(scope.$index, scope.row)">警告</el-button>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-button 
-                                size="mini" 
-                                type="danger"
-                                style="margin-left:25px;" 
-                                @click="deleteContentRecord(scope.$index, scope.row)">删除</el-button>
-                            </el-col>
-                            <el-col :span="4" v-if="scope.row.account_status == 0">
-                                <el-button 
-                                size="mini" 
-                                type="danger"
-                                style="margin-left:25px;" 
-                                @click="title(scope.$index, scope.row)">封号</el-button>
-                            </el-col>
-                            <el-col :span="4" v-if="scope.row.account_status == 1">
-                                <el-button 
-                                size="mini" 
-                                type="info"
-                                style="margin-left:25px;">已封号</el-button>
-                            </el-col>
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            @click="userDetail(scope.$index, scope.row)">用户详情</el-button>
+                            <el-button 
+                            v-if="scope.row.status == 1 && scope.row.status != 2"
+                            size="mini" 
+                            type="info" 
+                            >已解禁</el-button>
+                            <el-button 
+                            size="mini" 
+                            v-if="scope.row.status != 1 && scope.row.status != 2"
+                            type="primary" 
+                            @click="Unlock(scope.$index, scope.row)">解禁</el-button>
+                            <el-button 
+                            size="mini"
+                            type="warning" 
+                            v-if="scope.row.status != 2"
+                            @click="warnContentRecordUser(scope.$index, scope.row)">警告</el-button>
+                            <el-button 
+                            v-if="scope.row.status != 2"
+                            size="mini" 
+                            type="danger"
+                            @click="title(scope.$index, scope.row)">封号</el-button>
+                            <el-button 
+                            v-if="scope.row.status == 2"
+                            size="mini" 
+                            type="info">已封号</el-button>
                         </el-row>
                     </template>
                 </el-table-column>
@@ -144,64 +133,48 @@
             </el-col>
         </template>
          <!--详情-->
-        <el-dialog title="详细内容" :visible.sync="userInfo.dialogFormVisible">
+        <el-dialog title="动态详情" :visible.sync="userInfo.dialogFormVisible">
              <el-col style="height: 100%;width:100%;float:none">
-                    <div class="grid-content bg-purple grid-content-second">
-                        <div>
-                            <p class="comment-content">{{userInfo.content}}</p>
-                            <div class="uer_container">
-                                <div 
-                                class="user-photo"  
-                                v-for="(o, index) in userInfo.srcArr" 
-                                :key="index">
-                                    <el-popover trigger="click" placement="left">
+                <div class="grid-content bg-purple grid-content-second">
+                    <div>
+                        <p class="comment-content">{{userInfo.content}}</p>
+                        <div class="uer_container">
+                            <div 
+                            class="user-photo"  
+                            v-for="(o, index) in userInfo.pic_list" 
+                            :key="index">
+                                <el-popover trigger="click" placement="left">
+                                    <img 
+                                    :src="o" 
+                                    style="width:300px;height:400px;">
+                                    <div slot="reference" class="name-wrapper">
                                         <img 
                                         :src="o" 
-                                        style="width:300px;height:400px;">
-                                        <div slot="reference" class="name-wrapper">
-                                            <img 
-                                            :src="o" 
-                                            style="width:100px;height:100px;">
-                                        </div>
-                                    </el-popover>
-                                    <div style="padding:0px;display:inline-block;">
-                                        <el-button 
-                                        type="text" 
-                                        class="button" 
-                                        @click="deletePhoto(index,userInfo.content_id)" 
-                                        size="mini">删除</el-button>
+                                        style="width:100px;height:100px;">
                                     </div>
+                                </el-popover>
+                                <div style="padding:0px;display:inline-block;">
+                                    <el-button 
+                                    type="text" 
+                                    class="button" 
+                                    @click="deletePhoto(index,userInfo.pic_list)" 
+                                    size="mini">删除</el-button>
                                 </div>
                             </div>
-                            <div class="addTitle">评论：</div>
-                            <template>
-                                <el-table 
-                                :data="userInfo.commentList" 
-                                v-loading="listLoading" 
-                                border fit highlight-current-row 
-                                @selection-change="handleSelectionChange"
-                                style="width:100%;min-height:200px;">
-                                    <el-table-column prop="uid" label="UID" ></el-table-column>
-                                    <el-table-column prop="review_content" label="内容"></el-table-column>
-                                    <el-table-column label="操作">
-                                        <template slot-scope="scope">
-                                            <el-row>
-                                                <el-col>
-                                                    <el-button 
-                                                    size="mini" 
-                                                    type="danger"
-                                                    style="margin:0 auto" 
-                                                    @click="deteleComment(scope.$index, scope.row)">删除</el-button>
-                                                </el-col>
-                                            </el-row>
-                                        </template>
-                                    </el-table-column>
-                                </el-table> 
-                            </template>     
                         </div>
+                        <div class="tab_page">
+                            <div 
+                                v-for="(item, index) in userInfo.len" 
+                                :key="index" 
+                                v-bind:class="{isThis:isThis==index}"
+                                @click="checkThisPage(userInfo,index)">
+                                {{index+1}}
+                            </div>
+                        </div>   
                     </div>
-                </el-col>
-            </el-dialog>    
+                </div>
+            </el-col>
+        </el-dialog>   
             <!-- 个人封号 -->
             <el-dialog title="个人封禁账号" :visible.sync="titleInfo.dialogFormVisible">
                 <el-form :model="titleInfo">
@@ -271,7 +244,7 @@
                             <el-popover trigger="hover" v-if="changeData(scope.row.evidences)" placement="left">
                                 <img 
                                 :src="changeData(scope.row.evidences)" 
-                                style="width:300px;height:500px;">
+                                style="width:300px;height:400px;">
                                 <div slot="reference" class="name-wrapper">
                                     <img 
                                     :src="changeData(scope.row.evidences)" 
@@ -320,7 +293,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            
             tableHeight: null,
             formOne: {
                 startDate: [new Date()-7*24*60*60*1000, new Date()]
@@ -329,7 +301,7 @@ export default {
                 startDate: [new Date()-7*24*60*60*1000, new Date()]
             },
             recordStatus: "",
-            listData: [],
+            listData: [1],
             kickIpData: [],
             kickMobelData: [],
             formLabelWidth: "120px",
@@ -349,6 +321,7 @@ export default {
                 reason: "",
                 day: "",
                 type:"",
+                id:"",
             },
             propInfo: {
                 dialogFormVisible: false,
@@ -364,7 +337,8 @@ export default {
             warnInfo: {
                 dialogFormVisible: false,
                 uid: '',
-                warn_content: ''
+                warn_content: '',
+                id:''
             },
             collectiveSeal: {
                 dialogOne: false,
@@ -380,13 +354,19 @@ export default {
                tabData: [],
             },
             userInfo: {
-                dialogFormVisible: false, 
-                srcArr:[],
-                content:null,
+                dialogFormVisible: false,
                 content_id:null,
                 data:null,
+                len:null,
+                content:null,
+                pic_list:null,
+                thisContentId:null,
             },
-            tableHeightOther: '200px'
+            userImgInfo: {
+                dialogFormVisible: false, 
+            },
+            tableHeightOther: '200px',
+            isThis:0,
         };
     },
     methods: {
@@ -398,38 +378,19 @@ export default {
         getData() {
             var _this = this;
             _this.listLoading = true;
-            let url = "/NewContent/getContentRecordList";
+            let url = "/NewContent/getContentSuspectList";
             let params = {
                 start_date: baseConfig.changeDateTime(this.formOne.startDate[0], 0),
                 end_date: baseConfig.changeDateTime(this.formOne.startDate[1], 0),
                 uid: _this.uid,
                 page: _this.page,
-                status: _this.status
+                status: _this.status,
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
-                   _this.listLoading = false;
+                    _this.listLoading = false;
                     if (res.data.ret) {
-                     //   _this.listData = res.data.data;
-                     var arr = [];
-                        for(var i=0; i<res.data.data.length; i++) {
-                            var obj = {};
-                            for(var key in res.data.data[i]) {
-                                obj.time = key;
-                                obj.content_time = res.data.data[i].content_time;
-                                obj.uid = res.data.data[i].uid;
-                                obj.complaint = res.data.data[i].complaint;
-                                obj.content = res.data.data[i].content;
-                                obj.img = res.data.data[i].pic_list[0];
-                                obj.account_status = res.data.data[i].account_status;
-                                obj.content_id = res.data.data[i].content_id;
-                                obj.status = res.data.data[i].status;
-                                obj.parmas = res.data.data[i];
-                            }
-                            arr.push(obj);
-                        }
-                    //_this.formOne.totalPage = arr.length;
-                    _this.listData = arr;
+                        _this.listData = res.data.data;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -438,30 +399,51 @@ export default {
                     console.error(err);
                 });
         },
+         // 获取图片
+        changeData(val){
+            try{
+                if(val==""){
+                    return '';
+                }else{
+                    return val.length;
+                }
+            }
+            catch(err){
+                console.error("后台返回图片格式改了"+err);
+            }
+        },
+        changeArr(val){
+             if(val=="" || !val){
+                return '';
+            }else{
+                return  Array.from(val).join(',');
+            }
+        },
         // 用户详情
-        userDetail(index, rows) {
+        dynamicDetail(index, rows) {
             var _this = this;
             _this.userInfo.dialogFormVisible=true;
-            _this.commentListId = rows.content_id;
-            _this.userInfo.content = rows.content;
-            _this.userInfo.srcArr = rows.pic_list;
-            _this.userInfo.content_id = rows.content_id;
-            _this.userInfo.data = rows;
-            _this.getCommentData(rows);
+            _this.isThis = 0;
+            _this.userInfo.content_id = rows.content_id_list;
+            _this.userInfo.len = rows.content_id_list.length;
+            _this.userInfo.thisContentId = rows.content_id_list[0];
+            _this.getCommentData(_this.userInfo,0);
         },
-        //获取评论
-        getCommentData(rows){
+        //获取动态信息
+        getCommentData(rows,index){
              var _this = this;
             _this.listLoading = true;
-            let url = "/NewContent/getContentReviewList";
+            let url = "/NewContent/getContentRecord";
             let params = {
-                content_id : rows.content_id
+                content_id : rows.content_id[index]
             };
             axios.get(allget+url, {params: params})
             .then((res) => {
                  _this.listLoading = false;
                 if (res.data.ret) {
-                    _this.userInfo.commentList = res.data.data;
+                    _this.userInfo.data = res.data.data;
+                    _this.userInfo.pic_list = res.data.data.pic_list;
+                     _this.userInfo.content = res.data.data.content;
                 } else {
                     baseConfig.warningTipMsg(_this, res.data.msg);
                 }
@@ -470,27 +452,28 @@ export default {
                 console.error(err);
             });
         },
+        //查看动态翻页
+        checkThisPage(rows,index){
+            this.userInfo.thisContentId = rows.content_id[index];
+            this.isThis = index;
+            this.getCommentData(rows,index)
+        },
         //删除图片
-        deletePhoto(index, id){
+        deletePhoto(index, content_id){
             var _this = this;
             _this.listLoading = true;
             let url = "/NewContent/deleteContentRecordElement";
             let params = {
-                content_id : id,
+                content_id : _this.userInfo.thisContentId,
                 pic_number : index,
                 type : 2
             };
-            let newArr = _this.listData.filter((item, index) => {
-                return item.parmas.content_id == _this.commentListId;
-            });
             axios.get(allget+url, {params: params})
             .then((res) => {
                  _this.listLoading = false;
                 if (res.data.ret) {
                     baseConfig.successTipMsg(_this, res.data.msg);
-                    let removePhoto = newArr[0].parmas.pic_list.splice(index,1);
-                    _this.userInfo.srcArr = newArr[0].parmas.pic_list;
-                    _this.getData();
+                    let removePhoto = _this.userInfo.pic_list.splice(index,1);
                 } else {
                     baseConfig.warningTipMsg(_this, res.data.msg);
                 }
@@ -499,35 +482,20 @@ export default {
                 console.error(err);
             });
         },
-        //删除评价
-        deteleComment(index, row){
-            console.log(row)
+        // 用户详情
+        userDetail(index, rows) {
             var _this = this;
-            _this.listLoading = true;
-            let url = "/NewContent/deleteContentReview";
-            let params = {
-                review_id : row.review_id
-            };
-            axios.get(allget+url, {params: params})
-            .then((res) => {
-                 _this.listLoading = false;
-                if (res.data.ret) {
-                    baseConfig.successTipMsg(_this, res.data.msg);
-                    _this.getCommentData(_this.userInfo.data)
-                } else {
-                    baseConfig.warningTipMsg(_this, res.data.msg);
-                }
-            })
-            .catch((err) => {
-                console.error(err);
+            Event.$emit("show-one-user", {
+                uid: rows.uid
             });
         },
         //警告
         warnContentRecordUser(index, row){
             this.warnInfo.dialogFormVisible=true;
             this.warnInfo.uid = row.uid;
+            this.warnInfo.id = row.id;
         },
-        sureWarn(){ 
+        sureWarn(){   
             var _this = this;
             var url = '/NewUser/warnComplain';
             let formData = new FormData();
@@ -541,13 +509,29 @@ export default {
             };
             axios.post(allget+url, formData, config)
                 .then((res) => {
-                    _this.warnInfo.dialogFormVisible=false;
                     if (res.data.ret == 1) {
                         axios.get(allget+'/NewContent/warnContentRecordUser', {params:{uid: _this.warnInfo.uid}})
                         .then((res) => {
-                            if (res.data.ret) {
-                                baseConfig.successTipMsg(_this, res.data.msg);
-                                _this.getData()
+                            if (res.data.ret == 1) {
+                                let url2 = "/NewContent/setContentSuspectStatus";
+                                let params2 = {
+                                    status : 3,
+                                    admin: _this.operate_user,
+                                    id: _this.warnInfo.id
+                                };
+                                axios.get(allget+url2, {params: params2})
+                                .then((res) => {
+                                     _this.warnInfo.dialogFormVisible=false;
+                                    if (res.data.ret) {
+                                       baseConfig.successTipMsg(_this, res.data.msg);
+                                        _this.getData()
+                                    } else {
+                                        baseConfig.warningTipMsg(_this, res.data.msg);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.error(err);
+                                });
                             } else {
                                 baseConfig.warningTipMsg(_this, res.data.msg);
                             }
@@ -563,47 +547,6 @@ export default {
                     console.error(err);
                 });      
         },
-        //删除整条动态
-        deleteContentRecord(index, row){
-            var _this = this;
-            console.log(index, row,45)
-            _this.listLoading = true;
-            this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                var url = '/NewContent/deleteContentRecord';
-                let params = {
-                    content_id : row.content_id
-                };
-                axios.get(allget+url, {params: params})
-                .then((res) => {
-                    _this.listLoading = false;
-                    if (res.data.ret) {
-                         _this.getData();
-                        this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                    } else {
-                        this.$message({
-                            type: 'info',
-                            message: res.data.msg
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.error(err);
-                });   
-            }).catch(() => {
-                _this.listLoading = false;
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });          
-            });
-        },
         //解禁
         Unlock(index, row) {
             var _this = this;
@@ -613,29 +556,32 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                var url = '/NewContent/activateContentRecord';
-                let params = {
-                    content_id : row.content_id
+                let url2 = "/NewContent/setContentSuspectStatus";
+                let params2 = {
+                    status : 1,
+                    admin: _this.operate_user,
+                    id: row.id
                 };
-                axios.get(allget+url, {params: params})
+                axios.get(allget+url2, {params: params2})
                 .then((res) => {
-                    _this.listLoading = false;
                     if (res.data.ret) {
-                         _this.getData();
-                        this.$message({
-                            type: 'success',
-                            message: '操作成功!'
-                        });
+                        _this.listLoading = false;
+                        if (res.data.ret) {
+                                _this.getData();
+                            this.$message({
+                                type: 'success',
+                                message: '操作成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'info',
+                                message: res.data.msg
+                            });
+                        }
                     } else {
-                        this.$message({
-                            type: 'info',
-                            message: res.data.msg
-                        });
+                        baseConfig.warningTipMsg(_this, res.data.msg);
                     }
-                })
-                .catch((err) => {
-                    console.error(err);
-                });   
+                })   
             }).catch(() => {
                 _this.listLoading = false;
                 this.$message({
@@ -647,6 +593,7 @@ export default {
         // 封号
         title(index, rows) {
             this.titleInfo.uid = rows.uid;
+            this.titleInfo.id = rows.id;
             this.titleInfo.dialogFormVisible=true;
         },
         sureTitle() {
@@ -670,13 +617,27 @@ export default {
             axios.post(allget+url, formData, config)
                 .then((res) => {
                     if (res.data.ret) {
-                        baseConfig.successTipMsg(this, res.data.msg);
-                        _this.getData();
-                        this.titleInfo.uid = "";
-                        this.titleInfo.day = "1";
-                        this.titleInfo.day = "0";
-                        this.titleInfo.reason = "";
-                        this.titleInfo.dialogFormVisible=false;
+                        let url2 = "/NewContent/setContentSuspectStatus";
+                        let params2 = {
+                            status : 2,
+                            admin: _this.operate_user,
+                            id: _this.titleInfo.id
+                        };
+                        axios.get(allget+url2, {params: params2})
+                        .then((res) => {
+                            if (res.data.ret) {
+                                _this.listLoading = false;
+                                baseConfig.successTipMsg(this, res.data.msg);
+                                _this.getData();
+                                this.titleInfo.uid = "";
+                                this.titleInfo.day = "1";
+                                this.titleInfo.day = "0";
+                                this.titleInfo.reason = "";
+                                this.titleInfo.dialogFormVisible=false;
+                            } else {
+                                baseConfig.warningTipMsg(_this, res.data.msg);
+                            }
+                        })
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -700,53 +661,6 @@ export default {
                _this.collectiveSeal.dialogOne = true; 
             }
         },
-        //被举报记录
-        // getInfo(val) {
-        //     console.log(val);
-        //     var _this = this;
-        //     var url = '/NewUser/getComplainById';
-        //     var params = {
-        //         uid: '10075',
-        //     };
-        //     axios.get(allget+url, {params: params})
-        //         .then((res) => {
-        //             console.log(res.data.data);
-        //             _this.complaint.tabData = res.data.data; 
-        //             _this.complaint.dialogFormVisible=true;
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         });
-        // },
-        // 获取图片
-        changeData(val){
-            try{
-                if(val==""){
-                    return "";
-                }else{
-                    return JSON.parse(val)[0];
-                }
-            }
-            catch(err){
-                console.error("后台返回图片格式改了"+err);
-            }
-        },
-         // 忽略
-        ignore(index, row) {
-            let _this = this;
-            let url = "/NewUser/ignoreUserComplain";
-            let params = {
-                id: row.id
-            };
-            axios.get(allget+url, {params: params})
-                .then((res) => {
-                    baseConfig.successTipMsg(_this, res.data.msg);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    baseConfig.warningTipMsg(_this, 'error');
-                });
-        },
     },
     mounted() {
         var _this = this;
@@ -762,6 +676,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.el-dialog .el-dialog__body{
+    padding: 0 !important;
+}
 .addTitle{
     margin-top:10px;
     margin-bottom:10px;
@@ -790,6 +707,7 @@ export default {
     margin: 10px 0;
     font-size:14px;
     color: #333333;
+    display: inline-block;
 }
 /* 相册 */
 .user-photo {
@@ -801,5 +719,24 @@ export default {
 /* 文字大小 */
 .txt-size{
     font-size: 12px;
+}
+.tab_page{
+    width: 100px;
+    height:30px;
+    font-size: 14px;
+    color:#333333;
+    margin: 20px auto 0;
+}
+.tab_page div{
+    float: left;
+    width: 31px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #ebeef5;
+    cursor: pointer;
+}
+.isThis{
+    color:#409EFF;
 }
 </style>
