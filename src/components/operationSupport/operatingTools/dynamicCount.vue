@@ -92,7 +92,6 @@ export default {
             _this.formOne.page = val;
             _this.formOne.star = (_this.formOne.page)*20;
             _this.formOne.end = _this.formOne.star+20;
-		//	_this.getData();
 		},
 		// 获取家族数据统计的数据
 		getData() {

@@ -11,6 +11,16 @@
 			:style="{height:tabHeight+'px'}">
 				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
 					<el-form :inline="true" style="overflow:hidden;" :model="formOne">
+						<el-form-item>
+							<div class="block">
+								<span class="registerTime">日期</span>
+								<el-date-picker 
+								v-model="formOne.params.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
+							</div>
+						</el-form-item>
 						<el-form-item label="UID">
 							<el-input 
 							v-model="formOne.params.uid" 
@@ -247,6 +257,7 @@ export default {
 			formOne: {
 				params: {
 					uid: '',
+					choiceDate: [new Date()-30*24*60*60*1000, new Date()], 
 				},
 				tabData: [],
 				totalPage: 1000, 
@@ -327,6 +338,8 @@ export default {
 			var params = {
 				uid: _this.formOne.params.uid,
 				page: _this.formOne.page,
+				start_date: baseConfig.changeDateTime(_this.formOne.params.choiceDate[0], 0),
+				end_date: baseConfig.changeDateTime(_this.formOne.params.choiceDate[1], 0)
 			};
 			axios.get(allget+url, {params: params})
 			.then((res) => {

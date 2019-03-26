@@ -2,7 +2,7 @@
 <template lang="html">
     <!-- 左侧的导航栏 -->
     <el-row>
-        <div class="left_active" ref="leftnav">
+        <div class="left_active" ref="leftnav" :style="{maxHeight:leftNavHeight+'px'}">
             <!-- 循环相应的路由表生成左侧的路由表二级路由表 -->
             <el-menu 
             theme="dark" 
@@ -59,6 +59,9 @@ export default {
                 }
             } 
             return data[0].children;
+        },
+        leftNavHeight(){
+            return document.documentElement.clientHeight - 60;
         }
     },
     methods: {
@@ -103,5 +106,7 @@ export default {
 </script>
 
 <style lang="css">
-
+.left_active{
+    overflow-y: scroll;
+}
 </style>
