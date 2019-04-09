@@ -57,19 +57,32 @@
                 <el-table-column prop="level" label="家族等级"></el-table-column>
                 <el-table-column prop="yun_xin_room_id" :formatter="judgeAuthority" label="房间权限"></el-table-column>
                 <el-table-column prop="member_num" label="成员数量"></el-table-column>
-                <el-table-column label="操作" width="180px">
+                <el-table-column prop="is_auth" :formatter="judgerZ" label="是否认证"></el-table-column>
+                <el-table-column label="操作" width="270px">
                     <template slot-scope="scope">
-                        <el-col :span="12">
+                        <el-col :span="8">
                             <el-button 
                             size="mini" 
                             type="primary" 
                             @click="familydetail(scope.$index, scope.row)">家族详情</el-button>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="8">
                             <el-button 
                             size="mini" 
                             type="danger" 
                             @click="lister(scope.$index, scope.row)">成员列表</el-button>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            v-if="scope.row.is_auth == 0"
+                            @click="isAuth(scope.$index, scope.row)">认证加V</el-button>
+                            <el-button 
+                            size="mini" 
+                            type="primary" 
+                            v-if="scope.row.is_auth == 1"
+                            @click="isAuth(scope.$index, scope.row)">取消加V</el-button>
                         </el-col>
                     </template>
                 </el-table-column>
@@ -319,6 +332,10 @@ export default {
         judgeAuthority(row) {
             return row.yun_xin_room_id == 0 ? "未开启" : "开启";
         },
+        // 判断权限
+        judgerZ(row) {
+            return row.is_auth == 0 ? "否" : "是";
+        },
         judgeLevel(row) {
             if (row.level == 0) {
                 return "普通成员";
@@ -513,6 +530,50 @@ export default {
             }else if(type == 3) {
                 this.changeBeforForm.notice = this.form.notice;
             }
+        },
+        //认证
+        isAuth(index, rows){
+            var _this = this;
+            _this.listLoading = true;
+            var isMsg = '';
+            rows.is_auth == 0?isMsg='是否对家族进行认证加V？':isMsg='是否取消家族的认证加V？';
+            this.$confirm(isMsg, '提示', {
+                confirmButtonText: '是',
+                cancelButtonText: '否',
+                type: 'warning'
+            }).then(() => {
+                let url2 = "/NewFamily/setFamilyAuth";
+                let params2 = {
+                    is_auth:rows.is_auth==0?1:0,
+                    family_id:rows.family_id
+                };
+                axios.get(allget+url2, {params: params2})
+                .then((res) => {
+                    if (res.data.ret) {
+                        _this.listLoading = false;
+                        if (res.data.ret) {
+                                _this.getData();
+                            this.$message({
+                                type: 'success',
+                                message: '操作成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'info',
+                                message: res.data.msg
+                            });
+                        }
+                    } else {
+                        baseConfig.warningTipMsg(_this, res.data.msg);
+                    }
+                })   
+            }).catch(() => {
+                _this.listLoading = false;
+                this.$message({
+                    type: 'info',
+                    message: '已取消操作'
+                });          
+            });
         }
     },
     mounted() {

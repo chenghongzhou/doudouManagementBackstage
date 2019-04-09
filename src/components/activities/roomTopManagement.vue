@@ -25,8 +25,10 @@
 				<el-form-item>
 					<span>置顶类型</span>
 					<el-select style="width: 120px;" v-model="formOne.choice">
+						<el-option label="全部" value="0"></el-option>
 						<el-option label="精选" value="1"></el-option>
 						<el-option label="推荐" value="2"></el-option>
+						<el-option label="娱乐" value="3"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
@@ -68,6 +70,7 @@
 					<template slot-scope="scope">
 						<p v-if="scope.row.choice == 1">精选</p>
 						<p v-else-if="scope.row.choice == 2">推荐</p>
+						<p v-else-if="scope.row.choice == 3">娱乐</p>
 					</template>
 				</el-table-column>
 				<el-table-column prop="position" label="位置" width="80" sortable ></el-table-column>
@@ -115,6 +118,7 @@
 					<el-select style="width: 120px;" v-model="formTwo.choice">
 						<el-option label="精选" value="1"></el-option>
 						<el-option label="推荐" value="2"></el-option>
+						<el-option label="娱乐" value="3"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="房间ID" :label-width="formLabelWidth">

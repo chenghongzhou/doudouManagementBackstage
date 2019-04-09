@@ -58,6 +58,7 @@
 				<el-table-column prop="chat_gold" label="豆币充值金额" min-width="60"></el-table-column>
 				<el-table-column prop="vip" label="VIP充值金额" min-width="60"></el-table-column>
 				<el-table-column prop="family" label="创建家族费用" min-width="60"></el-table-column>
+                <el-table-column prop="enchashment_ing" label="申请提现金额" min-width="60"></el-table-column>
 				<el-table-column prop="enchashment" label="提现金额" min-width="60"></el-table-column>
 			</el-table>
 			<!-- 折线图 -->
