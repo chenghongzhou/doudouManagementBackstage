@@ -521,6 +521,7 @@ export default {
             let params = {
                 uid: _this.info.uid,
                 aut_icon: _this.info.aut_icon,
+                identity_card_icon: _this.info.identity_card_icon,
                 req_time: _this.info.req_time,
                 status: _this.info.status,
                 identity_card: _this.info.identity_card,

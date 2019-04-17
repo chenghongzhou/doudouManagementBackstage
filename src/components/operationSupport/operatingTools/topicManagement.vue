@@ -62,10 +62,10 @@
                             v-if="scope.row.status == 0"
 							@click='checkStatus(scope.row,0)' 
 							size="small">下架</el-button>
-                            <el-button 
+                            <!-- <el-button 
 							type="danger" 
 							@click='setDelete(scope.$index,scope.row)' 
-							size="small">删除</el-button>							
+							size="small">删除</el-button>							 -->
 						</template>
 					</el-table-column>
 				</el-table>

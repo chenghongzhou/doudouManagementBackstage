@@ -20,6 +20,7 @@
                         <el-option label="全部" value="0"></el-option>
                         <el-option label="豆币" value="1"></el-option>
                         <el-option label="豆票" value="2"></el-option>
+                        <el-option label="豆钻" value="30"></el-option>
                         <el-option label="白银" value="3"></el-option>
                         <el-option label="黄金" value="4"></el-option>
                         <el-option label="铂金" value="5"></el-option>
@@ -71,6 +72,7 @@
                         <div slot="reference" class="name-wrapper">
                             <p v-if="scope.row.type==1">豆币</p>
                             <p v-else-if="scope.row.type==2">豆票</p>
+                            <p v-else-if="scope.row.type==30">豆钻</p>
                             <p v-else-if="scope.row.type==5">体验会员</p>
                             <p v-else-if="scope.row.type==6">钻石会员</p>
                             <p v-else-if="scope.row.type==7">至尊会员</p>

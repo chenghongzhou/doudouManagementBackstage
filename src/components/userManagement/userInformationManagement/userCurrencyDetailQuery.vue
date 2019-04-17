@@ -20,6 +20,7 @@
                     <el-select  style="width:100px;" v-model="money_type">
                         <el-option label="豆币" value="1"></el-option>
                         <el-option label="豆票" value="2"></el-option>
+                        <el-option label="豆钻" value="3"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -177,6 +178,8 @@ export default {
                 return "豆币";
             }else if(row.money_type==2){
                 return "豆票";
+            }else if(row.money_type==3){
+                return "豆钻";
             }
         },
         judgeTrade(row){
@@ -326,6 +329,8 @@ export default {
                 return "炸金花游戏消费";
             }else if(row.trade_type==92){
                 return "炸金花游戏获得";
+            }else if(row.trade_type==95){
+                return "家族房间内收到的礼物";
             }
         },
         // 获取数据
