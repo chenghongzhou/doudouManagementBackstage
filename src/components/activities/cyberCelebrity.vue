@@ -15,18 +15,19 @@
 				:inline="true" 
 				:model="formOne">
 					<el-form-item label="活动类型">
-						<el-select v-model="formOne.type" @change="changeType" placeholder="请选择的网红活动">
-							<el-option label="网红活动1" value="online_celebrity"></el-option> 
-							<el-option label="网红活动2" value="online_celebrity_2"></el-option>
+						<el-select v-model="formOne.type" placeholder="请选择的网红活动">
+							<el-option 
+								:label="item.name" 
+								:value="item.code" 
+								:key='index'
+								v-for="(item,index) in activityList"></el-option> 
 						</el-select>
 					</el-form-item>
 					<el-form-item label="礼物类型">
 						<el-select v-model="formOne.gift_id" placeholder="全部">
-							<el-option
-							v-for="(item, index) in formOne.gift_id_list" 
-							:key="index"
-							:label="item.name" 
-							:value="item.value"></el-option>
+							<el-option label="全部" value="0"></el-option>
+							<el-option label="礼物一" value="1"></el-option>
+							<el-option label="礼物二" value="2"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item>
@@ -69,8 +70,11 @@
 				:model="formTwo">
 					<el-form-item label="活动类型">
 						<el-select v-model="formTwo.type" placeholder="全部">
-							<el-option label="网红活动1" value="online_celebrity"></el-option>
-							<el-option label="网红活动2" value="online_celebrity_2"></el-option>
+							<el-option 
+								:label="item.name" 
+								:value="item.code" 
+								:key='index'
+								v-for="(item,index) in activityList"></el-option> 
 						</el-select>
 					</el-form-item>
 					<el-form-item label="页面按钮">
@@ -131,18 +135,19 @@
 				activeName:'first',
 				tabSearchPageHeight:null,
            		dialogWidth: null,	
+				activityList:[],
 				formOne:{
 					tabData:[],
 					type:'online_celebrity_2',
 					gift_id_list: [],					
-					gift_id: '',
+					gift_id: '0',
 					page:0,
 					totalPage:0,
 				},
 				formTwo:{
 					tabData:[],
 					type:'online_celebrity_2',
-					page_id:'',
+					page_id:'0',
 					page: 0,
 					totalPage:0,
 				},
@@ -155,11 +160,9 @@
 				_this.tabHeight = baseConfig.lineNumber(tabHeight);
 				_this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
 				_this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
-				_this.changeType("online_celebrity_2");
-				setTimeout(function() {
-					_this.getOneData();
-					_this.getTwoData();
-				}, 1500);
+				_this.getActivity();
+				_this.getOneData();
+				_this.getTwoData();
 			})			
 		},
 		methods:{
@@ -177,6 +180,7 @@
 				var obj = {};
 				obj.activity = _this.formTwo.type;
 				obj.page_id = _this.formTwo.page_id;
+				obj.page=_this.formTwo.page;
 				return obj; 
 			},
 			handleClick(tab, event){
@@ -184,12 +188,27 @@
 				// console.log(tab.name);
 			},
 			oneHandleCurrentChange(val){
-				formOne.page=val-1;
+				this.formOne.page=val-1;
 				this.getOneData();
 			},
 			twoHandleCurrentChange(val){
-				formTwo.page=val-1;
+				this.formTwo.page=val-1;
 				this.getTwoData();
+			},
+			//获取活动
+			getActivity(){
+       			var _this = this;
+				axios.get(wechatget+'/ydlManage/server/index.php/NewActivity/getOnlineCelebrityActivityList', {})
+				.then((res) => {
+					if(res.data.ret == 1) {
+						_this.activityList = res.data.data;
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				})
 			},
 			getOneData(){
        			var _this = this;
@@ -201,9 +220,9 @@
 							_this.formOne.tabData = res.data.data;
 						 	_this.formOne.totalPage = res.data.data.length;
 						}else{
-							_this.formTwo.tabData =[];
+							_this.formOne.tabData = []
+						//	_this.formTwo.tabData =[];
 						 	_this.formOne.totalPage = 0;
-							baseConfig.successTipMsg(_this, "暂无数据");
 						}
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
@@ -225,7 +244,6 @@
 						}else{
 							_this.formTwo.tabData =[];
 							_this.formTwo.totalPage = 0;
-							baseConfig.successTipMsg(_this, "暂无数据");
 						}
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
@@ -234,28 +252,6 @@
 				.catch((err) => {
 					console.log(err);
 				})
-			},
-			changeType(val) {
-				var _this = this;
-				var params = {
-					activity: val,
-				};
-				axios.get(wechatget+'/ydlManage/server/index.php/NewActivity/getGiftList', {params: params})
-					.then((res) => {
-						if(res.data.ret==1) {
-							_this.formOne.gift_id = res.data.data[0];
-							_this.getOneData();
-							_this.formOne.gift_id_list = [
-								{ name: '礼物活动一', value: res.data.data[0], }, 
-								{ name: '礼物活动二', value: res.data.data[1], }, 
-							];
-						} else {
-							baseConfig.warningTipMsg(_this, res.data.msg);
-						}
-					})
-					.catch((err) => {
-						console.log(err);
-					});
 			},
 		}
 	}
