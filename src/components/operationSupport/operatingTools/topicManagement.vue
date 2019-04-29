@@ -45,6 +45,7 @@
 				style="width:100%;" 
 				:height="searchPageHeight">
 					<el-table-column prop="create_time" label="添加时间" width="300"></el-table-column>
+					<el-table-column prop="sort" label="当前排序" width="300"></el-table-column>
 					<el-table-column prop="content" label="话题内容"></el-table-column>
 					<el-table-column label="操作" width="300">
 						<template slot-scope="scope">
@@ -134,7 +135,7 @@ export default {
 			searchPageHeight: null,
 			formOne: {
 				tabData: [],
-				totalPage: 1000, 
+				totalPage: 1, 
 				page: 0,
 			},
 			numDialog: {

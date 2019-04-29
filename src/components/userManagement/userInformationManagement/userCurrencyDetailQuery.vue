@@ -96,6 +96,9 @@
                         <el-option label="直播间内礼物红包返还" value="52"></el-option>
                         <el-option label="平台奖励获得" value="53"></el-option>
                         <el-option label="系统扣除" value="62"></el-option>
+                        <el-option label="房间转盘消费豆币" value="100"></el-option>
+                        <el-option label="房间转盘获得豆票" value="101"></el-option>
+                        <el-option label="房间转盘返还豆币" value="102"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -331,6 +334,12 @@ export default {
                 return "炸金花游戏获得";
             }else if(row.trade_type==95){
                 return "家族房间内收到的礼物";
+            }else if(row.trade_type==100){
+                return "房间转盘消费豆币";
+            }else if(row.trade_type==101){
+                return "房间转盘获得豆票";
+            }else if(row.trade_type==102){
+                return "房间转盘返还豆币";
             }
         },
         // 获取数据

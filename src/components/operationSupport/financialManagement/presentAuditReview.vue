@@ -227,6 +227,13 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
+                 <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="累计获得豆钻" :label-width="formLabelWidth">
+                            <el-input disabled v-model="addDialog.in_chat_diamond" auto-complete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
                 <el-form-item label="拒绝原因" :label-width="formLabelWidth">
                     <el-input 
                     v-model="addDialog.reason" 
@@ -292,7 +299,8 @@ export default {
                 system_ticket:'',
                 exchange_ticket:'',
                 im_ticket:'',
-                recharge_prop_give_gold:''
+                recharge_prop_give_gold:'',
+                in_chat_diamond:''
             },
             listLoading: false,
             formLabelWidth: '120px',
@@ -356,7 +364,13 @@ export default {
                     _this.listLoading = false;                
                     _this.addDialog.dialogShow=true;
                     if(res.data.ret) {
-                        _this.addDialog.num = ((res.data.num-0)/100)+'元';
+                        var thisType = '';
+                        if(res.data.type == 1){
+                            thisType = '豆票';
+                        }else if(res.data.type == 2){
+                            thisType = '豆钻';
+                        }
+                        _this.addDialog.num = ((res.data.num-0)/100)+'元（'+thisType+'）';
                         _this.addDialog.uid = res.data.uid;
                         _this.addDialog.nickname = res.data.nickname;
                         if(res.data.aut_status==0 || res.data.aut_status==1 || res.data.aut_status==2 || res.data.aut_status==3) {
@@ -393,6 +407,7 @@ export default {
                         _this.addDialog.exchange_ticket = res.data.exchange_ticket+'豆票';
                         _this.addDialog.im_ticket = res.data.im_ticket+'豆票';
                         _this.addDialog.recharge_prop_give_gold = res.data.recharge_prop_give_gold+'豆币';
+                        _this.addDialog.in_chat_diamond = res.data.in_chat_diamond+'豆钻';
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }

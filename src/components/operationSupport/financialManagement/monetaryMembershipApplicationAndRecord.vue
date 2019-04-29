@@ -18,7 +18,7 @@
                         <el-option label="全部" value="0"></el-option>
                         <el-option label="豆币" value="1"></el-option>
                         <el-option label="豆票" value="2"></el-option>
-                        <el-option label="豆钻" value="2"></el-option>
+                        <el-option label="豆钻" value="30"></el-option>
                         <el-option label="体验" value="5"></el-option>
                         <el-option label="钻石" value="6"></el-option>
                         <el-option label="至尊" value="7"></el-option>
@@ -164,6 +164,7 @@
                     <el-select v-model="addDialog.type">
                         <el-option label="豆币" value="1"></el-option>
                         <el-option label="豆票" value="2"></el-option>
+                        <el-option label="豆钻" value="30"></el-option>
                         <el-option label="体验" value="5"></el-option>
                         <el-option label="钻石" value="6"></el-option>
                         <el-option label="至尊" value="7"></el-option>
