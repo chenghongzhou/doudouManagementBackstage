@@ -110,6 +110,7 @@
 									<p v-if="scope.row.position==1">普通礼物</p>
 									<p v-else-if="scope.row.position==2">活动礼物</p>
 									<p v-if="scope.row.position==3">房间礼物</p>
+									<p v-if="scope.row.position==6">转盘礼物</p>
 								</div>
 							</template>
 						</el-table-column>							
@@ -258,6 +259,7 @@
 									<p v-if="scope.row.position==1">普通礼物</p>
 									<p v-else-if="scope.row.position==2">活动礼物</p>
 									<p v-if="scope.row.position==3">房间礼物</p>
+									<p v-if="scope.row.position==6">转盘礼物</p>
 								</div>
 							</template>
 						</el-table-column>	
@@ -420,6 +422,7 @@
 									<p v-if="scope.row.position==1">普通礼物</p>
 									<p v-else-if="scope.row.position==2">活动礼物</p>
 									<p v-if="scope.row.position==3">房间礼物</p>
+									<p v-if="scope.row.position==6">转盘礼物</p>
 								</div>
 							</template>
 						</el-table-column>	
@@ -461,6 +464,159 @@
 						@current-change="threeHandleCurrentChange" 
 						:page-size="20" 
 						:total="formThree.TotalPage" 
+						style="float:right;"></el-pagination>
+					</el-col>
+				</template>
+			</el-tab-pane>
+			<!-- 转盘礼物 -->
+			<el-tab-pane 
+			label="转盘礼物" 
+			name="five" 
+			:style="{height:tabSearchHeight+'px'}">
+				<el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formFive">
+						<el-form-item>
+							<div class="block">
+								<span class="registerTime">注册时间</span>
+								<el-date-picker 
+								v-model="formFive.choiceDate" 
+								type="daterange" 
+								range-separator=" 至 " 
+								placeholder="选择日期范围"></el-date-picker>
+							</div>
+						</el-form-item>
+						<el-form-item>
+							<el-button 
+							type="primary" 
+							@click="giftUploading.dialogShow=true;">新增礼物</el-button>							
+							<el-button 
+							type="primary" 
+							@click="getTableActivityTurnTableData">查询</el-button>
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<template>
+					<el-table 
+					ref="tableHeight" 
+					:data="fivePageData" 
+					border fit highlight-current-row 
+					v-loading="listLoading" 
+					style="width:100%;" 
+					:height="tableHeight">
+						<el-table-column prop="id" label="礼物ID" width="50"></el-table-column>
+						<el-table-column prop="name" label="礼物名称" width="100"></el-table-column>
+						<el-table-column label="礼物图标" width="150">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<img 
+									:src="scope.row.icon"  
+									style="width:100px;height:auto;">
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="price" label="礼物价格" width="50"></el-table-column>
+						<el-table-column label="礼物类型" width="50">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.type==1">豆币</p>									
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column label="动态图标" width="150">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<img 
+									:src="scope.row.dynamic_icon"  
+									style="width:100px;height:auto;">
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="on_sale_time" label="上架时间" width="80"></el-table-column>
+						<el-table-column prop="create_time" label="创建时间" width="80"></el-table-column>
+						<el-table-column label="上架状态" width="100">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.status==1">上架了</p>
+									<p v-else-if="scope.row.status==0">已下架</p>
+									<p v-else-if="scope.row.status==2">等待上架</p>									
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="sort" label="排序" width="50"></el-table-column>
+						<el-table-column prop="second_id" label="二级ID" width="50"></el-table-column>
+						<el-table-column prop="name" label="会员专属？" width="50">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.is_vip==1">是</p>
+									<p v-else>否</p>
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="down_sale_time" label="礼物下架时间" width="80">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.down_sale_time==null">无</p>
+									<p v-else>{{scope.row.down_sale_time}}</p>
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="name" label="转盘礼物？" width="50">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.is_turntable==0">否</p>
+									<p v-else-if="scope.row.is_turntable==1">是</p>
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="probability" label="转盘几率" width="80"></el-table-column>
+						<el-table-column label="位置" width="80">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.position==1">普通礼物</p>
+									<p v-else-if="scope.row.position==2">活动礼物</p>
+									<p v-if="scope.row.position==3">房间礼物</p>
+									<p v-if="scope.row.position==6">转盘礼物</p>
+								</div>
+							</template>
+						</el-table-column>	
+						<el-table-column label="特殊礼物？" width="50">
+							<template slot-scope="scope">
+								<div slot="reference" class="name-wrapper">
+									<p v-if="scope.row.is_special==1">是</p>
+									<p v-else-if="scope.row.is_special==0">否</p>
+								</div>
+							</template>
+						</el-table-column>
+						<el-table-column prop="stock_num" label="库存数量" width="50"></el-table-column>										
+						<el-table-column label="操作" fixed="right" min-width="200">
+							<template slot-scope="scope">
+								<el-button 
+								type="primary" 
+								@click.native.prevent="changeOneUserData(scope.$index, scope.row, '6')" 
+								size="mini">编辑</el-button>		
+								<el-button 
+								type="primary" 
+								@click.native.prevent="specialData(scope.$index, scope.row, '6')" 
+								size="mini">特效</el-button>								
+								<el-button 
+								v-if="scope.row.status=='0'" 
+								plain 
+								size="mini" 
+								@click.native.prevent="tipUndercarriage()">下架</el-button>
+								<el-button 
+								v-else 
+								type="primary" 
+								@click.native.prevent="undercarriage(scope.$index, scope.row, '6')" 
+								size="mini">下架</el-button>
+							</template>
+						</el-table-column>
+					</el-table>
+					<el-col :span="24" class="toolbar">
+						<el-pagination 
+						layout="total,prev,pager,next,jumper" 
+						@current-change="twoHandleCurrentChange" 
+						:page-size="20" 
+						:total="formTwo.TotalPage" 
 						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
@@ -640,6 +796,7 @@
 							<el-option label="普通礼物" value="1"></el-option>
 							<el-option label="活动礼物" value="2"></el-option>
 							<el-option label="房间礼物" value="3"></el-option>
+							<el-option label="转盘礼物" value="6"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="礼物上架状态" :label-width="formLabelWidth">
@@ -768,6 +925,7 @@
 							<el-option label="普通礼物" value="1"></el-option>
 							<el-option label="活动礼物" value="2"></el-option>
 							<el-option label="房间礼物" value="3"></el-option>
+							<el-option label="转盘礼物" value="6"></el-option>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="礼物上架状态" :label-width="formLabelWidth">
@@ -1003,6 +1161,14 @@ export default {
 				star: '0', 
 				end: '20', 
 			},
+			formFive: {
+				choiceDate: [new Date()-180*24*60*60*1000,new Date()], 
+				TabData: [], 
+				TotalPage: null, 
+				Page: 1, 
+				star: '0', 
+				end: '20', 
+			},
 			formFour: {
 				TabData: [], 
 				TotalPage: null, 
@@ -1123,6 +1289,10 @@ export default {
 			var _this = this;
 			return _this.formFour.TabData.slice(_this.formFour.star, _this.formFour.end);
 		},
+		fivePageData() {
+			var _this = this;
+			return _this.formFive.TabData.slice(_this.formFive.star, _this.formFive.end);
+		},
 	},
 	methods: {
 		oneHandleCurrentChange(val) {
@@ -1148,6 +1318,12 @@ export default {
 			_this.formFour.Page = val-1;
 			_this.formFour.star = (_this.formFour.Page)*20;
 			_this.formFour.end = _this.formFour.star+20;
+		},
+		fiveHandleCurrentChange(val) {
+			var _this = this;
+			_this.formFive.Page = val-1;
+			_this.formFive.star = (_this.formFive.Page)*20;
+			_this.formFive.end = _this.formFive.star+20;
 		},
 		// 提示早已经下架了
 		tipUndercarriage() {
@@ -1175,6 +1351,20 @@ export default {
 			obj.date_s = baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 0);
 			obj.date_e = baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 0);
 			obj.position = '2';
+			for(var key in obj) { 
+				if(obj[key]=='') {
+					baseConfig.warningTipMsg(_this, '搜索条件值不能为空！');
+					return null;
+				}
+			}
+			return obj; 
+		},
+		searchConditionActiveTurntable() {
+			var _this = this;
+			var obj = {};
+			obj.date_s = baseConfig.changeDateTime(_this.formFive.choiceDate[0], 0);
+			obj.date_e = baseConfig.changeDateTime(_this.formFive.choiceDate[1], 0);
+			obj.position = '6';
 			for(var key in obj) { 
 				if(obj[key]=='') {
 					baseConfig.warningTipMsg(_this, '搜索条件值不能为空！');
@@ -1249,6 +1439,30 @@ export default {
 					});
 			}
 		},
+		//房间转盘
+		getTableActivityTurnTableData(){
+			var _this = this ;
+			_this.listLoading = true;
+			var url = '/Gift/getGift';
+			var params = _this.searchConditionActiveTurntable();
+			if(params==null) { 
+				_this.listLoading = false; 
+			} else {
+				axios.get(allget+url, { params: params })				
+					.then((res) => { 
+						_this.listLoading = false;
+						if(res.data.ret) {
+							_this.formFive.TotalPage = res.data.data.length; 
+							_this.formFive.TabData = res.data.data;
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg); 
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		},
 		getTableRoomGiftData() {
 			var _this = this ;
 			_this.listLoading = true;
@@ -1286,6 +1500,8 @@ export default {
 				index = index + (_this.formTwo.Page-1)*20;
 			} else if(type=='3') {
 				index = index + (_this.formThree.Page-1)*20; 
+			} else if(type=='6') {
+				index = index + (_this.formFive.Page-1)*20; 
 			}
 			var id = rows.id; // 拿出对应内容的中value值	
 			var url = 'Gift/downGift';
@@ -1302,6 +1518,8 @@ export default {
 							_this.getTableActivityGiftData();
 						} else if(type=='3') {
 							_this.getTableRoomGiftData();
+						}else if(type=='6') {
+							_this.getTableActivityTurnTableData();
 						}
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg); 
@@ -1320,6 +1538,8 @@ export default {
 				index = index + (_this.formTwo.Page-1)*20; 
 			} else if(type=='3') {
 				index = index + (_this.formThree.Page-1)*20;
+			} else if(type=='6') {
+				index = index + (_this.formFive.Page-1)*20;
 			}
 			_this.giftEditorloading.index = index;
 			_this.giftEditorloading.type = type;
@@ -1390,6 +1610,8 @@ export default {
 								_this.getTableActivityGiftData();
 							} else if(_this.giftEditorloading.type==3) {
 								_this.getTableRoomGiftData();
+							} else if(_this.giftEditorloading.type==6) {
+								_this.getTableActivityTurnTableData();
 							}
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg);						
@@ -1471,8 +1693,10 @@ export default {
 		editorLabelSure(type) {
 			var _this = this;
 			if(type==0) {
+				alert(1)
 				_this.formFour.editorDialogShow = false; 
 			} else if(type==1){
+				alert(2)
 				_this.listLoading = true;
 				var url = 'Gift/editGiftTab';
 				var params = {
@@ -1625,6 +1849,8 @@ export default {
 								_this.getTableActivityGiftData();
 							} else if(formData.get('position')==3) {
 								_this.getTableRoomGiftData();
+							} else if(formData.get('position')==6) {
+								_this.getTableActivityTurnTableData();
 							}
 						} else {
 							baseConfig.warningTipMsg(_this, res.data.msg);						
@@ -1641,7 +1867,9 @@ export default {
 			var _this = this;
 			if(type=='3') {
 				index = index + (_this.formThree.Page-1)*20; 
-			} else {
+			} else if(type=='6'){
+				index = index + (_this.formFive.Page-1)*20; 
+			}else {
 				baseConfig.warningTipMsg(_this, '只有房间礼物可以添加特效啦~');				
 			}
 			_this.getNumGift(rows.id);	
@@ -1649,7 +1877,7 @@ export default {
 		// 进行房间礼物请求对应数量的详情
 		getNumGift(id) {
 			var _this = this;
-			var url = 'Gift/getGetEffects';
+			var url = '/Gift/getGetEffects';
 			var params = {
 				id: id,
 			};
@@ -1734,6 +1962,9 @@ export default {
 			}
 			else if(tab.label=="房间礼物"&&_this.formThree.TabData.length==0) {
 				_this.getTableRoomGiftData();
+			}
+			else if(tab.label=="转盘礼物"&&_this.formFive.TabData.length==0) {
+				_this.getTableActivityTurnTableData();
 			}
 			else if(tab.label=="标签管理"&&_this.formFour.TabData.length==0) {
 				_this.getLabelData();
@@ -1859,6 +2090,7 @@ export default {
 			_this.getTableActivityGiftData();
 			_this.getTableRoomGiftData();
 			_this.getLabelData();
+			_this.getTableActivityTurnTableData();
 		})
 	}
 };
