@@ -119,6 +119,39 @@
 					</el-col>
 				</template>
 			</el-tab-pane>
+			<!-- 礼物设置 -->
+			<el-tab-pane 
+			label="礼物设置" 
+			name="three" 
+			:style="{height:leftNavHeight+'px'}">
+			<template>
+				 <div style="padding: 20px;">
+					<el-form label-position="right" :model="formThree">
+						<el-form-item label="礼物ID列表1">
+							<el-input name="" v-model="formThree.gift_id_list_1"></el-input>
+						</el-form-item>
+						<el-form-item label="礼物ID列表2">
+							<el-input name="" v-model="formThree.gift_id_list_2"></el-input>
+						</el-form-item>
+						<el-form-item label="礼物ID列表3">
+							<el-input name="" v-model="formThree.gift_id_list_3"></el-input>
+						</el-form-item>
+						<el-form-item label="礼物ID列表4">
+							<el-input name="" v-model="formThree.gift_id_list_4"></el-input>
+						</el-form-item>
+					</el-form>
+					<div class="ifomessage">多个ID间用英文逗号分隔</div>
+					<div class="dialog-footer">
+						<!-- <el-button 
+						style="margin-left:100px;" 
+						@click="editorSure(0)">重 置</el-button> -->
+						<el-button 
+						type="primary" 
+						@click="editorSure">确 定</el-button>
+					</div>       
+				</div>
+			</template>
+			</el-tab-pane>
 		</el-tabs>
 	</section>
 </template>
@@ -133,6 +166,7 @@ export default {
 		return {
 			tableHeight: null, 
 			tabSearchHeight: null,
+			leftNavHeight: null,
 			formOne: {
                 choiceDate: [new Date()-7*24*60*60*1000, new Date()],
 				room_id: '',
@@ -150,6 +184,12 @@ export default {
 				Page: 0, 
 				star: '0',
 				end: '20',
+			},
+			formThree:{
+				gift_id_list_1:'',
+				gift_id_list_2:'',
+				gift_id_list_3:'',
+				gift_id_list_4:'',
 			},
 			listLoading: false, 
 			tabActiveName: 'second',
@@ -239,6 +279,55 @@ export default {
 					});
 			}
 		},
+		// 获取礼物列表
+		getPrizeList() {
+			var _this = this ;
+			_this.listLoading = true;
+			var url = '/NewActivity/getRoomTurnTableGiftList';
+			var params = {};
+			axios.get(allget+url, { params: params })
+				.then((res) => {
+					_this.listLoading = false;
+					if(res.data.ret) {
+						for(var i in res.data.data){
+							_this.formThree.gift_id_list_1 = res.data.data[1];
+							_this.formThree.gift_id_list_2 = res.data.data[2];
+							_this.formThree.gift_id_list_3 = res.data.data[3];
+							_this.formThree.gift_id_list_4 = res.data.data[4];
+						};
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg); 
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+		//设置礼物
+		editorSure(){
+			var _this = this ;
+			_this.listLoading = true;
+			var url = '/NewActivity/setRoomTurnTableGiftList';
+			var params = {
+				gift_id_list_1: _this.formThree.gift_id_list_1,
+				gift_id_list_2: _this.formThree.gift_id_list_2,
+				gift_id_list_3: _this.formThree.gift_id_list_3,
+				gift_id_list_4: _this.formThree.gift_id_list_4,
+			};
+			axios.get(allget+url, { params: params })
+				.then((res) => {
+					_this.listLoading = false;
+					if(res.data.ret) {
+						baseConfig.successTipMsg(_this, res.data.msg); 
+						_this.getPrizeList();
+					} else {
+						baseConfig.warningTipMsg(_this, res.data.msg); 
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 		// 顶部tab进行页面的切换
 		handleClick(tab, event) {
 			var _this = this;
@@ -262,6 +351,8 @@ export default {
 		this.$nextTick(function() {
 			_this.tableHeight = baseConfig.lineNumber(tabSearchPageHeight);
 			_this.tabSearchHeight = baseConfig.lineNumber(tabSearchHeight);
+			_this.leftNavHeight = tabHeight;
+			_this.getPrizeList();
 			// _this.getTableFind();
 			// _this.getTableManage();
 		})
@@ -278,5 +369,10 @@ export default {
 }
 .el-table .warning-row {
 	background: oldlace;
+}
+.ifomessage{
+	font-size: 14px;
+	color:#ccc;
+	margin: 20px 0;
 }
 </style>
