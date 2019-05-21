@@ -11,9 +11,19 @@
             @open="handleOpen" 
             @close="handleClose" 
             router>
-                <!-- 判断进行设置了为hidden: true;不进行展示 -->                
+                <div v-for="(item, indexs) in dataView">
+                    <el-submenu :index="indexs+''">
+                        <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
+                        <template v-for="child in item.children">
+                            <el-menu-item-group >                                
+                                <el-menu-item :index="child.path" v-show="!child.hidden">{{child.name}}</el-menu-item>
+                            </el-menu-item-group>
+                        </template>
+                    </el-submenu>
+                </div>
+                <!-- 判断进行设置了为hidden: true;不进行展示 ,下面是没有子菜单的 -->                
                 <el-menu-item 
-                v-for="(item, indexs) in dataView" 
+                v-for="(item, indexs) in dataOtherView" 
                 :key="indexs" 
                 :index="item.path" 
                 v-show="!item.hidden">
@@ -36,10 +46,12 @@ export default {
     data() {
         return {
             indexPath: '',
-            indexPathArr: [],            
+            indexPathArr: [],     
+            indexOTherPathArr:[],       
         };
     },
     computed: {
+        //有子菜单
         dataView() {
             var _this = this;
             let thatDdta = store.getters.addRouters;
@@ -48,11 +60,34 @@ export default {
                     return  data;
                 }
             });
-            var arr = data[0].children[0].children;            
+            // var arr = data[0].children[0].children;            
+            // for(var i=0; i<arr.length; i++) {
+            //     _this.indexPathArr.push(arr[i].path);
+            // } 
+            // return data[0].children[0].children;
+             var arr = data[0].children.slice(0,data[0].children.length-1); 
+             var arrOther =  data[0].children.slice(data[0].children.length-1,data[0].children.length)[0].children;     
             for(var i=0; i<arr.length; i++) {
-                _this.indexPathArr.push(arr[i].path);
+                for(var j=0; j<arr[i].children.length; j++) {
+                    _this.indexPathArr.push(arr[i].children[j].path);
+                }
             } 
-            return data[0].children[0].children;
+             return arr;
+        },
+        //没有子菜单
+        dataOtherView(){
+            var _this = this;
+            let thatDdta = store.getters.addRouters;
+            let data =  thatDdta.filter(data => {
+                if(data.name=='活动专区'){
+                    return  data;
+                }
+            });
+             var arrOther = data[0].children.slice(data[0].children.length-1,data[0].children.length)[0].children;
+            for(var j=0; j<arrOther.length; j++) {
+                _this.indexOTherPathArr.push(arrOther[j].path);
+            } 
+             return arrOther;
         }
     },
     methods: {

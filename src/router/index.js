@@ -341,6 +341,10 @@ import gameSettings from '../components/activities/gameSettings.vue';// 游戏�
 import gameBackgroundData from '../components/activities/gameBackgroundData.vue';// 游戏数据后台
 import dollPlay from '../components/activities/dollPlay.vue';// 玩玩机
 import motherDay from '../components/activities/motherDay.vue';// 母亲节
+import openGoldCase from '../components/activities/openGoldCaseManagement/openGoldCase.vue';// 开宝箱
+import openGoldCaseStatistics from '../components/activities/openGoldCaseManagement/openGoldCaseStatistics.vue';// 开宝箱数据统计
+import storeManagement from '../components/activities/openGoldCaseManagement/storeManagement.vue';// 星商城物品管理
+import starStatistics from '../components/activities/openGoldCaseManagement/starStatistics.vue';// 星星流水记录
 
 
 // 活动专区end
@@ -738,7 +742,21 @@ export const asyncRouterMap = [
             {
                 path: '/activities',
                 component: activities,
-                name: '活动管理',
+                name: '开宝箱',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/openGoldCase/openGoldCase', component: openGoldCase, name: '开宝箱', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/openGoldCase/openGoldCaseStatistics', component: openGoldCaseStatistics, name: '开宝箱数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/openGoldCase/storeManagement', component: storeManagement, name: '星商城物品管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/openGoldCase/starStatistics', component: starStatistics, name: '星星流水记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '其他活动',
+                iconCls: 'el-icon-menu',
                 hidden: false,
                 meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
                 children: [
