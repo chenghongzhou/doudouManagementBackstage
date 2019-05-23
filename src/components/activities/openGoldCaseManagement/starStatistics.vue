@@ -90,7 +90,6 @@ export default {
     computed: {
         onePageTabData() {
             var _this = this;
-            console.log(_this.formOne.tabData)
             return _this.formOne.tabData.slice(_this.formOne.star, _this.formOne.end);
         },
     },

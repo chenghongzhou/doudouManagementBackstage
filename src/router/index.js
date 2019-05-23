@@ -345,6 +345,7 @@ import openGoldCase from '../components/activities/openGoldCaseManagement/openGo
 import openGoldCaseStatistics from '../components/activities/openGoldCaseManagement/openGoldCaseStatistics.vue';// 开宝箱数据统计
 import storeManagement from '../components/activities/openGoldCaseManagement/storeManagement.vue';// 星商城物品管理
 import starStatistics from '../components/activities/openGoldCaseManagement/starStatistics.vue';// 星星流水记录
+import goldCasePrizeStatistics from '../components/activities/openGoldCaseManagement/goldCasePrizeStatistics.vue';// 宝箱开奖设置
 
 
 // 活动专区end
@@ -750,6 +751,7 @@ export const asyncRouterMap = [
                     { path: '/activities/openGoldCase/openGoldCaseStatistics', component: openGoldCaseStatistics, name: '开宝箱数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/openGoldCase/storeManagement', component: storeManagement, name: '星商城物品管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/openGoldCase/starStatistics', component: starStatistics, name: '星星流水记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/openGoldCase/goldCasePrizeStatistics', component: goldCasePrizeStatistics, name: '开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
