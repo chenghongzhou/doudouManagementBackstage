@@ -45,7 +45,7 @@
 						<div slot="reference" class="name-wrapper">
 							<p v-if="scope.row.trade_type == 103">完成任务</p>
 							<p v-else-if="scope.row.trade_type==104">抽奖</p>
-							<p v-else-if="scope.row.trade_type==102">购物</p>
+							<p v-else-if="scope.row.trade_type==105">购物</p>
 						</div>
 					</template>
 				</el-table-column>

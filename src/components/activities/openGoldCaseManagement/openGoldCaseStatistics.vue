@@ -277,7 +277,7 @@
 						<el-date-picker 
 						v-model="formFive.time" 
 						type="datetime" 
-						placeholder="选择日期范围" style="width:100%"></el-date-picker>
+						placeholder="选择日期范围" style="width:250px"></el-date-picker>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -448,6 +448,8 @@
 							{identification:'count',name:'游戏次数'},
 							{identification:'chat_gold',name:'游戏消耗豆币'},
 							{identification:'chat_ticket',name:'送出豆票'},
+							{identification:'gift_chat_ticket',name:'送出背包礼物豆票'},
+							{identification:'star',name:'任务幸运星'},
 						]
 						_this.formOne.tabOneTitleData = oneTitleStatic.concat(res.data.data.prize_list);
 						_this.formOne.tabOneTitleData.forEach((item) => {
@@ -485,6 +487,8 @@
 							{identification:'count',name:'游戏次数'},
 							{identification:'chat_gold',name:'游戏消耗豆币'},
 							{identification:'chat_ticket',name:'送出豆票'},
+							{identification:'gift_chat_ticket',name:'送出背包礼物豆票'},
+							{identification:'star',name:'任务幸运星'},
 						]
 						_this.formTwo.tabOneTitleData = oneTitleStatic.concat(res.data.data.prize_list);
 						_this.formTwo.tabOneTitleData.forEach((item) => {

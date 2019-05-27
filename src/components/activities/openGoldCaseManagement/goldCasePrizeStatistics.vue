@@ -65,6 +65,8 @@
 				<el-table-column prop="threshold" label="阈值"></el-table-column>
 				<el-table-column prop="count" label="次数"></el-table-column>
 				<el-table-column prop="money" label="奖金池"></el-table-column>
+				<el-table-column prop="income" label="收入(豆币)"></el-table-column>
+				<el-table-column prop="outgo" label="支出(豆币)"></el-table-column>
                 <el-table-column prop="type" label="当前大奖发放模式">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
@@ -73,7 +75,7 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作">
+				<!-- <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-row>
                             <el-button 
@@ -88,7 +90,7 @@
                                 >修改</el-button>
                         </el-row>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
 			</template>	  
    			</el-table>
 			<el-col :span="24" class="toolbar">
@@ -170,7 +172,7 @@
 					tabData:[],
 					page: 1,
 					status:'1',
-					totalPage:'',
+					totalPage:1,
 					dialogFormVisible:false,
 					dialogFormVisibleOther:false,
 					type:'1',
@@ -280,36 +282,36 @@
 					})
 				}
 			},
-			modify(index, rows){
-				var _this = this;
-				_this.formTwo.dialogFormVisibleOther = true;
-				_this.formTwo.box = rows.box;
-			},
-			changeTypeSure(num){
-				var _this = this;
-				if(num == 0){
-					_this.formTwo.dialogFormVisibleOther = false;
-				}else{
-					var params = {
-						box : _this.formTwo.box,
-						type : _this.formTwo.type,
-						admin : store.state.user.name
-					};
-					axios.get(allget+'/NewTreasureBox/setPrizeType', {params: params})
-					.then((res) => {
-						if(res.data.ret == 1) {
-							_this.getTwoData();
-							_this.formTwo.dialogFormVisibleOther = false;
-							baseConfig.successTipMsg(_this, '编辑成功');
-						} else {
-							baseConfig.warningTipMsg(_this, res.data.msg);
-						}
-					})
-					.catch((err) => {
-						console.log(err);
-					})
-				}
-			}
+			// modify(index, rows){
+			// 	var _this = this;
+			// 	_this.formTwo.dialogFormVisibleOther = true;
+			// 	_this.formTwo.box = rows.box;
+			// },
+			// changeTypeSure(num){
+			// 	var _this = this;
+			// 	if(num == 0){
+			// 		_this.formTwo.dialogFormVisibleOther = false;
+			// 	}else{
+			// 		var params = {
+			// 			box : _this.formTwo.box,
+			// 			type : _this.formTwo.type,
+			// 			admin : store.state.user.name
+			// 		};
+			// 		axios.get(allget+'/NewTreasureBox/setPrizeType', {params: params})
+			// 		.then((res) => {
+			// 			if(res.data.ret == 1) {
+			// 				_this.getTwoData();
+			// 				_this.formTwo.dialogFormVisibleOther = false;
+			// 				baseConfig.successTipMsg(_this, '编辑成功');
+			// 			} else {
+			// 				baseConfig.warningTipMsg(_this, res.data.msg);
+			// 			}
+			// 		})
+			// 		.catch((err) => {
+			// 			console.log(err);
+			// 		})
+			// 	}
+			// }
 		}
 	}
 </script>
