@@ -174,7 +174,12 @@
 			:height="tabPageHeight">
 			  	<el-table-column prop="time" label="操作时间"></el-table-column>
 				<el-table-column prop="admin" label="操作人"></el-table-column>
-				<el-table-column prop="cheat_id" label="作弊对象"></el-table-column>
+				<el-table-column prop="cheat_id" label="作弊id"></el-table-column>
+				<el-table-column label="作弊对象">
+					<template slot-scope="scope" prop="uid">
+						向{{scope.row.uid}}用户发送了奖励
+					</template>
+				</el-table-column>
    			</el-table>
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -305,6 +310,7 @@
 				tabSearchPageHeight:null,
 				tabSearchPageHeightOthers:null,
 				formLabelWidth: "120px",
+				tabPageHeight:null,
            		dialogWidth: null,	
 				activityList:[],
 				formOne:{

@@ -65,8 +65,8 @@
 				<el-table-column prop="threshold" label="阈值"></el-table-column>
 				<el-table-column prop="count" label="次数"></el-table-column>
 				<el-table-column prop="money" label="奖金池"></el-table-column>
-				<el-table-column prop="income" label="收入(豆币)"></el-table-column>
-				<el-table-column prop="outgo" label="支出(豆币)"></el-table-column>
+				<el-table-column prop="income" label="收入"></el-table-column>
+				<el-table-column prop="outgo" label="支出"></el-table-column>
                 <el-table-column prop="type" label="当前大奖发放模式">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">

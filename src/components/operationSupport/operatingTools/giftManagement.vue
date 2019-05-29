@@ -618,9 +618,9 @@
 					<el-col :span="24" class="toolbar">
 						<el-pagination 
 						layout="total,prev,pager,next,jumper" 
-						@current-change="twoHandleCurrentChange" 
+						@current-change="fiveHandleCurrentChange" 
 						:page-size="20" 
-						:total="formTwo.TotalPage" 
+						:total="formFive.TotalPage" 
 						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
@@ -772,9 +772,9 @@
 					<el-col :span="24" class="toolbar">
 						<el-pagination 
 						layout="total,prev,pager,next,jumper" 
-						@current-change="twoHandleCurrentChange" 
+						@current-change="sixHandleCurrentChange" 
 						:page-size="20" 
-						:total="formTwo.TotalPage" 
+						:total="formSix.TotalPage" 
 						style="float:right;"></el-pagination>
 					</el-col>
 				</template>
@@ -1332,7 +1332,7 @@ export default {
 			formSix: {
 				choiceDate: [new Date()-180*24*60*60*1000,new Date()], 
 				TabData: [], 
-				TotalPage: null, 
+				TotalPage: 1000, 
 				Page: 1, 
 				star: '0', 
 				end: '20', 

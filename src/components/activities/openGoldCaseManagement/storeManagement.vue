@@ -57,7 +57,7 @@
                 </el-table-column>
 				<el-table-column prop="chat_gold" label="价值豆币"></el-table-column>
 				<el-table-column prop="star" label="兑换所需星星"></el-table-column>
-				<el-table-column prop="description" label="物品说明"></el-table-column>
+				<!-- <el-table-column prop="description" label="物品说明"></el-table-column> -->
 				<el-table-column prop="on_time" label="上架时间"></el-table-column>
                 <el-table-column label="上架状态" width="80">
 					<template slot-scope="scope">
@@ -135,13 +135,13 @@
 					:src="addNewloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品说明" :label-width="formLabelWidth">
+				<!-- <el-form-item label="物品说明" :label-width="formLabelWidth">
 					<el-input 
 					type="textarea"
 					style="width:250px"
 					v-model="addNewloading.params.description" 
 					auto-complete="off"></el-input>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.status">
 						<el-option label="上线" value="1"></el-option>
@@ -202,13 +202,13 @@
 					:src="editorloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品说明" :label-width="formLabelWidth">
+				<!-- <el-form-item label="物品说明" :label-width="formLabelWidth">
 					<el-input 
 					type="textarea"
 					style="width:250px"
 					v-model="editorloading.params.description" 
 					auto-complete="off"></el-input>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.status">
 						<el-option label="上线" value="1"></el-option>
@@ -417,7 +417,7 @@ export default {
 				formData.append('sort', _this.addNewloading.params.sort);
 				formData.append('status', _this.addNewloading.params.status);
 				formData.append('star', _this.addNewloading.params.num);
-				formData.append('description', _this.addNewloading.params.description);
+			//	formData.append('description', _this.addNewloading.params.description);
 			  	formData.append('icon', _this.addNewloading.params.file_pic); //提交的新增图标的文件
 				let config = {
 					headers: {
@@ -458,7 +458,7 @@ export default {
 			this.editorloading.params.status = rows.status;
 			this.editorloading.params.sort = rows.sort;
 			this.editorloading.params.goods_id = rows.goods_id;
-			this.editorloading.params.description = rows.description;
+		//	this.editorloading.params.description = rows.description;
 		},
 		editorBannerSure(num){
 			var _this = this;
@@ -474,7 +474,7 @@ export default {
 				formData.append('sort', _this.editorloading.params.sort);
 				formData.append('status', _this.editorloading.params.status);
 				formData.append('num', _this.editorloading.params.num);
-				formData.append('description', _this.editorloading.params.description);
+			//	formData.append('description', _this.editorloading.params.description);
 			  	formData.append('icon', _this.editorloading.params.icon); //提交的新增图标的文件
 				let config = {
 					headers: {
