@@ -346,6 +346,7 @@ import openGoldCaseStatistics from '../components/activities/openGoldCaseManagem
 import storeManagement from '../components/activities/openGoldCaseManagement/storeManagement.vue';// 星商城物品管理
 import starStatistics from '../components/activities/openGoldCaseManagement/starStatistics.vue';// 星星流水记录
 import goldCasePrizeStatistics from '../components/activities/openGoldCaseManagement/goldCasePrizeStatistics.vue';// 宝箱开奖设置
+import juneDayActivity from '../components/activities/juneDayActivity.vue';// 六一
 
 
 // 活动专区end
@@ -782,6 +783,7 @@ export const asyncRouterMap = [
                     { path: '/activities/gameBackgroundData', component: gameBackgroundData, name: '游戏数据后台', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/dollPlay', component: dollPlay, name: '娃娃机', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/motherDay', component: motherDay, name: '母亲节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/juneDayActivity', component: juneDayActivity, name: '六一', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
