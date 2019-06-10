@@ -263,8 +263,8 @@ export default {
         handleCurrentChange(val) {
 			var _this = this;
 			_this.page = val-1;
-			_this.star = (_this.page)*20;
-			_this.end = _this.star+20;
+			// _this.star = (_this.page)*20;
+			// _this.end = _this.star+20;
 			_this.getTableData();
 		},
 		searchCondition() {

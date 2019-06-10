@@ -32,16 +32,16 @@
 						<div class="grid-content bg-purple">合计</div>
 					</el-col>
 					<el-col :span="5">
-						<div class="grid-content bg-purple-light">心愿瓶数量：{{formOne.totalDataObj.num_3}}</div>
+						<div class="grid-content bg-purple-light">五彩绳数量：{{formOne.totalDataObj.num_3}}</div>
 					</el-col>
 					<el-col :span="5">
-						<div class="grid-content bg-purple-light">爱你哟数量：{{formOne.totalDataObj.num_2}}</div>
+						<div class="grid-content bg-purple-light">粽子数量：{{formOne.totalDataObj.num_2}}</div>
 					</el-col>
 					<el-col :span="5">
-						<div class="grid-content bg-purple-light">小心心数量：{{formOne.totalDataObj.num_1}}</div>
+						<div class="grid-content bg-purple-light">龙舟数量：{{formOne.totalDataObj.num_1}}</div>
 					</el-col>
 					<el-col :span="5">
-						<div class="grid-content bg-purple-light">感恩信数量：{{formOne.totalDataObj.num_4}}</div>
+						<div class="grid-content bg-purple-light">香包数量：{{formOne.totalDataObj.num_4}}</div>
 					</el-col>
 				</el-row>
 			</div>
@@ -51,10 +51,10 @@
 			:height="tabSearchPageHeight">
 			  	<el-table-column prop="uid" label="用户ID" min-width="100"></el-table-column>
 		  		<el-table-column prop="nickname" label="用户昵称" min-width="100"></el-table-column>
-		  		<el-table-column prop="num_3" label="心愿瓶数量" min-width="100"></el-table-column>
-		  		<el-table-column prop="num_2" label="爱你哟数量" min-width="100"></el-table-column>
-		  		<el-table-column prop="num_1" label="小心心数量" min-width="200"></el-table-column>
-				  <el-table-column prop="num_4" label="感恩信数量" min-width="200"></el-table-column>
+		  		<el-table-column prop="num_3" label="五彩绳" min-width="100"></el-table-column>
+		  		<el-table-column prop="num_2" label="粽子" min-width="100"></el-table-column>
+		  		<el-table-column prop="num_1" label="龙舟" min-width="200"></el-table-column>
+				  <el-table-column prop="num_4" label="香包" min-width="200"></el-table-column>
    			</el-table>  						
 		    <el-col :span="24" class="toolbar">
 				<el-pagination 

@@ -261,8 +261,8 @@
 							<el-option label="IOS设置通话价格界面广告" value="5"></el-option>
 							<el-option label="安卓消息界面广告" value="9"></el-option>
 							<el-option label="IOS消息界面广告" value="10"></el-option>
-							<el-option label="安卓首页界面广告" value="11"></el-option>
-							<el-option label="IOS首页界面广告" value="12"></el-option>
+							<!-- <el-option label="安卓首页界面广告" value="11"></el-option>
+							<el-option label="IOS首页界面广告" value="12"></el-option> -->
 							<el-option label="安卓首页顶部界面广告" value="13"></el-option>
 							<el-option label="IOS首页顶部界面广告" value="14"></el-option>
 						</el-select>
@@ -405,8 +405,8 @@
 							<el-option label="IOS设置通话价格界面广告" value="5"></el-option>
 							<el-option label="安卓消息界面广告" value="9"></el-option>
 							<el-option label="IOS消息界面广告" value="10"></el-option>
-							<el-option label="安卓首页界面广告" value="11"></el-option>
-							<el-option label="IOS首页界面广告" value="12"></el-option>
+							<!-- <el-option label="安卓首页界面广告" value="11"></el-option>
+							<el-option label="IOS首页界面广告" value="12"></el-option> -->
 							<el-option label="安卓首页顶部界面广告" value="13"></el-option>
 							<el-option label="IOS首页顶部界面广告" value="14"></el-option>
 						</el-select>

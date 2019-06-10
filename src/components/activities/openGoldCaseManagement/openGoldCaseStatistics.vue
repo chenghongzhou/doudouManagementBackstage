@@ -83,6 +83,14 @@
 							placeholder="选择日期范围"></el-date-picker>
 						</div>
 					</el-form-item>
+					<el-form-item>
+                        <span>宝箱等级：</span>
+                        <el-select style="width:200px;" v-model="formTwo.box">
+                            <el-option label="黄金宝箱" value="1"></el-option>
+                            <el-option label="白金宝箱" value="2"></el-option>
+							<el-option label="氪金宝箱" value="3"></el-option>
+                        </el-select>
+                    </el-form-item>
 					<el-form-item label="UID">
 						<el-input 
 						v-model="formTwo.uid" 
@@ -337,6 +345,7 @@
 					uid:'',
 					page: 0,
 					star: '0',
+					box:'1',
                 	end: '20',
 					totalPage:1000,
 				},
@@ -406,6 +415,7 @@
 				var obj = {};
 				obj.uid = _this.formTwo.uid;
 				obj.page=_this.formTwo.page;
+				obj.box=_this.formTwo.box;
 				obj.start_date = _this.formTwo.choiceDate?baseConfig.changeDateTime(_this.formTwo.choiceDate[0], 0):'';
                 obj.end_date = _this.formTwo.choiceDate?baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 0):'';
 				return obj; 
