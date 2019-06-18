@@ -137,7 +137,11 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="first_time_amount" label="新增充值金额"></el-table-column>
+                <el-table-column prop="first_time_amount" label="新增充值金额">
+                     <template slot-scope="scope">
+                        {{scope.row.first_time_amount / 100}}
+                    </template>
+                </el-table-column>
                 <el-table-column 
                 prop="first_time_amount_up_down" 
                 label="新增充值金额环比">
@@ -161,7 +165,11 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="new_consume_arpu" label="新增付费ARPU"></el-table-column>
+                <el-table-column prop="new_consume_arpu" label="新增付费ARPU">
+                    <template slot-scope="scope">
+                        {{scope.row.new_consume_arpu / 100}}
+                    </template>
+                </el-table-column>
                 <el-table-column 
                 prop="new_consume_arpu_up_down" 
                 label="新增付费ARPU环比">

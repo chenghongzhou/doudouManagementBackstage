@@ -53,10 +53,22 @@
                 <el-table-column prop="consume_arpu" label="付费ARPU值"></el-table-column>
                 <el-table-column prop="active_arpu" label="活跃ARPU值"></el-table-column>
                 <el-table-column prop="first_time_user" label="新增付费人数"></el-table-column>
-                <el-table-column prop="first_time_amount" label="新增充值金额"></el-table-column>
+                <el-table-column prop="first_time_amount" label="新增充值金额">
+                    <template slot-scope="scope">
+						{{scope.row.first_time_amount / 100}}
+					</template>
+                </el-table-column>
                 <el-table-column prop="new_consume_rate" label="新增付费率"></el-table-column>
-                <el-table-column prop="new_consume_arpu" label="新增付费ARPU"></el-table-column>
-                <el-table-column prop="new_active_arpu" label="新增活跃ARPU值"></el-table-column>
+                <el-table-column prop="new_consume_arpu" label="新增付费ARPU">
+                    <template slot-scope="scope">
+						{{scope.row.new_consume_arpu / 100}}
+					</template>
+                </el-table-column>
+                <el-table-column prop="new_active_arpu" label="新增活跃ARPU值">
+                     <template slot-scope="scope">
+						{{scope.row.new_active_arpu / 100}}
+					</template>
+                </el-table-column>
                 <el-table-column prop="online_total_best" label="最高在线人数"></el-table-column>
                 <el-table-column prop="online_avg_man" label="平均在线人数"></el-table-column>
                 <el-table-column prop="ret_one_rate" label="次日留存"></el-table-column>

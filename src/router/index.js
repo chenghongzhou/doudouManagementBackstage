@@ -347,6 +347,9 @@ import storeManagement from '../components/activities/openGoldCaseManagement/sto
 import starStatistics from '../components/activities/openGoldCaseManagement/starStatistics.vue';// 星星流水记录
 import goldCasePrizeStatistics from '../components/activities/openGoldCaseManagement/goldCasePrizeStatistics.vue';// 宝箱开奖设置
 import juneDayActivity from '../components/activities/juneDayActivity.vue';// 六一
+import luckyTree from '../components/activities/luckyTree/luckyTree.vue';// 幸运树
+import luckyTreeStatistics from '../components/activities/luckyTree/luckyTreeStatistics.vue';// 幸运树数据统计
+import luckyTreePrizeStatistics from '../components/activities/luckyTree/luckyTreePrizeStatistics.vue';// 幸运树开奖设置
 
 
 // 活动专区end
@@ -753,6 +756,18 @@ export const asyncRouterMap = [
                     { path: '/activities/openGoldCase/storeManagement', component: storeManagement, name: '星商城物品管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/openGoldCase/starStatistics', component: starStatistics, name: '星星流水记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/openGoldCase/goldCasePrizeStatistics', component: goldCasePrizeStatistics, name: '开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '幸运树',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/luckyTree/luckyTree', component: luckyTree, name: '幸运树', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckyTree/luckyTreeStatistics', component: luckyTreeStatistics, name: '幸运树数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckyTree/luckyTreePrizeStatistics', component: luckyTreePrizeStatistics, name: '幸运树开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
