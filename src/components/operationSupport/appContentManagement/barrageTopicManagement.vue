@@ -16,7 +16,8 @@
 						<el-option label="随机匹配话题" value="0"></el-option>
 						<el-option label="抢聊话题" value="1"></el-option>
 						<el-option label="刺激话题" value="2"></el-option>
-						<el-option label="组组匹配推送话题" value="3"></el-option>
+						<el-option label="随机匹配推送话题" value="3"></el-option>
+						<el-option label="房间分享随机话题" value="4"></el-option>
 					</el-select>
 				</el-form-item>
                 <el-form-item>
@@ -45,7 +46,8 @@
 							<p v-if="scope.row.position==0">随机匹配话题</p>
 							<p v-else-if="scope.row.position==1">抢聊话题</p>
 							<p v-else-if="scope.row.position==2">刺激话题</p>
-							<p v-else-if="scope.row.position==3">组组匹配推送话题</p>
+							<p v-else-if="scope.row.position==3">随机匹配推送话题</p>
+							<p v-else-if="scope.row.position==4">房间分享随机话题</p>
 						</div>
 					</template>
 				</el-table-column>
@@ -80,7 +82,8 @@
 						<el-option label="随机匹配话题" value="0"></el-option>
 						<el-option label="抢聊话题" value="1"></el-option>
 						<el-option label="刺激话题" value="2"></el-option>
-						<el-option label="组组匹配推送话题" value="3"></el-option>
+						<el-option label="随机匹配推送话题" value="3"></el-option>
+						<el-option label="房间分享随机话题" value="4"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="弹幕序号" :label-width="formLabelWidth">

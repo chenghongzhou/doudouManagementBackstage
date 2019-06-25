@@ -350,6 +350,7 @@ import juneDayActivity from '../components/activities/juneDayActivity.vue';// �
 import luckyTree from '../components/activities/luckyTree/luckyTree.vue';// 幸运树
 import luckyTreeStatistics from '../components/activities/luckyTree/luckyTreeStatistics.vue';// 幸运树数据统计
 import luckyTreePrizeStatistics from '../components/activities/luckyTree/luckyTreePrizeStatistics.vue';// 幸运树开奖设置
+import KSongManagement from '../components/activities/KSongManagement.vue';// k歌
 
 
 // 活动专区end
@@ -799,6 +800,7 @@ export const asyncRouterMap = [
                     { path: '/activities/dollPlay', component: dollPlay, name: '娃娃机', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/motherDay', component: motherDay, name: '端午节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/juneDayActivity', component: juneDayActivity, name: '六一', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/KSongManagement', component: KSongManagement, name: 'K歌', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
