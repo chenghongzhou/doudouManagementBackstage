@@ -256,6 +256,76 @@
                     </el-col>
                 </template>
 			</el-tab-pane>
+            <el-tab-pane 
+            label="称号" 
+            name="four" 
+            :style="{height:tabHeight+'px'}">
+                <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
+					<el-form :inline="true" style="overflow:hidden;" :model="formFour">
+						<el-form-item>
+							<el-button 
+                            type="primary" 
+                            @click="formFour.add.dialogFormVisible=true;">新增</el-button>
+						</el-form-item>
+					</el-form>
+				</el-col>
+                <template>
+                    <el-table 
+                    ref="tabSearchPageHeight" 
+                    :data="fourPageTabData" 
+                    border fit highlight-current-row 
+                    v-loading="listLoading" 
+                    style="width:100%;" :height="tabSearchPageHeight">
+                        <el-table-column prop="id" label="ID" ></el-table-column>
+                        <el-table-column prop="create_time" label="添加时间" ></el-table-column>
+                        <el-table-column prop="name" label="名称" ></el-table-column>
+                        <el-table-column prop="file_name" label="图片文件名" ></el-table-column>
+                        <el-table-column label="称号图" width="120">
+                            <template slot-scope="scope">
+                                <div slot="reference" class="name-wrapper">
+                                    <img 
+                                    :src="scope.row.icon" 
+                                    style="width:100px;height:auto;">
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column width="260" label="特效图" >
+                            <template slot-scope="scope">
+                                <div slot="reference" class="name-wrapper">
+                                    <el-button 
+                                    v-if="scope.row.dynamic_effect_url!=''&&scope.row.dynamic_effect_url!=null" 
+                                    @click.native.prevent="downDemo(scope.row.dynamic_effect_url)">下载文件</el-button>
+                                    <el-button 
+                                    v-if="scope.row.dynamic_effect_url!=''&&scope.row.dynamic_effect_url!=null" 
+                                    @click.native.prevent="lookDemo()">特效图页面</el-button>
+                                    <el-button
+                                    v-else
+                                    plain>无特效</el-button>
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="role_time" label="作用时长（小时）" ></el-table-column>
+                        <el-table-column prop="description" label="描述" ></el-table-column>
+                        <el-table-column label="操作" width="140">
+                            <template slot-scope="scope">
+                                <el-button 
+                                type="primary" 
+                                @click="editChangeFour(fourPageTabData[scope.$index])" 
+                                size="small">编辑</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <el-col :span="24" class="toolbar">
+                        <el-pagination 
+                        layout="total,prev,pager,next,jumper" 
+                        @current-change="fourHandleCurrentChange" 
+                        :page-size="20" 
+                        :total="formFour.totalpage" 
+                        style="float:right;"></el-pagination>
+                    </el-col>
+                </template>
+			</el-tab-pane>
+            <!--弹窗-->
             <el-dialog title="道具  编辑" :visible.sync="formOne.dialogFormVisible" width="80%">
                 <el-form :model="formOne">
                     <el-form-item label="道具名称：" :label-width="formLabelWidth">
@@ -506,6 +576,98 @@
                     @click="sureEditThree(1)">确 定</el-button>
                 </div>
             </el-dialog>
+            <!-- 称号 -->
+            <el-dialog title="称号  新增" :visible.sync="formFour.add.dialogFormVisible" width="80%">
+                <el-form :model="formFour.add">
+                    <el-form-item label="称号名称：" :label-width="formLabelWidth">
+                        <el-input 
+                        v-model="formFour.add.name" 
+                        auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="作用时长：" :label-width="formLabelWidth">
+                        <el-input 
+                        placeholder="单位：小时;" 
+                        v-model="formFour.add.role_time" 
+                        auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述：" :label-width="formLabelWidth">
+                        <el-input 
+                        v-model="formFour.add.description" 
+                        auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="座驾图：" :label-width="formLabelWidth">
+                        <input 
+                        class="fileinput"
+                        type="file"  
+                        @change="uploadingFour($event, 1, 'add')">
+                        <img 
+                        :src="formFour.add.title_icon_show" 
+                        style="width:100px;height:auto;">
+                    </el-form-item>
+                    <el-form-item label="特效图：" :label-width="formLabelWidth">
+                        <input 
+                        class="fileinput"
+                        type="file"  
+                        @change="uploadingFour($event, 2, 'add')">
+						<el-button 
+                        @click.native.prevent="lookDemo()">特效图页面</el-button>
+						<p style="color:red;display:inline-block;">可以打开特效图页面，将文件拖入查看效果~</p>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button 
+                    @click="sureAddFour(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureAddFour(1)">确 定</el-button>
+                </div>
+            </el-dialog>
+            <el-dialog title="称号  编辑" :visible.sync="formFour.edit.dialogFormVisible" width="80%">
+                <el-form :model="formFour.edit">
+                    <el-form-item label="称号名称：" :label-width="formLabelWidth">
+                        <el-input 
+                        v-model="formFour.edit.name" 
+                        auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="作用时长：" :label-width="formLabelWidth">
+                        <el-input 
+                        placeholder="单位：小时;" 
+                        v-model="formFour.edit.role_time" 
+                        auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述：" :label-width="formLabelWidth">
+                        <el-input type="textarea" v-model="formFour.edit.description" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="座驾图：" :label-width="formLabelWidth">
+                        <input 
+                        class="fileinput"
+                        type="file"  
+                        @change="uploadingFour($event, 1, 'edit')">
+                        <img 
+                        :src="formFour.edit.title_icon_show" 
+                        style="width:100px;height:auto;">
+                    </el-form-item>
+                    <el-form-item label="特效图：" :label-width="formLabelWidth">
+                        <input 
+                        class="fileinput"
+                        type="file"  
+                        @change="uploadingFour($event, 2, 'edit')">
+                        <el-button 
+                        v-if="formFour.edit.dynamic_effect_url!=''&&formFour.edit.dynamic_effect_url!=null" 
+                        @click.native.prevent="downDemo(formFour.edit.dynamic_effect_url)">下载文件</el-button>
+						<el-button 
+                        @click.native.prevent="lookDemo()">特效图页面</el-button>
+						<p style="color:red;display:inline-block;">可以打开特效图页面，将文件拖入查看效果~</p>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button 
+                    @click="sureEditFour(0)">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureEditFour(1)">确 定</el-button>
+                </div>
+            </el-dialog>
 		</el-tabs>
 	</section>
 </template>
@@ -599,6 +761,36 @@ export default {
                     dynamic_effect_url_show: '',
                 },
             },
+            formFour: {
+                tabData: [],
+                totalpage: null, 
+                page: 1,
+                star: '0',
+                end: '20', 
+                edit: {
+                    dialogFormVisible: false,
+                    id: '',
+                    type: '0',
+                    name: '',
+                    role_time: '',
+                    description: '',
+                    title_icon: '',
+                    title_icon_show: '',
+                    dynamic_effect_url: '',
+                    dynamic_effect_url_show: '',
+                },
+                add: {
+                    dialogFormVisible: false,
+                    type: '0',
+                    name: '',
+                    role_time: '',
+                    description: '',
+                    title_icon: '',
+                    title_icon_show: '',
+                    dynamic_effect_url: '',
+                    dynamic_effect_url_show: '',
+                },
+            },
 			listLoading: false, 
 			formLabelWidth: '120px',
             tabActiveName: 'one',
@@ -616,6 +808,10 @@ export default {
         threePageTabData() {
 			var _this = this;
 			return _this.formThree.tabData.slice(_this.formThree.star, _this.formThree.end);
+        },
+        fourPageTabData() {
+			var _this = this;
+			return _this.formFour.tabData.slice(_this.formFour.star, _this.formFour.end);
         },
 	},
 	methods: {
@@ -1040,6 +1236,149 @@ export default {
             }
         },
         /*
+            称号-第四屏的页面
+            1、getFourData: 获取装扮的全部的内容
+            2、fourHandleCurrentChange：配合进行翻页时候使用
+            3、sureAddFour：确定新增装扮
+            4、sureEditFour：编辑装扮的
+            5、editChangeFour：编辑修改的内容
+            6、uploadingFour：上传文件
+        */ 
+        getFourData() {
+            var _this = this;
+            var url = allget+'/NewProp/getPropTitleList';
+            var params = {};
+            axios.get(url, { params: params })
+            .then((res) => {
+                if(res.data.ret) {
+                    _this.formFour.totalpage = res.data.data.length;
+                    _this.formFour.tabData = res.data.data;
+                } 
+                else {
+                    baseConfig.warningTipMsg(_this, res.data.msg);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        },
+        fourHandleCurrentChange(val) {
+			var _this = this;
+            _this.formFour.page = val-1;
+			_this.formFour.star = (_this.formFour.page)*20;
+			_this.formFour.end = _this.formFour.star+20;
+        },
+        sureAddFour(type) {
+            var _this = this;
+            if(type==0) {
+                _this.resetForm();
+            }
+            else if(type==1) {
+                let formData = new FormData();
+                formData.append('type', _this.formFour.add.type);
+                formData.append('name', _this.formFour.add.name);
+                formData.append('role_time', _this.formFour.add.role_time);
+                formData.append('description', _this.formFour.add.description);
+                formData.append('title_icon', _this.formFour.add.title_icon);
+                formData.append('dynamic_effect_url', _this.formFour.add.dynamic_effect_url);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+                var url = allget+'/NewProp/addPropTitleList';
+                axios.post(url, formData, config)
+                    .then((res) => {
+                        if(res.data.ret) {
+                            baseConfig.successTipMsg(_this, res.data.msg);
+                            _this.getFourData();
+                            _this.resetForm();
+                        }
+                        else {
+                            baseConfig.warningTipMsg(_this, res.data.msg);
+                        }
+                        _this.formFour.add.dialogFormVisible=false;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        },
+        sureEditFour(type) {
+            var _this = this;
+            if(type==0) {
+                _this.resetForm();
+            }
+            else if(type==1) {
+                let formData = new FormData();
+                formData.append('id', _this.formFour.edit.id);
+                formData.append('type', _this.formFour.edit.type);
+                formData.append('name', _this.formFour.edit.name);
+                formData.append('role_time', _this.formFour.edit.role_time);
+                formData.append('description', _this.formFour.edit.description);
+                formData.append('title_icon', _this.formFour.edit.title_icon);
+                formData.append('dynamic_effect_url', _this.formFour.edit.dynamic_effect_url);
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                };
+                var url = allget+'/NewProp/editPropTitleList';
+                    axios.post(url, formData, config)
+                    .then((res) => {
+                        if(res.data.ret) {
+                            baseConfig.successTipMsg(_this, res.data.msg);
+                            _this.getFourData();
+                            _this.resetForm();
+                        }
+                        else {
+                            baseConfig.warningTipMsg(_this, res.data.msg);
+                        }
+                        _this.formFour.add.dialogFormVisible=false;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        },
+        editChangeFour(val) {
+            var _this = this;
+            _this.formFour.edit.id = val.id;
+            _this.formFour.edit.type = val.type;
+            _this.formFour.edit.name = val.name;
+            _this.formFour.edit.role_time = val.role_time;
+            _this.formFour.edit.description = val.description;
+            // 在这里只有对应的icon有展示图片，特效图没有对应的内容展示
+            _this.formFour.edit.title_icon_show = val.icon;
+            _this.formFour.edit.title_icon = '';
+            _this.formFour.edit.dynamic_effect_url = val.dynamic_effect_url;
+            _this.formFour.edit.dialogFormVisible=true;
+        },
+        uploadingFour(a, b, c) {
+            var _this = this;
+            // a指代的文件，b指代的（1装扮道具、2特效），指代的（'add'、'edit'）
+            if(c=='add') {
+                if(b=='1') {
+                    _this.formFour.add.title_icon = event.target.files[0];
+			  	    var windowURL = window.URL || window.webkitURL;
+					_this.formFour.add.title_icon_show = windowURL.createObjectURL(event.target.files[0]);
+                }
+                else if(b=='2') {
+                    _this.formFour.add.dynamic_effect_url = event.target.files[0];
+                }
+            }
+            else if(c=='edit') {
+                if(b=='1') {
+                    _this.formFour.edit.title_icon = event.target.files[0];
+			  	    var windowURL = window.URL || window.webkitURL;
+					_this.formFour.edit.title_icon_show = windowURL.createObjectURL(event.target.files[0]);
+                }
+                else if(b=='2') {
+                    _this.formFour.edit.dynamic_effect_url = event.target.files[0];
+                }
+            }
+        },
+        /*
             1、handleClick：顶部tab进行页面的切换
             2、resetForm：重新设置form的数据表格
             3、downDemo：下载文件
@@ -1103,6 +1442,29 @@ export default {
                 dynamic_effect_url: '',
                 dynamic_effect_url_show: '',
             };
+            _this.formFour.edit = {
+                dialogFormVisible: false,
+                id: '',
+                type: '0',
+                name: '',
+                role_time: '',
+                description: '',
+                title_icon: '',
+                title_icon_show: '',
+                dynamic_effect_url: '',
+                dynamic_effect_url_show: '',
+            };
+            _this.formFour.add = {
+                dialogFormVisible: false,
+                type: '0',
+                name: '',
+                role_time: '',
+                description: '',
+                title_icon: '',
+                title_icon_show: '',
+                dynamic_effect_url: '',
+                dynamic_effect_url_show: '',
+            };
         },
 		downDemo(val) {
 			var _this = this;
@@ -1121,6 +1483,7 @@ export default {
             _this.getTableData();
             _this.getTwoData();
             _this.getThreeData();
+            _this.getFourData();
         })
 	}
 };

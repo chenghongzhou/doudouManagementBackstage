@@ -62,6 +62,13 @@
 						</template>
 					</el-table-column>
 				</el-table>
+				<el-col :span="24" class="toolbar">
+					<el-pagination 
+					layout="total,prev,pager,next,jumper" 
+					@current-change="oneHandleCurrentChange" 
+					:page-size="20" :total="formOne.totalPage" 
+					style="float:right;"></el-pagination>
+				</el-col>
 			</template>
 			<el-dialog title="审核" :visible.sync="formTwo.dialogFormVisible">
 				<el-form :model="formTwo">
@@ -97,7 +104,7 @@ export default {
 				status: '0',
 				tabData: [],
 				totalPage: 1000, 
-				page: 0,
+				page: 1,
 			},
 			formTwo: {
 				status: 1,
@@ -111,7 +118,7 @@ export default {
 	methods: {
 		oneHandleCurrentChange(val) {
 			var _this = this;
-			_this.formOne.page = val-1;
+			_this.formOne.page = val;
 			_this.getData();
 		},
 		// 获取家族数据统计的数据
