@@ -40,7 +40,7 @@
                     @click="propData.dialogShow=true;">道具赠送</el-button>
                     <el-button 
                     type="primary"
-                    @click="dressUp.dialogShow=true;">装扮、座驾赠送</el-button>
+                    @click="dressUp.dialogShow=true;">装扮、座驾、称号赠送</el-button>
                     <el-button 
                     type="primary" 
                     @click="getTableData">查询</el-button>
@@ -76,7 +76,7 @@
                             ||scope.row.type==8">{{scope.row.num}}个月</p>
                             <p v-else-if="scope.row.type==9">{{scope.row.num}}张</p>
                             <p v-else-if="scope.row.type==10
-                            ||scope.row.type==11">{{scope.row.num}}天</p>
+                            ||scope.row.type==11||scope.row.type==12">{{scope.row.num}}天</p>
                         </div>
                     </template>
                 </el-table-column>
@@ -98,6 +98,9 @@
                             </p>
                             <p v-else-if="scope.row.type==11">
                                 {{threeChange(scope.row.prop_id)}}(座驾)
+                            </p>
+                            <p v-else-if="scope.row.type==12">
+                                {{fourChange(scope.row.prop_id)}}(称号)
                             </p>
                         </div>
                     </template>
@@ -209,6 +212,7 @@
                     <el-select v-model="dressUp.type">
                         <el-option label="装扮" value="10"></el-option>
                         <el-option label="座驾" value="11"></el-option>
+                        <el-option label="称号" value="12"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item v-if="dressUp.type==10" label="装扮详情" :label-width="formLabelWidth">
@@ -224,6 +228,15 @@
                     <el-select v-model="dressUp.prop_id_three">
                         <el-option 
                         v-for="itemOne in dressUp.changeThree" 
+                        :key="itemOne.id" 
+                        :label="itemOne.name" 
+                        :value="itemOne.id"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item v-else-if="dressUp.type==12" label="称号详情" :label-width="formLabelWidth">
+                    <el-select v-model="dressUp.prop_id_four">
+                        <el-option 
+                        v-for="itemOne in dressUp.changeFour" 
                         :key="itemOne.id" 
                         :label="itemOne.name" 
                         :value="itemOne.id"></el-option>
@@ -363,8 +376,10 @@ export default {
                 operation_reason: '',
                 prop_id_two: "",
                 prop_id_three: "",
+                prop_id_four: "",
                 changeTwo: [],
                 changeThree: [],
+                changeFour: [],
             },
             listLoading: false,
             formLabelWidth: '120px',
@@ -405,6 +420,14 @@ export default {
             for(var i=0; i<_this.dressUp.changeThree.length; i++) {
                 if(_this.dressUp.changeThree[i].id==id) {
                     return _this.dressUp.changeThree[i].name;
+                }
+            }
+        },
+        fourChange(id) {
+            var _this = this;
+            for(var i=0; i<_this.dressUp.changeFour.length; i++) {
+                if(_this.dressUp.changeFour[i].id==id) {
+                    return _this.dressUp.changeFour[i].name;
                 }
             }
         },
@@ -547,13 +570,15 @@ export default {
                     formData.append('prop_id', _this.dressUp.prop_id_two);
                 } else if(_this.dressUp.type==11) {
                     formData.append('prop_id', _this.dressUp.prop_id_three);
+                } else if(_this.dressUp.type==12) {
+                    formData.append('prop_id', _this.dressUp.prop_id_four);
                 }
                 axios.post(allget+url, formData, config)
                     .then((res) => {
                         if(res.data.ret) {
                             baseConfig.successTipMsg(_this, res.data.msg);
                             _this.getTableData();    
-                            _this.get
+                           // _this.get
                         } else {
                             baseConfig.warningTipMsg(_this, res.data.msg);
                         }
@@ -626,6 +651,25 @@ export default {
                     console.log(err);
                 });
         },
+        getFourId() {
+			var _this = this;
+			var url = '/NewProp/getPropTitleList';
+			var params = {};
+			axios.get(allget+url, { params: params })
+                .then((res) => {
+                    var arr = [];
+                    for(var i=0; i<res.data.data.length; i++) {
+                        var obj = {};					
+                        obj.name = res.data.data[i].name;
+                        obj.id = res.data.data[i].id;
+                        arr.push(obj);
+                    }
+                    _this.dressUp.changeFour = arr;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
 		//  取消记录
 		cancell(index,row){
             var _this = this;
@@ -685,6 +729,7 @@ export default {
             _this.getOneId();
             _this.getTwoId();
             _this.getThreeId();
+            _this.getFourId();
         })
     },
     created() {
@@ -692,6 +737,7 @@ export default {
         _this.getOneId();
         _this.getTwoId();
         _this.getThreeId();
+        _this.getFourId();
     },
 }
 </script>

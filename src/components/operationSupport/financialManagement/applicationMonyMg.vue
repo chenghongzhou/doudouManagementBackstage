@@ -64,6 +64,7 @@
                             <p v-else-if="scope.row.type==9">{{scope.row.num}}张</p>
                             <p v-else-if="scope.row.type==10">{{scope.row.num}}天</p>
                             <p v-else-if="scope.row.type==11">{{scope.row.num}}天</p>
+                            <p v-else-if="scope.row.type==12">{{scope.row.num}}天</p>
                         </div>
                     </template>
                 </el-table-column>
@@ -80,6 +81,7 @@
                             <p v-else-if="scope.row.type==9">{{scope.row.prop_name}}(道具)</p>
                             <p v-else-if="scope.row.type==10">{{scope.row.attire_name}}(装扮)</p>
                             <p v-else-if="scope.row.type==11">{{scope.row.car_name}}(座驾)</p>
+                            <p v-else-if="scope.row.type==12">{{scope.row.title_name}}(称号)</p>
                         </div>
                     </template>
                 </el-table-column>
@@ -232,6 +234,7 @@ export default {
                 id: this.passData.id,
                 type: this.passData.type,
                 num: this.passData.num,
+                examine_name: store.state.user.name,
             }
             var url = '/NewMoney/sendMoneyToSuccess';
             axios.get(allget+url, {params: params})

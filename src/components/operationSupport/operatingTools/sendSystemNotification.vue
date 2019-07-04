@@ -237,7 +237,21 @@
 						<el-option label="H5页面" value="2"></el-option>
 						<el-option label="跳转外部浏览器打开" value="3"></el-option>
 						<el-option label="跳转打电话界面" value="4"></el-option>
+						<el-option label="图片转H5页面" value="5"></el-option>
 					</el-select>
+				</el-form-item>
+				<el-form-item label="图片链接" :label-width="formLabelWidth" v-if="formUid.Link_type == 5">
+					<el-input 
+					v-model="formUid.img" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="页面标题" :label-width="formLabelWidth" v-if="formUid.Link_type == 5">
+					<el-input 
+					v-model="formUid.newTitle" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="" :label-width="formLabelWidth" v-if="formUid.Link_type == 5">
+					<el-button style="background:#409EFF;color:#fff" @click="generateBtn()">生成链接</el-button>
 				</el-form-item>
 				<el-form-item label="ios中链接地址" :label-width="formLabelWidth">
 					<el-input 
@@ -275,7 +289,7 @@
 
 <script>
 import Event from './../../../public_js/event.js';
-import { allget } from '../../../api/api';
+import { allget, wechatget} from '../../../api/api';
 import store from '../../../vuex/store';
 import axios from 'axios';
 export default {
@@ -341,6 +355,8 @@ export default {
 				is_timing: '0', //是否定时（0->不定时，1->定时）
 				send_time: '', //定时的时间
 				operation_name: '', //操作人
+				newTitle:'', //
+				img:'', //图片地址
 			},
 			listLoading: false,
 			tabData: [], 
@@ -435,6 +451,12 @@ export default {
 				_this.formUid.dialogFormVisible=false; 
 			} else if(val==1) {
 				_this.listLoading = true;
+				var typeCheck = '';
+				if(_this.formUid.Link_type == 5 || _this.formUid.Link_type == 2){
+					typeCheck = 2;
+				}else{
+					typeCheck =_this.formUid.Link_type;
+				};
 				let formData = new FormData();
 			  	formData.append('condition_sex', _this.formUid.condition_sex);
 			  	formData.append('addtime_start', '');
@@ -447,7 +469,7 @@ export default {
 			  	formData.append('content_type', _this.formUid.content_type);
 			  	formData.append('content', _this.formUid.content);
 			  	formData.append('display', _this.formUid.display);
-			  	formData.append('Link_type', _this.formUid.Link_type);
+			  	formData.append('Link_type', typeCheck);
 			  	formData.append('ios_link', _this.formUid.ios_link);
 			  	formData.append('android_link', _this.formUid.android_link);
 			  	formData.append('operation_name', _this.formUid.operation_name);
@@ -528,6 +550,12 @@ export default {
 					console.log(err);
 				});
 		},
+		//图片转H5页面生成链接
+		generateBtn(){
+			var _this = this;
+			 _this.formUid.android_link = wechatget+'/client/dev/h5_activity/notice/notice.html?img='+_this.formUid.img+'&title='+_this.formUid.newTitle;
+			 _this.formUid.ios_link = wechatget+'/client/dev/h5_activity/notice/notice.html?img='+_this.formUid.img+'&title='+_this.formUid.newTitle;
+		}
 	},
 	mounted() {
 		var _this = this;

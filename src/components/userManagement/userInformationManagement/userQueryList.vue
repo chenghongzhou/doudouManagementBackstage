@@ -106,7 +106,11 @@
                 <el-table-column prop="city" label="城市"></el-table-column>
                 <el-table-column prop="lasttime" label="最近登录时间"></el-table-column>
                 <el-table-column prop="status" :formatter="judgeStatus" label="状态"></el-table-column>
-                <el-table-column prop="repeat_user_num" label="同设备IP数量"></el-table-column>
+                <el-table-column prop="repeat_user_num" label="同设备IP数量">
+                    <template slot-scope="scope">
+                        <div class="btnNum" @click="getRepeatList(scope.$index,scope.row)">{{scope.row.repeat_user_num}}</div>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="is_online" :formatter="judgeOnline" label="是否在线"></el-table-column>
                 <el-table-column label="操作" width="350">
                     <template slot-scope="scope">
@@ -188,6 +192,18 @@
                         v-model="titleInfo.reason" 
                         auto-complete="off"></el-input>
                     </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button 
+                    @click="titleInfo.dialogFormVisible=false">取 消</el-button>
+                    <el-button 
+                    type="primary" 
+                    @click="sureTitle">确 定</el-button>
+                </div>
+            </el-dialog>
+            <!-- 同设备ip -->
+            <el-dialog title="同设备ip" :visible.sync="repeat.dialogFormVisible">
+                <el-form :model="titleInfo">
                     <div class="addTitle">同IP用户：</div>
                     <template>
                         <el-table 
@@ -231,10 +247,8 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button 
-                    @click="titleInfo.dialogFormVisible=false">取 消</el-button>
-                    <el-button 
                     type="primary" 
-                    @click="sureTitle">确 定</el-button>
+                    @click="closeRepeat">关闭</el-button>
                 </div>
             </el-dialog>
             <!-- 集体进行封号处理 -->
@@ -423,6 +437,10 @@ export default {
                 operate_user: '',
                 multipleSelection: [],
             },
+            repeat: {
+                 dialogFormVisible: false,
+                 uid:'',
+            },
             tableHeightOther: '200px'
         };
     },
@@ -528,7 +546,6 @@ export default {
             console.log(index, rows)
             this.titleInfo.uid = rows.uid;
             this.titleInfo.dialogFormVisible=true;
-            this.detailOther(index, rows)
         },
         //设备等详情信息展示
         detailOther(index, rows){
@@ -823,6 +840,16 @@ export default {
                     console.log(err);
                 });
         },
+        //同设备ip列表
+        getRepeatList(index, rows){
+            var _this = this;
+            this.repeat.uid = rows.uid;
+            _this.repeat.dialogFormVisible=true;
+            this.detailOther(index, rows)
+        },
+        closeRepeat(){
+            this.repeat.dialogFormVisible=false;
+        }
     },
     mounted() {
         var _this = this;
@@ -841,5 +868,15 @@ export default {
 .addTitle{
     margin-top:10px;
     margin-bottom:10px;
+}
+.btnNum{
+    width:60px;
+    height:30px;
+    background:#409EFF;
+    line-height: 30px;
+    margin:0 auto;
+    cursor:pointer;
+    border-radius:5px;
+    color:#ffffff;
 }
 </style>
