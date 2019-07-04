@@ -351,6 +351,9 @@ import luckyTree from '../components/activities/luckyTree/luckyTree.vue';// 幸�
 import luckyTreeStatistics from '../components/activities/luckyTree/luckyTreeStatistics.vue';// 幸运树数据统计
 import luckyTreePrizeStatistics from '../components/activities/luckyTree/luckyTreePrizeStatistics.vue';// 幸运树开奖设置
 import KSongManagement from '../components/activities/KSongManagement.vue';// k歌
+import smashEgg from '../components/activities/smashEgg/smashEgg.vue';// 砸金蛋
+import smashEggStatistics from '../components/activities/smashEgg/smashEggStatistics.vue';// 砸金蛋数据统计
+import smashEggPrizeStatistics from '../components/activities/smashEgg/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 
 
 // 活动专区end
@@ -769,6 +772,18 @@ export const asyncRouterMap = [
                     { path: '/activities/luckyTree/luckyTree', component: luckyTree, name: '幸运树', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/luckyTree/luckyTreeStatistics', component: luckyTreeStatistics, name: '幸运树数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/luckyTree/luckyTreePrizeStatistics', component: luckyTreePrizeStatistics, name: '幸运树开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '砸金蛋',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/smashEgg/smashEgg', component: smashEgg, name: '砸金蛋', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/smashEgg/smashEggStatistics', component: smashEggStatistics, name: '砸金蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/smashEgg/smashEggPrizeStatistics', component: smashEggPrizeStatistics, name: '砸金蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
