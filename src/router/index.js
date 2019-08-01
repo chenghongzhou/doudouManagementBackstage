@@ -354,6 +354,8 @@ import KSongManagement from '../components/activities/KSongManagement.vue';// k�
 import smashEgg from '../components/activities/smashEgg/smashEgg.vue';// 砸金蛋
 import smashEggStatistics from '../components/activities/smashEgg/smashEggStatistics.vue';// 砸金蛋数据统计
 import smashEggPrizeStatistics from '../components/activities/smashEgg/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
+import laughterManagement from '../components/activities/laughterManagement.vue';// 笑声
+import julySevenActivity from '../components/activities/julySevenActivity.vue';// 笑声
 
 
 // 活动专区end
@@ -816,6 +818,8 @@ export const asyncRouterMap = [
                     { path: '/activities/motherDay', component: motherDay, name: '端午节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/juneDayActivity', component: juneDayActivity, name: '六一', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/KSongManagement', component: KSongManagement, name: 'K歌', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/laughterManagement', component: laughterManagement, name: '笑声大赛', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/julySevenActivity', component: julySevenActivity, name: '七夕CP', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
