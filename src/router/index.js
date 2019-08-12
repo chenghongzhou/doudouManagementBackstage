@@ -355,7 +355,12 @@ import smashEgg from '../components/activities/smashEgg/smashEgg.vue';// 砸金�
 import smashEggStatistics from '../components/activities/smashEgg/smashEggStatistics.vue';// 砸金蛋数据统计
 import smashEggPrizeStatistics from '../components/activities/smashEgg/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 import laughterManagement from '../components/activities/laughterManagement.vue';// 笑声
-import julySevenActivity from '../components/activities/julySevenActivity.vue';// 笑声
+import julySevenActivity from '../components/activities/julySevenActivity.vue';// 七夕
+
+import playDoudou from '../components/activities/playDoudou/playDoudou.vue';// 打豆豆
+import playDoudouStatistics from '../components/activities/playDoudou/playDoudouStatistics.vue';// 打豆豆数据统计
+import playDoudouPrizeStatistics from '../components/activities/playDoudou/playDoudouPrizeStatistics.vue';// 打豆豆开奖设置  
+import playDoudouStatus from '../components/activities/playDoudou/playDoudouStatus.vue';// 打豆豆开奖设置  
 
 
 // 活动专区end
@@ -786,6 +791,19 @@ export const asyncRouterMap = [
                     { path: '/activities/smashEgg/smashEgg', component: smashEgg, name: '砸金蛋', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/smashEgg/smashEggStatistics', component: smashEggStatistics, name: '砸金蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/smashEgg/smashEggPrizeStatistics', component: smashEggPrizeStatistics, name: '砸金蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/playDoudou',
+                component: activities,
+                name: '打豆豆',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/playDoudou/playDoudou', component: playDoudou, name: '打豆豆', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/playDoudou/playDoudouStatistics', component: playDoudouStatistics, name: '打豆豆数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/playDoudou/playDoudouPrizeStatistics', component: playDoudouPrizeStatistics, name: '打豆豆开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/playDoudou/playDoudouStatus', component: playDoudouStatus, name: '打豆豆模式设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {

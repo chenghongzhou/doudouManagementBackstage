@@ -28,11 +28,13 @@
 							<p v-if="scope.row.type == 1">背包礼物</p>
 							<p v-else-if="scope.row.type==2">装扮</p>
 							<p v-else-if="scope.row.type==3">座驾</p>
-							<p v-else-if="scope.row.type==4">幸运星</p>
+							<p v-else-if="scope.row.type==4">称号</p>
 						</div>
 					</template>
 				</el-table-column>
                 <el-table-column prop="name" label="物品名称"></el-table-column>
+				<el-table-column prop="probability_1" label="普通概率"></el-table-column>
+				<el-table-column prop="probability_2" label="暴走概率"></el-table-column>
                 <el-table-column prop="img" label="图片">
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
@@ -53,8 +55,6 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="off_time" label="下架时间"></el-table-column>
-				<el-table-column prop="probability" label="物品几率"></el-table-column>
-				<el-table-column prop="threshold" label="大奖触发金额"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-row>
@@ -89,6 +89,7 @@
 						<el-option label="背包礼物" value="1"></el-option>
 						<el-option label="装扮" value="2"></el-option>
 						<el-option label="座驾" value="3"></el-option>
+						<el-option label="称号" value="4"></el-option>
 					</el-select>
 				</el-form-item> 
 				<el-form-item label="物品" :label-width="formLabelWidth">
@@ -121,10 +122,16 @@
 					:src="addNewloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品概率" :label-width="formLabelWidth">
+				<el-form-item label="普通概率" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="addNewloading.params.probability" 
+					v-model="addNewloading.params.probability_1" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="暴走概率" :label-width="formLabelWidth">
+					<el-input 
+					style="width:250px"
+					v-model="addNewloading.params.probability_2" 
 					auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
@@ -133,16 +140,6 @@
 						<el-option label="暂不上线" value="0"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="大奖触发金额" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.threshold">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getMoneyList">
-							</el-option>
-					</el-select>
-				</el-form-item> 
 				<el-form-item label="排序ID" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.sort" @focus="getSortEvery">
 						<el-option 
@@ -170,6 +167,7 @@
 						<el-option label="背包礼物" value="1"></el-option>
 						<el-option label="装扮" value="2"></el-option>
 						<el-option label="座驾" value="3"></el-option>
+						<el-option label="称号" value="4"></el-option>
 					</el-select>
 				</el-form-item> 
 				<el-form-item label="物品" :label-width="formLabelWidth" disabled>
@@ -190,28 +188,25 @@
 					:src="editorloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品概率" :label-width="formLabelWidth">
+				<el-form-item label="普通概率" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="editorloading.params.probability" 
+					v-model="editorloading.params.probability_1" 
 					auto-complete="off"></el-input>
 				</el-form-item>
+				<el-form-item label="暴走概率" :label-width="formLabelWidth">
+					<el-input 
+					style="width:250px"
+					v-model="editorloading.params.probability_2" 
+					auto-complete="off"></el-input>
+				</el-form-item>
+
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.status">
 						<el-option label="上线" value="1"></el-option>
 						<el-option label="暂不上线" value="0"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="大奖触发金额" :label-width="formLabelWidth">
-					<el-select v-model="editorloading.params.threshold">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getMoneyList">
-							</el-option>
-					</el-select>
-				</el-form-item> 
 				<el-form-item label="排序ID" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.sort" @focus="getSortEvery">
 						<el-option 
@@ -267,6 +262,8 @@ export default {
 					file_pic:'',
 					prize_id:'',
 					threshold:'',
+					probability_1:'',
+					probability_2:'',
 				}
 			},
 			editorloading:{
@@ -282,6 +279,8 @@ export default {
 					prize_id:'',
 					name:'',
 					threshold:'',
+					probability_1:'',
+					probability_2:'',
 				}
 			},
 			wp:[],
@@ -300,7 +299,7 @@ export default {
         getData() {
             var _this = this;
             _this.listLoading = true;
-            let url = "/NewMoneyTree/getPrizeList";
+            let url = "/NewBean/getPrizeList";
             let params = {
                 page: _this.page,
             };
@@ -321,7 +320,7 @@ export default {
 		checkType(){
 			var _this = this;
 			_this.wp = [];
-			let url = "/NewMoneyTree/getGiftOrPropList";
+			let url = "/NewBean/getGiftOrPropList";
             let params = {
                 type: _this.addNewloading.params.type
             };
@@ -337,26 +336,6 @@ export default {
                     console.error(err);
                 });
 		},
-		//获取触发大奖金额
-		getMoneFun(){
-			var _this = this;
-			_this.getMoneyList = ['0'];
-			let url = "/NewMoneyTree/getPrizeThresholdList";
-            let params = {
-               
-            };
-            axios.get(allget+url, {params: params})
-                .then((res) => {
-                    if (res.data.ret) {
-                        _this.getMoneyList=_this.getMoneyList.concat(res.data.data);
-                    } else {
-                        baseConfig.warningTipMsg(_this, res.data.msg);
-                    }
-                })
-                .catch((err) => {
-                    console.error(err);
-                });	
-		},
 		//添加时选择物品后请求接口获去对应的价格
 		checkMoney(){
 			var _this = this;
@@ -367,8 +346,6 @@ export default {
 					if(_this.addNewloading.params.type == 1){
 						_this.priceBox = true;
 						_this.addNewloading.params.chat_gold = item.price;
-					}else if(_this.addNewloading.params.type == 4){
-						_this.priceBox = true;
 					}else{
 						_this.priceBox = false;
 					};
@@ -399,14 +376,15 @@ export default {
 				formData.append('sort', _this.addNewloading.params.sort);
 				formData.append('threshold', _this.addNewloading.params.threshold);
 				formData.append('status', _this.addNewloading.params.status);
-				formData.append('probability', _this.addNewloading.params.probability);
+				formData.append('probability_1', _this.addNewloading.params.probability_1);
+				formData.append('probability_2', _this.addNewloading.params.probability_2);
 			  	formData.append('icon', _this.addNewloading.params.file_pic); //提交的新增图标的文件
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
 				};	
-				axios.post(allget+'/NewMoneyTree/setPrize', formData, config)
+				axios.post(allget+'/NewBean/setPrize', formData, config)
 					.then((res) => {
 						_this.listLoading = false;							
 						if(res.data.ret == 1) {	
@@ -441,7 +419,8 @@ export default {
 			this.editorloading.params.chat_gold = rows.chat_gold;
 			this.editorloading.params.icon = rows.icon;
 			this.editorloading.params.status = rows.status;
-			this.editorloading.params.probability = rows.probability;
+			this.editorloading.params.probability_1 = rows.probability_1;
+			this.editorloading.params.probability_2 = rows.probability_2;
 			this.editorloading.params.sort = rows.sort;
 			this.editorloading.params.prize_id = rows.prize_id;
 			this.editorloading.params.threshold = rows.threshold;
@@ -450,7 +429,7 @@ export default {
 		checkSort(box){
 			var _this = this;
 			_this.getSort = ['0'];
-			let url = "/NewMoneyTree/getPrizeSortList";
+			let url = "/NewBean/getPrizeSortList";
             let params = {
                
             };
@@ -482,7 +461,8 @@ export default {
 				formData.append('prop_id', _this.editorloading.params.prop_id);
 				formData.append('sort', _this.editorloading.params.sort);
 				formData.append('status', _this.editorloading.params.status);
-				formData.append('probability', _this.editorloading.params.probability);
+				formData.append('probability_1', _this.editorloading.params.probability_1);
+				formData.append('probability_2', _this.editorloading.params.probability_2);
 				formData.append('threshold', _this.editorloading.params.threshold);
 			  	formData.append('icon', _this.editorloading.params.icon); //提交的新增图标的文件
 				let config = {
@@ -490,7 +470,7 @@ export default {
 						'Content-Type': 'multipart/form-data'
 					}
 				};	
-				axios.post(allget+'/NewMoneyTree/setPrize', formData, config)
+				axios.post(allget+'/NewBean/setPrize', formData, config)
 					.then((res) => {
 						_this.listLoading = false;							
 						if(res.data.ret == 1) {	
@@ -517,7 +497,8 @@ export default {
 					prop_id:'',
 					id:'',
 					icon:'',
-					probability:'',
+					probability_1:'',
+					probability_2:'',
 					chat_gold:0,
 					status:'',
 					sort:'',
@@ -540,7 +521,8 @@ export default {
 					type:'',
 					prop_id:'',
 					icon:'',
-					probability:'',
+					probability_1:'',
+					probability_2:'',
 					chat_gold:0,
 					status:'',
 					sort:'',
@@ -564,7 +546,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                var url = '/NewMoneyTree/deletePrize';
+                var url = '/NewBean/deletePrize';
                 let params = {
                     prize_id : row.prize_id
                 };
@@ -628,7 +610,6 @@ export default {
         var _this = this;
         _this.tableHeight = baseConfig.lineNumber(searchPageHeight);
         _this.getData();
-		_this.getMoneFun();
     }
 };
 </script>

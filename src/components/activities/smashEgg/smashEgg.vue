@@ -134,7 +134,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="排序ID" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.sort">
+					<el-select v-model="addNewloading.params.sort" @focus="getSortEvery">
 						<el-option 
 							:label="item" 
 							:value="item"
@@ -194,7 +194,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="排序ID" :label-width="formLabelWidth">
-					<el-select v-model="editorloading.params.sort">
+					<el-select v-model="editorloading.params.sort" @focus="getSortEvery">
 						<el-option 
 							:label="item" 
 							:value="item"
@@ -425,6 +425,9 @@ export default {
                     console.error(err);
                 });	
 		},
+		getSortEvery(){
+			this.checkSort();
+		},
 		editorBannerSure(num){
 			var _this = this;
 			if(num == 0){
@@ -584,7 +587,6 @@ export default {
         var _this = this;
         _this.tableHeight = baseConfig.lineNumber(searchPageHeight);
         _this.getData();
-		_this.checkSort();
     }
 };
 </script>
