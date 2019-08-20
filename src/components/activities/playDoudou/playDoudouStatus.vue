@@ -18,7 +18,7 @@
 		:height="tabSearchPageHeightOthers">
 			<template>
 				<el-table-column prop="start_time" label="暴走开始时间"></el-table-column>
-				<el-table-column prop="end_time" label="暴走开始时间"></el-table-column>
+				<el-table-column prop="end_time" label="暴走结束时间"></el-table-column>
 				<el-table-column prop="admin" label="操作人"></el-table-column>
 				<el-table-column prop="weekday" label="暴走周期">
 					<template slot-scope="scope">
@@ -55,7 +55,7 @@
 					:picker-options="{
 						start: '00:00',
 						step: '00:60',
-						end: '24:00'
+						end: '23:00'
 					}"
 					placeholder="开始时间">
 				</el-time-select>
@@ -64,7 +64,7 @@
 					:picker-options="{
 						start: '00:00',
 						step: '00:60',
-						end: '24:00'
+						end: '23:00'
 					}"
 					placeholder="结束时间">
 				</el-time-select>

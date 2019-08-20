@@ -21,15 +21,23 @@
 			<el-table-column prop="threshold" label="触发金额"></el-table-column>
 			<el-table-column prop="income" label="收入"></el-table-column>
 			<el-table-column prop="outgo" label="支出"></el-table-column>
-			<el-table-column prop="progress" label="当前金额"></el-table-column>>
-			<el-table-column prop="status" label="状态">
+			<el-table-column prop="progress" label="当前金额"></el-table-column>
+			<el-table-column prop="mode" label="状态">
+				<template slot-scope="scope">
+					<div slot="reference" class="name-wrapper">
+						<p v-if="scope.row.mode == 1">普通</p>
+						<p v-else-if="scope.row.mode==2">暴走</p>
+					</div>
+				</template>
+			</el-table-column>
+			<!-- <el-table-column prop="status" label="状态">
 				<template slot-scope="scope">
 					<div slot="reference" class="name-wrapper">
 						<p v-if="scope.row.status == 0">关闭</p>
 						<p v-else-if="scope.row.status==1">开启</p>
 					</div>
 				</template>
-			</el-table-column>
+			</el-table-column> -->
 		</template>	  
 		</el-table>
 		<el-col :span="24" class="toolbar">
@@ -134,8 +142,8 @@
 				axios.get(allget+'/NewBean/getStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
-						_this.formTwo.tabData = [];
-						_this.formTwo.tabData.push(res.data.data);
+						_this.formTwo.tabData = res.data.data.stat_list;
+						//_this.formTwo.tabData.push(res.data.data.stat_list);
 						_this.status = res.data.data.status;
 						if(res.data.data.status == 0){
 							_this.caseStatus = '已关闭';
