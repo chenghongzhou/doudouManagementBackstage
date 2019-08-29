@@ -362,6 +362,9 @@ import playDoudouStatistics from '../components/activities/playDoudou/playDoudou
 import playDoudouPrizeStatistics from '../components/activities/playDoudou/playDoudouPrizeStatistics.vue';// 打豆豆开奖设置  
 import playDoudouStatus from '../components/activities/playDoudou/playDoudouStatus.vue';// 打豆豆开奖设置  
 
+import smashEgg1 from '../components/activities/smashEgg1/smashEgg.vue';// 砸金蛋
+import smashEggStatistics1 from '../components/activities/smashEgg1/smashEggStatistics.vue';// 砸金蛋数据统计
+import smashEggPrizeStatistics1 from '../components/activities/smashEgg1/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 
 // 活动专区end
 // 5、系统设置
@@ -804,6 +807,18 @@ export const asyncRouterMap = [
                     { path: '/activities/playDoudou/playDoudouStatistics', component: playDoudouStatistics, name: '打豆豆数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/playDoudou/playDoudouPrizeStatistics', component: playDoudouPrizeStatistics, name: '打豆豆开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/playDoudou/playDoudouStatus', component: playDoudouStatus, name: '打豆豆模式设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '幸运砸金蛋',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/smashEgg1/smashEgg', component: smashEgg1, name: '砸金蛋', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/smashEgg1/smashEggStatistics', component: smashEggStatistics1, name: '砸金蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/smashEgg1/smashEggPrizeStatistics', component: smashEggPrizeStatistics1, name: '砸金蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
