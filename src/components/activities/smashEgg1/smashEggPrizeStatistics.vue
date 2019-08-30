@@ -12,22 +12,30 @@
 			type="primary" 
 			style="margin-bottom:10px;"
 			@click="formTwo.dialogFormVisible = true">修改状态</el-button>
+			<el-button 
+			type="primary" 
+			style="margin-bottom:10px;"
+			@click="formTwo.dialogFormVisible = true">删除奖金池进度</el-button>
+			<div class="caseStatus">支出:{{formTwo.tabData.outgo}}</div>
+			<div class="caseStatus">收入:{{formTwo.tabData.income}}</div>
 		</el-col>
+		
 		<el-table 
-		:data="formTwo.tabData" 
+		:data="formTwo.tabData.stat_list" 
 		style="width:100%" 
 		:height="tabSearchPageHeightOthers">
 			<template>
-			<el-table-column prop="threshold" label="触发金额"></el-table-column>
-			<el-table-column prop="income" label="收入"></el-table-column>
-			<el-table-column prop="outgo" label="支出"></el-table-column>
-			<el-table-column prop="progress" label="当前金额"></el-table-column>>
-			<el-table-column prop="status" label="状态">
+			<el-table-column prop="level" label="级别"></el-table-column>
+			<el-table-column prop="threshold" label="阈值"></el-table-column>
+			<el-table-column prop="progress" label="进度"></el-table-column>
+			<el-table-column label="操作">
 				<template slot-scope="scope">
-					<div slot="reference" class="name-wrapper">
-						<p v-if="scope.row.status == 0">关闭</p>
-						<p v-else-if="scope.row.status==1">开启</p>
-					</div>
+					<el-row>
+						<el-button 
+							size="mini" 
+							type="primary" 
+							@click="changeMoney(scope.$index, scope.row)">编辑</el-button>
+					</el-row>
 				</template>
 			</el-table-column>
 		</template>	  
@@ -59,7 +67,19 @@
 				@click.native.prevent="changeStatusSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
-		
+		<!-- 修改宝箱状态 -->
+		<el-dialog title="修改触发金额" :visible.sync="cfMoneyMaks">
+			<el-form>
+				<el-input v-model="cfMoney" placeholder="输入修改触发金额"></el-input>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button 
+				@click.native.prevent="iscfMoney(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click.native.prevent="iscfMoney(1)">确 定</el-button>
+			</div>
+		</el-dialog>
     </el-tabs>
 	
 </template>
@@ -83,7 +103,7 @@
 				status:'',
 				getList:[],
 				formTwo:{
-					tabData:[],
+					tabData:{},
 					page: 1,
 					status:'1',
 					totalPage:1,
@@ -94,6 +114,9 @@
 					name:'',
 					thresholdParmas:''
 				},
+				cfMoneyMaks:false,
+				cfMoney:'',
+				level:'',
 			}
 		},
 		computed: {
@@ -131,11 +154,11 @@
 			getTwoData(){
        			var _this = this;
        			var params=_this.searchConditionData();
-				axios.get(allget+'/NewGoldenEgg/getStat', {params: params})
+				axios.get(allget+'/NewEgg/getStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
-						_this.formTwo.tabData = [];
-						_this.formTwo.tabData.push(res.data.data);
+						_this.formTwo.tabData = res.data.data;
+					
 						_this.status = res.data.data.status;
 						if(res.data.data.status == 0){
 							_this.caseStatus = '已关闭';
@@ -155,7 +178,7 @@
 				if(num == 0){
 					_this.formTwo.dialogFormVisible = false;
 				}else{
-					axios.get(allget+'/NewGoldenEgg/setStatus', {params: {status:_this.formTwo.status}})
+					axios.get(allget+'/NewEgg/setStatus', {params: {status:_this.formTwo.status}})
 					.then((res) => {
 						if(res.data.ret == 1) {
 							_this.getTwoData();
@@ -170,6 +193,31 @@
 					})
 				}
 			},
+			changeMoney(index, rows){
+				let _this = this;
+				_this.cfMoneyMaks = true;
+				_this.level = rows.level;
+			},
+			iscfMoney(num){
+				let _this = this;
+				if(num == 0){
+					_this.cfMoneyMaks = false;
+				}else{
+					axios.get(allget+'/NewEgg/setThreshold', {params: {level:_this.level,threshold:_this.cfMoney}})
+					.then((res) => {
+						if(res.data.ret == 1) {
+							_this.getTwoData();
+							baseConfig.successTipMsg(_this, '修改成功');
+							_this.cfMoneyMaks = false;
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					})
+				}
+			}
 		}
 	}
 </script>

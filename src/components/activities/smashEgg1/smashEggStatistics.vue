@@ -429,7 +429,7 @@
 			getOneData(){
        			var _this = this;
        			var params=_this.searchConditionGift();
-				axios.get(allget+'/NewGoldenEgg/getDateStat', {params: params})
+				axios.get(allget+'/NewEgg/getDateStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
 						var oneTitleStatic = [];
@@ -465,7 +465,7 @@
 			getTwoData(){
        			var _this = this;
        			var params=_this.searchConditionData();
-				axios.get(allget+'/NewGoldenEgg/getUserStat', {params: params})
+				axios.get(allget+'/NewEgg/getUserStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
 					//	_this.formTwo.tabData = res.data.data;
