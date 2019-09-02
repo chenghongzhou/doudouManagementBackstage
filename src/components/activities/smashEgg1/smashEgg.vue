@@ -441,7 +441,7 @@ export default {
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                        _this.getSort=_this.getSort.concat(res.data.data);
+                        _this.getLevel=res.data.data;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }

@@ -12,10 +12,6 @@
 			type="primary" 
 			style="margin-bottom:10px;"
 			@click="formTwo.dialogFormVisible = true">修改状态</el-button>
-			<el-button 
-			type="primary" 
-			style="margin-bottom:10px;"
-			@click="formTwo.dialogFormVisible = true">删除奖金池进度</el-button>
 			<div class="caseStatus">支出:{{formTwo.tabData.outgo}}</div>
 			<div class="caseStatus">收入:{{formTwo.tabData.income}}</div>
 		</el-col>
@@ -35,6 +31,10 @@
 							size="mini" 
 							type="primary" 
 							@click="changeMoney(scope.$index, scope.row)">编辑</el-button>
+						<el-button 
+							size="mini" 
+							type="primary" 
+							@click="deletePress(scope.$index, scope.row)">删除奖金池进度</el-button>
 					</el-row>
 				</template>
 			</el-table-column>
@@ -217,6 +217,21 @@
 						console.log(err);
 					})
 				}
+			},
+			deletePress(index, rows){
+				let _this = this;
+				axios.get(allget+'/NewEgg/deleteProgress', {params: {level:rows.level}})
+					.then((res) => {
+						if(res.data.ret == 1) {
+							_this.getTwoData();
+							baseConfig.successTipMsg(_this, '删除成功成功');
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					})
 			}
 		}
 	}
