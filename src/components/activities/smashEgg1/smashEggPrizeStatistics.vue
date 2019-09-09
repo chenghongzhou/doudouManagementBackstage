@@ -12,8 +12,8 @@
 			type="primary" 
 			style="margin-bottom:10px;"
 			@click="formTwo.dialogFormVisible = true">修改状态</el-button>
-			<div class="caseStatus">支出:{{formTwo.tabData.outgo}}</div>
-			<div class="caseStatus">收入:{{formTwo.tabData.income}}</div>
+			<div class="caseStatus">总支出:{{formTwo.tabData.outgo}}</div>
+			<div class="caseStatus">总收入:{{formTwo.tabData.income}}</div>
 		</el-col>
 		
 		<el-table 
@@ -22,8 +22,8 @@
 		:height="tabSearchPageHeightOthers">
 			<template>
 			<el-table-column prop="level" label="级别"></el-table-column>
-			<el-table-column prop="threshold" label="阈值"></el-table-column>
-			<el-table-column prop="progress" label="进度"></el-table-column>
+			<el-table-column prop="threshold" label="奖金池触发金额"></el-table-column>
+			<el-table-column prop="progress" label="奖金池当前金额"></el-table-column>
 			<el-table-column label="操作">
 				<template slot-scope="scope">
 					<el-row>

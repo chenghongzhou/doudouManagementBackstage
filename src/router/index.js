@@ -356,6 +356,7 @@ import smashEggStatistics from '../components/activities/smashEgg/smashEggStatis
 import smashEggPrizeStatistics from '../components/activities/smashEgg/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 import laughterManagement from '../components/activities/laughterManagement.vue';// 笑声
 import julySevenActivity from '../components/activities/julySevenActivity.vue';// 七夕
+import augustFivenActivity from '../components/activities/augustFivenActivity.vue';// 七夕
 
 import playDoudou from '../components/activities/playDoudou/playDoudou.vue';// 打豆豆
 import playDoudouStatistics from '../components/activities/playDoudou/playDoudouStatistics.vue';// 打豆豆数据统计
@@ -833,26 +834,27 @@ export const asyncRouterMap = [
                     { path: '/activities/familyBackstageBackstage', component: familyBackstageBackstage, name: '家族嗨场', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/roomTopManagement', component: roomTopManagement, name: '房间置顶', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/superTurntable', component: superTurntable, name: '超级转盘', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-                    { path: '/activities/newSuperTurntable', component: newSuperTurntable, name: '超级转盘(新)', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-                    { path: '/activities/roomeTurntable', component: roomeTurntable, name: '房间转盘游戏', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-                    { path: '/activities/luckyDraw', component: luckyDraw, name: '抽奖红包', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-                    { path: '/activities/tanabataActivity', component: tanabataActivity, name: '七夕活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                    //{ path: '/activities/newSuperTurntable', component: newSuperTurntable, name: '超级转盘(新)', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                    //{ path: '/activities/roomeTurntable', component: roomeTurntable, name: '房间转盘游戏', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                 // { path: '/activities/luckyDraw', component: luckyDraw, name: '抽奖红包', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                    //{ path: '/activities/tanabataActivity', component: tanabataActivity, name: '七夕活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/smashGoldEggs', component: smashGoldEggs, name: '砸金蛋数据', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/robotManagement', component: robotManagement, name: '机器人管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/accountRegulate', component: accountRegulate, name: '账号管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },    
                     { path: '/activities/earningCallData', component: earningCallData, name: '收益通话数据', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/cyberCelebrity', component: cyberCelebrity, name: '网红活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/bargain', component: bargain, name: '砍价', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/cardCollect', component: cardCollect, name: '喵星人集卡', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
-                    { path: '/activities/moneyRain', component: moneyRain, name: '红包雨', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                    //{ path: '/activities/bargain', component: bargain, name: '砍价', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    //{ path: '/activities/cardCollect', component: cardCollect, name: '喵星人集卡', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
+                   // { path: '/activities/moneyRain', component: moneyRain, name: '红包雨', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     { path: '/activities/gameSettings', component: gameSettings, name: '游戏设置', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/gameBackgroundData', component: gameBackgroundData, name: '游戏数据后台', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/dollPlay', component: dollPlay, name: '娃娃机', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/motherDay', component: motherDay, name: '端午节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/juneDayActivity', component: juneDayActivity, name: '六一', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    //{ path: '/activities/dollPlay', component: dollPlay, name: '娃娃机', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    //{ path: '/activities/motherDay', component: motherDay, name: '端午节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    //{ path: '/activities/juneDayActivity', component: juneDayActivity, name: '六一', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/KSongManagement', component: KSongManagement, name: 'K歌', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/laughterManagement', component: laughterManagement, name: '笑声大赛', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/julySevenActivity', component: julySevenActivity, name: '七夕CP', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/augustFivenActivity', component: augustFivenActivity, name: '中秋节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
