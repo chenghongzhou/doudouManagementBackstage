@@ -422,7 +422,7 @@ export default {
 			  	formData.append('channel', _this.formCondition.channel);
 			  	formData.append('version_name', _this.formCondition.version_name);
 			  	formData.append('is_timing', _this.formCondition.is_timing);
-			  	formData.append('send_time', baseConfig.changeDateTime(_this.formCondition.loginTime, 1));
+			  	formData.append('send_time', baseConfig.changeDateTime(_this.formCondition.send_time, 1));
 			  	formData.append('identity', _this.formCondition.identity);
 				let config = {
 					headers: {
@@ -476,7 +476,7 @@ export default {
 			  	formData.append('channel', _this.formUid.channel);
 			  	formData.append('version_name', _this.formUid.version_name);
 			  	formData.append('is_timing', _this.formUid.is_timing);
-			  	formData.append('send_time', baseConfig.changeDateTime(_this.formUid.loginTime, 1));
+			  	formData.append('send_time', baseConfig.changeDateTime(_this.formUid.send_time, 1));
 			  	formData.append('identity', _this.formUid.identity);
 				let config = {
 					headers: {

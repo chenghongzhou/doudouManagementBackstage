@@ -288,6 +288,7 @@ import dynamicAdd from '../components/operationSupport/operatingTools/dynamicAdd
 import topicManagement from '../components/operationSupport/operatingTools/topicManagement.vue';//动态内容添加
 import dynamicBlackList from '../components/operationSupport/operatingTools/dynamicBlackList.vue';//动态黑名单
 import dynamicCount from '../components/operationSupport/operatingTools/dynamicCount.vue';//动态统计
+import setActivityTime from '../components/operationSupport/operatingTools/setActivityTime.vue';//活动时间设置
 // import roomTabDataInfo from '../components/operationSupport/operatingTools/roomTabDataInfo.vue';//房间功能标签使用统计
 // 3-3、录音日志
 import DailyAdditions from '../components/operationSupport/recordingLog/DailyAdditions.vue';//每日新增录音明细
@@ -684,6 +685,7 @@ export const asyncRouterMap = [
                     { path: '/operationSupport/operatingTools/dynamicBlackList', component: dynamicBlackList, name: '动态黑名单', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                                                      
                     { path: '/operationSupport/operatingTools/dynamicCount', component: dynamicCount, name: '动态统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/dynamicAdd', component: dynamicAdd, name: '普通内容记录', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/operationSupport/operatingTools/setActivityTime', component: setActivityTime, name: '活动时间设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ],
             },
             {
