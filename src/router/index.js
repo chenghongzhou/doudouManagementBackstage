@@ -357,7 +357,9 @@ import smashEggStatistics from '../components/activities/smashEgg/smashEggStatis
 import smashEggPrizeStatistics from '../components/activities/smashEgg/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 import laughterManagement from '../components/activities/laughterManagement.vue';// 笑声
 import julySevenActivity from '../components/activities/julySevenActivity.vue';// 七夕
-import augustFivenActivity from '../components/activities/augustFivenActivity.vue';// 七夕
+import augustFivenActivity from '../components/activities/augustFivenActivity.vue';// 中秋
+import sigin from '../components/activities/sigin.vue';// 网红打卡
+import shop from '../components/activities/shop.vue';// 杂货店
 
 import playDoudou from '../components/activities/playDoudou/playDoudou.vue';// 打豆豆
 import playDoudouStatistics from '../components/activities/playDoudou/playDoudouStatistics.vue';// 打豆豆数据统计
@@ -857,6 +859,8 @@ export const asyncRouterMap = [
                     { path: '/activities/laughterManagement', component: laughterManagement, name: '笑声大赛', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/julySevenActivity', component: julySevenActivity, name: '七夕CP', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/augustFivenActivity', component: augustFivenActivity, name: '中秋节', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/sigin', component: sigin, name: '网红打卡', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/shop', component: shop, name: '杂货店', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
