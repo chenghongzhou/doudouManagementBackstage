@@ -104,6 +104,7 @@
 			  		<el-table-column prop="goods_id" label="商品 id"></el-table-column>
 			  		<el-table-column prop="buyer_uid" label="买家用户 id"></el-table-column>
 			  		<el-table-column prop="remarks" label="订单备注"></el-table-column>
+					<el-table-column prop="deliver_time" label="订单交付时间"></el-table-column>
 			  		<el-table-column prop="order_voice" label="订单声音" min-width="200">
 						<template slot-scope="scope">
 							<audio 
@@ -113,7 +114,7 @@
 						</template>
 					</el-table-column>
 			  		<el-table-column prop="seller_uid" label="卖家用户 id" min-width="200"></el-table-column>
-					<el-table-column prop="type" label="总收益(豆票)" min-width="200">
+					<el-table-column prop="type" label="商品类型" min-width="200">
 						<template slot-scope="scope">
 						<p v-if="scope.row.type == 1">分手</p>
 						<p v-else-if="scope.row.type == 2">表白</p>
