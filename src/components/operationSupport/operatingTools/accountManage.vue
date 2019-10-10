@@ -182,7 +182,7 @@ export default {
             form: {
                 dialogFormVisible: false,
                 uid: null,
-                phone: null
+                phone: ''
             },
             logout: {
                 dialogVisible: false,
@@ -266,14 +266,18 @@ export default {
                 phone: this.form.phone,
                 operate_user: this.operate_user
             };
-            if(!(/0?(13|14|15|17|18|19)[0-9]{9}/.test(params.phone))){ 
+            // if(!(/0?(13|14|15|17|18|19)[0-9]{9}/.test(params.phone))){ 
+            //     baseConfig.warningTipMsg(this, '手机号码有误，请重填');
+            //     return false; 
+            // } 
+            if(params.phone.length != 11){ 
                 baseConfig.warningTipMsg(this, '手机号码有误，请重填');
                 return false; 
             } 
             axios.get(allget+url, {params: params})
                 .then((res) => {
                     if (res.data.ret) {
-                            form.dialogFormVisible=false;
+                        _this.form.dialogFormVisible=false;
                         baseConfig.successTipMsg(this, res.data.msg);
                         this.form.uid = "";
                         this.form.phone = "";
