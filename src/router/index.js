@@ -371,6 +371,10 @@ import smashEgg1 from '../components/activities/smashEgg1/smashEgg.vue';// 砸�
 import smashEggStatistics1 from '../components/activities/smashEgg1/smashEggStatistics.vue';// 砸金蛋数据统计
 import smashEggPrizeStatistics1 from '../components/activities/smashEgg1/smashEggPrizeStatistics.vue';// 砸金蛋开奖设置
 
+import luckCase from '../components/activities/luckCase/luckCase.vue';// 好运宝箱
+import luckCaseStatistics1 from '../components/activities/luckCase/luckCaseStatistics.vue';// 好运宝箱数据统计
+import luckCasePrizeStatistics1 from '../components/activities/luckCase/luckCasePrizeStatistics.vue';// 好运宝箱开奖设置
+
 // 活动专区end
 // 5、系统设置
 // 系统设置start
@@ -825,6 +829,18 @@ export const asyncRouterMap = [
                     { path: '/activities/smashEgg1/smashEgg', component: smashEgg1, name: '砸金蛋', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/smashEgg1/smashEggStatistics', component: smashEggStatistics1, name: '砸金蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/smashEgg1/smashEggPrizeStatistics', component: smashEggPrizeStatistics1, name: '砸金蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '好运宝箱',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/luckCase/luckCase', component: luckCase, name: '好运宝箱', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckCase/luckCaseStatistics', component: luckCaseStatistics1, name: '好运宝箱数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckCase/luckCasePrizeStatistics', component: luckCasePrizeStatistics1, name: '好运宝箱开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {

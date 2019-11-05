@@ -208,11 +208,19 @@
 		<!-- 按uid发送--对应的dialog -->
 		<el-dialog title="按Uid发送" :visible.sync="formUid.dialogFormVisible">
 			<el-form :model="formUid">
-				<el-form-item label="发送的Uid" :label-width="formLabelWidth">
+				<!-- <el-form-item label="发送的Uid" :label-width="formLabelWidth">
 					<el-input 
 					type="textarea" 
 					:rows="2" 
 					:maxlength="50" 
+					v-model="formUid.uid_list" 
+					auto-complete="off"></el-input>
+					<p>每个Uid，用英文逗号隔开(例如:10000,10001,12201)</p>
+				</el-form-item> -->
+                <el-form-item label="发送的Uid" :label-width="formLabelWidth">
+					<el-input 
+					type="textarea" 
+					:rows="2" 
 					v-model="formUid.uid_list" 
 					auto-complete="off"></el-input>
 					<p>每个Uid，用英文逗号隔开(例如:10000,10001,12201)</p>
