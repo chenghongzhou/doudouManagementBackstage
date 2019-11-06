@@ -204,6 +204,26 @@
 					console.log(err);
 				})
 			},
+            changeStatusSure(num){
+				var _this = this;
+				if(num == 0){
+					_this.formTwo.dialogFormVisible = false;
+				}else{
+					axios.get(allget+'/NewBox/setStatus', {params: {status:_this.formTwo.status}})
+					.then((res) => {
+						if(res.data.ret == 1) {
+							_this.getTwoData();
+							baseConfig.successTipMsg(_this, '修改成功');
+							_this.formTwo.dialogFormVisible = false;
+						} else {
+							baseConfig.warningTipMsg(_this, res.data.msg);
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					})
+				}
+			},
 			changeMoney(index, rows){
 				let _this = this;
 				_this.cfMoneyMaks = true;

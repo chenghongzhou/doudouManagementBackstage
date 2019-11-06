@@ -464,7 +464,10 @@ export default {
 			_this.getSort = ['0'];
 			let url = "/NewBox/getPrizeLevelList";
             let params = {
-                box: _this.box
+                box: _this.addNewloading.params.box
+            };
+            if(_this.editorloading.dialogFormVisible){
+                params.box = _this.editorloading.params.box
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -484,7 +487,10 @@ export default {
 			_this.getSort = ['0'];
 			let url = "/NewBox/getPrizeSortList";
             let params = {
-               box: _this.box
+               box: _this.addNewloading.params.box
+            };
+            if(_this.editorloading.dialogFormVisible){
+                params.box = _this.editorloading.params.box
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
