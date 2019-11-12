@@ -35,6 +35,9 @@
 						<el-button 
 						type="primary" 
 						@click="getOneData">查询</el-button>
+                         <el-button 
+                        type="primary" 
+                        @click.native.prevent="handleDownload">导出</el-button>
 					</el-form-item>
 				</el-form>	
 			</el-col>
@@ -98,6 +101,9 @@
 						<el-button 
 						type="primary" 
 						@click="getTwoData">查询</el-button>
+                         <el-button 
+                        type="primary" 
+                        @click.native.prevent="handleDownloadTwo">导出</el-button>
 					</el-form-item>
 				</el-form>
 			</el-col>
@@ -124,174 +130,6 @@
 				</el-pagination>
 			</el-col>
     	</el-tab-pane>
-		<el-tab-pane 
-		label="作弊后台" 
-		name="three" 
-		:style="{height:tabHeight+'px'}">
-			<el-col 
-			:span="24" 
-			class="toolbar" 
-			style="padding-bottom:0px;">
-				<el-form 
-				:inline="true" 
-				:model="formThree">
-					<el-form-item>
-						<el-button 
-						type="primary" 
-						@click="formThree.dialogFormVisibleOther = true">添加</el-button>
-					</el-form-item>
-				</el-form>
-			</el-col>
-   			<el-table 
-			:data="formThree.tabData" 
-			style="width:100%" 
-			:height="tabSearchPageHeightOthers">
-			  	<el-table-column prop="uid" label="用户DID"></el-table-column>
-				<el-table-column prop="name" label="作弊礼物"></el-table-column>
-				<el-table-column prop="chat_gold" label="作弊豆币价值"></el-table-column>
-				<el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-row>
-                            <el-button 
-                                size="mini" 
-                                type="danger"
-                                @click="deleteNoReal(scope.$index, scope.row)">删除</el-button>
-                        </el-row>
-                    </template>
-                </el-table-column>
-   			</el-table>
-			<el-col :span="24" class="toolbar">
-				<el-pagination 
-					layout="total,prev,pager,next,jumper" 
-					@current-change="threeHandleCurrentChange" 
-					:page-size="20" 
-					:total="formThree.totalPage" 
-					style="float:right;">
-				</el-pagination>
-			</el-col>
-    	</el-tab-pane>
-		<el-tab-pane 
-		label="作弊操作日志" 
-		name="four" 
-		:style="{height:tabPageHeight+'px'}">
-   			<el-table 
-			:data="formFour.tabData" 
-			style="width:100%" 
-			:height="tabPageHeight">
-			  	<el-table-column prop="time" label="操作时间"></el-table-column>
-				<el-table-column prop="admin" label="操作人"></el-table-column>
-				<el-table-column prop="cheat_id" label="作弊id"></el-table-column>
-				<el-table-column label="作弊对象">
-					<template slot-scope="scope" prop="uid">
-						向{{scope.row.uid}}用户发送了奖励
-					</template>
-				</el-table-column>
-   			</el-table>
-			<el-col :span="24" class="toolbar">
-				<el-pagination 
-					layout="total,prev,pager,next,jumper" 
-					@current-change="fourHandleCurrentChange" 
-					:page-size="20" 
-					:total="formFour.totalPage" 
-					style="float:right;">
-				</el-pagination>
-			</el-col>
-    	</el-tab-pane>
-		<!-- <el-tab-pane 
-		label="黑名单" 
-		name="five" 
-		:style="{height:tabHeight+'px'}">
-			<el-col 
-			:span="24" 
-			class="toolbar" 
-			style="padding-bottom:0px;">
-				<el-form 
-				:inline="true" 
-				:model="formFive">
-					<el-form-item>
-						<el-button 
-						type="primary" 
-						@click="formFive.dialogFormVisibleOther = true">添加</el-button>
-					</el-form-item>
-				</el-form>
-			</el-col>
-   			<el-table 
-			:data="formFive.tabData" 
-			style="width:100%" 
-			:height="tabSearchPageHeightOthers">
-			  	<el-table-column prop="uid" label="用户DID"></el-table-column>
-				<el-table-column prop="admin" label="操作人"></el-table-column>
-				<el-table-column prop="time" label="过期时间"></el-table-column>
-				<el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-row>
-                            <el-button 
-                                size="mini" 
-                                type="danger"
-                                @click="deleteBliackList(scope.$index, scope.row)">删除</el-button>
-                        </el-row>
-                    </template>
-                </el-table-column>
-   			</el-table>
-			<el-col :span="24" class="toolbar">
-				<el-pagination 
-					layout="total,prev,pager,next,jumper" 
-					@current-change="fiveHandleCurrentChange" 
-					:page-size="20" 
-					:total="formThree.totalPage" 
-					style="float:right;">
-				</el-pagination>
-			</el-col>
-    	</el-tab-pane> -->
-		<!-- 作弊后台添加 -->
-		<el-dialog title="作弊后台添加" :visible.sync="formThree.dialogFormVisibleOther">
-			<el-form :model="formThree">
-				<el-form-item label="作弊礼物" :label-width="formLabelWidth">
-					<el-select v-model="formThree.prize_id">
-						<el-option :label="item.name" :value="item.prize_id"
-						:key="index"
-						v-for="(item,index) in getPrize"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="用户ID" :label-width="formLabelWidth">
-					<el-input 
-					style="width:250px"
-					v-model="formThree.uid" 
-					auto-complete="off"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button 
-				@click.native.prevent="addNoReal(0)">取 消</el-button>
-				<el-button 
-				type="primary" 
-				@click.native.prevent="addNoReal(1)">确 定</el-button>
-			</div>
-		</el-dialog>
-		<!-- 黑名单添加 -->
-		<el-dialog title="黑名单添加" :visible.sync="formFive.dialogFormVisibleOther">
-			<el-form :model="formFive">
-				<el-form-item label="用户ID" :label-width="formLabelWidth">
-					<el-input 
-					style="width:250px"
-					v-model="formFive.uid" 
-					auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="过期时间" :label-width="formLabelWidth">
-						<el-date-picker 
-						v-model="formFive.time" 
-						type="datetime" 
-						placeholder="选择日期范围" style="width:250px"></el-date-picker>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button 
-				@click.native.prevent="addBlackList(0)">取 消</el-button>
-				<el-button 
-				type="primary" 
-				@click.native.prevent="addBlackList(1)">确 定</el-button>
-			</div>
-		</el-dialog>
     </el-tabs>
 </template>
 
@@ -300,7 +138,6 @@
 	import store from '../../../vuex/store';
 	import axios from 'axios';
 	import { allget } from '../../../api/api.js';
-	import echarts from 'echarts';
 	export default{
 		data(){
 			return{
@@ -470,7 +307,7 @@
 						_this.formOne.tabOneTitleData = arr
 						_this.formOne.tabData.unshift(res.data.data.stat_total);
 						_this.formOne.tabData = res.data.data.stat_list;
-						console.log(_this.formOne.tabData.unshift(res.data.data.stat_total),_this.formOne.tabData)
+						console.log(_this.formOne.tabData.unshift(res.data.data.stat_total),_this.formOne.tabData,_this.formOne.tabOneTitleData)
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
 					}
@@ -677,6 +514,42 @@
 						});	
 				};
 			},
+            // //导出
+            handleDownload() {
+                var arrDownloadData = this.formOne.tabOneTitleData;
+                var tHeader = [],filterVal = [];
+                arrDownloadData.forEach((item) => {
+                    tHeader.push(item.name);
+                    filterVal.push(item.identification);
+                })
+            	require.ensure([], () => {
+            	const { export_json_to_excel } = require('../../vendor/Export2Excel');
+            	const data = this.formatJson(filterVal, this.formOne.tabData);
+            	export_json_to_excel(tHeader, data, 'excel表');
+            	})
+            },
+            handleDownloadTwo(){
+                var arrDownloadData = this.formTwo.tabOneTitleData;
+                var tHeader = [],filterVal = [];
+                arrDownloadData.forEach((item) => {
+                    tHeader.push(item.name);
+                    filterVal.push(item.identification);
+                })
+            	require.ensure([], () => {
+            	const { export_json_to_excel } = require('../../vendor/Export2Excel');
+            	const data = this.formatJson(filterVal, this.formTwo.tabData);
+            	export_json_to_excel(tHeader, data, 'excel表');
+            	})
+            },
+            formatJson(filterVal, jsonData) {
+            	return jsonData.map(v => filterVal.map(j => {
+                    if (j === 'timestamp') {
+                        return parseTime(v[j])
+                    } else {
+                        return v[j]
+                    }
+            	}))
+            },
 			//删除黑名单
 			deleteBliackList(index,row){
 				var _this = this;
