@@ -501,7 +501,7 @@
 			},
 			getThreeData(){
        			var _this = this;
-				axios.get(allget+'/NewGoldenEgg/getCheatList', {params: {status:0,page:_this.formThree.page}})
+				axios.get(allget+'/NewEgg/getCheatList', {params: {status:0,page:_this.formThree.page}})
 				.then((res) => {
 					if(res.data.ret == 1) {
 						_this.formThree.tabData = res.data.data;
@@ -544,7 +544,7 @@
 			//作弊添加获取礼物	
 			checkSort(){
 				var _this = this;
-				let url = "/NewGoldenEgg/getAvailablePrizeList";
+				let url = "/NewEgg/getAvailablePrizeList";
 				let params = {
 					
 				};
@@ -570,7 +570,7 @@
 					_this.formThree.uid = '';
 					_this.getPrize = [];
 				}else{
-					let url = "/NewGoldenEgg/addCheat";
+					let url = "/NewEgg/addCheat";
 					let params = {
 						uid: _this.formThree.uid,
 						prize_id: _this.formThree.prize_id,
@@ -600,7 +600,7 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					var url = '/NewGoldenEgg/deleteCheat';
+					var url = '/NewEgg/deleteCheat';
 					let params = {
 						cheat_id : row.cheat_id
 					};
@@ -639,7 +639,7 @@
 					_this.formFive.time = '';
 					_this.formFive.uid = '';
 				}else{
-					let url = "/NewTreasureBox/setBlack";
+					let url = "/NewEgg/setBlack";
 					let params = {
 						uid: _this.formFive.uid,
 						time: _this.formFive.time,
@@ -669,7 +669,7 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					var url = '/NewTreasureBox/deleteBlack';
+					var url = '/NewEgg/deleteBlack';
 					let params = {
 						uid : row.uid
 					};
