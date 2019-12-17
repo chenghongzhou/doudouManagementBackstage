@@ -337,7 +337,7 @@ export default {
                 baseConfig.warningTipMsg(this, "请输入手机号码！");
                 return;
             }
-            if(!(/0?(13|14|15|17|18|19)[0-9]{9}/.test(params.phone))){ 
+            if(!(/0?(13|14|15|16|17|18|19)[0-9]{9}/.test(params.phone))){ 
                 baseConfig.warningTipMsg(this, '手机号码有误，请重填');
                 return; 
             }
