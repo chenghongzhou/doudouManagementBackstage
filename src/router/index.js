@@ -195,7 +195,7 @@ import GrabChatDataSummary from '../components/operationSupport/callLog/GrabChat
 import newRecordingAddList from '../components/operationSupport/callLog/newRecordingAddList.vue';//每日新增录音统计
 // 1-5运营数据统计
 import imMessageStatistics from '../components/operationData/operationDataStatistics/imMessageStatistics.vue';//IM消息统计
-import h5ShareStatistics from '../components/operationData/operationDataStatistics/h5ShareStatistics.vue';//分享页数据统计
+//import h5ShareStatistics from '../components/operationData/operationDataStatistics/h5ShareStatistics.vue';//分享页数据统计
 import newUserCastDatalist from '../components/operationData/operationDataStatistics/newUserCastDatalist.vue';//新用户红包领取统计
 import propTotalData from '../components/operationData/operationDataStatistics/propTotalData.vue';//道具统计
 // 1-1渠道数据
@@ -212,7 +212,7 @@ import idReview from '../components/userManagement/userInformationManagement/idR
 import idReviewList from '../components/userManagement/userInformationManagement/idReviewList.vue';//用户认证审核列表
 import userComplaintsList from '../components/userManagement/userInformationManagement/userComplaintsList.vue';//用户投诉处理
 import openCloseList from '../components/userManagement/userInformationManagement/openCloseList.vue';//账号封禁记录（可封禁）
-import recordingComplaints from '../components/userManagement/userInformationManagement/recordingComplaints.vue';//录音投诉管理
+//import recordingComplaints from '../components/userManagement/userInformationManagement/recordingComplaints.vue';//录音投诉管理
 import girlsRanking from '../components/userManagement/userInformationManagement/girlsRanking.vue';//女性魅力值
 import propRecordList from '../components/userManagement/userInformationManagement/propRecordList.vue';//道具流水
 import rechargeList from '../components/userManagement/userInformationManagement/rechargeList.vue';//充值排行榜
@@ -228,7 +228,7 @@ import levelRecordList from '../components/userManagement/userInformationManagem
 
 // 2-2家族管理
 import familyManage from '../components/userManagement/householdManagement/familyManage.vue';//家族查询
-import liveBroadCast from '../components/userManagement/householdManagement/liveBroadCastManage.vue';//房间数据和记录
+//import liveBroadCast from '../components/userManagement/householdManagement/liveBroadCastManage.vue';//房间数据和记录
 import roomConsumptionFlow from '../components/userManagement/householdManagement/roomConsumptionFlowManage.vue';//房间消费流水
 import changeFamilyGrade from '../components/userManagement/householdManagement/changeFamilyGrade.vue';//修改家族等级
 import familyAccountManagement from '../components/userManagement/householdManagement/familyAccountManagement.vue';//家族账号管理
@@ -244,11 +244,11 @@ import kickRecord from '../components/userManagement/householdManagement/kickRec
 import roomList from '../components/userManagement/householdManagement/roomList.vue';//房间列表
 
 // 2-3代理推广管理
-import agentTotalView from '../components/userManagement/agentPromotionManagement/agentTotalView.vue';//推广数据总览
-import agentPopularize from '../components/userManagement/agentPromotionManagement/agentPopularize.vue';//代理推广查询
-import agentRanking from '../components/userManagement/agentPromotionManagement/agentRanking.vue';//代理排行榜
-import agentBindingQuery from '../components/userManagement/agentPromotionManagement/agentBindingQuery.vue';//代理绑定查询
-import agentList from '../components/userManagement/agentPromotionManagement/agentList.vue';// 代理绑定查询记录
+//import agentTotalView from '../components/userManagement/agentPromotionManagement/agentTotalView.vue';//推广数据总览
+//import agentPopularize from '../components/userManagement/agentPromotionManagement/agentPopularize.vue';//代理推广查询
+//import agentRanking from '../components/userManagement/agentPromotionManagement/agentRanking.vue';//代理排行榜
+//import agentBindingQuery from '../components/userManagement/agentPromotionManagement/agentBindingQuery.vue';//代理绑定查询
+//import agentList from '../components/userManagement/agentPromotionManagement/agentList.vue';// 代理绑定查询记录
 // 2-4主播管理
 import anchorDailyBehaviorDataStatistics from '../components/userManagement/anchorsManagement/anchorDailyBehaviorDataStatistics.vue';//主播每日行为数据统计
 import anchorDailyDataCollection from '../components/userManagement/anchorsManagement/anchorDailyDataCollection.vue';//主播每日数据汇总
@@ -264,7 +264,7 @@ import randomLabel from '../components/operationSupport/appContentManagement/ran
 import randomNickname from '../components/operationSupport/appContentManagement/randomNickname.vue';//随机昵称
 import randomSignature from '../components/operationSupport/appContentManagement/randomSignature.vue';//随机签名
 import registeredUserGreeting from '../components/operationSupport/appContentManagement/registeredUserGreeting.vue';//注册用户招呼语
-import revenueSuspensionWindow from '../components/operationSupport/appContentManagement/revenueSuspensionWindow.vue';//收益悬浮窗
+//import revenueSuspensionWindow from '../components/operationSupport/appContentManagement/revenueSuspensionWindow.vue';//收益悬浮窗
 import userTabsManage from '../components/operationSupport/appContentManagement/userTabsManage.vue';//首页标签管理
 import roomTabsManageTest from '../components/operationSupport/appContentManagement/roomTabsManageTest.vue';//房间标签管理
 // 3-2、运营工具
@@ -289,14 +289,15 @@ import topicManagement from '../components/operationSupport/operatingTools/topic
 import dynamicBlackList from '../components/operationSupport/operatingTools/dynamicBlackList.vue';//动态黑名单
 import dynamicCount from '../components/operationSupport/operatingTools/dynamicCount.vue';//动态统计
 import setActivityTime from '../components/operationSupport/operatingTools/setActivityTime.vue';//活动时间设置
+import sendTicketManagement from '../components/operationSupport/operatingTools/sendTicketManagement.vue';//豆票下发
 // import roomTabDataInfo from '../components/operationSupport/operatingTools/roomTabDataInfo.vue';//房间功能标签使用统计
 // 3-3、录音日志
-import DailyAdditions from '../components/operationSupport/recordingLog/DailyAdditions.vue';//每日新增录音明细
-import recordShareManage from '../components/operationSupport/recordingLog/recordShareManage.vue';//录音分享卡片
-import systemRack from '../components/operationSupport/recordingLog/systemRack.vue';//录音下榜列表
-import tapeSharingData from '../components/operationSupport/recordingLog/tapeSharingData.vue';//分享页推荐录音列表
-import wonderfulRecord from '../components/operationSupport/recordingLog/wonderfulRecord.vue';//录音精彩内容
-import voiceTabManage from '../components/operationSupport/recordingLog/voiceTabManage.vue';//录音标签日志
+//import DailyAdditions from '../components/operationSupport/recordingLog/DailyAdditions.vue';//每日新增录音明细
+//import recordShareManage from '../components/operationSupport/recordingLog/recordShareManage.vue';//录音分享卡片
+//import systemRack from '../components/operationSupport/recordingLog/systemRack.vue';//录音下榜列表
+//import tapeSharingData from '../components/operationSupport/recordingLog/tapeSharingData.vue';//分享页推荐录音列表
+//import wonderfulRecord from '../components/operationSupport/recordingLog/wonderfulRecord.vue';//录音精彩内容
+//import voiceTabManage from '../components/operationSupport/recordingLog/voiceTabManage.vue';//录音标签日志
 // 3-4、通话日志
 import openCallManage from '../components/operationSupport/callLog/openCallManage.vue';//公开通话管理
 import callDataDetail from '../components/operationSupport/callLog/callDataDetail.vue';//通话记录明细
@@ -320,34 +321,34 @@ import songManagement from '../components/operationSupport/ktvManagement/songMan
 import giftGiving from '../components/activities/giftGiving.vue';//好评送礼
 import familyBackstageBackstage from '../components/activities/familyBackstageBackstage.vue';//家族活动正式服后台
 import roomTopManagement from '../components/activities/roomTopManagement.vue';//家族置顶管理
-import loveActivityManage from '../components/activities/loveActivityManage.vue';//情人节数据统计
-import interactionInfo from '../components/activities/interactionInfo.vue';//黑色情人节互动信息
-import rechargeTheCrowdManagement from '../components/activities/rechargeTheCrowdManagement.vue';//充值众筹管理
-import youthDay from '../components/activities/youthDay.vue';// 五四活动
-import wordCupManagement from '../components/activities/wordCupManagement.vue';// 世界杯活动
+//import loveActivityManage from '../components/activities/loveActivityManage.vue';//情人节数据统计
+//import interactionInfo from '../components/activities/interactionInfo.vue';//黑色情人节互动信息
+//import rechargeTheCrowdManagement from '../components/activities/rechargeTheCrowdManagement.vue';//充值众筹管理
+//import youthDay from '../components/activities/youthDay.vue';// 五四活动
+//import wordCupManagement from '../components/activities/wordCupManagement.vue';// 世界杯活动
 import superTurntable from '../components/activities/superTurntable.vue';// 超级转盘
-import newSuperTurntable from '../components/activities/newSuperTurntable.vue';// 超级转盘（新）
-import roomeTurntable from '../components/activities/roomTurntable.vue';// 房间转盘
-import luckyDraw from '../components/activities/luckyDraw.vue';// 抽奖红包
-import tanabataActivity from '../components/activities/tanabataActivity.vue';// 七夕活动
+//import newSuperTurntable from '../components/activities/newSuperTurntable.vue';// 超级转盘（新）
+//import roomeTurntable from '../components/activities/roomTurntable.vue';// 房间转盘
+//import luckyDraw from '../components/activities/luckyDraw.vue';// 抽奖红包
+//import tanabataActivity from '../components/activities/tanabataActivity.vue';// 七夕活动
 import smashGoldEggs from '../components/activities/smashGoldEggs.vue';// 砸金蛋活动
 import robotManagement from '../components/activities/robotManagement.vue';// 机器人管理
 import accountRegulate from '../components/activities/accountRegulate.vue';// 账号管理
 import earningCallData from '../components/activities/earningCallData.vue';// 收益通话数据
 import cyberCelebrity from '../components/activities/cyberCelebrity.vue';// 网红活动
-import bargain from '../components/activities/bargain.vue';// 砍价
-import cardCollect from '../components/activities/cardCollect.vue';// 喵星人集卡
-import moneyRain from '../components/activities/moneyRain.vue';// 红包雨
+//import bargain from '../components/activities/bargain.vue';// 砍价
+//import cardCollect from '../components/activities/cardCollect.vue';// 喵星人集卡
+//import moneyRain from '../components/activities/moneyRain.vue';// 红包雨
 import gameSettings from '../components/activities/gameSettings.vue';// 游戏设置
 import gameBackgroundData from '../components/activities/gameBackgroundData.vue';// 游戏数据后台
-import dollPlay from '../components/activities/dollPlay.vue';// 玩玩机
-import motherDay from '../components/activities/motherDay.vue';// 母亲节
+//import dollPlay from '../components/activities/dollPlay.vue';// 玩玩机
+//import motherDay from '../components/activities/motherDay.vue';// 母亲节
 import openGoldCase from '../components/activities/openGoldCaseManagement/openGoldCase.vue';// 开宝箱
 import openGoldCaseStatistics from '../components/activities/openGoldCaseManagement/openGoldCaseStatistics.vue';// 开宝箱数据统计
 import storeManagement from '../components/activities/openGoldCaseManagement/storeManagement.vue';// 星商城物品管理
 import starStatistics from '../components/activities/openGoldCaseManagement/starStatistics.vue';// 星星流水记录
 import goldCasePrizeStatistics from '../components/activities/openGoldCaseManagement/goldCasePrizeStatistics.vue';// 宝箱开奖设置
-import juneDayActivity from '../components/activities/juneDayActivity.vue';// 六一
+//import juneDayActivity from '../components/activities/juneDayActivity.vue';// 六一
 import luckyTree from '../components/activities/luckyTree/luckyTree.vue';// 幸运树
 import luckyTreeStatistics from '../components/activities/luckyTree/luckyTreeStatistics.vue';// 幸运树数据统计
 import luckyTreePrizeStatistics from '../components/activities/luckyTree/luckyTreePrizeStatistics.vue';// 幸运树开奖设置
@@ -382,7 +383,7 @@ import imageUpload from '../components/systemSetup/imageUpload.vue';//图片上�
 import globalParameter from '../components/systemSetup/globalParameter.vue';//全局参数
 import modifyThePassword from '../components/systemSetup/modifyThePassword.vue';//密码修改
 import accountManagement from '../components/systemSetup/accountManagement.vue';//账号管理
-import commonPages from '../components/systemSetup/commonPages.vue';//常用页面配置
+//import commonPages from '../components/systemSetup/commonPages.vue';//常用页面配置
 // 系统设置end
 
 // 留存测试填充数据
@@ -676,6 +677,7 @@ export const asyncRouterMap = [
                     { path: '/operationSupport/operatingTools/bannerManagement', component: bannerManagement, name: 'banner条管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/sendSystemNotification', component: sendSystemNotification, name: '发送系统通知', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/marqueeManagement', component: marqueeManagement, name: '跑马灯管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/operationSupport/operatingTools/sendTicketManagement', component: sendTicketManagement, name: '下发豆票', hidden: false, meta: { role: ['T1', 'O1'] } },
                     { path: '/operationSupport/operatingTools/activityNotificationManagement', component: activityNotificationManagement, name: '活动通知管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/startPageManagement', component: startPageManagement, name: '启动页管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/operationSupport/operatingTools/sendMessageNotifications', component: sendMessageNotifications, name: '发送手机短信', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
