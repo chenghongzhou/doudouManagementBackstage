@@ -362,6 +362,7 @@ import augustFivenActivity from '../components/activities/augustFivenActivity.vu
 import sigin from '../components/activities/sigin.vue';// 网红打卡
 import shop from '../components/activities/shop.vue';// 杂货店
 import recharge from '../components/activities/recharge.vue';// 杂货店
+import zhaComing from '../components/activities/zhaComing.vue';// 喳来了
 
 import playDoudou from '../components/activities/playDoudou/playDoudou.vue';// 打豆豆
 import playDoudouStatistics from '../components/activities/playDoudou/playDoudouStatistics.vue';// 打豆豆数据统计
@@ -881,6 +882,7 @@ export const asyncRouterMap = [
                     { path: '/activities/sigin', component: sigin, name: '网红打卡', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/shop', component: shop, name: '杂货店', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/recharge', component: recharge, name: '充值送礼', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/zhaComing', component: zhaComing, name: '喳来了', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/rechargeTheCrowdManagement', component: rechargeTheCrowdManagement, name: '充值众筹活动管理', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     // { path: '/activities/youthDay', component: youthDay, name: '五四活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    
                     // { path: '/activities/wordCupManagement', component: wordCupManagement, name: '世界杯活动', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },                    

@@ -1,6 +1,5 @@
 <template>
     <el-tabs 
-	v-model="activeName" 
 	type="border-card" 
 	@tab-click="handleClick">
 		<el-col 
@@ -15,15 +14,15 @@
 		</el-col>
 		
 		<el-table 
-		:data="formTwo.tabData" 
-		style="width:100%" 
-		:height="tabSearchPageHeightOthers">
+		:data="formTwo.tabData"
+		style="width:100%"
+		:style="{height:tabSearchPageHeightOthers+'px'}">
 		<template>
             <el-table-column label="宝箱类型">
                 <template slot-scope="scope">
                     <div slot="reference" class="name-wrapper">
                         <p v-if="scope.row.box == 1">黄金宝箱</p>
-                        <p v-else-if="scope.row.box==2">钻石宝箱</p>
+                        <p v-else-if="scope.row.box == 2">钻石宝箱</p>
                     </div>
                 </template>
             </el-table-column>
@@ -74,7 +73,7 @@
 			</div>
 		</el-dialog>
 		<!-- 修改宝箱状态 -->
-		<el-dialog title="修改触发金额" :visible.sync="cfMoneyMaks">
+		  <el-dialog title="修改触发金额" :visible.sync="cfMoneyMaks">
 			<el-form>
 				<label>奖金池触发金额1：</label>
                 <el-input v-model="threshold_1" placeholder="奖金池触发金额1" style="width:200px;"></el-input>
@@ -126,13 +125,14 @@
 	import store from '../../../vuex/store';
 	import axios from 'axios';
 	import { allget } from '../../../api/api.js';
+	import echarts from 'echarts';
 	export default{
 		data(){
 			return{
 				tabHeight: null,
-				activeName:'first',
-				tabSearchPageHeight:null,
+				tabSearchPageHeight: null,
 				tabSearchPageHeightOthers:null,
+				activeName:'first',
            		dialogWidth: null,	
 				caseStatus:'已关闭',
 				formLabelWidth:'150px',
@@ -163,10 +163,9 @@
 		},
 		mounted(){
 			var _this = this;
-			_this.$nextTick(function() { 
+			_this.$nextTick(function() {
 		        _this.dialogWidth = lookWidth*0.8+'px'; //设置进行dialog的宽度进行设置为屏幕的80%
 				_this.tabHeight = baseConfig.lineNumber(tabHeight-35);
-				_this.tabPageHeight = baseConfig.lineNumber(tabPageHeight);
 				_this.tabSearchPageHeight = baseConfig.lineNumber(tabSearchPageHeight);
 				_this.tabSearchPageHeightOthers = baseConfig.lineNumber(tabHeight-75);
 				_this.getTwoData();
