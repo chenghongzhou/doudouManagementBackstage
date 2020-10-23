@@ -121,7 +121,7 @@
                                 type="primary" 
                                 @click="userDetail(scope.$index, scope.row)">用户详情</el-button>
                             </el-col>
-                            <el-col :span="4" v-if="scope.row.status == 0">
+                            <el-col :span="4" v-if="scope.row.status == 0 || !scope.row.status">
                                 <el-button 
                                 size="mini" 
                                 type="danger" 

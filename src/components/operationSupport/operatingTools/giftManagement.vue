@@ -636,7 +636,7 @@
 							<div class="block">
 								<span class="registerTime">注册时间</span>
 								<el-date-picker 
-								v-model="formFive.choiceDate" 
+								v-model="formSix.choiceDate" 
 								type="daterange" 
 								range-separator=" 至 " 
 								placeholder="选择日期范围"></el-date-picker>

@@ -201,7 +201,7 @@ export default {
 				page: 1,
                 star: '0',
                 end: '20',
-                totalPage: null,
+                totalPage: 10000,
                 addAccountInfo: {//添加账号
                     dialogShow: false,
                     account: '',
@@ -237,7 +237,7 @@ export default {
                 condition_uid: '',
                 tabData: [],
                 page: '0',
-                totalPage: 1000,
+                totalPage: 10000,
                 unbind: {//解绑操作参数
                     uid: '',
                     slave_uid: '',
