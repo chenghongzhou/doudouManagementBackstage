@@ -378,6 +378,11 @@ import luckCase from '../components/activities/luckCase/luckCase.vue';// 好运�
 import luckCaseStatistics1 from '../components/activities/luckCase/luckCaseStatistics.vue';// 好运宝箱数据统计
 import luckCasePrizeStatistics1 from '../components/activities/luckCase/luckCasePrizeStatistics.vue';// 好运宝箱开奖设置
 
+import nEgg from '../components/activities/nEgg/nEgg.vue';// 扭蛋
+import nEggStatistics from '../components/activities/nEgg/nEggStatistics.vue';// 扭蛋数据统计
+import nEggPrizeStatistics from '../components/activities/nEgg/nEggPrizeStatistics.vue';// 扭蛋开奖设置
+import nEggTotalPrize from '../components/activities/nEgg/nEggTotalPrize.vue';// 扭蛋开奖设置
+
 // 活动专区end
 // 5、系统设置
 // 系统设置start
@@ -845,6 +850,19 @@ export const asyncRouterMap = [
                     { path: '/activities/luckCase/luckCase', component: luckCase, name: '好运宝箱', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/luckCase/luckCaseStatistics', component: luckCaseStatistics1, name: '好运宝箱数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/luckCase/luckCasePrizeStatistics', component: luckCasePrizeStatistics1, name: '好运宝箱开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '扭蛋',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/nEgg/nEgg', component: nEgg, name: '扭蛋礼物', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/nEgg/nEggTotalPrize', component: nEggTotalPrize, name: '多次累计奖励', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/nEgg/nEggStatistics', component: nEggStatistics, name: '扭蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/nEgg/nEggPrizeStatistics', component: nEggPrizeStatistics, name: '扭蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
