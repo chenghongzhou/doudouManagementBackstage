@@ -111,7 +111,7 @@
 			</el-col>
     	</el-tab-pane>
 		<el-tab-pane 
-		label="作弊后台" 
+		label="累计次数数据" 
 		name="three" 
 		:style="{height:tabHeight+'px'}">
 			<el-col 
@@ -122,29 +122,39 @@
 				:inline="true" 
 				:model="formThree">
 					<el-form-item>
+						<div class="block">
+							<span class="registerTime">日期</span>
+							<el-date-picker 
+							v-model="formThree.choiceDate" 
+							type="daterange" 
+							range-separator=" 至 " 
+							placeholder="选择日期范围"></el-date-picker>
+						</div>
+					</el-form-item>
+					<el-form-item label="UID">
+						<el-input 
+						v-model="formThree.uid" 
+						auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item>
 						<el-button 
 						type="primary" 
-						@click="formThree.dialogFormVisibleOther = true">添加</el-button>
+						@click="getThreeData">查询</el-button>
 					</el-form-item>
 				</el-form>
 			</el-col>
    			<el-table 
-			:data="formThree.tabData" 
+			:data="ThreePageTabData" 
 			style="width:100%" 
 			:height="tabSearchPageHeightOthers">
-			  	<el-table-column prop="uid" label="用户DID"></el-table-column>
-				<el-table-column prop="name" label="作弊礼物"></el-table-column>
-				<el-table-column prop="chat_gold" label="作弊豆币价值"></el-table-column>
-				<el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-row>
-                            <el-button 
-                                size="mini" 
-                                type="danger"
-                                @click="deleteNoReal(scope.$index, scope.row)">删除</el-button>
-                        </el-row>
-                    </template>
-                </el-table-column>
+			  <template v-for="(item, index) in formThree.tabOneTitleData">
+			  	<el-table-column 
+				  :prop="item.identification" 
+				  :label="item.name"
+				  :key="index"
+				  min-width="100"
+				  ></el-table-column>
+			</template>	 
    			</el-table>
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -157,21 +167,45 @@
 			</el-col>
     	</el-tab-pane>
 		<el-tab-pane 
-		label="作弊操作日志" 
+		label="商城数据" 
 		name="four" 
 		:style="{height:tabPageHeight+'px'}">
+        <el-col 
+			:span="24" 
+			class="toolbar" 
+			style="padding-bottom:0px;">
+				<el-form 
+				:inline="true" 
+				:model="formFour">
+					<el-form-item>
+						<div class="block">
+							<span class="registerTime">日期</span>
+							<el-date-picker 
+							v-model="formFour.choiceDate" 
+							type="daterange" 
+							range-separator=" 至 " 
+							placeholder="选择日期范围"></el-date-picker>
+						</div>
+					</el-form-item>
+					<el-form-item label="UID">
+						<el-input 
+						v-model="formFour.uid" 
+						auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-button 
+						type="primary" 
+						@click="getFourData">查询</el-button>
+					</el-form-item>
+				</el-form>
+			</el-col>
    			<el-table 
-			:data="formFour.tabData" 
+            :data="FourPageTabData" 
 			style="width:100%" 
 			:height="tabPageHeight">
-			  	<el-table-column prop="time" label="操作时间"></el-table-column>
-				<el-table-column prop="admin" label="操作人"></el-table-column>
-				<el-table-column prop="cheat_id" label="作弊id"></el-table-column>
-				<el-table-column label="作弊对象">
-					<template slot-scope="scope" prop="uid">
-						向{{scope.row.uid}}用户发送了奖励
-					</template>
-				</el-table-column>
+			  	<el-table-column prop="uid" label="用户UID"></el-table-column>
+				<el-table-column prop="name" label="购买内容"></el-table-column>
+				<el-table-column prop="gift_total" label="购买消耗价格"></el-table-column>
    			</el-table>
 			<el-col :span="24" class="toolbar">
 				<el-pagination 
@@ -328,17 +362,32 @@
 				},
 				formThree:{
 					tabData:[],
+                    tabOneTitleData:[],
 					page: 1,
 					totalPage:1000,
 					dialogFormVisibleOther:false,
 					box:'',
 					prize_id:'',
-					uid:''
+					uid:'',
+                    uid:'',
+					page:0,
+					box:'1',
+					star: '0',
+                	end: '20',
+					totalPage:1000,
+					choiceDate: [new Date()-180*24*60*60*1000, new Date()], // 对应选择的日期,给默认时间180之前到现在
 				},
 				formFour:{
 					tabData:[],
 					page: 1,
 					totalPage:1000,
+                    uid:'',
+					page:0,
+					box:'1',
+					star: '0',
+                	end: '20',
+					totalPage:1000,
+					choiceDate: [new Date()-180*24*60*60*1000, new Date()], // 对应选择的日期,给默认时间180之前到现在
 				},
 				formFive:{
 					tabData:[],
@@ -360,6 +409,15 @@
 				var _this = this;
 				return _this.formTwo.tabData.slice(_this.formTwo.star, _this.formTwo.end);
 			},
+            ThreePageTabData() {
+				var _this = this;
+				return _this.formThree.tabData.slice(_this.formThree.star, _this.formThree.end);
+			},
+            FourPageTabData() {
+				var _this = this;
+				return _this.formFour.tabData.slice(_this.formFour.star, _this.formFour.end);
+			},
+            
 		},
 		mounted(){
 			var _this = this;
@@ -396,6 +454,24 @@
                 obj.end_date = _this.formTwo.choiceDate?baseConfig.changeDateTime(_this.formTwo.choiceDate[1], 0):'';
 				return obj; 
 			},
+            searchConditionDataThree(){
+				var _this = this;
+				var obj = {};
+				obj.uid = _this.formThree.uid;
+				obj.page=_this.formThree.page;
+				obj.start_date = _this.formThree.choiceDate?baseConfig.changeDateTime(_this.formThree.choiceDate[0], 0):'';
+                obj.end_date = _this.formThree.choiceDate?baseConfig.changeDateTime(_this.formThree.choiceDate[1], 0):'';
+				return obj; 
+			},
+            searchConditionDataFour(){
+				var _this = this;
+				var obj = {};
+				obj.uid = _this.formFour.uid;
+				obj.page=_this.formFour.page;
+				obj.start_date = _this.formFour.choiceDate?baseConfig.changeDateTime(_this.formFour.choiceDate[0], 0):'';
+                obj.end_date = _this.formFour.choiceDate?baseConfig.changeDateTime(_this.formFour.choiceDate[1], 0):'';
+				return obj; 
+			},
 			handleClick(tab, event){
 				console.log('进行了盒子风格切换');
 				// console.log(tab.name);
@@ -415,12 +491,16 @@
 				//this.getTwoData();
 			},
 			threeHandleCurrentChange(val){
-				this.formThree.page = val;
-				this.getThreeData();
+                var _this = this;
+				this.formThree.page=val-1;
+				 _this.formThree.star = (_this.formThree.page)*20;
+           		 _this.formThree.end = _this.formThree.star+20;
 			},
 			fourHandleCurrentChange(val){
-				this.formFour.page = val;
-				this.getFourData();
+                var _this = this;
+				this.formFour.page=val-1;
+				 _this.formFour.star = (_this.formFour.page)*20;
+           		 _this.formFour.end = _this.formFour.star+20;
 			},
 			// fiveHandleCurrentChange(val){
 			// 	this.formFive.page = val;
@@ -429,7 +509,7 @@
 			getOneData(){
        			var _this = this;
        			var params=_this.searchConditionGift();
-				axios.get(allget+'/NewEgg/getDateStat', {params: params})
+				axios.get(allget+'/NewTwistEgg/getDateStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
 						var oneTitleStatic = [];
@@ -465,7 +545,7 @@
 			getTwoData(){
        			var _this = this;
        			var params=_this.searchConditionData();
-				axios.get(allget+'/NewEgg/getUserStat', {params: params})
+				axios.get(allget+'/NewTwistEgg/getUserStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
 					//	_this.formTwo.tabData = res.data.data;
@@ -501,10 +581,31 @@
 			},
 			getThreeData(){
        			var _this = this;
-				axios.get(allget+'/NewEgg/getCheatList', {params: {status:0,page:_this.formThree.page}})
+                   var params = _this.searchConditionDataThree();
+				axios.get(allget+'/NewTwistEgg/getCountStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
-						_this.formThree.tabData = res.data.data;
+                        var oneTitleStatic = [];
+						var arr = [];
+						var total = [];
+						oneTitleStatic = [
+							{identification:'uid',name:'UID'},
+							{identification:'count',name:'领取人数'},
+						]
+						_this.formThree.tabOneTitleData = oneTitleStatic.concat(res.data.data.sort_list);
+						_this.formThree.tabOneTitleData.forEach((item) => {
+							if(item.sort){
+								var sortId = item.sort;
+								item.identification = 'count_'+sortId; 
+							};
+							arr.push(item);
+                            console.log(arr,1)
+						});
+						res.data.data.stat_total.uid = '总计';
+						_this.formThree.tabOneTitleData = arr;
+						_this.formThree.tabData.unshift(res.data.data.stat_total);
+						_this.formThree.tabData = res.data.data.stat_list;
+                        console.log(_this.formThree.tabData.unshift(res.data.data.stat_total),_this.formThree.tabData)
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
 					}
@@ -515,10 +616,14 @@
 			},
 			getFourData(){
        			var _this = this;
-				axios.get(allget+'/NewGoldenEgg/getCheatList', {params: {status:1,page:_this.formFour.page}})
+                var params=_this.searchConditionDataFour();
+				axios.get(allget+'/NewTwistEgg/getShopStat', {params: params})
 				.then((res) => {
 					if(res.data.ret == 1) {
-						_this.formFour.tabData = res.data.data;
+						//_this.formFour.tabData = res.data.data.stat_list;
+						res.data.data.stat_list.unshift({uid:'总计',name:'--',gift_total:res.data.data.stat_total});
+						_this.formFour.tabData = res.data.data.stat_list;
+                        
 					} else {
 						baseConfig.warningTipMsg(_this, res.data.msg);
 					}

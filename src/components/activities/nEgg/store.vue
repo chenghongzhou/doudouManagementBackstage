@@ -4,6 +4,11 @@
         <el-col :span="24" class="toolbar" style="padding-bottom:0px;">
             <el-form :inline="true" style="overflow:hidden;">
                 <el-row>
+                    <div class="caseStatus">状态：{{caseStatus}}</div>
+                    <el-button 
+                    type="primary" 
+                    style="margin-bottom:10px;"
+                    @click="formTwo.dialogFormVisible = true">修改状态</el-button>
 					<el-form-item>
                         <el-button 
                         type="primary" 
@@ -20,29 +25,8 @@
             @selection-change="handleSelectionChange"
             style="width:100%;" 
             :height="tableHeight">
-                <el-table-column prop="create_time" label="创建时间"></el-table-column>
                 <el-table-column prop="sort" label="排序"></el-table-column>
-                <!-- <el-table-column prop="type" label="物品类型">
-					<template slot-scope="scope">
-						<div slot="reference" class="name-wrapper">
-							<p v-if="scope.row.type == 1">背包礼物</p>
-							<p v-else-if="scope.row.type==2">装扮</p>
-							<p v-else-if="scope.row.type==3">座驾</p>
-							<p v-else-if="scope.row.type==4">称号</p>
-							<p v-else-if="scope.row.type==5">道具</p>
-						</div>
-					</template>
-				</el-table-column> -->
-                <el-table-column prop="is_pool" label="奖池类型">
-					<template slot-scope="scope">
-						<div slot="reference" class="name-wrapper">
-							<p v-if="scope.row.is_pool == 0">非奖池</p>
-							<p v-else-if="scope.row.is_pool==1">1号奖池</p>
-							<p v-else-if="scope.row.is_pool==2">2号奖池</p>
-						</div>
-					</template>
-				</el-table-column>
-                <el-table-column prop="name" label="物品名称"></el-table-column>
+				<el-table-column prop="name" label="商品"></el-table-column>
                 <el-table-column prop="img" label="图片">
                     <template slot-scope="scope">
                         <div slot="reference" class="name-wrapper">
@@ -52,9 +36,15 @@
 						</div>
                     </template>
                 </el-table-column>
-				<el-table-column prop="chat_gold" label="价值豆币"></el-table-column>
-				<el-table-column prop="on_time" label="上架时间"></el-table-column>
-				<el-table-column prop="level" label="级别"></el-table-column>
+				<el-table-column prop="num" label="时长/数量(天/个)">
+					<template slot-scope="scope">
+						<div slot="reference" class="name-wrapper">
+							<p v-if="scope.row.type == 2 || scope.row.type == 3 || scope.row.type == 4 || scope.row.type==6">{{scope.row.num}}天</p>
+							<p v-else-if="scope.row.type==5 || scope.row.type == 1">{{scope.row.num}}个</p>
+						</div>
+					</template>
+				</el-table-column>	
+                <el-table-column prop="on_time" label="上架时间"></el-table-column>
                 <el-table-column label="上架状态" width="80">
 					<template slot-scope="scope">
 						<div slot="reference" class="name-wrapper">
@@ -64,7 +54,8 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="off_time" label="下架时间"></el-table-column>
-				<el-table-column prop="probability" label="物品几率"></el-table-column>
+                <el-table-column prop="prize_name" label="物品奖励"></el-table-column>
+                <el-table-column prop="prize_num" label="要求数量(个)"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-row>
@@ -94,17 +85,33 @@
 		<!-- 添加 -->
 		<el-dialog title="添加" :visible.sync="addNewloading.dialogFormVisible">
 			<el-form :model="addNewloading.params"> 
+                <el-form-item label="选择礼物" :label-width="formLabelWidth">
+					<el-select v-model="addNewloading.params.prize_gift_id" @change="getGoods()">
+						<el-option 
+						:label="item.name" 
+						:value="item.gift_id"
+						:key="index"
+						v-for="(item,index) in goodsList">
+						</el-option>
+					</el-select>
+				</el-form-item> 
+                <el-form-item label="数量" :label-width="formLabelWidth">
+					<el-input 
+					style="width:250px"
+					v-model="addNewloading.params.num" 
+					auto-complete="off"></el-input><span style="color:#ccc">个</span>
+				</el-form-item>
 				<el-form-item label="物品类型" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.type" @change="checkType">
 						<el-option label="背包礼物" value="1"></el-option>
-						<!-- <el-option label="装扮" value="2"></el-option>
+						<el-option label="装扮" value="2"></el-option>
 						<el-option label="座驾" value="3"></el-option>
 						<el-option label="称号" value="4"></el-option>
-						<el-option label="道具" value="5"></el-option> -->
+						<el-option label="道具" value="5"></el-option>
 					</el-select>
 				</el-form-item> 
 				<el-form-item label="物品" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.gift_id" @change="checkMoney">
+					<el-select v-model="addNewloading.params.prop_id" @change="checkMoney">
 						<el-option 
 						:label="item.name" 
 						:value="item.id"
@@ -116,62 +123,25 @@
 				<el-form-item label="物品价格" :label-width="formLabelWidth" v-show="priceBox == true">
 					{{addNewloading.params.chat_gold}}
 				</el-form-item>
-				<!-- <el-form-item label="图片上传" :label-width="formLabelWidth">
-					<span class="showbtn">选择文件</span>
-					<input 
-					class="filepic fileinput" 
-					@change="uploading($event)" 
-					type="file">
-					<span class="showname">{{addNewloading.params.pic_name}}</span>
-			        <img 
-					:src="addNewloading.params.icon" 
-					style="width:200px;height:auto;margin-left:200px;"/>
-				</el-form-item> -->
 				<el-form-item label="图片" :label-width="formLabelWidth">
 					<!-- <span class="showname">{{editorloading.pic_name}}</span> -->
 			        <img 
 					:src="addNewloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品概率" :label-width="formLabelWidth">
+				<el-form-item label="物品数量" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="addNewloading.params.probability" 
-					auto-complete="off"></el-input>
+					v-model="addNewloading.params.prize_num" 
+					auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
 				</el-form-item>
-				<el-form-item label="上线设置" :label-width="formLabelWidth">
+                <el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.status">
 						<el-option label="上线" value="1"></el-option>
 						<el-option label="暂不上线" value="0"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="排序ID" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.sort" @focus="getSortEvery">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getSort">
-							</el-option>
-					</el-select><span style="color:#ccc">上线选择大于0，不上线选择0</span>
-				</el-form-item> 
-                <el-form-item label="奖池类型" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.is_pool">
-						<el-option label="非奖池" value="0"></el-option>
-                        <el-option label="1号奖池" value="1"></el-option>
-                        <el-option label="2号奖池" value="2"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="级别" :label-width="formLabelWidth">
-					<el-select v-model="addNewloading.params.level" @focus="checklevel">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getLevel">
-							</el-option>
-					</el-select>
-				</el-form-item> 
+                
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button 
@@ -184,13 +154,25 @@
          <!--编辑-->
         <el-dialog title="编辑" :visible.sync="editorloading.dialogFormVisible">
 			<el-form :model="editorloading.params">
+                <el-form-item label="选择礼物" :label-width="formLabelWidth">
+                    <el-input 
+                        style="width:250px"
+                        v-model="editorloading.params.prize_name" 
+                        auto-complete="off" disabled></el-input>
+                </el-form-item> 
+                <el-form-item label="数量" :label-width="formLabelWidth">
+                    <el-input 
+                    style="width:250px"
+                    v-model="editorloading.params.num" 
+                    auto-complete="off"></el-input><span style="color:#ccc">个</span>
+                </el-form-item>
 				<el-form-item label="物品类型" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.type" disabled>
 						<el-option label="背包礼物" value="1"></el-option>
-						<!-- <el-option label="装扮" value="2"></el-option>
+						<el-option label="装扮" value="2"></el-option>
 						<el-option label="座驾" value="3"></el-option>
 						<el-option label="称号" value="4"></el-option>
-						<el-option label="道具" value="5"></el-option> -->
+						<el-option label="道具" value="5"></el-option>
 					</el-select>
 				</el-form-item> 
 				<el-form-item label="物品" :label-width="formLabelWidth" disabled>
@@ -199,23 +181,17 @@
 					v-model="editorloading.params.name" 
 					auto-complete="off" disabled></el-input>
 				</el-form-item>
-				<el-form-item label="物品价格" :label-width="formLabelWidth" v-show="priceBox == true">
-					<el-input 
-					style="width:250px"
-					v-model="editorloading.params.chat_gold" 
-					auto-complete="off" disabled></el-input>
-				</el-form-item>
 				<el-form-item label="图片" :label-width="formLabelWidth">
 					<!-- <span class="showname">{{editorloading.pic_name}}</span> -->
 			        <img 
 					:src="editorloading.params.icon" 
 					style="width:200px;height:auto;margin-left:200px;"/>
 				</el-form-item>
-				<el-form-item label="物品概率" :label-width="formLabelWidth">
+				<el-form-item label="物品数量" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="editorloading.params.probability" 
-					auto-complete="off"></el-input>
+					v-model="editorloading.params.prize_num" 
+					auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
 				</el-form-item>
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.status">
@@ -223,33 +199,6 @@
 						<el-option label="暂不上线" value="0"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="排序ID" :label-width="formLabelWidth">
-					<el-select v-model="editorloading.params.sort" @focus="getSortEvery">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getSort">
-							</el-option>
-					</el-select><span style="color:#ccc">上线选择大于0，不上线选择0</span>
-				</el-form-item> 
-                <el-form-item label="奖池类型" :label-width="formLabelWidth">
-					<el-select v-model="editorloading.params.is_pool">
-						<el-option label="非奖池" value="0"></el-option>
-                        <el-option label="1号奖池" value="1"></el-option>
-                        <el-option label="2号奖池" value="2"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="级别" :label-width="formLabelWidth">
-					<el-select v-model="editorloading.params.level" @focus="checklevel">
-						<el-option 
-							:label="item" 
-							:value="item"
-							:key="index"
-							v-for="(item,index) in getLevel">
-							</el-option>
-					</el-select>
-				</el-form-item> 
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button 
@@ -259,6 +208,25 @@
 				@click.native.prevent="editorBannerSure(1)">确 定</el-button>
 			</div>
 		</el-dialog>
+        <!-- 修改状态 -->
+		<el-dialog title="修改状态" :visible.sync="formTwo.dialogFormVisible">
+			<el-form :model="formTwo">
+				<el-form-item label="当前状态">
+					<el-select v-model="formTwo.status">
+						<el-option label="开启" value="1"></el-option>
+						<el-option label="关闭" value="0"></el-option>
+					</el-select>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button 
+				@click.native.prevent="changeStatusSure(0)">取 消</el-button>
+				<el-button 
+				type="primary" 
+				@click.native.prevent="changeStatusSure(1)">确 定</el-button>
+			</div>
+		</el-dialog>
+		<!-- 修改状态 -->
     </section>
 </template>
 
@@ -285,9 +253,9 @@ export default {
 				dialogFormVisible:false,
 				params:{
 					type:'',
-					gift_id:'',
+					prop_id:'',
 					icon:'',
-					probability:'',
+					count:'',
 					chat_gold:0,
 					status:'',
 					sort:'',
@@ -295,23 +263,33 @@ export default {
 					file_pic:'',
 					prize_id:'',
 					level:'',
-                    is_pool:''
+                    is_pool:'',
+                    num:'',
+                    prize_num:'',
+                    prize_gift_id:'',
+                    goods_id:''
 				}
 			},
 			editorloading:{
 				dialogFormVisible:false,
 				params:{
 					type:'',
-					gift_id:'',
+					prop_id:'',
 					icon:'',
-					probability:'',
+					num:'',
 					status:'',
 					sort:'',
 					pic_name:'',
 					prize_id:'',
 					name:'',
 					level:'',
-                    is_pool:''
+                    is_pool:'',
+                    count:'',
+                    num:'',
+                    prize_num:'',
+                    prize_gift_id:'',
+                    goods_id:'',
+                    prize_name:''
 				}
 			},
 			wp:[],
@@ -319,7 +297,18 @@ export default {
 			getLevel:['0'],
 			money:'',
 			getMoneyList:['0'],
-            tableHeightOther: '200px'
+            tableHeightOther: '200px',
+            goodsList:[],
+            caseStatus:'',
+            formTwo:{
+                tabData:{},
+                page: 1,
+                status:'1',
+                totalPage:1,
+                dialogFormVisible:false,
+                dialogFormVisibleOther:false,
+                type:'1',
+            },
         };
     },
     methods: {
@@ -331,7 +320,7 @@ export default {
         getData() {
             var _this = this;
             _this.listLoading = true;
-            let url = "/NewTwistEgg/getPrizeList";
+            let url = "/NewTwistEgg/getShopProductList";
             let params = {
                 page: _this.page,
             };
@@ -339,7 +328,31 @@ export default {
                 .then((res) => {
                    _this.listLoading = false;
                     if (res.data.ret) {
-                        _this.listData = res.data.data;
+                        _this.listData = res.data.data.product_list;
+                        _this.status = res.data.data.status;
+						if(res.data.data.status == 0){
+							_this.caseStatus = '已关闭';
+						}else{
+							_this.caseStatus = '已开启';
+						}
+                    } else {
+                        baseConfig.warningTipMsg(_this, res.data.msg);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        },
+        getGoods(){
+            var _this = this;
+			let url = "/NewTwistEgg/getBuyProductPrizeGiftList";
+            let params = {
+                //type: _this.addNewloading.params.type
+            };
+            axios.get(allget+url, {params: params})
+                .then((res) => {
+                    if (res.data.ret) {
+                        _this.goodsList = res.data.data;
                     } else {
                         baseConfig.warningTipMsg(_this, res.data.msg);
                     }
@@ -372,7 +385,7 @@ export default {
 		checkMoney(){
 			var _this = this;
 			_this.addNewloading.params.chat_gold = '';
-			var id = _this.addNewloading.params.gift_id;
+			var id = _this.addNewloading.params.prop_id;
 			_this.wp.forEach((item) => {
 				if(item.id == id){
 					if(_this.addNewloading.params.type == 1){
@@ -404,19 +417,21 @@ export default {
 				let formData = new FormData();
 				formData.append('prize_id', _this.addNewloading.params.prize_id);
 				formData.append('type', _this.addNewloading.params.type);
-				formData.append('gift_id', _this.addNewloading.params.gift_id);
+				formData.append('prop_id', _this.addNewloading.params.prop_id);
 				formData.append('sort', _this.addNewloading.params.sort);
 				formData.append('status', _this.addNewloading.params.status);
-				formData.append('probability', _this.addNewloading.params.probability);
+				formData.append('num', _this.addNewloading.params.num);
 				formData.append('level', _this.addNewloading.params.level);
-                formData.append('is_pool', _this.addNewloading.params.is_pool);
+                formData.append('count', _this.addNewloading.params.count);
+                formData.append('prize_num', _this.addNewloading.params.prize_num);
+                formData.append('prize_gift_id', _this.addNewloading.params.prize_gift_id);
 			  	formData.append('icon', _this.addNewloading.params.file_pic); //提交的新增图标的文件
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
 				};	
-				axios.post(allget+'/NewTwistEgg/setPrize', formData, config)
+				axios.post(allget+'/NewTwistEgg/setShopProduct', formData, config)
 					.then((res) => {
 						_this.listLoading = false;							
 						if(res.data.ret == 1) {	
@@ -451,25 +466,49 @@ export default {
 			this.editorloading.params.chat_gold = rows.chat_gold;
 			this.editorloading.params.icon = rows.icon;
 			this.editorloading.params.status = rows.status;
-			this.editorloading.params.probability = rows.probability;
+			this.editorloading.params.num = rows.num;
 			this.editorloading.params.sort = rows.sort;
 			this.editorloading.params.prize_id = rows.prize_id;
 			this.editorloading.params.level = rows.level;
-            this.editorloading.params.is_pool = rows.is_pool;
+            this.editorloading.params.count = rows.count;
+            this.editorloading.params.prize_gift_id = rows.prize_gift_id;
+			this.editorloading.params.prize_num = rows.prize_num;
+            this.editorloading.params.prize_name = rows.prize_name;
+            this.editorloading.params.goods_id = rows.goods_id;
 		},
+        changeStatusSure(num){
+            var _this = this;
+            if(num == 0){
+                _this.formTwo.dialogFormVisible = false;
+            }else{
+                axios.get(allget+'/NewTwistEgg/setStatus', {params: {status:_this.formTwo.status,type:2}})
+                .then((res) => {
+                    if(res.data.ret == 1) {
+                        _this.getData();
+                        baseConfig.successTipMsg(_this, '修改成功');
+                        _this.formTwo.dialogFormVisible = false;
+                    } else {
+                        baseConfig.warningTipMsg(_this, res.data.msg);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }
+        },
 		//获取级别
 		checklevel(box){
 			var _this = this;
 			_this.getSort = ['0'];
 			let url = "/NewTwistEgg/getPrizeLevelList";
             let params = {
-               "is_pool":1
+               "is_pool":2
             };
             if(_this.editorloading.dialogFormVisible){
-                params.is_pool = _this.editorloading.params.is_pool;
+                params.prop_id = _this.editorloading.params.prop_id;
             };
             if(_this.addNewloading.dialogFormVisible){
-                params.is_pool = _this.addNewloading.params.is_pool;
+                params.prop_id = _this.addNewloading.params.prop_id;
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -489,7 +528,7 @@ export default {
 			_this.getSort = ['0'];
 			let url = "/NewTwistEgg/getPrizeSortList";
             let params = {
-               "type":1
+               "type":2
             };
             axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -516,19 +555,24 @@ export default {
 				let formData = new FormData();
 				formData.append('prize_id', _this.editorloading.params.prize_id);
 				formData.append('type', _this.editorloading.params.type);
-				formData.append('gift_id', _this.editorloading.params.gift_id);
+				formData.append('prop_id', _this.editorloading.params.prop_id);
 				formData.append('sort', _this.editorloading.params.sort);
 				formData.append('status', _this.editorloading.params.status);
-				formData.append('probability', _this.editorloading.params.probability);
+				formData.append('num', _this.editorloading.params.num);
 				formData.append('level', _this.editorloading.params.level);
                 formData.append('is_pool', _this.editorloading.params.is_pool);
+                formData.append('count', _this.editorloading.params.count);
+                formData.append('count', _this.editorloading.params.count);
+                formData.append('prize_num', _this.editorloading.params.prize_num);
+                formData.append('prize_gift_id', _this.editorloading.params.prize_gift_id);
+                formData.append('goods_id', _this.editorloading.params.goods_id);
 			  	formData.append('icon', _this.editorloading.params.icon); //提交的新增图标的文件
 				let config = {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
 				};	
-				axios.post(allget+'/NewTwistEgg/setPrize', formData, config)
+				axios.post(allget+'/NewTwistEgg/setShopProduct', formData, config)
 					.then((res) => {
 						_this.listLoading = false;							
 						if(res.data.ret == 1) {	
@@ -552,10 +596,10 @@ export default {
 				dialogFormVisible:false,
 				params:{
 					type:'',
-					gift_id:'',
+					prop_id:'',
 					id:'',
 					icon:'',
-					probability:'',
+					num:'',
 					chat_gold:0,
 					status:'',
 					sort:'',
@@ -564,7 +608,12 @@ export default {
 					prize_id:'',
 					name:'',
 					level:'',
-                    is_pool:''
+                    is_pool:'',
+                    count:'',
+                    num:'',
+                    prize_num:'',
+                    prize_gift_id:'',
+                    goods_id:''
 				}
 			};
 			_this.priceBox=false;
@@ -577,9 +626,9 @@ export default {
 				dialogFormVisible:false,
 				params:{
 					type:'',
-					gift_id:'',
+					prop_id:'',
 					icon:'',
-					probability:'',
+					num:'',
 					chat_gold:0,
 					status:'',
 					sort:'',
@@ -589,7 +638,12 @@ export default {
 					name:'',
 					id:'',
 					level:'',
-                    is_pool:''
+                    is_pool:'',
+                    count:'',
+                    num:'',
+                    prize_num:'',
+                    prize_gift_id:'',
+                    goods_id:''
 				}
 			};
 			_this.priceBox=false;
@@ -604,9 +658,9 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                var url = '/NewTwistEgg/deletePrize';
+                var url = '/NewTwistEgg/deleteShopProduct';
                 let params = {
-                    prize_id : row.prize_id
+                    goods_id : row.goods_id
                 };
                 axios.get(allget+url, {params: params})
                 .then((res) => {
@@ -668,6 +722,7 @@ export default {
         var _this = this;
         _this.tableHeight = baseConfig.lineNumber(searchPageHeight);
         _this.getData();
+        _this.getGoods();
     }
 };
 </script>
@@ -733,5 +788,12 @@ export default {
 	height: 30px;
 	opacity: 0;
 	border: 2px solid red;
+}
+.caseStatus{
+	line-height: 40px;
+	font-size: 16px;
+	margin-left: 20px;
+	display: inline-block; 
+	margin-right: 10px;
 }
 </style>

@@ -382,6 +382,7 @@ import nEgg from '../components/activities/nEgg/nEgg.vue';// 扭蛋
 import nEggStatistics from '../components/activities/nEgg/nEggStatistics.vue';// 扭蛋数据统计
 import nEggPrizeStatistics from '../components/activities/nEgg/nEggPrizeStatistics.vue';// 扭蛋开奖设置
 import nEggTotalPrize from '../components/activities/nEgg/nEggTotalPrize.vue';// 扭蛋开奖设置
+import store from '../components/activities/nEgg/store.vue';// 扭蛋开奖设置
 
 // 活动专区end
 // 5、系统设置
@@ -861,6 +862,7 @@ export const asyncRouterMap = [
                 children: [
                     { path: '/activities/nEgg/nEgg', component: nEgg, name: '扭蛋礼物', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggTotalPrize', component: nEggTotalPrize, name: '多次累计奖励', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/nEgg/store', component: store, name: '扭蛋商城', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggStatistics', component: nEggStatistics, name: '扭蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggPrizeStatistics', component: nEggPrizeStatistics, name: '扭蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
