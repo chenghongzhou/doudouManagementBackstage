@@ -864,7 +864,7 @@ export const asyncRouterMap = [
                     { path: '/activities/nEgg/nEggTotalPrize', component: nEggTotalPrize, name: '多次累计奖励', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/store', component: store, name: '扭蛋商城', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggStatistics', component: nEggStatistics, name: '扭蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
-                    { path: '/activities/nEgg/nEggPrizeStatistics', component: nEggPrizeStatistics, name: '扭蛋开奖设置', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/nEgg/nEggPrizeStatistics', component: nEggPrizeStatistics, name: '扭蛋管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                 ]
             },
             {
