@@ -631,7 +631,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                var url = '/NewTwistEgg/getBuyProductPrizeGiftList';
+                var url = '/NewTwistEgg/deleteCountPrize';
                 let params = {
                     prize_id : row.prize_id
                 };
