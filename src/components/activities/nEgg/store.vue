@@ -98,8 +98,8 @@
                 <el-form-item label="数量" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="addNewloading.params.num" 
-					auto-complete="off"></el-input><span style="color:#ccc">个</span>
+					v-model="addNewloading.params.prize_num" 
+					auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
 				</el-form-item>
 				<el-form-item label="物品类型" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.type" @change="checkType">
@@ -132,8 +132,8 @@
 				<el-form-item label="物品数量" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="addNewloading.params.prize_num" 
-					auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
+					v-model="addNewloading.params.num" 
+					auto-complete="off"></el-input><span style="color:#ccc">个</span>
 				</el-form-item>
                 <el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="addNewloading.params.status">
@@ -163,8 +163,8 @@
                 <el-form-item label="数量" :label-width="formLabelWidth">
                     <el-input 
                     style="width:250px"
-                    v-model="editorloading.params.num" 
-                    auto-complete="off"></el-input><span style="color:#ccc">个</span>
+                    v-model="editorloading.params.prize_num" 
+                    auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
                 </el-form-item>
 				<el-form-item label="物品类型" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.type" disabled>
@@ -190,8 +190,8 @@
 				<el-form-item label="物品数量" :label-width="formLabelWidth">
 					<el-input 
 					style="width:250px"
-					v-model="editorloading.params.prize_num" 
-					auto-complete="off"></el-input><span style="color:#ccc">天/个</span>
+					v-model="editorloading.params.num" 
+					auto-complete="off"></el-input><span style="color:#ccc">个</span>
 				</el-form-item>
 				<el-form-item label="上线设置" :label-width="formLabelWidth">
 					<el-select v-model="editorloading.params.status">
