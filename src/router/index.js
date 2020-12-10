@@ -384,6 +384,10 @@ import nEggPrizeStatistics from '../components/activities/nEgg/nEggPrizeStatisti
 import nEggTotalPrize from '../components/activities/nEgg/nEggTotalPrize.vue';// 扭蛋开奖设置
 import store from '../components/activities/nEgg/store.vue';// 扭蛋开奖设置
 
+import luckCaseApp from '../components/activities/luckCaseApp/giftManagement.vue';// app内宝箱
+import luckCaseSet from '../components/activities/luckCaseApp/set.vue';// app内宝箱
+import statistics from '../components/activities/luckCaseApp/statistics.vue';// app内宝箱
+
 // 活动专区end
 // 5、系统设置
 // 系统设置start
@@ -865,6 +869,19 @@ export const asyncRouterMap = [
                     { path: '/activities/nEgg/store', component: store, name: '扭蛋商城', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggStatistics', component: nEggStatistics, name: '扭蛋数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/nEgg/nEggPrizeStatistics', component: nEggPrizeStatistics, name: '扭蛋管理', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                ]
+            },
+            {
+                path: '/activities',
+                component: activities,
+                name: '宝箱-APP',
+                iconCls: 'el-icon-menu',
+                meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
+                children: [
+                    { path: '/activities/luckCaseApp/giftManagement', component: luckCaseApp, name: '宝箱礼物', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckCaseApp/set', component: luckCaseSet, name: '宝箱进度', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    { path: '/activities/luckCaseApp/statistics', component: statistics, name: '数据统计', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
+                    
                 ]
             },
             {
