@@ -388,6 +388,8 @@ import luckCaseApp from '../components/activities/luckCaseApp/giftManagement.vue
 import luckCaseSet from '../components/activities/luckCaseApp/set.vue';// app内宝箱
 import statistics from '../components/activities/luckCaseApp/statistics.vue';// app内宝箱
 
+import secret from '../components/activities/secret.vue';// 密令
+
 // 活动专区end
 // 5、系统设置
 // 系统设置start
@@ -892,6 +894,7 @@ export const asyncRouterMap = [
                 hidden: false,
                 meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] },
                 children: [
+                    { path: '/activities/secret', component: secret, name: '密令', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/giftGiving', component: giftGiving, name: '好评送礼', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/familyBackstageBackstage', component: familyBackstageBackstage, name: '家族嗨场', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
                     { path: '/activities/roomTopManagement', component: roomTopManagement, name: '房间置顶', iconCls: 'el-icon-menu', hidden: false, meta: { role: ['T1', 'T2', 'P1', 'P2', 'O1', 'O2'] } },
