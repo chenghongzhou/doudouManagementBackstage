@@ -247,9 +247,3 @@ Date.prototype.format = function() {
 	s += day;
 	return(s);
 };
-// 进行正式服、测试服区分
-if (location.href.indexOf('http://new-manage.dianliaoapp.com')=='0') {
-	baseConfig.serverStatus = true;
-} else {
-	// 不进行处理
-}
